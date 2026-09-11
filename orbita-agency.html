@@ -205,8 +205,69 @@ h3{font-size:1.15rem;font-weight:700;margin-bottom:8px}
 .feed-meta .title{font-size:13px;font-weight:700;font-family:var(--display);line-height:1.2}
 .feed-meta .sub{font-size:11px;color:rgba(255,255,255,.7);margin-top:2px}
 
+
+/* Hero price tiles (column B) — premium tariff cards */
+.feed-tile.price-tile{
+  display:flex;flex-direction:column;justify-content:flex-end;
+  padding:18px 16px 16px;
+  background:
+    radial-gradient(circle at 85% 15%,rgba(34,224,255,.22),transparent 42%),
+    radial-gradient(circle at 10% 90%,rgba(124,92,255,.18),transparent 45%),
+    linear-gradient(160deg,#12121c,#0a0a12 55%,#101018);
+  box-shadow:0 14px 40px rgba(0,0,0,.4), inset 0 0 0 1px rgba(255,255,255,.08);
+}
+.feed-tile.price-tile:hover{
+  box-shadow:0 20px 52px rgba(34,224,255,.22), 0 0 0 1px rgba(34,224,255,.35);
+}
+.feed-tile.price-tile .pt-eyebrow{
+  font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+  color:rgba(34,224,255,.8);margin-bottom:8px;
+}
+.feed-tile.price-tile .pt-price{
+  font-family:var(--display);font-weight:800;line-height:1;
+  font-size:clamp(28px,4.2vw,40px);letter-spacing:-.02em;
+  background:linear-gradient(135deg,#fff 20%,#22e0ff 90%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.feed-tile.price-tile .pt-price span{font-size:.55em;opacity:.85;margin-left:2px}
+.feed-tile.price-tile .pt-label{
+  margin-top:10px;font-size:14px;font-weight:700;line-height:1.25;color:#f2f4ff;
+}
+.feed-tile.price-tile .pt-sub{
+  margin-top:4px;font-size:12px;color:rgba(255,255,255,.55);
+}
+.feed-tile.price-tile .pt-chip{
+  display:inline-flex;align-items:center;margin-top:14px;align-self:flex-start;
+  padding:7px 14px;border-radius:999px;font-size:11px;font-weight:700;
+  letter-spacing:.06em;text-transform:uppercase;text-decoration:none;
+  color:#041018;background:linear-gradient(135deg,#22e0ff,#7c5cff);
+  box-shadow:0 8px 24px rgba(34,224,255,.28);
+  transition:transform .2s ease, box-shadow .2s ease;
+}
+.feed-tile.price-tile .pt-chip:hover{
+  transform:translateY(-1px);box-shadow:0 12px 28px rgba(34,224,255,.4);
+}
+.feed-tile.price-tile.featured{
+  background:
+    radial-gradient(circle at 80% 20%,rgba(255,61,154,.25),transparent 40%),
+    radial-gradient(circle at 20% 80%,rgba(34,224,255,.2),transparent 45%),
+    linear-gradient(155deg,#1a1028,#0c0a14 50%,#12101c);
+}
+.feed-tile.price-tile.pack{
+  background:
+    radial-gradient(circle at 70% 30%,rgba(124,92,255,.3),transparent 45%),
+    linear-gradient(150deg,#14102a,#0a0a14 60%,#0e1420);
+}
+
+/* Mobile: two horizontal strips — videos then prices */
+.feed-mobile-block{margin-top:18px}
+.feed-mobile-block + .feed-mobile-block{margin-top:10px}
+.feed-mobile-cap{
+  padding:0 20px 8px;font-size:10px;font-weight:700;letter-spacing:.2em;
+  text-transform:uppercase;color:rgba(34,224,255,.75);
+}
 /* Mobile / tablet horizontal snap */
-.feed-mobile{display:none;margin-top:22px}
+.feed-mobile{display:none;margin-top:14px}
 .feed-mobile-track{
   display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;
   -webkit-overflow-scrolling:touch;padding:4px 20px 14px;scrollbar-width:none;
@@ -216,6 +277,7 @@ h3{font-size:1.15rem;font-weight:700;margin-bottom:8px}
   position:relative;flex:0 0 58vw;max-width:240px;height:320px;
   scroll-snap-align:start;aspect-ratio:auto;
 }
+.feed-mobile .feed-tile.price-tile{height:200px;max-width:260px;flex-basis:68vw}
 
 /* Trust */
 .trust{padding:8px 0 40px}
@@ -701,12 +763,12 @@ body{padding-bottom:76px}
         </div>
       </div>
 
-      <!-- Dual vertical feeds (desktop) — frameless -->
-      <aside class="work-feed" aria-label="Лента работ">
-        <div class="feed-float-label">работы</div>
+      <!-- Dual vertical feeds (desktop) — videos | prices -->
+      <aside class="work-feed" aria-label="Лента работ и тарифов">
+        <div class="feed-float-label">работы · цены</div>
         <div class="feed-dual">
-          <div class="feed-col feed-col-up" aria-hidden="false">
-                                    <div class="feed-col-inner" data-feed-col="up">
+          <div class="feed-col feed-col-up" aria-label="Видео работ">
+            <div class="feed-col-inner" data-feed-col="up">
               <article class="feed-tile h240">
                 <video data-feed src="work-kazakhstan.mp4" muted playsinline loop preload="metadata"></video>
                 <div class="feed-meta"><div class="tag">YouTube · 0:30</div><div class="title">Ритейл · перформанс</div><div class="sub">−64% CPV</div></div>
@@ -715,17 +777,9 @@ body{padding-bottom:76px}
                 <video data-feed src="work-09.mp4" muted playsinline loop preload="metadata"></video>
                 <div class="feed-meta"><div class="tag">Brand · 16:9</div><div class="title">Фьючер · сити</div><div class="sub">AI brand film</div></div>
               </article>
-              <article class="feed-tile h200">
-                <img src="still-13.jpg" alt="" loading="lazy" decoding="async">
-                <div class="feed-meta"><div class="tag">Key visual</div><div class="title">Cyber · ninja</div><div class="sub">Neon KV</div></div>
-              </article>
               <article class="feed-tile h280 portrait">
                 <video data-feed src="work-02.mp4" muted playsinline loop preload="metadata"></video>
                 <div class="feed-meta"><div class="tag">Stories · 9:16</div><div class="title">E-com · UGC</div><div class="sub">UGC-серия</div></div>
-              </article>
-              <article class="feed-tile h160">
-                <img src="still-14.jpg" alt="" loading="lazy" decoding="async">
-                <div class="feed-meta"><div class="tag">Art</div><div class="title">Action · постер</div><div class="sub">Neon cut</div></div>
               </article>
               <article class="feed-tile h220">
                 <video data-feed src="work-03.mp4" muted playsinline loop preload="metadata"></video>
@@ -735,10 +789,27 @@ body{padding-bottom:76px}
                 <video data-feed src="work-01.mp4" muted playsinline loop preload="metadata"></video>
                 <div class="feed-meta"><div class="tag">Brand · 16:9</div><div class="title">Финтех · имидж</div><div class="sub">4.8× конверсия</div></div>
               </article>
-              <article class="feed-tile h200">
-                <img src="still-01.jpg" alt="" loading="lazy" decoding="async">
-                <div class="feed-meta"><div class="tag">VK Видео</div><div class="title">Бренд · OLV</div><div class="sub">6.8% CTR</div></div>
+              <article class="feed-tile h260 portrait">
+                <video data-feed src="work-10.mp4" muted playsinline loop preload="metadata"></video>
+                <div class="feed-meta"><div class="tag">Fashion · 9:16</div><div class="title">Runway · cut</div><div class="sub">AERA look</div></div>
               </article>
+              <article class="feed-tile h200">
+                <video data-feed src="work-05.mp4" muted playsinline loop preload="metadata"></video>
+                <div class="feed-meta"><div class="tag">OLV</div><div class="title">Авто · бренд</div><div class="sub">2.1× VTR</div></div>
+              </article>
+              <article class="feed-tile h240">
+                <video data-feed src="work-11.mp4" muted playsinline loop preload="metadata"></video>
+                <div class="feed-meta"><div class="tag">Cine · 9:16</div><div class="title">Samurai · storm</div><div class="sub">B/W motion</div></div>
+              </article>
+              <article class="feed-tile h220">
+                <video data-feed src="work-06.mp4" muted playsinline loop preload="metadata"></video>
+                <div class="feed-meta"><div class="tag">TikTok</div><div class="title">Lifestyle · cut</div><div class="sub">Hook 1.2s</div></div>
+              </article>
+              <article class="feed-tile h260 portrait">
+                <video data-feed src="work-04.mp4" muted playsinline loop preload="metadata"></video>
+                <div class="feed-meta"><div class="tag">Reels</div><div class="title">Beauty · серия</div><div class="sub">×3.2 ER</div></div>
+              </article>
+
               <!-- duplicate for seamless loop -->
               <article class="feed-tile h240">
                 <video data-feed src="work-kazakhstan.mp4" muted playsinline loop preload="metadata"></video>
@@ -748,17 +819,9 @@ body{padding-bottom:76px}
                 <video data-feed src="work-09.mp4" muted playsinline loop preload="metadata"></video>
                 <div class="feed-meta"><div class="tag">Brand · 16:9</div><div class="title">Фьючер · сити</div><div class="sub">AI brand film</div></div>
               </article>
-              <article class="feed-tile h200">
-                <img src="still-13.jpg" alt="" loading="lazy" decoding="async">
-                <div class="feed-meta"><div class="tag">Key visual</div><div class="title">Cyber · ninja</div><div class="sub">Neon KV</div></div>
-              </article>
               <article class="feed-tile h280 portrait">
                 <video data-feed src="work-02.mp4" muted playsinline loop preload="metadata"></video>
                 <div class="feed-meta"><div class="tag">Stories · 9:16</div><div class="title">E-com · UGC</div><div class="sub">UGC-серия</div></div>
-              </article>
-              <article class="feed-tile h160">
-                <img src="still-14.jpg" alt="" loading="lazy" decoding="async">
-                <div class="feed-meta"><div class="tag">Art</div><div class="title">Action · постер</div><div class="sub">Neon cut</div></div>
               </article>
               <article class="feed-tile h220">
                 <video data-feed src="work-03.mp4" muted playsinline loop preload="metadata"></video>
@@ -768,78 +831,115 @@ body{padding-bottom:76px}
                 <video data-feed src="work-01.mp4" muted playsinline loop preload="metadata"></video>
                 <div class="feed-meta"><div class="tag">Brand · 16:9</div><div class="title">Финтех · имидж</div><div class="sub">4.8× конверсия</div></div>
               </article>
+              <article class="feed-tile h260 portrait">
+                <video data-feed src="work-10.mp4" muted playsinline loop preload="metadata"></video>
+                <div class="feed-meta"><div class="tag">Fashion · 9:16</div><div class="title">Runway · cut</div><div class="sub">AERA look</div></div>
+              </article>
               <article class="feed-tile h200">
-                <img src="still-01.jpg" alt="" loading="lazy" decoding="async">
-                <div class="feed-meta"><div class="tag">VK Видео</div><div class="title">Бренд · OLV</div><div class="sub">6.8% CTR</div></div>
+                <video data-feed src="work-05.mp4" muted playsinline loop preload="metadata"></video>
+                <div class="feed-meta"><div class="tag">OLV</div><div class="title">Авто · бренд</div><div class="sub">2.1× VTR</div></div>
+              </article>
+              <article class="feed-tile h240">
+                <video data-feed src="work-11.mp4" muted playsinline loop preload="metadata"></video>
+                <div class="feed-meta"><div class="tag">Cine · 9:16</div><div class="title">Samurai · storm</div><div class="sub">B/W motion</div></div>
+              </article>
+              <article class="feed-tile h220">
+                <video data-feed src="work-06.mp4" muted playsinline loop preload="metadata"></video>
+                <div class="feed-meta"><div class="tag">TikTok</div><div class="title">Lifestyle · cut</div><div class="sub">Hook 1.2s</div></div>
+              </article>
+              <article class="feed-tile h260 portrait">
+                <video data-feed src="work-04.mp4" muted playsinline loop preload="metadata"></video>
+                <div class="feed-meta"><div class="tag">Reels</div><div class="title">Beauty · серия</div><div class="sub">×3.2 ER</div></div>
               </article>
             </div>
           </div>
-          <div class="feed-col feed-col-down">
-                                    <div class="feed-col-inner" data-feed-col="down">
-              <article class="feed-tile h180">
-                <img src="still-15.jpg" alt="" loading="lazy" decoding="async">
-                <div class="feed-meta"><div class="tag">Event</div><div class="title">Beach · sunset</div><div class="sub">Warm KV</div></div>
+          <div class="feed-col feed-col-down feed-col-prices" aria-label="Тарифы">
+            <div class="feed-col-inner" data-feed-col="down">
+              <article class="feed-tile price-tile h200">
+                <div class="pt-eyebrow">тариф</div>
+                <div class="pt-price">от 12 000 <span>₽</span></div>
+                <div class="pt-label">Сторис / пост</div>
+                <div class="pt-sub">1 шт · статика / motion</div>
+                <a class="pt-chip" href="#contact" data-prefill="Заказ формата: Сторис / пост (1 шт), ориентир от 12 000 ₽">заказать</a>
               </article>
-              <article class="feed-tile h260 portrait">
-                <video data-feed src="work-10.mp4" muted playsinline loop preload="metadata"></video>
-                <div class="feed-meta"><div class="tag">Fashion · 9:16</div><div class="title">Runway · cut</div><div class="sub">AERA look</div></div>
+              <article class="feed-tile price-tile h240">
+                <div class="pt-eyebrow">пакет</div>
+                <div class="pt-price">от 35 000 <span>₽</span></div>
+                <div class="pt-label">5 сторис</div>
+                <div class="pt-sub">Серия · единый стиль</div>
+                <a class="pt-chip" href="#contact" data-prefill="Заказ формата: Пакет 5 сторис, ориентир от 35 000 ₽">заказать</a>
               </article>
-              <article class="feed-tile h200">
-                <img src="still-16.jpg" alt="" loading="lazy" decoding="async">
-                <div class="feed-meta"><div class="tag">Lifestyle</div><div class="title">Villa · paradise</div><div class="sub">Travel mood</div></div>
+              <article class="feed-tile price-tile h220">
+                <div class="pt-eyebrow">формат</div>
+                <div class="pt-price">от 35 000 <span>₽</span></div>
+                <div class="pt-label">Reels / Shorts</div>
+                <div class="pt-sub">До 15 сек · 9:16</div>
+                <a class="pt-chip" href="#contact" data-prefill="Заказ формата: Reels / Shorts до 15 сек, ориентир от 35 000 ₽">заказать</a>
               </article>
-              <article class="feed-tile h240">
-                <video data-feed src="work-11.mp4" muted playsinline loop preload="metadata"></video>
-                <div class="feed-meta"><div class="tag">Cine · 9:16</div><div class="title">Samurai · storm</div><div class="sub">B/W motion</div></div>
+              <article class="feed-tile price-tile h280 featured">
+                <div class="pt-eyebrow">спот</div>
+                <div class="pt-price">от 80 000 <span>₽</span></div>
+                <div class="pt-label">Ролик 15–30 сек</div>
+                <div class="pt-sub">Сценарий + монтаж</div>
+                <a class="pt-chip" href="#contact" data-prefill="Заказ формата: Короткий рекламный ролик 15–30 сек, ориентир от 80 000 ₽">заказать</a>
               </article>
-              <article class="feed-tile landscape">
-                <img src="still-12.jpg" alt="" loading="lazy" decoding="async">
-                <div class="feed-meta"><div class="tag">Key visual</div><div class="title">Кампания · постер</div><div class="sub">A/B winner</div></div>
+              <article class="feed-tile price-tile h200">
+                <div class="pt-eyebrow">сервис</div>
+                <div class="pt-price">от 12 000 <span>₽</span></div>
+                <div class="pt-label">Адаптация</div>
+                <div class="pt-sub">→ 9:16 / 1:1</div>
+                <a class="pt-chip" href="#contact" data-prefill="Заказ формата: Адаптация в 9:16 / 1:1, ориентир от 12 000 ₽">заказать</a>
               </article>
-              <article class="feed-tile h220">
-                <video data-feed src="work-06.mp4" muted playsinline loop preload="metadata"></video>
-                <div class="feed-meta"><div class="tag">TikTok</div><div class="title">Lifestyle · cut</div><div class="sub">Hook 1.2s</div></div>
+              <article class="feed-tile price-tile h260 pack">
+                <div class="pt-eyebrow">пакет</div>
+                <div class="pt-price">от 250k <span>₽</span></div>
+                <div class="pt-label">Старт</div>
+                <div class="pt-sub">1 ролик · локальный запуск</div>
+                <a class="pt-chip" href="#contact" data-prefill="Пакет Старт: от 250 000 ₽ — обсудить">заказать</a>
               </article>
-              <article class="feed-tile h260 portrait">
-                <video data-feed src="work-04.mp4" muted playsinline loop preload="metadata"></video>
-                <div class="feed-meta"><div class="tag">Reels</div><div class="title">Beauty · серия</div><div class="sub">×3.2 ER</div></div>
-              </article>
-              <article class="feed-tile h200">
-                <img src="still-09.jpg" alt="" loading="lazy" decoding="async">
-                <div class="feed-meta"><div class="tag">OLV</div><div class="title">Авто · бренд</div><div class="sub">2.1× VTR</div></div>
-              </article>
+
               <!-- duplicate for seamless loop -->
-              <article class="feed-tile h180">
-                <img src="still-15.jpg" alt="" loading="lazy" decoding="async">
-                <div class="feed-meta"><div class="tag">Event</div><div class="title">Beach · sunset</div><div class="sub">Warm KV</div></div>
+              <article class="feed-tile price-tile h200">
+                <div class="pt-eyebrow">тариф</div>
+                <div class="pt-price">от 12 000 <span>₽</span></div>
+                <div class="pt-label">Сторис / пост</div>
+                <div class="pt-sub">1 шт · статика / motion</div>
+                <a class="pt-chip" href="#contact" data-prefill="Заказ формата: Сторис / пост (1 шт), ориентир от 12 000 ₽">заказать</a>
               </article>
-              <article class="feed-tile h260 portrait">
-                <video data-feed src="work-10.mp4" muted playsinline loop preload="metadata"></video>
-                <div class="feed-meta"><div class="tag">Fashion · 9:16</div><div class="title">Runway · cut</div><div class="sub">AERA look</div></div>
+              <article class="feed-tile price-tile h240">
+                <div class="pt-eyebrow">пакет</div>
+                <div class="pt-price">от 35 000 <span>₽</span></div>
+                <div class="pt-label">5 сторис</div>
+                <div class="pt-sub">Серия · единый стиль</div>
+                <a class="pt-chip" href="#contact" data-prefill="Заказ формата: Пакет 5 сторис, ориентир от 35 000 ₽">заказать</a>
               </article>
-              <article class="feed-tile h200">
-                <img src="still-16.jpg" alt="" loading="lazy" decoding="async">
-                <div class="feed-meta"><div class="tag">Lifestyle</div><div class="title">Villa · paradise</div><div class="sub">Travel mood</div></div>
+              <article class="feed-tile price-tile h220">
+                <div class="pt-eyebrow">формат</div>
+                <div class="pt-price">от 35 000 <span>₽</span></div>
+                <div class="pt-label">Reels / Shorts</div>
+                <div class="pt-sub">До 15 сек · 9:16</div>
+                <a class="pt-chip" href="#contact" data-prefill="Заказ формата: Reels / Shorts до 15 сек, ориентир от 35 000 ₽">заказать</a>
               </article>
-              <article class="feed-tile h240">
-                <video data-feed src="work-11.mp4" muted playsinline loop preload="metadata"></video>
-                <div class="feed-meta"><div class="tag">Cine · 9:16</div><div class="title">Samurai · storm</div><div class="sub">B/W motion</div></div>
+              <article class="feed-tile price-tile h280 featured">
+                <div class="pt-eyebrow">спот</div>
+                <div class="pt-price">от 80 000 <span>₽</span></div>
+                <div class="pt-label">Ролик 15–30 сек</div>
+                <div class="pt-sub">Сценарий + монтаж</div>
+                <a class="pt-chip" href="#contact" data-prefill="Заказ формата: Короткий рекламный ролик 15–30 сек, ориентир от 80 000 ₽">заказать</a>
               </article>
-              <article class="feed-tile landscape">
-                <img src="still-12.jpg" alt="" loading="lazy" decoding="async">
-                <div class="feed-meta"><div class="tag">Key visual</div><div class="title">Кампания · постер</div><div class="sub">A/B winner</div></div>
+              <article class="feed-tile price-tile h200">
+                <div class="pt-eyebrow">сервис</div>
+                <div class="pt-price">от 12 000 <span>₽</span></div>
+                <div class="pt-label">Адаптация</div>
+                <div class="pt-sub">→ 9:16 / 1:1</div>
+                <a class="pt-chip" href="#contact" data-prefill="Заказ формата: Адаптация в 9:16 / 1:1, ориентир от 12 000 ₽">заказать</a>
               </article>
-              <article class="feed-tile h220">
-                <video data-feed src="work-06.mp4" muted playsinline loop preload="metadata"></video>
-                <div class="feed-meta"><div class="tag">TikTok</div><div class="title">Lifestyle · cut</div><div class="sub">Hook 1.2s</div></div>
-              </article>
-              <article class="feed-tile h260 portrait">
-                <video data-feed src="work-04.mp4" muted playsinline loop preload="metadata"></video>
-                <div class="feed-meta"><div class="tag">Reels</div><div class="title">Beauty · серия</div><div class="sub">×3.2 ER</div></div>
-              </article>
-              <article class="feed-tile h200">
-                <img src="still-09.jpg" alt="" loading="lazy" decoding="async">
-                <div class="feed-meta"><div class="tag">OLV</div><div class="title">Авто · бренд</div><div class="sub">2.1× VTR</div></div>
+              <article class="feed-tile price-tile h260 pack">
+                <div class="pt-eyebrow">пакет</div>
+                <div class="pt-price">от 250k <span>₽</span></div>
+                <div class="pt-label">Старт</div>
+                <div class="pt-sub">1 ролик · локальный запуск</div>
+                <a class="pt-chip" href="#contact" data-prefill="Пакет Старт: от 250 000 ₽ — обсудить">заказать</a>
               </article>
             </div>
           </div>
@@ -847,37 +947,91 @@ body{padding-bottom:76px}
       </aside>
     </div>
 
-    <!-- Mobile horizontal snap feed -->
-    <div class="feed-mobile" aria-label="Лента работ">
-      <div class="feed-mobile-track">
-        <article class="feed-tile">
-          <video data-feed src="work-kazakhstan.mp4" muted playsinline loop preload="metadata"></video>
-          <div class="feed-meta"><div class="tag">YouTube</div><div class="title">Ритейл · перформанс</div><div class="sub">−64% CPV</div></div>
-        </article>
-        <article class="feed-tile">
-          <video data-feed src="work-10.mp4" muted playsinline loop preload="metadata"></video>
-          <div class="feed-meta"><div class="tag">Fashion</div><div class="title">Runway · cut</div><div class="sub">AERA look</div></div>
-        </article>
-        <article class="feed-tile">
-          <video data-feed src="work-09.mp4" muted playsinline loop preload="metadata"></video>
-          <div class="feed-meta"><div class="tag">Brand</div><div class="title">Фьючер · сити</div><div class="sub">AI brand film</div></div>
-        </article>
-        <article class="feed-tile">
-          <video data-feed src="work-03.mp4" muted playsinline loop preload="metadata"></video>
-          <div class="feed-meta"><div class="tag">Reels</div><div class="title">Фарма · Reels</div><div class="sub">×5.6 охват</div></div>
-        </article>
-        <article class="feed-tile">
-          <div class="poster g-neon"></div>
-          <div class="feed-meta"><div class="tag">Stories</div><div class="title">E-com · UGC</div><div class="sub">UGC-серия</div></div>
-        </article>
-        <article class="feed-tile">
-          <div class="poster g-fire"></div>
-          <div class="feed-meta"><div class="tag">VK Видео</div><div class="title">Бренд · OLV</div><div class="sub">6.8% CTR</div></div>
-        </article>
-        <article class="feed-tile">
-          <div class="poster g-cosmo"></div>
-          <div class="feed-meta"><div class="tag">Launch</div><div class="title">Продукт · тизер</div><div class="sub">D0 buzz</div></div>
-        </article>
+    <!-- Mobile: two horizontal strips — videos then prices -->
+    <div class="feed-mobile" aria-label="Лента работ и тарифов">
+      <div class="feed-mobile-block">
+        <div class="feed-mobile-cap">работы</div>
+        <div class="feed-mobile-track" data-mob-strip="videos">
+          <article class="feed-tile">
+            <video data-feed src="work-kazakhstan.mp4" muted playsinline loop preload="metadata"></video>
+            <div class="feed-meta"><div class="tag">YouTube</div><div class="title">Ритейл · перформанс</div><div class="sub">−64% CPV</div></div>
+          </article>
+          <article class="feed-tile">
+            <video data-feed src="work-10.mp4" muted playsinline loop preload="metadata"></video>
+            <div class="feed-meta"><div class="tag">Fashion</div><div class="title">Runway · cut</div><div class="sub">AERA look</div></div>
+          </article>
+          <article class="feed-tile">
+            <video data-feed src="work-09.mp4" muted playsinline loop preload="metadata"></video>
+            <div class="feed-meta"><div class="tag">Brand</div><div class="title">Фьючер · сити</div><div class="sub">AI brand film</div></div>
+          </article>
+          <article class="feed-tile">
+            <video data-feed src="work-03.mp4" muted playsinline loop preload="metadata"></video>
+            <div class="feed-meta"><div class="tag">Reels</div><div class="title">Фарма · Reels</div><div class="sub">×5.6 охват</div></div>
+          </article>
+          <article class="feed-tile">
+            <video data-feed src="work-01.mp4" muted playsinline loop preload="metadata"></video>
+            <div class="feed-meta"><div class="tag">Brand</div><div class="title">Финтех · имидж</div><div class="sub">4.8× конверсия</div></div>
+          </article>
+          <article class="feed-tile">
+            <video data-feed src="work-06.mp4" muted playsinline loop preload="metadata"></video>
+            <div class="feed-meta"><div class="tag">TikTok</div><div class="title">Lifestyle · cut</div><div class="sub">Hook 1.2s</div></div>
+          </article>
+          <article class="feed-tile">
+            <video data-feed src="work-04.mp4" muted playsinline loop preload="metadata"></video>
+            <div class="feed-meta"><div class="tag">Reels</div><div class="title">Beauty · серия</div><div class="sub">×3.2 ER</div></div>
+          </article>
+          <article class="feed-tile">
+            <video data-feed src="work-11.mp4" muted playsinline loop preload="metadata"></video>
+            <div class="feed-meta"><div class="tag">Cine</div><div class="title">Samurai · storm</div><div class="sub">B/W motion</div></div>
+          </article>
+        </div>
+      </div>
+      <div class="feed-mobile-block">
+        <div class="feed-mobile-cap">цены</div>
+        <div class="feed-mobile-track" data-mob-strip="prices">
+          <article class="feed-tile price-tile">
+            <div class="pt-eyebrow">тариф</div>
+            <div class="pt-price">от 12 000 <span>₽</span></div>
+            <div class="pt-label">Сторис / пост</div>
+            <div class="pt-sub">1 шт · статика / motion</div>
+            <a class="pt-chip" href="#contact" data-prefill="Заказ формата: Сторис / пост (1 шт), ориентир от 12 000 ₽">заказать</a>
+          </article>
+          <article class="feed-tile price-tile">
+            <div class="pt-eyebrow">пакет</div>
+            <div class="pt-price">от 35 000 <span>₽</span></div>
+            <div class="pt-label">5 сторис</div>
+            <div class="pt-sub">Серия · единый стиль</div>
+            <a class="pt-chip" href="#contact" data-prefill="Заказ формата: Пакет 5 сторис, ориентир от 35 000 ₽">заказать</a>
+          </article>
+          <article class="feed-tile price-tile">
+            <div class="pt-eyebrow">формат</div>
+            <div class="pt-price">от 35 000 <span>₽</span></div>
+            <div class="pt-label">Reels / Shorts</div>
+            <div class="pt-sub">До 15 сек · 9:16</div>
+            <a class="pt-chip" href="#contact" data-prefill="Заказ формата: Reels / Shorts до 15 сек, ориентир от 35 000 ₽">заказать</a>
+          </article>
+          <article class="feed-tile price-tile featured">
+            <div class="pt-eyebrow">спот</div>
+            <div class="pt-price">от 80 000 <span>₽</span></div>
+            <div class="pt-label">Ролик 15–30 сек</div>
+            <div class="pt-sub">Сценарий + монтаж</div>
+            <a class="pt-chip" href="#contact" data-prefill="Заказ формата: Короткий рекламный ролик 15–30 сек, ориентир от 80 000 ₽">заказать</a>
+          </article>
+          <article class="feed-tile price-tile">
+            <div class="pt-eyebrow">сервис</div>
+            <div class="pt-price">от 12 000 <span>₽</span></div>
+            <div class="pt-label">Адаптация</div>
+            <div class="pt-sub">→ 9:16 / 1:1</div>
+            <a class="pt-chip" href="#contact" data-prefill="Заказ формата: Адаптация в 9:16 / 1:1, ориентир от 12 000 ₽">заказать</a>
+          </article>
+          <article class="feed-tile price-tile pack">
+            <div class="pt-eyebrow">пакет</div>
+            <div class="pt-price">от 250k <span>₽</span></div>
+            <div class="pt-label">Старт</div>
+            <div class="pt-sub">1 ролик · локальный запуск</div>
+            <a class="pt-chip" href="#contact" data-prefill="Пакет Старт: от 250 000 ₽ — обсудить">заказать</a>
+          </article>
+        </div>
       </div>
     </div>
   </section>
