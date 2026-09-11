@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
-  <meta name="orbita-build" content="20260912002544">
+  <meta name="orbita-build" content="20260912003756">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ОРБИТА — Видео и дизайн, которые продают</title>
 <meta name="description" content="Креативная студия: видеореклама, Reels, монтаж, баннеры, флаеры, афиши и key visual. Договор, NDA, юрлицо. Цены от — финал после брифа.">
@@ -979,6 +979,163 @@ a:focus-visible,button:focus-visible,.svc-item:focus-visible,.case-media:focus-v
   font-size:13px;color:var(--muted);background:rgba(255,255,255,.03);
 }
 
+
+/* ===== VISUAL #1: Aiskra hero + craft ===== */
+.hero.hero-aiskra{
+  position:relative;min-height:min(100vh,920px);display:grid;align-items:end;
+  padding:0;overflow:hidden;isolation:isolate;
+}
+.hero.hero-aiskra .hero-bg{position:absolute;inset:0;z-index:0}
+.hero.hero-aiskra .hero-bg-video{
+  width:100%;height:100%;object-fit:cover;display:block;
+  filter:saturate(.92) contrast(1.05) brightness(.72);
+}
+.hero.hero-aiskra .hero-bg-fallback{
+  display:none;position:absolute;inset:0;background-size:cover;background-position:center;
+  filter:saturate(.9) brightness(.7);
+}
+.hero.hero-aiskra.is-poster .hero-bg-video{display:none}
+.hero.hero-aiskra.is-poster .hero-bg-fallback{display:block}
+.hero.hero-aiskra .hero-bg-shade{
+  position:absolute;inset:0;
+  background:
+    linear-gradient(180deg, rgba(7,7,10,.35) 0%, rgba(7,7,10,.55) 42%, rgba(7,7,10,.88) 100%),
+    linear-gradient(90deg, rgba(7,7,10,.72) 0%, rgba(7,7,10,.28) 55%, rgba(7,7,10,.45) 100%);
+}
+.hero.hero-aiskra .hero-bg-grain{
+  position:absolute;inset:0;opacity:.14;pointer-events:none;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
+}
+.hero.hero-aiskra .hero-bg-vignette{
+  position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(ellipse at 50% 40%, transparent 35%, rgba(0,0,0,.55) 100%);
+}
+.hero.hero-aiskra .hero-overlay{
+  position:relative;z-index:2;width:100%;padding:120px 0 72px;
+}
+.hero.hero-aiskra .hero-copy{max-width:720px}
+.hero.hero-aiskra .hero-copy h1{
+  max-width:14ch;font-size:clamp(40px,7.2vw,84px);line-height:.95;
+  letter-spacing:-.03em;text-shadow:0 8px 40px rgba(0,0,0,.45);
+}
+.hero.hero-aiskra .lead{max-width:38ch;font-size:clamp(16px,1.7vw,19px);color:rgba(242,242,244,.88)}
+.hero.hero-aiskra .hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:22px}
+.hero.hero-aiskra .hero-note{margin-top:16px;color:rgba(242,242,244,.55);font-size:13px}
+.hero.hero-aiskra .hero-visual{display:none!important}
+@media (max-width:640px){
+  .hero.hero-aiskra{min-height:min(92vh,760px)}
+  .hero.hero-aiskra .hero-overlay{padding:100px 0 56px}
+  .hero.hero-aiskra .hero-actions .btn{width:100%}
+}
+
+/* film grain / denser page craft */
+body::before{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:9998;opacity:.045;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.section{padding:72px 0}
+.section .lead{max-width:46ch}
+.trust{padding:18px 0;border-bottom:1px solid var(--line);background:rgba(255,255,255,.015)}
+.kinetic{opacity:.85}
+.price-strip{margin:18px auto;border-radius:16px}
+
+/* Works filters */
+.works-filters{position:relative;z-index:5;display:flex;flex-wrap:wrap;gap:8px;padding:10px 0 4px;pointer-events:auto}
+.works-filters .wf-chip{
+  appearance:none;border:1px solid rgba(255,255,255,.16);
+  background:rgba(10,12,16,.72);color:rgba(242,242,244,.88);
+  font-family:var(--font);font-size:12px;letter-spacing:.04em;text-transform:uppercase;
+  padding:9px 14px;border-radius:999px;cursor:pointer;backdrop-filter:blur(10px);transition:.18s;
+}
+.works-filters .wf-chip:hover,.works-filters .wf-chip:focus-visible{border-color:rgba(255,90,31,.55);color:#fff;outline:none}
+.works-filters .wf-chip.is-on{border-color:rgba(255,90,31,.7);background:rgba(255,90,31,.18);color:#fff;box-shadow:0 0 18px rgba(255,90,31,.18)}
+.orbit-works .works-filters-bar{position:absolute;left:0;right:0;bottom:108px;z-index:5;pointer-events:none}
+.orbit-works .works-filters-bar .wrap{pointer-events:auto}
+.orbit-chip-row button.is-filtered-out,.case.is-filtered-out,.bento-item.is-filtered-out{display:none!important}
+@media (max-width:640px){.orbit-works .works-filters-bar{bottom:96px}.works-filters .wf-chip{padding:8px 11px;font-size:10px}}
+
+/* Richer lightbox */
+.lb-meta{flex-direction:column;gap:8px}
+.lb-meta-top{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:10px 14px}
+.lb-meta-line{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.55);text-align:center}
+.lb-thumbs{display:flex;flex-wrap:nowrap;gap:8px;max-width:min(920px,92vw);overflow-x:auto;padding:4px 2px 2px;scrollbar-width:thin}
+.lb-thumbs button{flex:0 0 auto;width:56px;height:56px;padding:0;border-radius:10px;border:2px solid transparent;overflow:hidden;cursor:pointer;background:#111;position:relative}
+.lb-thumbs button img,.lb-thumbs button video{width:100%;height:100%;object-fit:cover;display:block;pointer-events:none}
+.lb-thumbs button.is-on{border-color:var(--accent);box-shadow:0 0 0 1px rgba(255,90,31,.4)}
+.lb-thumbs .lb-thumb-play{position:absolute;inset:0;display:grid;place-items:center;background:rgba(0,0,0,.35);color:#fff;font-size:14px;pointer-events:none}
+.lb-stage{position:relative}
+.lb-play-badge{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:64px;height:64px;border-radius:50%;display:none;place-items:center;background:rgba(255,90,31,.85);color:#fff;font-size:22px;pointer-events:none;box-shadow:0 12px 40px rgba(0,0,0,.45);z-index:2}
+.lb-play-badge.is-on{display:grid}
+
+/* Pack accordion */
+.packs{align-items:start}
+.pack-card{position:relative;padding:0;overflow:hidden}
+.pack-card > summary.pack-sum{list-style:none;cursor:pointer;padding:18px 18px 14px;display:grid;gap:6px;position:relative}
+.pack-card > summary.pack-sum::-webkit-details-marker{display:none}
+.pack-card > summary.pack-sum::after{content:"＋";position:absolute;right:16px;top:18px;font-size:16px;color:var(--muted)}
+.pack-card[open] > summary.pack-sum::after{content:"－";color:var(--accent)}
+.pack-card .pack-unit{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.pack-card .pack-body{padding:0 18px 18px;display:flex;flex-direction:column;gap:10px}
+.pack-card .name{padding-right:28px}
+.pack-card.popular > summary.pack-sum{padding-top:36px}
+.pack-card .tag{z-index:2}
+
+/* Brief quiz */
+.brief-quiz{margin:0 0 18px;padding:16px;border-radius:16px;border:1px solid var(--line);background:rgba(255,255,255,.02)}
+.brief-quiz .bq-steps{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap}
+.brief-quiz .bq-step{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);padding:4px 10px;border-radius:999px;border:1px solid transparent}
+.brief-quiz .bq-step.is-on{color:#fff;border-color:rgba(255,90,31,.45);background:rgba(255,90,31,.12)}
+.brief-quiz .bq-q{font-size:14px;color:#fff;margin:0 0 10px;font-family:var(--font)}
+.brief-quiz .bq-opts{display:flex;flex-wrap:wrap;gap:8px}
+.brief-quiz .bq-opt{appearance:none;border:1px solid var(--line);background:rgba(255,255,255,.03);color:var(--text);padding:10px 14px;border-radius:12px;cursor:pointer;font-size:13px;transition:.15s}
+.brief-quiz .bq-opt:hover{border-color:rgba(255,90,31,.45)}
+.brief-quiz .bq-opt.is-on{border-color:rgba(255,90,31,.7);background:rgba(255,90,31,.14);color:#fff}
+.brief-quiz .bq-hint{margin:10px 0 0;font-size:12px;color:var(--muted)}
+
+/* Bento cases */
+.bento-wrap{margin-top:22px}
+.bento-head{display:flex;flex-wrap:wrap;align-items:end;justify-content:space-between;gap:12px;margin-bottom:16px}
+.bento-grid{
+  display:grid;grid-template-columns:repeat(12,1fr);grid-auto-rows:minmax(120px,auto);gap:10px;
+}
+.bento-item{
+  position:relative;border-radius:18px;overflow:hidden;border:1px solid var(--line);
+  background:#0a0a0c;cursor:pointer;min-height:140px;
+}
+.bento-item img,.bento-item video{width:100%;height:100%;object-fit:cover;display:block;transition:transform .45s ease}
+.bento-item:hover img,.bento-item:hover video{transform:scale(1.04)}
+.bento-item .bi-meta{
+  position:absolute;left:10px;right:10px;bottom:10px;display:flex;gap:8px;flex-wrap:wrap;align-items:center;
+  pointer-events:none;
+}
+.bento-item .bi-badge{
+  padding:5px 10px;border-radius:999px;font-size:10px;letter-spacing:.06em;text-transform:uppercase;
+  background:rgba(0,0,0,.55);border:1px solid rgba(255,255,255,.18);color:#fff;backdrop-filter:blur(8px);
+}
+.bento-item .bi-play{
+  position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+  width:46px;height:46px;border-radius:50%;display:grid;place-items:center;
+  background:rgba(255,90,31,.82);color:#fff;font-size:16px;opacity:.92;pointer-events:none;
+}
+.bento-item.span-5{grid-column:span 5}
+.bento-item.span-4{grid-column:span 4}
+.bento-item.span-3{grid-column:span 3}
+.bento-item.span-6{grid-column:span 6}
+.bento-item.span-7{grid-column:span 7}
+.bento-item.span-8{grid-column:span 8}
+.bento-item.tall{grid-row:span 2;min-height:280px}
+.bento-item.poster{aspect-ratio:2/3;min-height:220px}
+@media (max-width:980px){
+  .bento-grid{grid-template-columns:repeat(6,1fr)}
+  .bento-item.span-5,.bento-item.span-4,.bento-item.span-7,.bento-item.span-8,.bento-item.span-6,.bento-item.span-3{grid-column:span 3}
+  .bento-item.tall{grid-row:span 2}
+}
+@media (max-width:640px){
+  .bento-grid{grid-template-columns:repeat(2,1fr);gap:8px}
+  .bento-item.span-5,.bento-item.span-4,.bento-item.span-7,.bento-item.span-8,.bento-item.span-6,.bento-item.span-3{grid-column:span 1}
+  .bento-item.tall{grid-column:span 1;grid-row:span 2}
+  .bento-item.poster{grid-column:span 1}
+}
 /* Cases: vertical reel energy on alternate cards */
 .case.is-reel .case-media{aspect-ratio:9/14;max-height:420px}
 @media (min-width:981px){
@@ -1026,7 +1183,17 @@ a:focus-visible,button:focus-visible,.svc-item:focus-visible,.case-media:focus-v
 </header>
 
 <main id="top">
-  <section class="hero" id="top-hero" aria-label="ОРБИТА — креативная студия">
+    <section class="hero hero-aiskra" id="top-hero" aria-label="ОРБИТА — креативная студия">
+    <div class="hero-bg" aria-hidden="true">
+      <video class="hero-bg-video" muted loop playsinline autoplay preload="metadata" poster="still-02.jpg" data-hero-bg>
+        <source src="orbita-bg.mp4" type="video/mp4">
+        <source src="work-kazakhstan.mp4" type="video/mp4">
+      </video>
+      <div class="hero-bg-fallback" style="background-image:url(still-02.jpg)"></div>
+      <div class="hero-bg-shade"></div>
+      <div class="hero-bg-grain"></div>
+      <div class="hero-bg-vignette"></div>
+    </div>
     <div class="hero-overlay">
       <div class="wrap">
         <div class="hero-copy">
@@ -1035,7 +1202,7 @@ a:focus-visible,button:focus-visible,.svc-item:focus-visible,.case-media:focus-v
           <p class="lead">Ролики, афиши и баннеры под ключ. Цены «от» — финал после брифа. Ответ за 24 часа.</p>
           <div class="hero-actions">
             <a class="btn btn-primary" href="#contact">Получить смету</a>
-            <a class="btn btn-ghost" href="#prices">Смотреть цены</a>
+            <a class="btn btn-ghost" href="#orbit">Примеры работ</a>
           </div>
           <p class="hero-note">hello@orbita.agency · без фейковых метрик и чужих логотипов</p>
           <div class="hero-trust-inline" aria-label="Гарантии">
@@ -1044,11 +1211,6 @@ a:focus-visible,button:focus-visible,.svc-item:focus-visible,.case-media:focus-v
             <span class="chip"><i></i>Юрлицо</span>
             <span class="chip"><i></i>Ответ 24ч</span>
           </div>
-        </div>
-        <div class="hero-visual">
-          <video src="work-kazakhstan.mp4" poster="still-02.jpg" muted loop playsinline preload="metadata" data-hero-visual></video>
-          <a class="hv-link" href="#orbit">Примеры на планете →</a>
-          <span class="hv-badge">Реальный ролик · Алматы</span>
         </div>
       </div>
     </div>
@@ -1194,17 +1356,38 @@ a:focus-visible,button:focus-visible,.svc-item:focus-visible,.case-media:focus-v
         </div>
       </div>
     </div>
+
+      <div class="works-filters-bar" id="worksFiltersBar">
+        <div class="wrap">
+          <div class="works-filters" id="worksFilters" role="tablist" aria-label="Фильтр работ">
+            <button type="button" class="wf-chip is-on" role="tab" aria-selected="true" data-filter="all">Все</button>
+            <button type="button" class="wf-chip" role="tab" aria-selected="false" data-filter="video">Видео</button>
+            <button type="button" class="wf-chip" role="tab" aria-selected="false" data-filter="afishi">Афиши</button>
+            <button type="button" class="wf-chip" role="tab" aria-selected="false" data-filter="banner">Баннеры</button>
+            <button type="button" class="wf-chip" role="tab" aria-selected="false" data-filter="motion">Motion</button>
+          </div>
+        </div>
+      </div>
       <div class="orbit-chip-bar" aria-hidden="false">
         <div class="orbit-chip-row" id="orbitChipRow" role="list" aria-label="Города и проекты на планете"></div>
       </div>
   </section>
 
-  <section class="section" id="cases">
+    <section class="section" id="cases">
     <div class="wrap">
-      <div class="eyebrow">Ещё кадры</div>
-      <h2>Спокойный список</h2>
-      <p class="lead">Если удобнее листать сеткой — вот избранные ролики. Планета выше остаётся главным обзором.</p>
-      <div class="cases-grid" id="casesGrid"></div>
+      <div class="bento-head">
+        <div>
+          <div class="eyebrow">Кейсы</div>
+          <h2>Плотная сетка работ</h2>
+          <p class="lead">Reels, горизонталь и афиши 2026 — без чужих логотипов. Клик открывает просмотр.</p>
+        </div>
+      </div>
+      <div class="bento-wrap">
+        <div class="bento-grid" id="bentoGrid" aria-label="Bento-галерея работ"></div>
+      </div>
+      <div class="eyebrow" style="margin-top:36px">Список</div>
+      <h2 style="font-size:clamp(22px,3vw,32px)">Карточки с задачей и результатом</h2>
+      <div class="cases-grid" id="casesGrid" style="margin-top:18px"></div>
     </div>
   </section>
 
@@ -1401,41 +1584,56 @@ a:focus-visible,button:focus-visible,.svc-item:focus-visible,.case-media:focus-v
         <div>
           <div class="layer-title">Пакеты продакшена</div>
           <div class="packs">
-            <article class="pack-card">
-              <div class="name">Старт</div>
-              <div class="price">от 250 000 <span>₽</span></div>
-              <p>Вход в системный продакшн: концепт, производство, финальные мастера.</p>
-              <ul>
-                <li>Бриф и сценарий</li>
-                <li>1 key-ролик + адаптации</li>
-                <li>Договор и правки по объёму</li>
-              </ul>
-              <a class="btn btn-ghost btn-sm" href="#contact" data-prefill="Пакет «Старт»: от 250 000 ₽ — обсудить">Обсудить</a>
-            </article>
-            <article class="pack-card popular">
-              <div class="tag">популярный</div>
-              <div class="name">Рост</div>
-              <div class="price">от 650 000 <span>₽</span></div>
-              <p>Кампания или серия: hero + cut-downs под площадки.</p>
-              <ul>
-                <li>Стратегия и визуальный язык</li>
-                <li>Hero + короткие версии</li>
-                <li>16:9 / 9:16 / 1:1</li>
-                <li>Продюсер на проекте</li>
-              </ul>
-              <a class="btn btn-primary btn-sm" href="#contact" data-prefill="Пакет «Рост»: от 650 000 ₽ — получить предложение">Получить КП</a>
-            </article>
-            <article class="pack-card">
-              <div class="name">Enterprise</div>
-              <div class="price">индивидуально</div>
-              <p>Постоянный поток, несколько направлений, NDA и закрывающие.</p>
-              <ul>
-                <li>Выделенная команда</li>
-                <li>Ретейнер / объём по договору</li>
-                <li>Юрлицо, акты, NDA</li>
-              </ul>
-              <a class="btn btn-ghost btn-sm" href="#contact" data-prefill="Enterprise / ретейнер — обсудить объём и условия">Запросить</a>
-            </article>
+            <details class="pack-card">
+              <summary class="pack-sum">
+                <div class="name">Старт</div>
+                <div class="pack-unit">пакет · вход в продакшн</div>
+                <div class="price">от 250 000 <span>₽</span></div>
+              </summary>
+              <div class="pack-body">
+                <p>Вход в системный продакшн: концепт, производство, финальные мастера.</p>
+                <ul>
+                  <li>Бриф и сценарий</li>
+                  <li>1 key-ролик + адаптации</li>
+                  <li>Договор и правки по объёму</li>
+                </ul>
+                <a class="btn btn-ghost btn-sm" href="#contact" data-prefill="Пакет «Старт»: от 250 000 ₽ — обсудить">Обсудить</a>
+              </div>
+            </details>
+            <details class="pack-card popular" open>
+              <summary class="pack-sum">
+                <div class="tag">Популярный</div>
+                <div class="name">Рост</div>
+                <div class="pack-unit">пакет · кампания / серия</div>
+                <div class="price">от 650 000 <span>₽</span></div>
+              </summary>
+              <div class="pack-body">
+                <p>Кампания или серия: hero + cut-downs под площадки.</p>
+                <ul>
+                  <li>Стратегия и визуальный язык</li>
+                  <li>Hero + короткие версии</li>
+                  <li>16:9 / 9:16 / 1:1</li>
+                  <li>Продюсер на проекте</li>
+                </ul>
+                <a class="btn btn-primary btn-sm" href="#contact" data-prefill="Пакет «Рост»: от 650 000 ₽ — получить предложение">Получить КП</a>
+              </div>
+            </details>
+            <details class="pack-card">
+              <summary class="pack-sum">
+                <div class="name">Enterprise</div>
+                <div class="pack-unit">ретейнер · индивидуальный объём</div>
+                <div class="price">индивидуально</div>
+              </summary>
+              <div class="pack-body">
+                <p>Постоянный поток, несколько направлений, NDA и закрывающие.</p>
+                <ul>
+                  <li>Выделенная команда</li>
+                  <li>Ретейнер / объём по договору</li>
+                  <li>Юрлицо, акты, NDA</li>
+                </ul>
+                <a class="btn btn-ghost btn-sm" href="#contact" data-prefill="Enterprise / ретейнер — обсудить объём и условия">Запросить</a>
+              </div>
+            </details>
           </div>
           <p class="price-note">Все цены — «от»; финал после брифа. Оплата в рублях, по договору, с закрывающими. Без чужих логотипов и накрученных кейсов.</p>
       <div class="cta-band">
@@ -1533,7 +1731,41 @@ a:focus-visible,button:focus-visible,.svc-item:focus-visible,.case-media:focus-v
           </div>
         </div>
         <div class="form-card">
-          <form class="form" id="contactForm">
+          
+          <div class="brief-quiz" id="briefQuiz" aria-label="Короткий бриф">
+            <div class="bq-steps" aria-hidden="true">
+              <span class="bq-step is-on" data-bq-step="1">1 · Задача</span>
+              <span class="bq-step" data-bq-step="2">2 · Срок</span>
+              <span class="bq-step" data-bq-step="3">3 · Бюджет</span>
+            </div>
+            <div class="bq-panel" data-bq-panel="1">
+              <p class="bq-q">Что нужно?</p>
+              <div class="bq-opts">
+                <button type="button" class="bq-opt" data-bq="task" data-val="Видео / Reels">Видео</button>
+                <button type="button" class="bq-opt" data-bq="task" data-val="Афиша">Афиша</button>
+                <button type="button" class="bq-opt" data-bq="task" data-val="Баннер / дизайн">Баннер</button>
+                <button type="button" class="bq-opt" data-bq="task" data-val="Пакет продакшена">Пакет</button>
+              </div>
+            </div>
+            <div class="bq-panel" data-bq-panel="2" hidden>
+              <p class="bq-q">Какой срок?</p>
+              <div class="bq-opts">
+                <button type="button" class="bq-opt" data-bq="deadline" data-val="как можно скорее">ASAP</button>
+                <button type="button" class="bq-opt" data-bq="deadline" data-val="около 2 недель">~2 недели</button>
+                <button type="button" class="bq-opt" data-bq="deadline" data-val="месяц и больше">месяц+</button>
+              </div>
+            </div>
+            <div class="bq-panel" data-bq-panel="3" hidden>
+              <p class="bq-q">Бюджетный ориентир?</p>
+              <div class="bq-opts">
+                <button type="button" class="bq-opt" data-bq="budget" data-val="до 50 000 ₽">до 50к</button>
+                <button type="button" class="bq-opt" data-bq="budget" data-val="50–250 000 ₽">50–250к</button>
+                <button type="button" class="bq-opt" data-bq="budget" data-val="от 250 000 ₽">250к+</button>
+              </div>
+            </div>
+            <p class="bq-hint">Ответы подставятся в сообщение — можно править вручную.</p>
+          </div>
+<form class="form" id="contactForm">
             <label>Имя
               <input name="name" required placeholder="Как к вам обращаться" autocomplete="name">
             </label>
@@ -1584,11 +1816,16 @@ a:focus-visible,button:focus-visible,.svc-item:focus-visible,.case-media:focus-v
   <div class="lb-stage">
     <img id="lbImg" alt="" hidden>
     <video id="lbVideo" controls playsinline preload="metadata" hidden></video>
+    <div class="lb-play-badge" id="lbPlayBadge" aria-hidden="true">▶</div>
   </div>
   <div class="lb-meta">
-    <span class="lb-badge" id="lbBadge"></span>
-    <span class="lb-title" id="lbTitle"></span>
-    <a class="btn btn-primary btn-sm" id="lbOrder" href="#contact">Заказать такое</a>
+    <div class="lb-meta-top">
+      <span class="lb-badge" id="lbBadge"></span>
+      <span class="lb-title" id="lbTitle"></span>
+      <a class="btn btn-primary btn-sm" id="lbOrder" href="#contact">Заказать такое</a>
+    </div>
+    <div class="lb-meta-line" id="lbMetaLine"></div>
+    <div class="lb-thumbs" id="lbThumbs" hidden></div>
   </div>
 </div>
 
@@ -1609,15 +1846,36 @@ a:focus-visible,button:focus-visible,.svc-item:focus-visible,.case-media:focus-v
   ];
 
   const cases = [
-    {src:'work-kazakhstan.mp4', poster:'still-02.jpg', tag:'Lifestyle', reel:true, title:'Динамичный cut', task:'Ритм для вертикали и 16:9', result:'Хук + чистый монтаж'},
-    {src:'work-01.mp4', poster:'still-01.jpg', tag:'Reels', reel:true, title:'Короткий формат', task:'Удержать в 1–2 секунды', result:'Плотная нарезка Shorts/Reels'},
-    {src:'work-03.mp4', poster:'still-03.jpg', tag:'Имидж', title:'Визуальный язык', task:'Атмосфера без лишнего текста', result:'Имидж с акцентом на кадр'},
-    {src:'work-05.mp4', poster:'still-05.jpg', tag:'Реклама', reel:true, title:'Продуктовый акцент', task:'Продукт и польза в кадре', result:'Ролик под размещение'},
-    {src:'work-09.mp4', poster:'still-09.jpg', tag:'Motion', title:'Графика в кадре', task:'Титры и ритм', result:'Монтаж с motion-слоем'},
-    {src:'work-11.mp4', poster:'still-11.jpg', tag:'Кампания', title:'Серийный стиль', task:'Единый стиль серии', result:'База 9:16 / 16:9'},
-    {src:'work-02.mp4', poster:'still-04.jpg', tag:'City', title:'Москва · ролик', task:'Городской темп и характер', result:'Кинематографичный cut'},
-    {src:'work-04.mp4', poster:'still-06.jpg', tag:'Travel', title:'Ташкент · ролик', task:'Свет и локальный колорит', result:'Тёплый storytelling'},
-    {src:'work-06.mp4', poster:'still-07.jpg', tag:'Energy', title:'Ритм и энергия', task:'Драйв без перегруза', result:'Плотный экшен-монтаж'}
+    {src:'work-kazakhstan.mp4', poster:'still-02.jpg', tag:'Lifestyle', filter:'video', kind:'Ролик', city:'Алматы', reel:true, title:'Динамичный cut', task:'Ритм для вертикали и 16:9', result:'Хук + чистый монтаж'},
+    {src:'work-01.mp4', poster:'still-01.jpg', tag:'Reels', filter:'video', kind:'Reels', city:'Париж', reel:true, title:'Короткий формат', task:'Удержать в 1–2 секунды', result:'Плотная нарезка Shorts/Reels'},
+    {src:'work-03.mp4', poster:'still-03.jpg', tag:'Имидж', filter:'video', kind:'Ролик', city:'—', title:'Визуальный язык', task:'Атмосфера без лишнего текста', result:'Имидж с акцентом на кадр'},
+    {src:'work-05.mp4', poster:'still-05.jpg', tag:'Реклама', filter:'video', kind:'Reels', city:'Нью-Йорк', reel:true, title:'Продуктовый акцент', task:'Продукт и польза в кадре', result:'Ролик под размещение'},
+    {src:'work-09.mp4', poster:'still-09.jpg', tag:'Motion', filter:'motion', kind:'Motion', city:'Дубай', title:'Графика в кадре', task:'Титры и ритм', result:'Монтаж с motion-слоем'},
+    {src:'work-11.mp4', poster:'still-11.jpg', tag:'Кампания', filter:'video', kind:'Ролик', city:'—', title:'Серийный стиль', task:'Единый стиль серии', result:'База 9:16 / 16:9'},
+    {src:'work-02.mp4', poster:'still-04.jpg', tag:'City', filter:'video', kind:'Ролик', city:'Москва', title:'Москва · ролик', task:'Городской темп и характер', result:'Кинематографичный cut'},
+    {src:'work-04.mp4', poster:'still-06.jpg', tag:'Travel', filter:'video', kind:'Ролик', city:'Ташкент', title:'Ташкент · ролик', task:'Свет и локальный колорит', result:'Тёплый storytelling'},
+    {src:'work-06.mp4', poster:'still-07.jpg', tag:'Energy', filter:'video', kind:'Ролик', city:'—', title:'Ритм и энергия', task:'Драйв без перегруза', result:'Плотный экшен-монтаж'},
+    {src:'poster-2026-neon-horizon.png', poster:'poster-2026-neon-horizon.png', tag:'Афиша', filter:'afishi', kind:'Афиша', city:'Астана', type:'img', title:'Neon Horizon — афиша 2026', task:'Киношный постер под прокат', result:'Линейка афиш 2026'},
+    {src:'poster-2026-zhara-live.png', poster:'poster-2026-zhara-live.png', tag:'Афиша', filter:'afishi', kind:'Афиша', city:'—', type:'img', title:'Жара Live — концерт', task:'Концертный ключ', result:'Афиша + адаптации'},
+    {src:'poster-2026-fashion-ss26.png', poster:'poster-2026-fashion-ss26.png', tag:'Афиша', filter:'afishi', kind:'Афиша', city:'—', type:'img', title:'Fashion SS26', task:'Fashion-афиша', result:'Постер 2026'},
+    {src:'mock-banner-web.png', poster:'mock-banner-web.png', tag:'Баннер', filter:'banner', kind:'Баннер', city:'—', type:'img', title:'Баннер web', task:'Digital-баннер под кампанию', result:'Макет + форматы'},
+    {src:'mock-banner-outdoor.png', poster:'mock-banner-outdoor.png', tag:'Баннер', filter:'banner', kind:'Баннер', city:'—', type:'img', title:'Баннер outdoor', task:'Наружка / крупный формат', result:'Читаемый оффер'}
+  ];
+  const bentoItems = [
+    {src:'work-01.mp4', poster:'still-01.jpg', filter:'video', kind:'Reels', city:'Париж', title:'Короткий формат', badge:'Reels', span:'span-3 tall'},
+    {src:'work-kazakhstan.mp4', poster:'still-02.jpg', filter:'video', kind:'Ролик', city:'Алматы', title:'Алматы · ролик', badge:'Ролик', span:'span-5'},
+    {src:'poster-2026-neon-horizon.png', poster:'poster-2026-neon-horizon.png', filter:'afishi', kind:'Афиша', city:'Астана', title:'Neon Horizon', badge:'Афиша', type:'img', span:'span-4 poster'},
+    {src:'work-02.mp4', poster:'still-04.jpg', filter:'video', kind:'Ролик', city:'Москва', title:'Москва', badge:'City', span:'span-6'},
+    {src:'work-09.mp4', poster:'still-09.jpg', filter:'motion', kind:'Motion', city:'Дубай', title:'Motion', badge:'Motion', span:'span-3 tall'},
+    {src:'poster-2026-zhara-live.png', poster:'poster-2026-zhara-live.png', filter:'afishi', kind:'Афиша', city:'—', title:'Жара Live', badge:'Афиша', type:'img', span:'span-3 poster'},
+    {src:'work-05.mp4', poster:'still-05.jpg', filter:'video', kind:'Reels', city:'Нью-Йорк', title:'Продукт', badge:'Reels', span:'span-4'},
+    {src:'mock-banner-web.png', poster:'mock-banner-web.png', filter:'banner', kind:'Баннер', city:'—', title:'Баннер web', badge:'Баннер', type:'img', span:'span-5'},
+    {src:'work-04.mp4', poster:'still-06.jpg', filter:'video', kind:'Ролик', city:'Ташкент', title:'Ташкент', badge:'Travel', span:'span-7'},
+    {src:'poster-2026-fashion-ss26.png', poster:'poster-2026-fashion-ss26.png', filter:'afishi', kind:'Афиша', city:'—', title:'Fashion SS26', badge:'Афиша', type:'img', span:'span-4 poster'},
+    {src:'work-11.mp4', poster:'still-11.jpg', filter:'video', kind:'Ролик', city:'—', title:'Серия', badge:'Кампания', span:'span-5'},
+    {src:'still-08.jpg', poster:'still-08.jpg', filter:'video', kind:'Still', city:'—', title:'Кадр', badge:'Still', type:'img', span:'span-3'},
+    {src:'poster-2026-speed-light.png', poster:'poster-2026-speed-light.png', filter:'afishi', kind:'Афиша', city:'—', title:'Speed Light', badge:'Афиша', type:'img', span:'span-4 poster'},
+    {src:'mock-banner-outdoor.png', poster:'mock-banner-outdoor.png', filter:'banner', kind:'Баннер', city:'—', title:'Outdoor', badge:'Баннер', type:'img', span:'span-4'}
   ];
 
   /* Media wall — dual slow columns */
@@ -1719,6 +1977,26 @@ a:focus-visible,button:focus-visible,.svc-item:focus-visible,.case-media:focus-v
     const kind = item.badge || item.title || 'работу';
     return 'Хочу заказать похожее: ' + kind + (item.title && item.title !== kind ? ' — ' + item.title : '') + '. Ориентир по референсу с сайта.';
   }
+  const lbMetaLine = document.getElementById('lbMetaLine');
+  const lbThumbs = document.getElementById('lbThumbs');
+  const lbPlayBadge = document.getElementById('lbPlayBadge');
+  function itemMetaLine(item){
+    const kind = item.kind || item.badge || (item.type === 'video' ? 'Видео' : 'Дизайн');
+    const city = item.city || item.dir || '';
+    if (city && city !== '—') return kind + ' · ' + city;
+    return kind;
+  }
+  function renderLbThumbs(){
+    if (!lbThumbs) return;
+    if (galleryItems.length < 2){ lbThumbs.hidden = true; lbThumbs.innerHTML = ''; return; }
+    lbThumbs.hidden = false;
+    lbThumbs.innerHTML = galleryItems.map(function(it, idx){
+      var thumb = it.poster || (it.type === 'img' ? it.src : '');
+      var play = it.type === 'video' ? '<span class="lb-thumb-play">▶</span>' : '';
+      var media = thumb ? '<img src="'+thumb+'" alt="" loading="lazy" decoding="async">' : '<video src="'+it.src+'" muted preload="metadata"></video>';
+      return '<button type="button" data-lb-thumb="'+idx+'" class="'+(idx===galleryIndex?'is-on':'')+'" aria-label="'+(it.title||it.badge||'Работа')+'">'+media+play+'</button>';
+    }).join('');
+  }
   function showLbItem(i){
     if (!galleryItems.length) return;
     galleryIndex = (i + galleryItems.length) % galleryItems.length;
@@ -1730,19 +2008,24 @@ a:focus-visible,button:focus-visible,.svc-item:focus-visible,.case-media:focus-v
     lbVideo.hidden = true;
     lbImg.hidden = true;
     lbImg.removeAttribute('src');
+    if (lbPlayBadge) lbPlayBadge.classList.remove('is-on');
     lbBadge.textContent = item.badge || '';
     lbBadge.style.display = item.badge ? '' : 'none';
     lbTitle.textContent = item.title || item.badge || '';
+    if (lbMetaLine) lbMetaLine.textContent = itemMetaLine(item);
     lbOrder.setAttribute('data-prefill', orderPrefill(item));
     if (item.type === 'video'){
       lbVideo.hidden = false;
+      if (item.poster) lbVideo.setAttribute('poster', item.poster); else lbVideo.removeAttribute('poster');
       lbVideo.src = item.src;
-      lbVideo.play().catch(function(){});
+      if (lbPlayBadge) lbPlayBadge.classList.add('is-on');
+      lbVideo.play().then(function(){ if (lbPlayBadge) lbPlayBadge.classList.remove('is-on'); }).catch(function(){});
     } else {
       lbImg.hidden = false;
       lbImg.src = item.src;
       lbImg.alt = item.title || item.badge || 'Работа';
     }
+    renderLbThumbs();
   }
   function openGallery(items, current, startIndex){
     galleryItems = items && items.length ? items.slice() : (current ? [current] : []);
@@ -1782,6 +2065,18 @@ a:focus-visible,button:focus-visible,.svc-item:focus-visible,.case-media:focus-v
     lbImg.hidden = true;
     lbImg.removeAttribute('src');
     galleryItems = [];
+  }
+  if (lbThumbs){
+    lbThumbs.addEventListener('click', function(e){
+      var btn = e.target.closest && e.target.closest('[data-lb-thumb]');
+      if (!btn) return;
+      var ix = parseInt(btn.getAttribute('data-lb-thumb'), 10);
+      if (!isNaN(ix)) showLbItem(ix);
+    });
+  }
+  if (lbVideo){
+    lbVideo.addEventListener('play', function(){ if (lbPlayBadge) lbPlayBadge.classList.remove('is-on'); });
+    lbVideo.addEventListener('pause', function(){ if (lbPlayBadge && !lbVideo.hidden) lbPlayBadge.classList.add('is-on'); });
   }
   document.getElementById('lbClose').addEventListener('click', closeLb);
   document.getElementById('lbPrev').addEventListener('click', function(e){
@@ -1917,7 +2212,7 @@ a:focus-visible,button:focus-visible,.svc-item:focus-visible,.case-media:focus-v
     const set = svcAssets[idx] || svcAssets[0];
     if (!set || !set.length) return;
     const gallery = set.map(function(x){
-      return {src:x.s, type:x.t === 'video' ? 'video' : 'img', badge:x.l, title:x.title || x.l};
+      return {src:x.s, type:x.t === 'video' ? 'video' : 'img', badge:x.l, title:x.title || x.l, kind:x.l, city:'', poster:x.t==='img'?x.s:''};
     });
     openGallery(gallery, gallery[0], 0);
   }
@@ -2001,14 +2296,61 @@ a:focus-visible,button:focus-visible,.svc-item:focus-visible,.case-media:focus-v
   try {
   /* Cases */
   const casesGrid = document.getElementById('casesGrid');
+  function caseItem(x){
+    var img = x.type === 'img' || /\.(png|jpe?g|webp)$/i.test(x.src);
+    return {
+      src:x.src, type: img ? 'img' : 'video', badge:x.tag || x.badge, title:x.title,
+      kind:x.kind || x.tag || x.badge || '', city:x.city || '',
+      poster:x.poster || (img ? x.src : '')
+    };
+  }
+  function renderBento(){
+    var grid = document.getElementById('bentoGrid');
+    if (!grid || typeof bentoItems === 'undefined') return;
+    grid.innerHTML = '';
+    bentoItems.forEach(function(c){
+      var isImg = c.type === 'img' || /\.(png|jpe?g|webp)$/i.test(c.src);
+      var el = document.createElement('div');
+      el.className = 'bento-item ' + (c.span || 'span-4');
+      el.setAttribute('data-filter', c.filter || (isImg ? 'afishi' : 'video'));
+      el.setAttribute('role', 'button');
+      el.setAttribute('tabindex', '0');
+      el.setAttribute('aria-label', c.title || c.badge || 'Работа');
+      var media = isImg
+        ? '<img src="'+c.src+'" alt="'+(c.title||'')+'" loading="lazy" decoding="async">'
+        : '<video src="'+c.src+'" poster="'+(c.poster||'')+'" muted loop playsinline preload="metadata"></video><span class="bi-play">▶</span>';
+      el.innerHTML = media + '<div class="bi-meta"><span class="bi-badge">'+(c.badge||c.kind||'')+'</span></div>';
+      function openIt(){
+        var gallery = bentoItems.map(function(x){
+          return caseItem({src:x.src, type:x.type, tag:x.badge, title:x.title, kind:x.kind, city:x.city, poster:x.poster});
+        });
+        openGallery(gallery, caseItem({src:c.src, type:c.type, tag:c.badge, title:c.title, kind:c.kind, city:c.city, poster:c.poster}));
+      }
+      el.addEventListener('click', openIt);
+      el.addEventListener('keydown', function(e){ if (e.key==='Enter'||e.key===' '){ e.preventDefault(); openIt(); }});
+      var v = el.querySelector('video');
+      if (v){
+        el.addEventListener('mouseenter', function(){
+          if (window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)').matches){ try{v.play();}catch(e){} }
+        });
+        el.addEventListener('mouseleave', function(){ try{v.pause();}catch(e){} });
+      }
+      grid.appendChild(el);
+    });
+  }
+  try { renderBento(); } catch (err) { console.warn('bento', err); }
   cases.forEach(function(c){
     const art = document.createElement('article');
-    art.className = 'case' + (c.reel ? ' is-reel' : '');
+    const isImg = c.type === 'img' || /\.(png|jpe?g|webp)$/i.test(c.src);
+    art.className = 'case' + (c.reel ? ' is-reel' : '') + (isImg ? ' is-design' : '');
+    art.setAttribute('data-filter', c.filter || (isImg ? 'afishi' : 'video'));
+    const mediaInner = isImg
+      ? '<img src="'+c.src+'" alt="'+c.title+'" loading="lazy" decoding="async">'
+      : '<video src="'+c.src+'" poster="'+(c.poster||'')+'" muted loop playsinline preload="metadata" data-case-video></video><span class="case-play" aria-hidden="true">▶</span>';
     art.innerHTML =
       '<div class="case-media" data-src="'+c.src+'" tabindex="0" role="button" aria-label="'+c.title+'">'+
-        '<video src="'+c.src+'" poster="'+c.poster+'" muted loop playsinline preload="metadata" data-case-video></video>'+
+        mediaInner+
         '<span class="badge">'+c.tag+'</span>'+
-        '<span class="case-play" aria-hidden="true">▶</span>'+
       '</div>'+
       '<div class="case-body">'+
         '<h3>'+c.title+'</h3>'+
@@ -2020,23 +2362,22 @@ a:focus-visible,button:focus-visible,.svc-item:focus-visible,.case-media:focus-v
     const media = art.querySelector('.case-media');
     const vid = art.querySelector('video');
     function openCase(){
-      const gallery = cases.map(function(x){
-        return {src:x.src, type:'video', badge:x.tag, title:x.title};
-      });
-      openGallery(gallery, {src:c.src, type:'video', badge:c.tag, title:c.title});
+      openGallery(cases.map(caseItem), caseItem(c));
     }
     media.addEventListener('click', openCase);
     media.addEventListener('keydown', function(e){
       if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openCase(); }
     });
-    media.addEventListener('mouseenter', function(){
-      if (window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)').matches){
-        try { vid.play(); } catch (err) {}
-      }
-    });
-    media.addEventListener('mouseleave', function(){
-      try { vid.pause(); } catch (err) {}
-    });
+    if (vid){
+      media.addEventListener('mouseenter', function(){
+        if (window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)').matches){
+          try { vid.play(); } catch (err) {}
+        }
+      });
+      media.addEventListener('mouseleave', function(){
+        try { vid.pause(); } catch (err) {}
+      });
+    }
     casesGrid.appendChild(art);
   });
   } catch (err) { console.warn('cases', err); }
@@ -2932,15 +3273,25 @@ function bootOrbitaGlobe(){
     }
   }
 
+  function hotspotFilter(h){
+    if (!h) return 'video';
+    if (h.type === 'afishi') return 'afishi';
+    var k = (h.kind || '').toLowerCase();
+    if (k.indexOf('motion') >= 0) return 'motion';
+    if (k.indexOf('banner') >= 0 || k.indexOf('баннер') >= 0) return 'banner';
+    return 'video';
+  }
   function buildChipRow(){
     chipRow = document.getElementById('orbitChipRow');
     if (!chipRow || chipRow.childElementCount) return;
     HOTSPOTS.forEach(function(h, idx){
       h._idx = idx;
+      h.filter = hotspotFilter(h);
       var btn = document.createElement('button');
       btn.type = 'button';
       btn.setAttribute('role', 'listitem');
       btn.setAttribute('data-idx', String(idx));
+      btn.setAttribute('data-filter', h.filter);
       btn.textContent = (h.city && h.kind) ? (h.city + ' · ' + h.kind) : h.label;
       if (h.type === 'afishi') btn.className = 'is-afishi';
       btn.addEventListener('click', function(){
@@ -2982,6 +3333,114 @@ function bootOrbitaGlobe(){
   startWhenVisible();
 })();
 }
+</script>
+
+
+<script>
+/* Works filters + brief quiz + hero bg */
+(function(){
+  /* Hero bg video: prefer orbita-bg, fallback poster on error / save-data / reduce */
+  try {
+    var hero = document.getElementById('top-hero');
+    var hv = document.querySelector('video[data-hero-bg]');
+    if (hero && hv){
+      var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var saveData = !!(navigator.connection && navigator.connection.saveData);
+      var lowMem = typeof navigator.deviceMemory === 'number' && navigator.deviceMemory > 0 && navigator.deviceMemory <= 4;
+      function toPoster(){ hero.classList.add('is-poster'); try{hv.pause();}catch(e){} }
+      if (reduce || saveData || lowMem){ toPoster(); }
+      else {
+        hv.addEventListener('error', toPoster);
+        var srcs = hv.querySelectorAll('source');
+        if (srcs.length){
+          // if first fails, browser tries next; if all fail, error fires
+        }
+        var p = hv.play();
+        if (p && p.catch) p.catch(toPoster);
+      }
+    }
+  } catch (e) {}
+
+  var activeFilter = 'all';
+  function applyWorksFilter(filter){
+    activeFilter = filter || 'all';
+    document.querySelectorAll('#worksFilters .wf-chip').forEach(function(btn){
+      var on = btn.getAttribute('data-filter') === activeFilter;
+      btn.classList.toggle('is-on', on);
+      btn.setAttribute('aria-selected', on ? 'true' : 'false');
+    });
+    document.querySelectorAll('#orbitChipRow button').forEach(function(btn){
+      var f = btn.getAttribute('data-filter') || 'video';
+      btn.classList.toggle('is-filtered-out', !(activeFilter === 'all' || f === activeFilter));
+    });
+    document.querySelectorAll('#casesGrid .case, #bentoGrid .bento-item').forEach(function(card){
+      var f = card.getAttribute('data-filter') || 'video';
+      card.classList.toggle('is-filtered-out', !(activeFilter === 'all' || f === activeFilter));
+    });
+    if (activeFilter === 'afishi'){
+      try { if (typeof window.orbitaGlobeFocusSvc === 'function') window.orbitaGlobeFocusSvc(3, { preview: true, openGallery: false }); } catch (e) {}
+    } else if (activeFilter === 'motion'){
+      try { if (typeof window.orbitaGlobeFocusSvc === 'function') window.orbitaGlobeFocusSvc(5, { preview: true }); } catch (e) {}
+    } else if (activeFilter === 'video'){
+      try { if (typeof window.orbitaGlobeFocusSvc === 'function') window.orbitaGlobeFocusSvc(0, { preview: true }); } catch (e) {}
+    }
+  }
+  var wf = document.getElementById('worksFilters');
+  if (wf){
+    wf.addEventListener('click', function(e){
+      var btn = e.target.closest && e.target.closest('.wf-chip');
+      if (!btn) return;
+      applyWorksFilter(btn.getAttribute('data-filter') || 'all');
+    });
+  }
+  var tries = 0;
+  var t = setInterval(function(){
+    tries++;
+    if (document.querySelectorAll('#orbitChipRow button').length || tries > 40){
+      clearInterval(t);
+      applyWorksFilter(activeFilter);
+    }
+  }, 200);
+
+  var quiz = document.getElementById('briefQuiz');
+  if (!quiz) return;
+  var answers = { task:'', deadline:'', budget:'' };
+  function syncMessage(){
+    var msg = document.getElementById('message');
+    if (!msg) return;
+    if (!answers.task && !answers.deadline && !answers.budget) return;
+    var parts = [];
+    if (answers.task) parts.push('Задача: ' + answers.task);
+    if (answers.deadline) parts.push('Срок: ' + answers.deadline);
+    if (answers.budget) parts.push('Бюджет: ' + answers.budget);
+    var built = parts.join('. ') + '.';
+    var cur = (msg.value || '').trim();
+    if (/^Задача:/.test(cur) || cur === '' || msg.dataset.quizBuilt === '1') msg.value = built;
+    else { msg.value = built + '\n\n' + cur; }
+    msg.dataset.quizBuilt = '1';
+  }
+  function showPanel(n){
+    quiz.querySelectorAll('[data-bq-panel]').forEach(function(p){
+      p.hidden = String(p.getAttribute('data-bq-panel')) !== String(n);
+    });
+    quiz.querySelectorAll('[data-bq-step]').forEach(function(s){
+      s.classList.toggle('is-on', String(s.getAttribute('data-bq-step')) === String(n));
+    });
+  }
+  quiz.addEventListener('click', function(e){
+    var opt = e.target.closest && e.target.closest('.bq-opt');
+    if (!opt) return;
+    var key = opt.getAttribute('data-bq');
+    var val = opt.getAttribute('data-val') || '';
+    if (!key) return;
+    quiz.querySelectorAll('.bq-opt[data-bq="'+key+'"]').forEach(function(b){ b.classList.remove('is-on'); });
+    opt.classList.add('is-on');
+    answers[key] = val;
+    syncMessage();
+    if (key === 'task') showPanel(2);
+    else if (key === 'deadline') showPanel(3);
+  });
+})();
 </script>
 
 <script>
