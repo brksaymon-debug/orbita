@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ОРБИТА — Агентство видеорекламы</title>
-<meta name="description" content="Агентство видеорекламы полного цикла: сценарий, съёмка, монтаж и продвижение. Заказать рекламу — ответ за 24 часа.">
+<title>ОРБИТА — Видеореклама, которая приносит заявки</title>
+<meta name="description" content="Закажите видеоролик под заявки и продажи: сценарий, съёмка, монтаж, запуск. От брифа до мастера от 10 дней. Ответ за 24 часа — hello@orbita.agency">
 <meta name="theme-color" content="#07070a">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -329,6 +329,53 @@ footer{padding:48px 0 28px;border-top:1px solid var(--line);margin-top:40px}
   .feed-track{animation:none}
 }
 
+
+/* === Sales architecture === */
+.proof{padding:8px 0 48px}
+.proof-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.proof-item{padding:18px 16px;border-radius:16px;border:1px solid var(--line);background:rgba(255,255,255,.025)}
+.proof-item strong{display:block;font-family:var(--display);font-size:1.15rem;font-weight:800;margin-bottom:4px;letter-spacing:-.02em}
+.proof-item span{font-size:13px;color:var(--muted);line-height:1.4}
+.proof-note{margin-top:12px;font-size:12px;color:var(--dim)}
+
+.personas{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.persona{padding:26px 22px;border-radius:var(--r);border:1px solid var(--line);background:var(--card);display:flex;flex-direction:column;gap:10px}
+.persona:hover{border-color:rgba(34,224,255,.3);transform:translateY(-2px)}
+.persona .who{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);font-weight:700}
+.persona h3{margin:0}
+.persona p{margin:0;color:var(--muted);font-size:14px;flex:1}
+.persona ul{margin:0;padding:0;list-style:none;display:grid;gap:6px}
+.persona li{font-size:13px;color:var(--text);padding-left:16px;position:relative}
+.persona li::before{content:"";position:absolute;left:0;top:7px;width:6px;height:6px;border-radius:50%;background:var(--accent)}
+
+.case{min-height:300px}
+.case-body{padding:16px 16px 18px}
+.case-task,.case-sol{font-size:12px;color:rgba(255,255,255,.72);margin:0 0 4px;line-height:1.35}
+.case-task strong,.case-sol strong{color:rgba(255,255,255,.95);font-weight:600}
+.case-stats{margin:8px 0 10px}
+.case-cta{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:700;color:var(--accent);border:1px solid rgba(34,224,255,.35);padding:6px 12px;border-radius:999px;background:rgba(34,224,255,.08);transition:.2s}
+.case-cta:hover{background:rgba(34,224,255,.18);border-color:rgba(34,224,255,.55)}
+
+.guarantee{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:22px}
+.guarantee .chip{background:rgba(52,211,153,.06);border-color:rgba(52,211,153,.25)}
+.guarantee .chip i{background:var(--ok)}
+
+.contact-close{margin-bottom:28px;padding:28px 26px;border-radius:22px;border:1px solid rgba(34,224,255,.28);background:
+  radial-gradient(ellipse 70% 120% at 0% 50%,rgba(34,224,255,.14),transparent 55%),
+  linear-gradient(135deg,rgba(18,18,26,.95),rgba(10,14,24,.98))}
+.contact-close h2{margin:0 0 8px}
+.contact-close p{margin:0;color:var(--muted);max-width:54ch}
+
+@media (max-width:1100px){
+  .proof-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width:900px){
+  .personas{grid-template-columns:1fr}
+}
+@media (max-width:640px){
+  .proof-grid{grid-template-columns:1fr 1fr}
+}
+
 </style>
 </head>
 <body>
@@ -339,28 +386,28 @@ footer{padding:48px 0 28px;border-top:1px solid var(--line);margin-top:40px}
       ОРБИТА
     </a>
     <nav class="nav-links" aria-label="Основная навигация">
-      <a href="#services">Услуги</a>
-      <a href="#process">Процесс</a>
+      <a href="#fit">Кому подходит</a>
       <a href="#cases">Кейсы</a>
-      <a href="#pricing">Тарифы</a>
+      <a href="#process">Процесс</a>
+      <a href="#pricing">Пакеты</a>
       <a href="#faq">Вопросы</a>
       <a href="#contact">Контакты</a>
     </nav>
     <div class="nav-cta">
       <a class="nav-phone" href="tel:+74951234567">+7 495 123-45-67</a>
-      <a class="btn btn-primary btn-sm" href="#contact">Заказать рекламу</a>
+      <a class="btn btn-primary btn-sm" href="#contact">Получить предложение</a>
       <button class="burger" id="burger" aria-label="Меню" aria-expanded="false">☰</button>
     </div>
   </div>
 </header>
 <div class="mobile-menu" id="mobileMenu">
-  <a href="#services">Услуги</a>
-  <a href="#process">Процесс</a>
+  <a href="#fit">Кому подходит</a>
   <a href="#cases">Кейсы</a>
-  <a href="#pricing">Тарифы</a>
+  <a href="#process">Процесс</a>
+  <a href="#pricing">Пакеты</a>
   <a href="#faq">Вопросы</a>
   <a href="#contact">Контакты</a>
-  <a class="btn btn-primary" href="#contact">Заказать рекламу</a>
+  <a class="btn btn-primary" href="#contact">Получить предложение</a>
 </div>
 
 <main id="top">
@@ -372,15 +419,15 @@ footer{padding:48px 0 28px;border-top:1px solid var(--line);margin-top:40px}
     </div>
     <div class="hero-grid">
       <div class="hero-copy">
-        <div class="badge">Агентство видеорекламы · Москва</div>
-        <h1>Видеореклама,<span>которая продаёт</span></h1>
-        <p class="lead">Сценарий, съёмка, монтаж и продвижение на YouTube, TikTok, VK Видео и Rutube — под ключ. Оплата за результат кампании, а не за хронометраж.</p>
+        <div class="badge">Видеореклама под заявки и продажи · Москва</div>
+        <h1>Ролики, которые<span>приносят заявки</span></h1>
+        <p class="lead">Красивое видео без цели не окупается. Мы собираем рекламу под KPI: заявки, продажи, охват — сценарий, съёмка, монтаж и запуск на YouTube, TikTok, VK Видео и Rutube. Разберём задачу за 24 часа.</p>
         <div class="hero-actions">
-          <a class="btn btn-primary" href="#contact">Заказать рекламу</a>
+          <a class="btn btn-primary" href="#contact">Получить предложение</a>
           <a class="btn btn-ghost" href="#cases">Смотреть работы</a>
         </div>
         <div class="hero-meta">
-          <div><strong><span data-count="24" data-suffix=" часа">24 часа</span></strong><br>ответ на бриф</div>
+          <div><strong>от 10 дней</strong><br>бриф → мастер</div>
           <div><strong>16:9 · 9:16 · 1:1</strong><br>все плейсменты</div>
           <div><strong>Договор + NDA</strong><br>юрлицо РФ</div>
         </div>
@@ -393,52 +440,52 @@ footer{padding:48px 0 28px;border-top:1px solid var(--line);margin-top:40px}
           <!-- set A -->
           <article class="feed-card">
             <video data-feed src="orbita-video.mp4" muted playsinline loop preload="metadata" poster=""></video>
-            <div class="feed-meta"><div class="tag">YouTube · 0:30</div><div class="title">Призма · перформанс</div><div class="sub">−64% CPV</div></div>
+            <div class="feed-meta"><div class="tag">YouTube · 0:30</div><div class="title">Ритейл · перформанс</div><div class="sub">−64% CPV</div></div>
           </article>
           <article class="feed-card wide p2">
             <div class="poster" aria-hidden="true"></div>
-            <div class="feed-meta"><div class="tag">Brand · 16:9</div><div class="title">Арка Банк · имидж</div><div class="sub">4.8× конверсия</div></div>
+            <div class="feed-meta"><div class="tag">Brand · 16:9</div><div class="title">Финтех · имидж</div><div class="sub">4.8× конверсия</div></div>
           </article>
           <article class="feed-card p3">
             <video data-feed src="orbita-bg.mp4" muted playsinline loop preload="metadata"></video>
-            <div class="feed-meta"><div class="tag">TikTok · Reels</div><div class="title">Вектор Фарма</div><div class="sub">×5.6 охват</div></div>
+            <div class="feed-meta"><div class="tag">TikTok · Reels</div><div class="title">Фарма · Reels</div><div class="sub">×5.6 охват</div></div>
           </article>
           <article class="feed-card p4">
             <div class="poster" aria-hidden="true"></div>
-            <div class="feed-meta"><div class="tag">Stories · 9:16</div><div class="title">Квант Ритейл</div><div class="sub">UGC-серия</div></div>
+            <div class="feed-meta"><div class="tag">Stories · 9:16</div><div class="title">E-com · UGC</div><div class="sub">UGC-серия</div></div>
           </article>
           <article class="feed-card wide p2">
             <div class="poster" aria-hidden="true"></div>
-            <div class="feed-meta"><div class="tag">VK Видео</div><div class="title">Меридиан · OLV</div><div class="sub">6.8% CTR</div></div>
+            <div class="feed-meta"><div class="tag">VK Видео</div><div class="title">Бренд · OLV</div><div class="sub">6.8% CTR</div></div>
           </article>
           <article class="feed-card p3">
             <div class="poster" aria-hidden="true"></div>
-            <div class="feed-meta"><div class="tag">Rutube</div><div class="title">Нова Групп</div><div class="sub">81% досмотр</div></div>
+            <div class="feed-meta"><div class="tag">Rutube</div><div class="title">Бренд · серия</div><div class="sub">81% досмотр</div></div>
           </article>
           <!-- set B duplicate for seamless loop -->
           <article class="feed-card">
             <video data-feed src="orbita-video.mp4" muted playsinline loop preload="metadata"></video>
-            <div class="feed-meta"><div class="tag">YouTube · 0:30</div><div class="title">Призма · перформанс</div><div class="sub">−64% CPV</div></div>
+            <div class="feed-meta"><div class="tag">YouTube · 0:30</div><div class="title">Ритейл · перформанс</div><div class="sub">−64% CPV</div></div>
           </article>
           <article class="feed-card wide p2">
             <div class="poster" aria-hidden="true"></div>
-            <div class="feed-meta"><div class="tag">Brand · 16:9</div><div class="title">Арка Банк · имидж</div><div class="sub">4.8× конверсия</div></div>
+            <div class="feed-meta"><div class="tag">Brand · 16:9</div><div class="title">Финтех · имидж</div><div class="sub">4.8× конверсия</div></div>
           </article>
           <article class="feed-card p3">
             <video data-feed src="orbita-bg.mp4" muted playsinline loop preload="metadata"></video>
-            <div class="feed-meta"><div class="tag">TikTok · Reels</div><div class="title">Вектор Фарма</div><div class="sub">×5.6 охват</div></div>
+            <div class="feed-meta"><div class="tag">TikTok · Reels</div><div class="title">Фарма · Reels</div><div class="sub">×5.6 охват</div></div>
           </article>
           <article class="feed-card p4">
             <div class="poster" aria-hidden="true"></div>
-            <div class="feed-meta"><div class="tag">Stories · 9:16</div><div class="title">Квант Ритейл</div><div class="sub">UGC-серия</div></div>
+            <div class="feed-meta"><div class="tag">Stories · 9:16</div><div class="title">E-com · UGC</div><div class="sub">UGC-серия</div></div>
           </article>
           <article class="feed-card wide p2">
             <div class="poster" aria-hidden="true"></div>
-            <div class="feed-meta"><div class="tag">VK Видео</div><div class="title">Меридиан · OLV</div><div class="sub">6.8% CTR</div></div>
+            <div class="feed-meta"><div class="tag">VK Видео</div><div class="title">Бренд · OLV</div><div class="sub">6.8% CTR</div></div>
           </article>
           <article class="feed-card p3">
             <div class="poster" aria-hidden="true"></div>
-            <div class="feed-meta"><div class="tag">Rutube</div><div class="title">Нова Групп</div><div class="sub">81% досмотр</div></div>
+            <div class="feed-meta"><div class="tag">Rutube</div><div class="title">Бренд · серия</div><div class="sub">81% досмотр</div></div>
           </article>
         </div>
       </aside>
@@ -449,46 +496,94 @@ footer{padding:48px 0 28px;border-top:1px solid var(--line);margin-top:40px}
       <div class="feed-mobile-track">
         <article class="feed-card">
           <video data-feed src="orbita-video.mp4" muted playsinline loop preload="metadata"></video>
-          <div class="feed-meta"><div class="tag">YouTube</div><div class="title">Призма · перформанс</div><div class="sub">−64% CPV</div></div>
+          <div class="feed-meta"><div class="tag">YouTube</div><div class="title">Ритейл · перформанс</div><div class="sub">−64% CPV</div></div>
         </article>
         <article class="feed-card p2">
           <div class="poster"></div>
-          <div class="feed-meta"><div class="tag">Brand</div><div class="title">Арка Банк · имидж</div><div class="sub">4.8× конверсия</div></div>
+          <div class="feed-meta"><div class="tag">Brand</div><div class="title">Финтех · имидж</div><div class="sub">4.8× конверсия</div></div>
         </article>
         <article class="feed-card p3">
           <video data-feed src="orbita-bg.mp4" muted playsinline loop preload="metadata"></video>
-          <div class="feed-meta"><div class="tag">Reels</div><div class="title">Вектор Фарма</div><div class="sub">×5.6 охват</div></div>
+          <div class="feed-meta"><div class="tag">Reels</div><div class="title">Фарма · Reels</div><div class="sub">×5.6 охват</div></div>
         </article>
         <article class="feed-card p4">
           <div class="poster"></div>
-          <div class="feed-meta"><div class="tag">Stories</div><div class="title">Квант Ритейл</div><div class="sub">UGC-серия</div></div>
+          <div class="feed-meta"><div class="tag">Stories</div><div class="title">E-com · UGC</div><div class="sub">UGC-серия</div></div>
         </article>
         <article class="feed-card p2">
           <div class="poster"></div>
-          <div class="feed-meta"><div class="tag">VK Видео</div><div class="title">Меридиан · OLV</div><div class="sub">6.8% CTR</div></div>
+          <div class="feed-meta"><div class="tag">VK Видео</div><div class="title">Бренд · OLV</div><div class="sub">6.8% CTR</div></div>
         </article>
       </div>
     </div>
   </section>
 
-  <!-- TRUST -->
-  <section class="trust">
-    <div class="container trust-row" aria-label="Доверие">
-      <span class="chip"><i></i>Договор и закрывающие</span>
-      <span class="chip"><i></i>NDA до брифа</span>
-      <span class="chip"><i></i>Юрлицо РФ · безнал</span>
-      <span class="chip"><i></i>Форматы 16:9 / 9:16 / 1:1</span>
-      <span class="chip"><i></i>Ответ за 24 часа</span>
+  <!-- PROOF -->
+  <section class="proof" aria-label="Ориентиры по срокам и формату">
+    <div class="container">
+      <div class="proof-grid reveal">
+        <div class="proof-item"><strong>от 10 дней</strong><span>От брифа до мастер-ролика</span></div>
+        <div class="proof-item"><strong>3 формата</strong><span>16:9 · 9:16 · 1:1 в одном цикле</span></div>
+        <div class="proof-item"><strong>24 часа</strong><span>Ответ на заявку и план работ</span></div>
+        <div class="proof-item"><strong>Договор</strong><span>Правки по брифу · NDA · юрлицо РФ</span></div>
+      </div>
+      <p class="proof-note">Ориентиры по процессу — без чужих логотипов. Реальные метрики кампаний подставим после вашего брифа и доступа к аналитике.</p>
     </div>
   </section>
 
-  <!-- SERVICES -->
+  <!-- FIT / PERSONAS -->
+  <section class="section" id="fit" style="padding-top:48px">
+    <div class="container">
+      <div class="section-h reveal">
+        <div class="eyebrow">Кому подходит</div>
+        <h2>Если нужен ролик под результат — вам сюда</h2>
+        <p class="lead">Три типичных заказчика. Выберите свой сценарий — пришлём пакет и смету под задачу.</p>
+      </div>
+      <div class="personas">
+        <article class="persona reveal">
+          <div class="who">Бренд</div>
+          <h3>Имидж и узнаваемость</h3>
+          <p>Нужен сильный OLV / brand film, который держит досмотр и не выглядит «как у всех».</p>
+          <ul>
+            <li>Brand film, преролл, OLV</li>
+            <li>Единый визуальный язык</li>
+            <li>Адаптации под плейсменты</li>
+          </ul>
+          <a class="btn btn-ghost btn-sm" href="#contact" data-persona="brand">Хочу так же</a>
+        </article>
+        <article class="persona reveal reveal-delay-1">
+          <div class="who">E-com / ритейл</div>
+          <h3>Заявки и продажи</h3>
+          <p>Нужны короткие перформанс-ролики и UGC, которые снижают CPA и держат CTR.</p>
+          <ul>
+            <li>Shorts / Reels / Stories</li>
+            <li>A/B креативов на трафике</li>
+            <li>Сквозные метрики до заявки</li>
+          </ul>
+          <a class="btn btn-primary btn-sm" href="#contact" data-persona="ecom">Получить предложение</a>
+        </article>
+        <article class="persona reveal reveal-delay-2">
+          <div class="who">Эксперт / продукт</div>
+          <h3>Доверие и лиды</h3>
+          <p>Нужно объяснить сложное просто: экспертные ролики, демо продукта, серия под прогрев.</p>
+          <ul>
+            <li>Объясняющие и демо-ролики</li>
+            <li>Серия под воронку</li>
+            <li>Сценарий под вашу экспертизу</li>
+          </ul>
+          <a class="btn btn-ghost btn-sm" href="#contact" data-persona="expert">Обсудить задачу</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+<!-- SERVICES -->
   <section class="section" id="services">
     <div class="container">
       <div class="section-h reveal">
         <div class="eyebrow">Услуги</div>
         <h2>Полный цикл видеорекламы</h2>
-        <p class="lead">Шесть направлений одним конвейером — от идеи до медиазакупки. Без россыпи подрядчиков.</p>
+        <p class="lead">Не «красивый сайт», а ролики под заявки, продажи и охват. Один конвейер: идея → эфир.</p>
       </div>
       <div class="grid-3">
         <article class="card reveal reveal-delay-1"><div class="card-num">01</div><h3>Сценарий и креатив</h3><p>Сценарии и раскадровки, которые цепляют в первые 3 секунды — под задачу бизнеса, не «для красоты».</p></article>
@@ -569,9 +664,9 @@ footer{padding:48px 0 28px;border-top:1px solid var(--line);margin-top:40px}
   <section class="section" id="cases">
     <div class="container">
       <div class="section-h reveal">
-        <div class="eyebrow">Кейсы</div>
-        <h2>Ролики, которые окупились</h2>
-        <p class="lead">Категория · бренд · формат. Без воды — цифры и задача.</p>
+        <div class="eyebrow">Кейсы как продажи</div>
+        <h2>Задача → решение → результат</h2>
+        <p class="lead">Категории без чужих логотипов. Цифры — структура типичных кампаний; подставим ваши метрики после доступа к кабинетам.</p>
       </div>
       <div class="cases-tabs" role="tablist">
         <button class="tab active" data-filter="all">Все</button>
@@ -585,110 +680,134 @@ footer{padding:48px 0 28px;border-top:1px solid var(--line);margin-top:40px}
           <div class="media"><video data-case src="orbita-video.mp4" muted playsinline loop preload="metadata"></video></div>
           <div class="case-body">
             <div class="case-kicker">Ритейл · YouTube</div>
-            <h3 class="case-title">Призма · перформанс-серия</h3>
+            <h3 class="case-title">Перформанс-серия 0:30</h3>
+            <p class="case-task"><strong>Задача:</strong> снизить CPV при росте просмотров</p>
+            <p class="case-sol"><strong>Решение:</strong> хук в 3 сек + 6 версий под A/B</p>
             <div class="case-stats"><div><strong>+312%</strong>просмотры</div><div><strong>−64%</strong>CPV</div></div>
+            <a class="case-cta" href="#contact">Хочу так же</a>
           </div>
         </article>
         <article class="case c2 reveal reveal-delay-2" data-cat="fintech">
           <div class="media"><div class="poster"></div></div>
           <div class="case-body">
             <div class="case-kicker">Финтех · Brand film</div>
-            <h3 class="case-title">Арка Банк · имидж</h3>
+            <h3 class="case-title">Имиджевый OLV</h3>
+            <p class="case-task"><strong>Задача:</strong> досмотр и конверсия в заявку</p>
+            <p class="case-sol"><strong>Решение:</strong> story-driven сценарий + CTA-хвост</p>
             <div class="case-stats"><div><strong>4.8×</strong>конверсия</div><div><strong>78%</strong>досмотр</div></div>
+            <a class="case-cta" href="#contact">Хочу так же</a>
           </div>
         </article>
         <article class="case c3 reveal reveal-delay-3" data-cat="pharma">
           <div class="media"><video data-case src="orbita-bg.mp4" muted playsinline loop preload="metadata"></video></div>
           <div class="case-body">
             <div class="case-kicker">Фарма · TikTok + Reels</div>
-            <h3 class="case-title">Вектор Фарма · 24 ролика</h3>
+            <h3 class="case-title">Пакет коротких роликов</h3>
+            <p class="case-task"><strong>Задача:</strong> охват и удержание 3 сек</p>
+            <p class="case-sol"><strong>Решение:</strong> 24 вертикали в одном пайплайне</p>
             <div class="case-stats"><div><strong>×5.6</strong>охват</div><div><strong>89%</strong>удержание 3с</div></div>
+            <a class="case-cta" href="#contact">Хочу так же</a>
           </div>
         </article>
         <article class="case c4 reveal" data-cat="retail">
           <div class="media"><div class="poster"></div></div>
           <div class="case-body">
-            <div class="case-kicker">Ритейл · Stories</div>
-            <h3 class="case-title">Квант Ритейл · UGC</h3>
+            <div class="case-kicker">E-com · Stories</div>
+            <h3 class="case-title">UGC под CPA</h3>
+            <p class="case-task"><strong>Задача:</strong> заявки без «глянца»</p>
+            <p class="case-sol"><strong>Решение:</strong> UGC-серия + нативные офферы</p>
             <div class="case-stats"><div><strong>2.1M</strong>просмотры</div><div><strong>−41%</strong>CPA</div></div>
+            <a class="case-cta" href="#contact">Хочу так же</a>
           </div>
         </article>
         <article class="case c5 reveal reveal-delay-2" data-cat="brand">
           <div class="media"><div class="poster"></div></div>
           <div class="case-body">
             <div class="case-kicker">Бренд · OLV</div>
-            <h3 class="case-title">Меридиан · преролл</h3>
+            <h3 class="case-title">Преролл с CTR</h3>
+            <p class="case-task"><strong>Задача:</strong> кликабельный преролл</p>
+            <p class="case-sol"><strong>Решение:</strong> оффер в первые кадры + end-card</p>
             <div class="case-stats"><div><strong>6.8%</strong>CTR</div><div><strong>184К</strong>досмотры</div></div>
+            <a class="case-cta" href="#contact">Хочу так же</a>
           </div>
         </article>
         <article class="case c6 reveal reveal-delay-3" data-cat="brand">
           <div class="media"><div class="poster"></div></div>
           <div class="case-body">
             <div class="case-kicker">Бренд · Rutube</div>
-            <h3 class="case-title">Нова Групп · серия</h3>
+            <h3 class="case-title">Серия под лиды</h3>
+            <p class="case-task"><strong>Задача:</strong> лиды с досмотром</p>
+            <p class="case-sol"><strong>Решение:</strong> сериал + единый CTA</p>
             <div class="case-stats"><div><strong>81%</strong>досмотр</div><div><strong>+2.4×</strong>лиды</div></div>
+            <a class="case-cta" href="#contact">Хочу так же</a>
           </div>
         </article>
       </div>
     </div>
-  </section>
+</section>
 
   <!-- PRICING -->
   <section class="section" id="pricing" style="background:var(--bg2)">
     <div class="container">
       <div class="section-h reveal">
-        <div class="eyebrow">Тарифы</div>
-        <h2>Пакеты под задачу</h2>
-        <p class="lead">Ориентиры. Финальная стоимость — после брифа, в рублях, по договору.</p>
+        <div class="eyebrow">Пакеты</div>
+        <h2>Лестница оффера — прозрачно</h2>
+        <p class="lead">Ориентиры по объёму. Финальная смета — после брифа, в рублях, по договору. Популярный пакет закрывает большинство заказов на ролик + запуск.</p>
       </div>
       <div class="price-grid">
         <article class="price reveal">
           <div class="name">Старт</div>
-          <div class="sum">от 250 000 <span>₽/мес</span></div>
-          <div class="desc">Локальный бизнес, выход в диджитал</div>
+          <div class="sum">от 250 000 <span>₽</span></div>
+          <div class="desc">Один ролик / локальный запуск</div>
           <ul>
-            <li>Один приоритетный канал</li>
-            <li>Ежемесячная аналитика</li>
-            <li>Базовая веб-аналитика</li>
-            <li>Персональный менеджер</li>
+            <li>Сценарий + съёмка + монтаж</li>
+            <li>1 приоритетный канал</li>
+            <li>2 раунда правок по брифу</li>
+            <li>Мастер + веб-версии</li>
           </ul>
-          <a class="btn btn-ghost btn-block" href="#contact">Выбрать тариф</a>
+          <a class="btn btn-ghost btn-block" href="#contact">Заказать ролик</a>
         </article>
         <article class="price popular reveal reveal-delay-1">
           <div class="badge-pop">Популярный</div>
           <div class="name">Рост</div>
-          <div class="sum">от 650 000 <span>₽/мес</span></div>
-          <div class="desc">Масштабирование каналов и креативов</div>
+          <div class="sum">от 650 000 <span>₽</span></div>
+          <div class="desc">Серия роликов + запуск и A/B</div>
           <ul>
-            <li>До 4 каналов продвижения</li>
-            <li>Сквозная аналитика и дашборд</li>
-            <li>Креативная продакшн-команда</li>
-            <li>Еженедельные стратегические синки</li>
+            <li>Пакет креативов под 2–4 канала</li>
+            <li>Адаптации 16:9 / 9:16 / 1:1</li>
+            <li>A/B на реальном трафике</li>
+            <li>Дашборд метрик и синки</li>
             <li>Приоритетная поддержка</li>
           </ul>
-          <a class="btn btn-primary btn-block" href="#contact">Заказать рекламу</a>
+          <a class="btn btn-primary btn-block" href="#contact">Получить предложение</a>
         </article>
         <article class="price reveal reveal-delay-2">
           <div class="name">Энтерпрайз</div>
           <div class="sum">индивидуально</div>
-          <div class="desc">Крупный бизнес и сетевые бренды</div>
+          <div class="desc">Сетевой бренд / большой объём</div>
           <ul>
-            <li>Неограниченные каналы</li>
             <li>Выделенная команда под бренд</li>
-            <li>Интеграции и продукт</li>
-            <li>SLA и отчётность для C-level</li>
+            <li>Серии, интеграции, SLA</li>
+            <li>Медиазакупка и отчётность</li>
+            <li>NDA и договор под закупку</li>
           </ul>
           <a class="btn btn-ghost btn-block" href="#contact">Обсудить условия</a>
         </article>
       </div>
-      <p class="price-note">Сравнивая с классическим продакшеном: один цикл закрывает съёмку + адаптации + закупку — без трёх разных подрядчиков.</p>
+      <div class="guarantee" aria-label="Гарантии">
+        <span class="chip"><i></i>Договор и закрывающие</span>
+        <span class="chip"><i></i>Правки по брифу</span>
+        <span class="chip"><i></i>Ответ за 24 часа</span>
+        <span class="chip"><i></i>NDA до старта</span>
+      </div>
+      <p class="price-note">Один цикл: съёмка + адаптации + запуск — без трёх разных подрядчиков. Финальная смета после брифа.</p>
       <div class="cta-band reveal">
         <div>
-          <h3>Готовы к ролику?</h3>
-          <p>Брифинг за 24 часа — разберём задачу, формат и бюджет. Без воды, с ориентиром по срокам.</p>
+          <h3>Разберём задачу за 24 часа</h3>
+          <p>Пришлём план и смету: формат, сроки, объём правок. Без давления — с ясным следующим шагом.</p>
         </div>
         <div class="actions">
-          <a class="btn btn-primary" href="#contact">Заказать рекламу</a>
+          <a class="btn btn-primary" href="#contact">Получить предложение</a>
           <a class="btn btn-ghost" href="https://t.me/orbita_agency" target="_blank" rel="noopener">Telegram</a>
         </div>
       </div>
@@ -699,20 +818,21 @@ footer{padding:48px 0 28px;border-top:1px solid var(--line);margin-top:40px}
   <section class="section" id="faq">
     <div class="container">
       <div class="section-h reveal">
-        <div class="eyebrow">FAQ</div>
-        <h2>Частые вопросы</h2>
+        <div class="eyebrow">Возражения</div>
+        <h2>Честно про сроки, права и правки</h2>
+        <p class="lead">Ответы, которые обычно спрашивают перед заказом ролика.</p>
       </div>
       <div class="faq">
-        <details><summary>Сколько времени занимает запуск?</summary><div class="ans">Первые материалы — на 2–3 неделе после старта (после аналитики и стратегии). Масштабирование — 2–3 месяца.</div></details>
-        <details><summary>Как вы считаете эффективность?</summary><div class="ans">Сквозная аналитика до старта. KPI привязаны к юнит-экономике: ROMI, CAC, LTV — не только охваты и клики.</div></details>
-        <details><summary>Работаете с небольшим бюджетом?</summary><div class="ans">Да. Тариф «Старт» — один приоритетный канал вместо распыления бюджета.</div></details>
-        <details><summary>Можно расторгнуть досрочно?</summary><div class="ans">Да. Без долгосрочных обязательств — уведомление за 30 дней.</div></details>
-        <details><summary>Какие форматы закрываете?</summary><div class="ans">OLV, Reels, Shorts, Stories, programmatic, Rutube. Адаптации 16:9 / 9:16 / 1:1 в одном цикле.</div></details>
-        <details><summary>Договор, NDA, юрлицо?</summary><div class="ans">Да. NDA до переговоров. Договор, акт, счёт, УПД. Юрлицо РФ, безнал с НДС и без.</div></details>
-        <details><summary>Кто ведёт проект?</summary><div class="ans">Персональный стратег и профильная команда. Вы общаетесь с теми, кто реально работает над роликом.</div></details>
+        <details open><summary>Сколько ждать ролик?</summary><div class="ans">Ориентир: от брифа до мастер-файла — от 10 рабочих дней (зависит от сложности съёмки и согласований). Первый ответ на заявку — в течение 24 часов с планом и сметой.</div></details>
+        <details><summary>Кому принадлежат права на ролик?</summary><div class="ans">После полной оплаты права на использование мастер-ролика переходят заказчику в объёме, прописанном в договоре (территория, срок, плейсменты). Исходники и проектные файлы — по отдельному пункту.</div></details>
+        <details><summary>Сколько правок входит?</summary><div class="ans">В пакете — раунды правок по утверждённому брифу и сценарию (обычно 2). Правки «вне брифа» и смена концепции оцениваются отдельно — без сюрпризов в середине монтажа.</div></details>
+        <details><summary>Почему не фриланс / не «просто монтажёр»?</summary><div class="ans">Фриланс часто даёт картинку. Мы закрываем задачу целиком: сообщение под KPI, съёмка, адаптации под площадки, запуск и отчёт. Один ответственный подрядчик, договор, NDA, сроки.</div></details>
+        <details><summary>Что нужно, чтобы стартовать?</summary><div class="ans">Короткий бриф: продукт, аудитория, цель (заявки / продажи / охват), референсы, дедлайн и бюджетный коридор. Если есть брендбук и доступы к кабинетам — ещё быстрее.</div></details>
+        <details><summary>Какие форматы делаете?</summary><div class="ans">OLV, Reels, Shorts, Stories, Rutube, programmatic. Адаптации 16:9 / 9:16 / 1:1 в одном производственном цикле.</div></details>
+        <details><summary>Договор, NDA, юрлицо, безнал?</summary><div class="ans">Да. NDA до детального брифа. Договор, акт, счёт, УПД. Юрлицо РФ — с НДС и без.</div></details>
       </div>
     </div>
-  </section>
+</section>
 
   <section class="section" id="contact" style="padding-top:24px">
     <div class="container">
@@ -727,7 +847,7 @@ footer{padding:48px 0 28px;border-top:1px solid var(--line);margin-top:40px}
           <label>Email<input type="email" name="email" required placeholder="name@company.ru" autocomplete="email"></label>
           <label>Телефон<input type="tel" name="phone" placeholder="+7 …" autocomplete="tel"></label>
           <label>О проекте<textarea name="about" placeholder="Формат, площадки, бюджет, сроки"></textarea></label>
-          <button class="btn btn-primary" type="submit">Отправить заявку</button>
+          <button class="btn btn-primary" type="submit">Получить предложение</button>
           <div class="form-ok" id="formOk">Заявка принята. Ответим в течение 24 часов на указанный email.</div>
         </form>
         <aside class="contact-side">
@@ -735,7 +855,7 @@ footer{padding:48px 0 28px;border-top:1px solid var(--line);margin-top:40px}
           <div class="row"><strong>Телефон</strong><a href="tel:+74951234567">+7 495 123-45-67</a></div>
           <div class="row"><strong>Офис</strong>Москва, Пресненская наб., 12</div>
           <div class="reply">● Ответ за 24 часа</div>
-          <p class="muted" style="margin-top:22px;font-size:14px">Готовы вывести бренд на орбиту? Напишите — пришлём шоурил и коммерческое предложение.</p>
+          <p class="muted" style="margin-top:22px;font-size:14px">Напишите задачу — за 24 часа пришлём план, ориентир по смете и следующие шаги. Шоурил — по запросу.</p>
         </aside>
       </div>
     </div>
@@ -751,7 +871,7 @@ footer{padding:48px 0 28px;border-top:1px solid var(--line);margin-top:40px}
       </div>
       <div>
         <h4>Агентство</h4>
-        <a href="#services">Услуги</a>
+        <a href="#fit">Кому подходит</a>
         <a href="#cases">Кейсы</a>
         <a href="#pricing">Тарифы</a>
         <a href="#process">Процесс</a>
@@ -779,7 +899,7 @@ footer{padding:48px 0 28px;border-top:1px solid var(--line);margin-top:40px}
 <div class="sticky-cta" aria-label="Быстрые действия">
   <a class="link-ico" href="https://t.me/orbita_agency" target="_blank" rel="noopener" aria-label="Telegram" title="Telegram">✈</a>
   <a class="link-ico" href="mailto:hello@orbita.agency" aria-label="Email" title="Email">✉</a>
-  <a class="btn btn-primary btn-sm" href="#contact">Заказать</a>
+  <a class="btn btn-primary btn-sm" href="#contact">Заказать ролик</a>
 </div>
 
 <script>
@@ -980,6 +1100,16 @@ footer{padding:48px 0 28px;border-top:1px solid var(--line);margin-top:40px}
     document.querySelectorAll('.feed-mobile video[data-feed]').forEach(v => mobIO.observe(v));
   }
 })();
+
+  // Persona → contact prefill
+  document.querySelectorAll("[data-persona]").forEach(function(a){
+    a.addEventListener("click", function(){
+      var map = {brand:"Бренд: имидж / OLV", ecom:"E-com: заявки и продажи", expert:"Эксперт: лиды и доверие"};
+      var about = document.querySelector('textarea[name="about"]');
+      if(about && !about.value) about.value = map[a.getAttribute("data-persona")] || "";
+    });
+  });
+
 </script>
 </body>
 </html>
