@@ -786,7 +786,11 @@ h3{font-size:clamp(18px,2vw,22px)}
       el.innerHTML = badgeHtml+'<img src="'+src+'" alt="'+title+'" loading="lazy" decoding="async">'+hint;
     }
     el.addEventListener('click', function(){
-      openGallery(collectWallGallery(), {src:src, type:type, badge:badge||title, title:title});
+      const g = collectWallGallery();
+      const cur = {src:src, type:type, badge:badge||title, title:title};
+      let ix = g.findIndex(function(it){ return it.src===cur.src && it.type===cur.type && it.badge===cur.badge; });
+      if (ix < 0) ix = g.findIndex(function(it){ return it.src===cur.src && it.type===cur.type; });
+      openGallery(g, cur, ix);
     });
     el.addEventListener('keydown', function(e){
       if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); el.click(); }
@@ -913,7 +917,7 @@ h3{font-size:clamp(18px,2vw,22px)}
         const gallery = set.map(function(x){
           return {src:x.s, type:x.t === 'video' ? 'video' : 'img', badge:x.l, title:x.title || x.l};
         });
-        openGallery(gallery, gallery[i]);
+        openGallery(gallery, gallery[i], i);
       };
       cell.addEventListener('click', open);
       cell.addEventListener('keydown', function(e){
@@ -1018,13 +1022,19 @@ h3{font-size:clamp(18px,2vw,22px)}
       lbImg.alt = item.title || item.badge || 'Работа';
     }
   }
-  function openGallery(items, current){
-    galleryItems = items && items.length ? items.slice() : [current];
+  function openGallery(items, current, startIndex){
+    galleryItems = items && items.length ? items.slice() : (current ? [current] : []);
     let idx = 0;
-    if (current){
+    if (typeof startIndex === 'number' && startIndex >= 0 && startIndex < galleryItems.length){
+      idx = startIndex;
+    } else if (current){
       idx = galleryItems.findIndex(function(it){
-        return it.src === current.src && it.type === current.type;
+        return it.src === current.src && it.type === current.type &&
+          (it.title||'') === (current.title||'') && (it.badge||'') === (current.badge||'');
       });
+      if (idx < 0){
+        idx = galleryItems.findIndex(function(it){ return it.src === current.src && it.type === current.type; });
+      }
       if (idx < 0){
         galleryItems.unshift(current);
         idx = 0;
