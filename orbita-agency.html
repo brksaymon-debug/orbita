@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ОРБИТА — Видеопродакшн для бизнеса</title>
-<meta name="description" content="Видеопродакшн для бизнеса: реклама, Reels, имидж, motion. Договор, NDA, юрлицо. От сторис до кампаний.">
+<title>ОРБИТА — Видео и дизайн, которые продают</title>
+<meta name="description" content="Креативная студия: видеореклама, Reels, монтаж, баннеры, флаеры, афиши и key visual. Договор, NDA, юрлицо. Цены от — финал после брифа.">
 <meta name="theme-color" content="#0a0a0c">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -247,6 +247,20 @@ h3{font-size:clamp(18px,2vw,22px)}
   .wall-col{animation:none!important}
   html{scroll-behavior:auto}
 }
+
+.offer-pills{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 22px}
+.offer-pills span{
+  font-size:12px;color:var(--text);border:1px solid var(--line);
+  background:rgba(255,255,255,.03);border-radius:999px;padding:7px 12px;
+}
+.fast-grid.design-grid{grid-template-columns:repeat(4,1fr)}
+.price-mark{font-size:12px;color:var(--muted);margin-top:8px}
+@media (max-width:980px){
+  .fast-grid.design-grid{grid-template-columns:1fr 1fr}
+}
+@media (max-width:640px){
+  .fast-grid.design-grid{grid-template-columns:1fr}
+}
 </style>
 </head>
 <body>
@@ -261,7 +275,7 @@ h3{font-size:clamp(18px,2vw,22px)}
       <a href="#contact">Контакт</a>
     </nav>
     <div class="nav-cta">
-      <a class="btn btn-primary btn-sm" href="#contact">Обсудить проект</a>
+      <a class="btn btn-primary btn-sm" href="#contact">Получить смету</a>
       <button class="burger" type="button" aria-label="Меню" id="burger">☰</button>
     </div>
   </div>
@@ -271,7 +285,7 @@ h3{font-size:clamp(18px,2vw,22px)}
     <a href="#process">Процесс</a>
     <a href="#prices">Цены</a>
     <a href="#contact">Контакт</a>
-    <a href="#contact">Обсудить проект</a>
+    <a href="#contact">Получить смету</a>
   </div>
 </header>
 
@@ -282,14 +296,23 @@ h3{font-size:clamp(18px,2vw,22px)}
     </div>
     <div class="wrap hero-grid">
       <div class="hero-copy">
-        <div class="eyebrow">Видеопродакшн · полный цикл</div>
-        <h1>Видеопродакшн<br>для бизнеса</h1>
-        <p class="lead">Снимаем и монтируем ролики, которые продают: реклама, Reels, имидж, motion. От одной сторис до кампании — с договором, сроками и понятной сметой.</p>
-        <div class="hero-actions">
-          <a class="btn btn-primary" href="#contact">Обсудить проект</a>
-          <a class="btn btn-ghost" href="#works">Смотреть работы</a>
+        <div class="eyebrow">Креативная студия · видео и дизайн</div>
+        <h1>Видео и дизайн,<br>которые продают</h1>
+        <p class="lead">Ролики, баннеры, афиши, флаеры — под ключ. Видеореклама, монтаж и статичный дизайн для бизнеса: от одной сторис до кампании и печатного макета — с договором, сроками и понятной сметой.</p>
+        <div class="offer-pills" aria-label="Направления">
+          <span>Видеореклама</span>
+          <span>Reels / монтаж</span>
+          <span>Баннеры</span>
+          <span>Флаеры</span>
+          <span>Афиши</span>
+          <span>Key visual</span>
         </div>
-        <p class="hero-note">Ответ в течение 24 часов · hello@orbita.agency</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#contact">Получить смету</a>
+          <a class="btn btn-ghost" href="#prices">Смотреть цены</a>
+          <a class="btn btn-ghost" href="#works">Работы</a>
+        </div>
+        <p class="hero-note">Ответ в течение 24 часов · hello@orbita.agency · финал после брифа</p>
       </div>
       <div class="media-wall" id="works" aria-label="Витрина работ">
         <div class="wall-col" id="wallA"></div>
@@ -303,6 +326,7 @@ h3{font-size:clamp(18px,2vw,22px)}
       <span class="chip"><i></i>Договор</span>
       <span class="chip"><i></i>NDA</span>
       <span class="chip"><i></i>Юрлицо</span>
+      <span class="chip"><i></i>Видео + дизайн</span>
       <span class="chip"><i></i>16:9 / 9:16 / 1:1</span>
       <span class="chip"><i></i>Ответ 24ч</span>
     </div>
@@ -311,50 +335,50 @@ h3{font-size:clamp(18px,2vw,22px)}
   <section class="section" id="services">
     <div class="wrap">
       <div class="eyebrow">Услуги</div>
-      <h2>Что делаем</h2>
-      <p class="lead">Производство под задачу бизнеса — не «контент ради контента».</p>
+      <h2>Полная креативная студия</h2>
+      <p class="lead">Видео и дизайн под задачу продаж — не AI-видео-клон и не «контент ради контента».</p>
       <div class="services-grid" style="margin-top:28px">
         <div class="svc-list" id="svcList">
           <article class="svc-item active" data-svc="0">
             <div class="svc-num">01</div>
             <div>
-              <h3>Рекламные ролики</h3>
-              <p>OLV, pre-roll, продуктовые и перформанс-ролики под размещение.</p>
+              <h3>Видеореклама / Reels / монтаж</h3>
+              <p>OLV, pre-roll, вертикали, монтаж и постпродакшн — ролики, которые держат внимание и ведут к заявке.</p>
             </div>
           </article>
           <article class="svc-item" data-svc="1">
             <div class="svc-num">02</div>
             <div>
-              <h3>Reels / Shorts / TikTok</h3>
-              <p>Вертикальный контент с хуком в первые секунды — серии и разовые.</p>
+              <h3>Баннеры</h3>
+              <p>Digital и наружка: один макет или серия в едином визуальном языке под площадки и форматы.</p>
             </div>
           </article>
           <article class="svc-item" data-svc="2">
             <div class="svc-num">03</div>
             <div>
-              <h3>Имидж и корпоратив</h3>
-              <p>О бренде, команде, культуре — ролики для сайта, HR и презентаций.</p>
+              <h3>Флаеры / листовки</h3>
+              <p>Печать и PDF под раздачу: оффер, офсет/цифровой вывод, читаемая иерархия и сильный CTA.</p>
             </div>
           </article>
           <article class="svc-item" data-svc="3">
             <div class="svc-num">04</div>
             <div>
-              <h3>Motion и графика</h3>
-              <p>Титры, инфографика, анимированные объяснения продукта.</p>
+              <h3>Афиши</h3>
+              <p>Под фильмы, концерты и ивенты — один формат или линейка размеров с киношной подачей.</p>
             </div>
           </article>
           <article class="svc-item" data-svc="4">
             <div class="svc-num">05</div>
             <div>
-              <h3>Адаптация форматов</h3>
-              <p>Один мастер — версии 16:9, 9:16, 1:1 под все плейсменты.</p>
+              <h3>Key visual / соцсети</h3>
+              <p>Статичный дизайн: обложки, сетки, посты и key visual, которые держат бренд в ленте.</p>
             </div>
           </article>
           <article class="svc-item" data-svc="5">
             <div class="svc-num">06</div>
             <div>
-              <h3>Монтаж и постпродакшн</h3>
-              <p>Сборка из вашего материала: цвет, звук, ритм, финальные мастера.</p>
+              <h3>Motion и адаптации</h3>
+              <p>Титры, графика, версии 16:9 / 9:16 / 1:1 — один смысл, все плейсменты.</p>
             </div>
           </article>
         </div>
@@ -366,7 +390,7 @@ h3{font-size:clamp(18px,2vw,22px)}
   <section class="section" id="process" style="background:linear-gradient(180deg,transparent,rgba(255,255,255,.02),transparent)">
     <div class="wrap">
       <div class="eyebrow">Процесс</div>
-      <h2>Как проходит производство</h2>
+      <h2>Как проходит работа</h2>
       <p class="lead">Четыре этапа с понятными точками согласования — как в топ-продакшене.</p>
       <div class="process-grid">
         <article class="step">
@@ -384,7 +408,7 @@ h3{font-size:clamp(18px,2vw,22px)}
         <article class="step">
           <div class="step-num">02 / КОНЦЕПТ</div>
           <h3>Идея и сценарий</h3>
-          <p>Предлагаем направление, структуру ролика и визуальные референсы до съёмки или монтажа.</p>
+          <p>Предлагаем направление, структуру ролика или макета и визуальные референсы до съёмки, монтажа или дизайна.</p>
           <div class="get">
             <strong>Что получаете</strong>
             <ul>
@@ -434,10 +458,10 @@ h3{font-size:clamp(18px,2vw,22px)}
     <div class="wrap">
       <div class="eyebrow">Цены</div>
       <h2>Прозрачные ориентиры</h2>
-      <p class="lead">Два уровня: быстрые разовые задачи и пакеты продакшена. Финальная смета — после брифа.</p>
+      <p class="lead">Видео и дизайн: разовые задачи и пакеты. Все суммы — <strong>от</strong>; финал после брифа.</p>
       <div class="price-layers">
         <div>
-          <div class="layer-title">Быстрые разовые</div>
+          <div class="layer-title">Видео — разовые</div>
           <div class="fast-grid">
             <article class="fast-card">
               <div class="name">1 сторис</div>
@@ -470,6 +494,37 @@ h3{font-size:clamp(18px,2vw,22px)}
               <a class="btn btn-ghost btn-sm" href="#contact" data-prefill="Хочу адаптацию ролика, ориентир от 12 000 ₽">Заказать</a>
             </article>
           </div>
+        </div>
+
+        <div>
+          <div class="layer-title">Дизайн — разовые</div>
+          <div class="fast-grid design-grid">
+            <article class="fast-card">
+              <div class="name">Баннер (1 макет)</div>
+              <div class="price">от 5 000 <span>₽</span></div>
+              <p>Digital или наружка · ориентир 5–8 тыс.</p>
+              <a class="btn btn-ghost btn-sm" href="#contact" data-prefill="Хочу баннер (1 макет), ориентир от 5 000–8 000 ₽">Заказать</a>
+            </article>
+            <article class="fast-card">
+              <div class="name">Флаер / листовка</div>
+              <div class="price">от 6 000 <span>₽</span></div>
+              <p>1 макет под печать / PDF · ориентир 6–10 тыс.</p>
+              <a class="btn btn-ghost btn-sm" href="#contact" data-prefill="Хочу флаер / листовку, ориентир от 6 000–10 000 ₽">Заказать</a>
+            </article>
+            <article class="fast-card">
+              <div class="name">Афиша (1 формат)</div>
+              <div class="price">от 12 000 <span>₽</span></div>
+              <p>Фильм / ивент · ориентир 12–20 тыс.</p>
+              <a class="btn btn-ghost btn-sm" href="#contact" data-prefill="Хочу афишу (1 формат), ориентир от 12 000–20 000 ₽">Заказать</a>
+            </article>
+            <article class="fast-card">
+              <div class="name">Пакет соцсетей</div>
+              <div class="price">от 25 000 <span>₽</span></div>
+              <p>Набор статичных · ориентир 25–40 тыс.</p>
+              <a class="btn btn-ghost btn-sm" href="#contact" data-prefill="Хочу пакет статичных для соцсетей, ориентир от 25 000–40 000 ₽">Заказать</a>
+            </article>
+          </div>
+          <p class="price-mark">Дизайн: «от», финал после брифа · объём правок фиксируем до старта.</p>
         </div>
         <div>
           <div class="layer-title">Пакеты продакшена</div>
@@ -510,7 +565,7 @@ h3{font-size:clamp(18px,2vw,22px)}
               <a class="btn btn-ghost btn-sm" href="#contact" data-prefill="Enterprise / ретейнер — обсудить объём и условия">Запросить</a>
             </article>
           </div>
-          <p class="price-note">Цены — отправная точка. Оплата в рублях, по договору, с закрывающими документами.</p>
+          <p class="price-note">Все цены — «от»; финал после брифа. Оплата в рублях, по договору, с закрывающими. Без чужих логотипов и накрученных кейсов.</p>
         </div>
       </div>
     </div>
@@ -521,14 +576,14 @@ h3{font-size:clamp(18px,2vw,22px)}
       <div class="eyebrow">Кому подойдёт</div>
       <h2>Три коротких сценария</h2>
       <div class="who-grid">
-        <a class="who-card" href="#contact" data-prefill="Я новичок / эксперт: нужен первый сильный ролик или серия сторис.">
+        <a class="who-card" href="#contact" data-prefill="Я новичок / эксперт: нужен первый сильный ролик, афиша или серия сторис.">
           <h3>Новичок / эксперт</h3>
-          <p>Нужно выглядеть сильно с первого ролика — без студийной бюрократии.</p>
+          <p>Нужно выглядеть сильно с первого ролика или афиши — без студийной бюрократии.</p>
           <span class="btn btn-ghost btn-sm">Написать</span>
         </a>
-        <a class="who-card" href="#contact" data-prefill="Малый / средний бизнес: нужны Reels и рекламные ролики под продажи.">
+        <a class="who-card" href="#contact" data-prefill="Малый / средний бизнес: нужны ролики, баннеры или афиши под продажи.">
           <h3>Бизнес</h3>
-          <p>Reels, реклама, объяснение продукта — контент, который ведёт к заявкам.</p>
+          <p>Reels, реклама, баннеры и статичный дизайн — материалы, которые ведут к заявкам.</p>
           <span class="btn btn-ghost btn-sm">Написать</span>
         </a>
         <a class="who-card" href="#contact" data-prefill="Компания / маркетинг: пакет Старт или Рост, договор и NDA.">
@@ -572,8 +627,8 @@ h3{font-size:clamp(18px,2vw,22px)}
   <section class="section" id="contact">
     <div class="wrap">
       <div class="eyebrow">Контакт</div>
-      <h2>Обсудим ваш проект</h2>
-      <p class="lead">Напишите задачу — ответим в течение 24 часов.</p>
+      <h2>Получите смету под задачу</h2>
+      <p class="lead">Ролик, баннер, афиша или пакет — напишите задачу, ответим за 24 часа с ориентиром «от» и следующим шагом.</p>
       <div class="contact-grid">
         <div class="contact-card">
           <h3>Связь</h3>
@@ -605,7 +660,7 @@ h3{font-size:clamp(18px,2vw,22px)}
 
 <footer class="footer">
   <div class="wrap footer-inner">
-    <div>© <span id="year"></span> ОРБИТА · видеопродакшн</div>
+    <div>© <span id="year"></span> ОРБИТА · видео и дизайн</div>
     <div><a href="mailto:hello@orbita.agency">hello@orbita.agency</a></div>
   </div>
 </footer>
@@ -626,8 +681,9 @@ h3{font-size:clamp(18px,2vw,22px)}
     'work-05.mp4','work-06.mp4','work-09.mp4','work-10.mp4','work-11.mp4'
   ];
   const stills = [
-    'still-01.jpg','still-02.jpg','still-03.jpg','still-05.jpg','still-07.jpg',
-    'still-09.jpg','still-10.jpg','still-11.jpg','still-12.jpg','still-14.jpg','still-15.jpg'
+    'still-01.jpg','still-02.jpg','still-03.jpg','still-04.jpg','still-05.jpg','still-06.jpg',
+    'still-07.jpg','still-08.jpg','still-09.jpg','still-10.jpg','still-11.jpg','still-12.jpg',
+    'still-13.jpg','still-14.jpg','still-15.jpg','still-16.jpg'
   ];
 
   const cases = [
@@ -661,25 +717,25 @@ h3{font-size:clamp(18px,2vw,22px)}
   }
   const colA = [
     {src:videos[0], v:true}, {src:stills[0], v:false, wide:true}, {src:videos[1], v:true},
-    {src:stills[1], v:false}, {src:videos[2], v:true}, {src:stills[2], v:false, wide:true},
-    {src:videos[3], v:true}, {src:stills[3], v:false}
+    {src:stills[12], v:false}, {src:videos[2], v:true}, {src:stills[2], v:false, wide:true},
+    {src:videos[3], v:true}, {src:stills[13], v:false}, {src:stills[15], v:false, wide:true}
   ];
   const colB = [
-    {src:stills[4], v:false}, {src:videos[4], v:true}, {src:stills[5], v:false, wide:true},
+    {src:stills[4], v:false}, {src:videos[4], v:true}, {src:stills[14], v:false, wide:true},
     {src:videos[5], v:true}, {src:stills[6], v:false}, {src:videos[6], v:true},
-    {src:stills[7], v:false, wide:true}, {src:videos[7], v:true}
+    {src:stills[7], v:false, wide:true}, {src:videos[7], v:true}, {src:stills[8], v:false}
   ];
   fillWall(document.getElementById('wallA'), colA);
   fillWall(document.getElementById('wallB'), colB);
 
   /* Services wall */
   const svcAssets = [
-    [{t:'video',s:'work-02.mp4',l:'Реклама'},{t:'img',s:'still-14.jpg',l:'Кадр'},{t:'img',s:'still-15.jpg',l:'Свет'}],
-    [{t:'video',s:'work-04.mp4',l:'Reels'},{t:'img',s:'still-10.jpg',l:'Вертикаль'},{t:'video',s:'work-10.mp4',l:'Shorts'}],
-    [{t:'video',s:'work-06.mp4',l:'Имидж'},{t:'img',s:'still-07.jpg',l:'Атмосфера'},{t:'img',s:'still-12.jpg',l:'Деталь'}],
-    [{t:'img',s:'still-09.jpg',l:'Motion'},{t:'video',s:'work-09.mp4',l:'Графика'},{t:'img',s:'still-11.jpg',l:'Титр'}],
-    [{t:'video',s:'work-01.mp4',l:'16:9'},{t:'img',s:'still-01.jpg',l:'9:16'},{t:'img',s:'still-05.jpg',l:'1:1'}],
-    [{t:'video',s:'work-05.mp4',l:'Монтаж'},{t:'img',s:'still-03.jpg',l:'Цвет'},{t:'img',s:'still-02.jpg',l:'Ритм'}]
+    [{t:'video',s:'work-02.mp4',l:'Видеореклама'},{t:'video',s:'work-04.mp4',l:'Reels'},{t:'video',s:'work-05.mp4',l:'Монтаж'}],
+    [{t:'img',s:'still-14.jpg',l:'Баннер'},{t:'img',s:'still-15.jpg',l:'Digital'},{t:'img',s:'still-16.jpg',l:'Наружка'}],
+    [{t:'img',s:'still-07.jpg',l:'Флаер'},{t:'img',s:'still-08.jpg',l:'Листовка'},{t:'img',s:'still-12.jpg',l:'Оффер'}],
+    [{t:'img',s:'still-13.jpg',l:'Афиша'},{t:'img',s:'still-04.jpg',l:'Ивент'},{t:'img',s:'still-06.jpg',l:'Кино'}],
+    [{t:'img',s:'still-09.jpg',l:'Key visual'},{t:'img',s:'still-11.jpg',l:'Соцсети'},{t:'img',s:'still-10.jpg',l:'Сетка'}],
+    [{t:'video',s:'work-09.mp4',l:'Motion'},{t:'img',s:'still-01.jpg',l:'9:16'},{t:'img',s:'still-05.jpg',l:'1:1'}]
   ];
   const svcWall = document.getElementById('svcWall');
   function renderSvcWall(idx){
