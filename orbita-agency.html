@@ -81,6 +81,14 @@ h3{font-size:clamp(18px,2vw,22px)}
 }
 .wall-item.wide{aspect-ratio:16/10}
 .wall-item video,.wall-item img{width:100%;height:100%;object-fit:cover}
+.wall-item .badge{
+  position:absolute;left:12px;top:12px;padding:6px 10px;border-radius:999px;
+  background:rgba(0,0,0,.55);border:1px solid rgba(255,255,255,.18);font-size:11px;
+  backdrop-filter:blur(8px);letter-spacing:.04em;z-index:2;
+}
+.mock-note{
+  margin-top:14px;font-size:13px;color:rgba(255,255,255,.55);letter-spacing:.01em;
+}
 .wall-item .play{
   position:absolute;inset:auto 12px 12px auto;width:36px;height:36px;border-radius:50%;
   background:rgba(0,0,0,.55);border:1px solid rgba(255,255,255,.25);
@@ -384,6 +392,7 @@ h3{font-size:clamp(18px,2vw,22px)}
         </div>
         <div class="svc-wall" id="svcWall" aria-hidden="true"></div>
       </div>
+      <p class="mock-note">«Макеты-заглушки для вида — заменим на ваши»</p>
     </div>
   </section>
 
@@ -696,34 +705,56 @@ h3{font-size:clamp(18px,2vw,22px)}
   ];
 
   /* Media wall — dual slow columns */
-  function wallItem(src, isVideo, wide){
+  function wallItem(src, isVideo, wide, badge){
     const el = document.createElement('div');
     el.className = 'wall-item' + (wide ? ' wide' : '');
+    const badgeHtml = badge ? '<span class="badge">'+badge+'</span>' : '';
     if (isVideo){
-      el.innerHTML = '<video src="'+src+'" muted loop playsinline preload="metadata" data-wall-video></video><button class="play" type="button" aria-label="Смотреть">▶</button>';
+      el.innerHTML = badgeHtml+'<video src="'+src+'" muted loop playsinline preload="metadata" data-wall-video></video><button class="play" type="button" aria-label="Смотреть">▶</button>';
       el.querySelector('.play').addEventListener('click', function(e){ e.stopPropagation(); openLb(src); });
       el.addEventListener('click', function(){ openLb(src); });
     } else {
-      el.innerHTML = '<img src="'+src+'" alt="" loading="lazy" decoding="async">';
+      el.innerHTML = badgeHtml+'<img src="'+src+'" alt="" loading="lazy" decoding="async">';
     }
     return el;
   }
   function fillWall(col, items){
     const frag = document.createDocumentFragment();
-    items.forEach(function(it){ frag.appendChild(wallItem(it.src, it.v, it.wide)); });
+    items.forEach(function(it){ frag.appendChild(wallItem(it.src, it.v, it.wide, it.badge)); });
     // duplicate for seamless scroll
-    items.forEach(function(it){ frag.appendChild(wallItem(it.src, it.v, it.wide)); });
+    items.forEach(function(it){ frag.appendChild(wallItem(it.src, it.v, it.wide, it.badge)); });
     col.appendChild(frag);
   }
+  /* Design mocks — look-only placeholders (АФИША / ФЛАЕР / БАННЕР / STORIES) */
+  const mocks = {
+    posterMovie: 'mock-poster-movie.png',
+    flyer: 'mock-flyer-event.png',
+    bannerWeb: 'mock-banner-web.png',
+    story: 'mock-story-fashion.png',
+    posterCinema: 'mock-poster-cinema.png',
+    bannerOut: 'mock-banner-outdoor.png'
+  };
   const colA = [
-    {src:videos[0], v:true}, {src:stills[0], v:false, wide:true}, {src:videos[1], v:true},
-    {src:stills[12], v:false}, {src:videos[2], v:true}, {src:stills[2], v:false, wide:true},
-    {src:videos[3], v:true}, {src:stills[13], v:false}, {src:stills[15], v:false, wide:true}
+    {src:mocks.posterMovie, v:false, badge:'АФИША'},
+    {src:videos[0], v:true},
+    {src:mocks.bannerWeb, v:false, wide:true, badge:'БАННЕР'},
+    {src:videos[1], v:true},
+    {src:mocks.story, v:false, badge:'STORIES'},
+    {src:videos[2], v:true},
+    {src:mocks.posterCinema, v:false, badge:'АФИША'},
+    {src:stills[0], v:false, wide:true},
+    {src:videos[3], v:true}
   ];
   const colB = [
-    {src:stills[4], v:false}, {src:videos[4], v:true}, {src:stills[14], v:false, wide:true},
-    {src:videos[5], v:true}, {src:stills[6], v:false}, {src:videos[6], v:true},
-    {src:stills[7], v:false, wide:true}, {src:videos[7], v:true}, {src:stills[8], v:false}
+    {src:mocks.flyer, v:false, wide:true, badge:'ФЛАЕР'},
+    {src:videos[4], v:true},
+    {src:mocks.bannerOut, v:false, wide:true, badge:'БАННЕР'},
+    {src:videos[5], v:true},
+    {src:mocks.story, v:false, badge:'STORIES'},
+    {src:videos[6], v:true},
+    {src:mocks.posterMovie, v:false, badge:'АФИША'},
+    {src:videos[7], v:true},
+    {src:mocks.flyer, v:false, badge:'ФЛАЕР'}
   ];
   fillWall(document.getElementById('wallA'), colA);
   fillWall(document.getElementById('wallB'), colB);
@@ -731,11 +762,11 @@ h3{font-size:clamp(18px,2vw,22px)}
   /* Services wall */
   const svcAssets = [
     [{t:'video',s:'work-02.mp4',l:'Видеореклама'},{t:'video',s:'work-04.mp4',l:'Reels'},{t:'video',s:'work-05.mp4',l:'Монтаж'}],
-    [{t:'img',s:'still-14.jpg',l:'Баннер'},{t:'img',s:'still-15.jpg',l:'Digital'},{t:'img',s:'still-16.jpg',l:'Наружка'}],
-    [{t:'img',s:'still-07.jpg',l:'Флаер'},{t:'img',s:'still-08.jpg',l:'Листовка'},{t:'img',s:'still-12.jpg',l:'Оффер'}],
-    [{t:'img',s:'still-13.jpg',l:'Афиша'},{t:'img',s:'still-04.jpg',l:'Ивент'},{t:'img',s:'still-06.jpg',l:'Кино'}],
-    [{t:'img',s:'still-09.jpg',l:'Key visual'},{t:'img',s:'still-11.jpg',l:'Соцсети'},{t:'img',s:'still-10.jpg',l:'Сетка'}],
-    [{t:'video',s:'work-09.mp4',l:'Motion'},{t:'img',s:'still-01.jpg',l:'9:16'},{t:'img',s:'still-05.jpg',l:'1:1'}]
+    [{t:'img',s:'mock-banner-web.png',l:'БАННЕР'},{t:'img',s:'mock-banner-outdoor.png',l:'БАННЕР'},{t:'img',s:'still-16.jpg',l:'Digital'}],
+    [{t:'img',s:'mock-flyer-event.png',l:'ФЛАЕР'},{t:'img',s:'still-08.jpg',l:'Листовка'},{t:'img',s:'still-12.jpg',l:'Оффер'}],
+    [{t:'img',s:'mock-poster-movie.png',l:'АФИША'},{t:'img',s:'mock-poster-cinema.png',l:'АФИША'},{t:'img',s:'still-06.jpg',l:'Кино'}],
+    [{t:'img',s:'mock-story-fashion.png',l:'STORIES'},{t:'img',s:'mock-banner-web.png',l:'БАННЕР'},{t:'img',s:'still-10.jpg',l:'Сетка'}],
+    [{t:'video',s:'work-09.mp4',l:'Motion'},{t:'img',s:'mock-story-fashion.png',l:'STORIES'},{t:'img',s:'still-05.jpg',l:'1:1'}]
   ];
   const svcWall = document.getElementById('svcWall');
   function renderSvcWall(idx){

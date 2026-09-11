@@ -1,4 +1,4 @@
-﻿# Large / local-only media (default ignore)
+# Large / local-only media (default ignore)
 *.mp4
 !orbita-bg.mp4
 !work-kazakhstan.mp4
@@ -14,6 +14,8 @@
 
 # Stills allowed
 !still-*.jpg
+!mock-*.png
+!mock-*.jpg
 !still-*.jpeg
 !still-*.png
 !still-*.webp
