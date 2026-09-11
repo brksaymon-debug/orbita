@@ -117,8 +117,8 @@ h3{font-size:1.15rem;font-weight:700;margin-bottom:8px}
   gap:14px;
   will-change:transform;
 }
-.feed-col-up .feed-col-inner{animation:feedMarqueeUp 72s linear infinite}
-.feed-col-down .feed-col-inner{animation:feedMarqueeDown 84s linear infinite}
+.feed-col-up .feed-col-inner{animation:feedMarqueeUp 38s linear infinite}
+.feed-col-down .feed-col-inner{animation:feedMarqueeDown 44s linear infinite}
 .work-feed:hover .feed-col-inner{animation-play-state:paused}
 @keyframes feedMarqueeUp{0%{transform:translateY(0)}100%{transform:translateY(-50%)}}
 @keyframes feedMarqueeDown{0%{transform:translateY(-50%)}100%{transform:translateY(0)}}
@@ -586,7 +586,7 @@ footer{padding:48px 0 28px;border-top:1px solid var(--line);margin-top:40px}
 .media-wall{position:relative;min-height:560px;height:100%;border-radius:22px;border:1px solid var(--line);background:radial-gradient(120% 80% at 70% 20%,rgba(255,106,42,.14),transparent 50%),radial-gradient(90% 70% at 20% 90%,rgba(124,92,255,.16),transparent 55%),#0a0a10;overflow:hidden;isolation:isolate}
 .media-wall::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:2;background:linear-gradient(180deg,#0a0a10 0%,transparent 12%,transparent 88%,#0a0a10 100%),linear-gradient(90deg,rgba(10,10,16,.35),transparent 18%,transparent 82%,rgba(10,10,16,.25))}
 .media-wall-viewport{position:absolute;inset:12px;overflow:hidden;border-radius:16px}
-.media-wall-track{display:grid;grid-template-columns:1fr 1fr;gap:12px;height:max-content;will-change:transform;animation:wallScroll 80s linear infinite}
+.media-wall-track{display:grid;grid-template-columns:1fr 1fr;gap:12px;height:max-content;will-change:transform;animation:wallScroll 42s linear infinite}
 .media-wall:hover .media-wall-track{animation-play-state:paused}
 .media-col{display:flex;flex-direction:column;gap:12px}
 .media-col-b{margin-top:36px}
@@ -717,23 +717,6 @@ body{padding-bottom:76px}
   .section-order{padding:20px 0 36px}
 }
 
-
-/* SCRAMBLE — Aiskra-style decode glitch on hover (accent cyan #22e0ff) */
-.scramble{
-  display:inline;cursor:default;
-  font-variant-ligatures:none;
-  white-space:pre-wrap;
-}
-.scramble.is-scrambling{
-  color:var(--accent,#22e0ff);
-}
-.step h3 .scramble,.section h2 .scramble,h1 .scramble{border-bottom:1px dashed transparent}
-.step h3 .scramble:hover,.section h2 .scramble:hover,h1 .scramble:hover{
-  border-bottom-color:rgba(34,224,255,.45);
-}
-@media (prefers-reduced-motion:reduce){
-  .scramble.is-scrambling{color:var(--accent,#22e0ff)}
-}
 </style>
 </head>
 <body>
@@ -772,7 +755,7 @@ body{padding-bottom:76px}
     </div>
     <div class="hero-grid">
             <div class="hero-copy">
-        <h1>Ролики, которые<span class="scramble">приносят заявки</span></h1>
+        <h1>Ролики, которые<span>приносят заявки</span></h1>
         <p class="lead">Ответ за 24 часа</p>
         <div class="hero-actions">
           <a class="btn btn-primary" href="#contact">Заказать</a>
@@ -1057,7 +1040,7 @@ body{padding-bottom:76px}
     <div class="container">
       <div class="price-panel" id="prices-fast" data-price-panel="fast">
         <div class="fast-head reveal">
-          <h2><span class="scramble">Цены</span></h2>
+          <h2>Цены</h2>
           <span class="fast-badge">финал после брифа</span>
         </div>
         <div class="fast-grid reveal">
@@ -1132,7 +1115,7 @@ body{padding-bottom:76px}
     <section class="section section-order" id="contact">
     <div class="container">
       <div class="section-h reveal">
-        <h2><span class="scramble">Заказать</span></h2>
+        <h2>Заказать</h2>
       </div>
       <div class="contact-grid">
         <form class="form" id="leadForm" novalidate>
@@ -1171,10 +1154,10 @@ body{padding-bottom:76px}
       <section class="section section-process" id="process">
     <div class="container">
       <div class="process-list process-strip">
-        <article class="step reveal"><div class="step-n">01</div><h3><span class="scramble">Бриф</span></h3></article>
-        <article class="step reveal"><div class="step-n">02</div><h3><span class="scramble">Сценарий</span></h3></article>
-        <article class="step reveal"><div class="step-n">03</div><h3><span class="scramble">Продакшн</span></h3></article>
-        <article class="step reveal"><div class="step-n">04</div><h3><span class="scramble">Запуск</span></h3></article>
+        <article class="step reveal"><div class="step-n">01</div><h3>Бриф</h3></article>
+        <article class="step reveal"><div class="step-n">02</div><h3>Сценарий</h3></article>
+        <article class="step reveal"><div class="step-n">03</div><h3>Продакшн</h3></article>
+        <article class="step reveal"><div class="step-n">04</div><h3>Запуск</h3></article>
       </div>
     </div>
   </section>
@@ -1597,66 +1580,6 @@ body{padding-bottom:76px}
   });
 })();
 
-
-/* Text scramble / decode — Aiskra-style */
-(function(){
-  var CHARSET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%&*<>/\\|';
-  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var fine = window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)').matches;
-  function randChar(){ return CHARSET.charAt(Math.floor(Math.random()*CHARSET.length)); }
-  function scrambleEl(el){
-    if (!el || el._scrambling) return;
-    var original = el.getAttribute('data-original') || el.textContent;
-    el.setAttribute('data-original', original);
-    if (reduce || !fine){
-      el.classList.add('is-scrambling');
-      return;
-    }
-    el._scrambling = true;
-    el.classList.add('is-scrambling');
-    var chars = original.split('');
-    var frame = 0;
-    var total = Math.max(12, Math.min(28, chars.length * 2));
-    function tick(){
-      if (!el._scrambling) return;
-      frame++;
-      var progress = frame / total;
-      var out = chars.map(function(ch, i){
-        if (ch === ' ' || ch === '—' || ch === '-' || ch === '–' || ch === '/') return ch;
-        var revealAt = i / Math.max(chars.length, 1);
-        if (progress > revealAt + 0.15) return chars[i];
-        return randChar();
-      }).join('');
-      el.textContent = out;
-      if (frame < total){
-        el._scrambleRaf = requestAnimationFrame(tick);
-      } else {
-        el.textContent = original;
-        el._scrambling = false;
-      }
-    }
-    el._scrambleRaf = requestAnimationFrame(tick);
-  }
-  function restoreEl(el){
-    if (!el) return;
-    el._scrambling = false;
-    if (el._scrambleRaf) cancelAnimationFrame(el._scrambleRaf);
-    var original = el.getAttribute('data-original');
-    if (original != null) el.textContent = original;
-    el.classList.remove('is-scrambling');
-  }
-  function bind(){
-    document.querySelectorAll('.scramble').forEach(function(el){
-      if (el._scrambleBound) return;
-      el._scrambleBound = true;
-      if (!el.getAttribute('data-original')) el.setAttribute('data-original', el.textContent);
-      el.addEventListener('mouseenter', function(){ scrambleEl(el); });
-      el.addEventListener('mouseleave', function(){ restoreEl(el); });
-    });
-  }
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', bind);
-  else bind();
-})();
 </script>
 </body>
 </html>
