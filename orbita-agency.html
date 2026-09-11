@@ -117,8 +117,8 @@ h3{font-size:1.15rem;font-weight:700;margin-bottom:8px}
   gap:14px;
   will-change:transform;
 }
-.feed-col-up .feed-col-inner{animation:feedMarqueeUp 72s linear infinite}
-.feed-col-down .feed-col-inner{animation:feedMarqueeDown 84s linear infinite}
+.feed-col-up .feed-col-inner{animation:feedMarqueeUp 80s linear infinite}
+.feed-col-down .feed-col-inner{animation:feedMarqueeDown 92s linear infinite}
 .work-feed:hover .feed-col-inner{animation-play-state:paused}
 @keyframes feedMarqueeUp{0%{transform:translateY(0)}100%{transform:translateY(-50%)}}
 @keyframes feedMarqueeDown{0%{transform:translateY(-50%)}100%{transform:translateY(0)}}
@@ -734,6 +734,41 @@ body{padding-bottom:76px}
 @media (prefers-reduced-motion:reduce){
   .scramble.is-scrambling{color:var(--accent,#22e0ff)}
 }
+
+/* === OVERNIGHT CRAFT 2026-09-12 === */
+.feed-tile.feed-still img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.feed-tile.feed-still{cursor:zoom-in}
+.feed-tile:focus-within{outline:1px solid rgba(34,224,255,.45);outline-offset:2px}
+.feed-tile:hover .feed-meta{opacity:1;transform:translateY(0)}
+.feed-meta{transition:opacity .25s ease, transform .25s ease}
+.pt-chip{transition:background .2s ease, color .2s ease, transform .2s ease}
+.pt-chip:hover{transform:translateY(-1px)}
+.btn-primary{letter-spacing:.01em}
+.btn-primary:active{transform:translateY(0) scale(.98)}
+.btn-ghost:active{transform:scale(.98)}
+.section{position:relative}
+.section + .section{padding-top:clamp(48px,8vw,88px)}
+.section-h{margin-bottom:clamp(18px,3vw,28px)}
+.section-sep{height:1px;border:0;margin:0 auto;max-width:1120px;background:linear-gradient(90deg,transparent,rgba(34,224,255,.28),rgba(255,255,255,.08),transparent)}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:9998;opacity:.035;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");background-size:180px 180px}
+@media (prefers-reduced-motion:reduce){body::before{display:none}}
+.wall-tile{cursor:default}
+.wall-tile.wall-static,.wall-tile[data-lb],.case .media img{cursor:zoom-in}
+.case .media img{width:100%;height:100%;object-fit:cover;display:block;position:absolute;inset:0}
+.cases-grid-trust{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
+.fast-card{transition:border-color .2s ease, transform .2s ease, box-shadow .2s ease}
+.fast-card:hover{border-color:rgba(34,224,255,.35);transform:translateY(-2px);box-shadow:0 12px 32px rgba(0,0,0,.28)}
+.price-tile.featured{box-shadow:0 0 0 1px rgba(34,224,255,.35),0 12px 36px rgba(34,224,255,.12)}
+.hero-copy .lead{letter-spacing:.01em}
+.contact-side .row{padding:10px 0;border-bottom:1px solid rgba(255,255,255,.06)}
+.contact-side .row:last-of-type{border-bottom:0}
+.lb-root{position:fixed;inset:0;z-index:1200;display:none;align-items:center;justify-content:center;padding:24px;background:rgba(4,6,10,.88);backdrop-filter:blur(10px)}
+.lb-root.is-open{display:flex}
+.lb-root img{max-width:min(960px,94vw);max-height:86vh;border-radius:14px;border:1px solid rgba(34,224,255,.25);box-shadow:0 20px 60px rgba(0,0,0,.55);object-fit:contain;background:#0a0a10}
+.lb-close{position:absolute;top:16px;right:16px;width:44px;height:44px;border-radius:12px;border:1px solid rgba(255,255,255,.18);background:rgba(7,7,10,.85);color:#fff;font-size:22px;cursor:pointer}
+.lb-close:hover{border-color:rgba(34,224,255,.45);color:var(--accent)}
+@media (max-width:980px){body::before{opacity:.025}}
+
 </style>
 </head>
 <body>
@@ -759,6 +794,7 @@ body{padding-bottom:76px}
   <a href="#works">Работы</a>
   <a href="#prices-fast">Цены</a>
   <a href="#contact">Заказать</a>
+  <a href="mailto:hello@orbita.agency">hello@orbita.agency</a>
   <a class="btn btn-primary" href="#contact">Заказать</a>
 </div>
 
@@ -773,7 +809,7 @@ body{padding-bottom:76px}
     <div class="hero-grid">
             <div class="hero-copy">
         <h1>Ролики, которые<span class="scramble">приносят заявки</span></h1>
-        <p class="lead">Ответ за 24 часа</p>
+        <p class="lead">Ролики и афиши под заявки. Ответ за 24 часа — hello@orbita.agency</p>
         <div class="hero-actions">
           <a class="btn btn-primary" href="#contact">Заказать</a>
           <a class="btn btn-ghost" href="#prices-fast">Цены</a>
@@ -790,6 +826,14 @@ body{padding-bottom:76px}
                 <video data-feed src="work-kazakhstan.mp4" muted playsinline loop preload="metadata"></video>
                 <div class="feed-meta"><div class="tag">YouTube · 0:30</div><div class="title">Ритейл · перформанс</div><div class="sub">OLV · performance</div></div>
               </article>
+              <article class="feed-tile h200 feed-still" data-lb="poster-2026-fashion-ss26.png">
+                <img src="poster-2026-fashion-ss26.png" alt="Fashion SS26" loading="lazy" decoding="async">
+                <div class="feed-meta"><div class="tag">Афиша · SS26</div><div class="title">Fashion key</div><div class="sub">Print · digital</div></div>
+              </article>
+              <article class="feed-tile h220 feed-still" data-lb="still-04.jpg">
+                <img src="still-04.jpg" alt="" loading="lazy" decoding="async">
+                <div class="feed-meta"><div class="tag">Still · frame</div><div class="title">Studio · 04</div><div class="sub">Key still</div></div>
+              </article>
               <article class="feed-tile landscape">
                 <video data-feed src="work-09.mp4" muted playsinline loop preload="metadata"></video>
                 <div class="feed-meta"><div class="tag">Brand · 16:9</div><div class="title">Фьючер · сити</div><div class="sub">Brand film</div></div>
@@ -812,19 +856,19 @@ body{padding-bottom:76px}
               </article>
               <article class="feed-tile h200">
                 <video data-feed src="work-05.mp4" muted playsinline loop preload="metadata"></video>
-                <div class="feed-meta"><div class="tag">OLV</div><div class="title">Авто · бренд</div><div class="sub">2.1× VTR</div></div>
+                <div class="feed-meta"><div class="tag">OLV</div><div class="title">Авто · бренд</div><div class="sub">VTR · cut</div></div>
               </article>
               <article class="feed-tile h240">
                 <video data-feed src="work-11.mp4" muted playsinline loop preload="metadata"></video>
                 <div class="feed-meta"><div class="tag">Cine · 9:16</div><div class="title">Samurai · storm</div><div class="sub">B/W motion</div></div>
               </article>
               <article class="feed-tile h220">
-                <video data-feed src="work-06.mp4" muted playsinline loop preload="metadata"></video>
+                <video data-feed src="work-08.mp4" muted playsinline loop preload="metadata"></video>
                 <div class="feed-meta"><div class="tag">TikTok</div><div class="title">Lifestyle · cut</div><div class="sub">Hook · cut</div></div>
               </article>
               <article class="feed-tile h260 portrait">
-                <video data-feed src="work-04.mp4" muted playsinline loop preload="metadata"></video>
-                <div class="feed-meta"><div class="tag">Reels</div><div class="title">Beauty · серия</div><div class="sub">×3.2 ER</div></div>
+                <video data-feed src="work-07.mp4" muted playsinline loop preload="metadata"></video>
+                <div class="feed-meta"><div class="tag">Reels</div><div class="title">Beauty · серия</div><div class="sub">Beauty · series</div></div>
               </article>
 
               <!-- duplicate for seamless loop -->
@@ -832,6 +876,14 @@ body{padding-bottom:76px}
                 <video data-feed src="work-kazakhstan.mp4" muted playsinline loop preload="metadata"></video>
                 <div class="feed-meta"><div class="tag">YouTube · 0:30</div><div class="title">Ритейл · перформанс</div><div class="sub">OLV · performance</div></div>
               </article>
+              <article class="feed-tile h200 feed-still" data-lb="poster-2026-fashion-ss26.png">
+                <img src="poster-2026-fashion-ss26.png" alt="Fashion SS26" loading="lazy" decoding="async">
+                <div class="feed-meta"><div class="tag">Афиша · SS26</div><div class="title">Fashion key</div><div class="sub">Print · digital</div></div>
+              </article>
+              <article class="feed-tile h220 feed-still" data-lb="still-04.jpg">
+                <img src="still-04.jpg" alt="" loading="lazy" decoding="async">
+                <div class="feed-meta"><div class="tag">Still · frame</div><div class="title">Studio · 04</div><div class="sub">Key still</div></div>
+              </article>
               <article class="feed-tile landscape">
                 <video data-feed src="work-09.mp4" muted playsinline loop preload="metadata"></video>
                 <div class="feed-meta"><div class="tag">Brand · 16:9</div><div class="title">Фьючер · сити</div><div class="sub">Brand film</div></div>
@@ -854,19 +906,19 @@ body{padding-bottom:76px}
               </article>
               <article class="feed-tile h200">
                 <video data-feed src="work-05.mp4" muted playsinline loop preload="metadata"></video>
-                <div class="feed-meta"><div class="tag">OLV</div><div class="title">Авто · бренд</div><div class="sub">2.1× VTR</div></div>
+                <div class="feed-meta"><div class="tag">OLV</div><div class="title">Авто · бренд</div><div class="sub">VTR · cut</div></div>
               </article>
               <article class="feed-tile h240">
                 <video data-feed src="work-11.mp4" muted playsinline loop preload="metadata"></video>
                 <div class="feed-meta"><div class="tag">Cine · 9:16</div><div class="title">Samurai · storm</div><div class="sub">B/W motion</div></div>
               </article>
               <article class="feed-tile h220">
-                <video data-feed src="work-06.mp4" muted playsinline loop preload="metadata"></video>
+                <video data-feed src="work-08.mp4" muted playsinline loop preload="metadata"></video>
                 <div class="feed-meta"><div class="tag">TikTok</div><div class="title">Lifestyle · cut</div><div class="sub">Hook · cut</div></div>
               </article>
               <article class="feed-tile h260 portrait">
-                <video data-feed src="work-04.mp4" muted playsinline loop preload="metadata"></video>
-                <div class="feed-meta"><div class="tag">Reels</div><div class="title">Beauty · серия</div><div class="sub">×3.2 ER</div></div>
+                <video data-feed src="work-07.mp4" muted playsinline loop preload="metadata"></video>
+                <div class="feed-meta"><div class="tag">Reels</div><div class="title">Beauty · серия</div><div class="sub">Beauty · series</div></div>
               </article>
             </div>
           </div>
@@ -973,6 +1025,14 @@ body{padding-bottom:76px}
             <video data-feed src="work-kazakhstan.mp4" muted playsinline loop preload="metadata"></video>
             <div class="feed-meta"><div class="tag">YouTube</div><div class="title">Ритейл · перформанс</div><div class="sub">OLV · performance</div></div>
           </article>
+          <article class="feed-tile feed-still" data-lb="poster-2026-zhara-live.png">
+            <img src="poster-2026-zhara-live.png" alt="Zhara Live" loading="lazy" decoding="async">
+            <div class="feed-meta"><div class="tag">Афиша</div><div class="title">Zhara Live</div><div class="sub">Event key</div></div>
+          </article>
+          <article class="feed-tile">
+            <video data-feed src="work-07.mp4" muted playsinline loop preload="metadata"></video>
+            <div class="feed-meta"><div class="tag">Cut</div><div class="title">Работа · 07</div><div class="sub">Showreel</div></div>
+          </article>
           <article class="feed-tile">
             <video data-feed src="work-10.mp4" muted playsinline loop preload="metadata"></video>
             <div class="feed-meta"><div class="tag">Fashion</div><div class="title">Runway · cut</div><div class="sub">AERA look</div></div>
@@ -990,12 +1050,12 @@ body{padding-bottom:76px}
             <div class="feed-meta"><div class="tag">Brand</div><div class="title">Финтех · имидж</div><div class="sub">Имидж · кадр</div></div>
           </article>
           <article class="feed-tile">
-            <video data-feed src="work-06.mp4" muted playsinline loop preload="metadata"></video>
+            <video data-feed src="work-08.mp4" muted playsinline loop preload="metadata"></video>
             <div class="feed-meta"><div class="tag">TikTok</div><div class="title">Lifestyle · cut</div><div class="sub">Hook · cut</div></div>
           </article>
           <article class="feed-tile">
-            <video data-feed src="work-04.mp4" muted playsinline loop preload="metadata"></video>
-            <div class="feed-meta"><div class="tag">Reels</div><div class="title">Beauty · серия</div><div class="sub">×3.2 ER</div></div>
+            <video data-feed src="work-07.mp4" muted playsinline loop preload="metadata"></video>
+            <div class="feed-meta"><div class="tag">Reels</div><div class="title">Beauty · серия</div><div class="sub">Beauty · series</div></div>
           </article>
           <article class="feed-tile">
             <video data-feed src="work-11.mp4" muted playsinline loop preload="metadata"></video>
@@ -1053,6 +1113,7 @@ body{padding-bottom:76px}
     </div>
   </section>
 
+    <hr class="section-sep" aria-hidden="true">
     <section class="section section-prices" id="pricing">
     <div class="container">
       <div class="price-panel" id="prices-fast" data-price-panel="fast">
@@ -1161,8 +1222,30 @@ body{padding-bottom:76px}
       <div class="media-wall reveal reveal-delay-1" aria-label="Примеры форматов">
           <div class="media-wall-viewport">
                         <div class="media-wall-track" data-wall-track>
-                            <div class="media-col" data-wall-col><figure class="wall-tile wall-video tall"><video muted playsinline loop preload="metadata" data-wall-vid src="work-kazakhstan.mp4"></video><span class="wall-badge video">ВИДЕО</span><figcaption>Reels / Shorts</figcaption></figure><figure class="wall-tile wall-static"><img src="still-13.jpg" alt="" loading="lazy" decoding="async"><span class="wall-badge static">СТАТИКА</span><figcaption>Cyber KV</figcaption></figure><figure class="wall-tile wall-static mid"><img src="still-14.jpg" alt="" loading="lazy" decoding="async"><span class="wall-badge static">СТАТИКА</span><figcaption>Action poster</figcaption></figure><figure class="wall-tile wall-video"><video muted playsinline loop preload="metadata" data-wall-vid src="work-09.mp4"></video><span class="wall-badge video">ВИДЕО</span><figcaption>Brand film</figcaption></figure><figure class="wall-tile wall-static"><img src="still-08.jpg" alt="" loading="lazy" decoding="async"><span class="wall-badge static">СТАТИКА</span><figcaption>Stories cover</figcaption></figure><figure class="wall-tile wall-static mid"><img src="still-16.jpg" alt="" loading="lazy" decoding="async"><span class="wall-badge static">СТАТИКА</span><figcaption>Lifestyle</figcaption></figure></div>
-              <div class="media-col media-col-b" data-wall-col><figure class="wall-tile wall-static mid"><img src="still-15.jpg" alt="" loading="lazy" decoding="async"><span class="wall-badge static">СТАТИКА</span><figcaption>Event sunset</figcaption></figure><figure class="wall-tile wall-video tall"><video muted playsinline loop preload="metadata" data-wall-vid src="work-10.mp4"></video><span class="wall-badge video">ВИДЕО</span><figcaption>Fashion cut</figcaption></figure><figure class="wall-tile wall-static"><img src="still-02.jpg" alt="" loading="lazy" decoding="async"><span class="wall-badge static">СТАТИКА</span><figcaption>Key visual</figcaption></figure><figure class="wall-tile wall-video"><video muted playsinline loop preload="metadata" data-wall-vid src="work-11.mp4"></video><span class="wall-badge video">ВИДЕО</span><figcaption>Cine storm</figcaption></figure><figure class="wall-tile wall-static mid"><img src="still-11.jpg" alt="" loading="lazy" decoding="async"><span class="wall-badge static">СТАТИКА</span><figcaption>Carousel frame</figcaption></figure><figure class="wall-tile wall-static"><img src="still-12.jpg" alt="" loading="lazy" decoding="async"><span class="wall-badge static">СТАТИКА</span><figcaption>Анонс запуска</figcaption></figure></div>
+                            <div class="media-col" data-wall-col>
+<figure class="wall-tile wall-video tall"><video muted playsinline loop preload="metadata" data-wall-vid src="work-kazakhstan.mp4"></video><span class="wall-badge video">ВИДЕО</span><figcaption>Reels / Shorts</figcaption></figure>
+<figure class="wall-tile wall-static" data-lb="poster-2026-neon-horizon.png"><img src="poster-2026-neon-horizon.png" alt="Neon Horizon poster" loading="lazy" decoding="async"><span class="wall-badge static">АФИША</span><figcaption>Neon Horizon</figcaption></figure>
+<figure class="wall-tile wall-static mid" data-lb="still-03.jpg"><img src="still-03.jpg" alt="" loading="lazy" decoding="async"><span class="wall-badge static">СТАТИКА</span><figcaption>Studio still</figcaption></figure>
+<figure class="wall-tile wall-video"><video muted playsinline loop preload="metadata" data-wall-vid src="work-07.mp4"></video><span class="wall-badge video">ВИДЕО</span><figcaption>Cut · 07</figcaption></figure>
+<figure class="wall-tile wall-static" data-lb="poster-2026-fashion-ss26.png"><img src="poster-2026-fashion-ss26.png" alt="Fashion SS26" loading="lazy" decoding="async"><span class="wall-badge static">АФИША</span><figcaption>Fashion SS26</figcaption></figure>
+<figure class="wall-tile wall-static mid" data-lb="mock-story-fashion.png"><img src="mock-story-fashion.png" alt="Stories fashion" loading="lazy" decoding="async"><span class="wall-badge static">STORIES</span><figcaption>Fashion story</figcaption></figure>
+<figure class="wall-tile wall-static"><img src="still-13.jpg" alt="" loading="lazy" decoding="async" data-lb="still-13.jpg"><span class="wall-badge static">СТАТИКА</span><figcaption>Cyber KV</figcaption></figure>
+<figure class="wall-tile wall-video"><video muted playsinline loop preload="metadata" data-wall-vid src="work-09.mp4"></video><span class="wall-badge video">ВИДЕО</span><figcaption>Brand film</figcaption></figure>
+</div>
+              <div class="media-col media-col-b" data-wall-col>
+<figure class="wall-tile wall-static mid" data-lb="poster-2026-zhara-live.png"><img src="poster-2026-zhara-live.png" alt="Zhara Live" loading="lazy" decoding="async"><span class="wall-badge static">АФИША</span><figcaption>Zhara Live</figcaption></figure>
+<figure class="wall-tile wall-video tall"><video muted playsinline loop preload="metadata" data-wall-vid src="work-08.mp4"></video><span class="wall-badge video">ВИДЕО</span><figcaption>Cut · 08</figcaption></figure>
+<figure class="wall-tile wall-static" data-lb="poster-2026-final-sport.png"><img src="poster-2026-final-sport.png" alt="Final Sport" loading="lazy" decoding="async"><span class="wall-badge static">АФИША</span><figcaption>Final Sport</figcaption></figure>
+<figure class="wall-tile wall-static mid" data-lb="mock-poster-cinema.png"><img src="mock-poster-cinema.png" alt="Cinema poster" loading="lazy" decoding="async"><span class="wall-badge static">ПОСТЕР</span><figcaption>Cinema key</figcaption></figure>
+<figure class="wall-tile wall-video"><video muted playsinline loop preload="metadata" data-wall-vid src="work-10.mp4"></video><span class="wall-badge video">ВИДЕО</span><figcaption>Fashion cut</figcaption></figure>
+<figure class="wall-tile wall-static" data-lb="still-05.jpg"><img src="still-05.jpg" alt="" loading="lazy" decoding="async"><span class="wall-badge static">СТАТИКА</span><figcaption>Frame 05</figcaption></figure>
+<figure class="wall-tile wall-static mid" data-lb="poster-2026-speed-light.png"><img src="poster-2026-speed-light.png" alt="Speed Light" loading="lazy" decoding="async"><span class="wall-badge static">АФИША</span><figcaption>Speed Light</figcaption></figure>
+<figure class="wall-tile wall-static" data-lb="mock-banner-web.png"><img src="mock-banner-web.png" alt="Web banner" loading="lazy" decoding="async"><span class="wall-badge static">BANNER</span><figcaption>Web banner</figcaption></figure>
+<figure class="wall-tile wall-static mid" data-lb="still-07.jpg"><img src="still-07.jpg" alt="" loading="lazy" decoding="async"><span class="wall-badge static">СТАТИКА</span><figcaption>Frame 07</figcaption></figure>
+<figure class="wall-tile wall-video"><video muted playsinline loop preload="metadata" data-wall-vid src="work-11.mp4"></video><span class="wall-badge video">ВИДЕО</span><figcaption>Cine storm</figcaption></figure>
+<figure class="wall-tile wall-static" data-lb="poster-2026-exhibit.png"><img src="poster-2026-exhibit.png" alt="Exhibit" loading="lazy" decoding="async"><span class="wall-badge static">АФИША</span><figcaption>Exhibit</figcaption></figure>
+<figure class="wall-tile wall-static mid" data-lb="mock-flyer-event.png"><img src="mock-flyer-event.png" alt="Event flyer" loading="lazy" decoding="async"><span class="wall-badge static">FLYER</span><figcaption>Event flyer</figcaption></figure>
+</div>
             </div>
           </div>
         </div>
@@ -1212,6 +1295,26 @@ body{padding-bottom:76px}
             <a class="case-cta" href="#contact" data-prefill="Кейс: пакет Reels/Shorts — хочу так же">Заказать так же</a>
           </div>
         </article>
+        <article class="case case-card reveal" data-cat="design">
+          <div class="media">
+            <img src="poster-2026-final-sport.png" alt="Final Sport" loading="lazy" decoding="async" data-lb="poster-2026-final-sport.png">
+          </div>
+          <div class="case-body">
+            <div class="case-kicker">Афиша · key visual</div>
+            <h3 class="case-title">Спортивный постер</h3>
+            <a class="case-cta" href="#contact" data-prefill="Кейс: афиша / key visual — хочу так же">Заказать так же</a>
+          </div>
+        </article>
+        <article class="case case-card reveal reveal-delay-1" data-cat="spot">
+          <div class="media">
+            <video data-case src="work-08.mp4" muted playsinline loop preload="metadata" poster="still-06.jpg"></video>
+          </div>
+          <div class="case-body">
+            <div class="case-kicker">Showreel · cut</div>
+            <h3 class="case-title">Динамичный монтаж</h3>
+            <a class="case-cta" href="#contact" data-prefill="Кейс: динамичный монтаж — хочу так же">Заказать так же</a>
+          </div>
+        </article>
       </div>
     </div>
   </section>
@@ -1234,7 +1337,7 @@ body{padding-bottom:76px}
       <div>
         <h4>Связь</h4>
         <a href="mailto:hello@orbita.agency">hello@orbita.agency</a>
-        <a href="mailto:hello@orbita.agency">hello@orbita.agency</a>
+        <a href="https://t.me/orbita_agency" target="_blank" rel="noopener">Telegram</a>
       </div>
       <div>
         <h4>Соцсети</h4>
@@ -1248,6 +1351,12 @@ body{padding-bottom:76px}
     </div>
   </div>
 </footer>
+
+
+<div class="lb-root" id="lbRoot" hidden aria-modal="true" role="dialog" aria-label="Просмотр">
+  <button type="button" class="lb-close" id="lbClose" aria-label="Закрыть">×</button>
+  <img id="lbImg" alt="">
+</div>
 
 <div class="sticky-cta" aria-label="Быстрые действия">
   <a class="link-ico" href="https://t.me/orbita_agency" target="_blank" rel="noopener" aria-label="Telegram" title="Telegram">✈</a>
@@ -1656,6 +1765,41 @@ body{padding-bottom:76px}
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', bind);
   else bind();
 })();
+
+  /* Overnight lightbox for design assets */
+  (function(){
+    const root = document.getElementById('lbRoot');
+    const img = document.getElementById('lbImg');
+    const closeBtn = document.getElementById('lbClose');
+    if(!root || !img) return;
+    function openLb(src, alt){
+      if(!src) return;
+      img.src = src;
+      img.alt = alt || '';
+      root.hidden = false;
+      root.classList.add('is-open');
+      document.documentElement.style.overflow = 'hidden';
+    }
+    function closeLb(){
+      root.classList.remove('is-open');
+      root.hidden = true;
+      img.removeAttribute('src');
+      document.documentElement.style.overflow = '';
+    }
+    document.addEventListener('click', function(e){
+      const t = e.target.closest('[data-lb], .wall-tile.wall-static img, .feed-still img, .case .media img');
+      if(!t) return;
+      const host = t.closest('[data-lb]') || t;
+      const src = host.getAttribute('data-lb') || t.getAttribute('src');
+      if(!src || /\.mp4($|\?)/i.test(src)) return;
+      e.preventDefault();
+      openLb(src, t.getAttribute('alt') || '');
+    });
+    closeBtn && closeBtn.addEventListener('click', closeLb);
+    root.addEventListener('click', function(e){ if(e.target === root) closeLb(); });
+    document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeLb(); });
+  })();
+
 </script>
 </body>
 </html>
