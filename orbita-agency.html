@@ -77,10 +77,10 @@ h3{font-size:clamp(18px,2vw,22px)}
 @keyframes wallScroll{0%{transform:translateY(0)}100%{transform:translateY(-50%)}}
 .wall-item{
   position:relative;border-radius:14px;overflow:hidden;background:#000;
-  aspect-ratio:3/4;flex-shrink:0;
+  aspect-ratio:3/4;flex-shrink:0;cursor:pointer;
 }
 .wall-item.wide{aspect-ratio:16/10}
-.wall-item video,.wall-item img{width:100%;height:100%;object-fit:cover}
+.wall-item video,.wall-item img{width:100%;height:100%;object-fit:cover;pointer-events:none}
 .wall-item .badge{
   position:absolute;left:12px;top:12px;padding:6px 10px;border-radius:999px;
   background:rgba(0,0,0,.55);border:1px solid rgba(255,255,255,.18);font-size:11px;
@@ -92,8 +92,20 @@ h3{font-size:clamp(18px,2vw,22px)}
 .wall-item .play{
   position:absolute;inset:auto 12px 12px auto;width:36px;height:36px;border-radius:50%;
   background:rgba(0,0,0,.55);border:1px solid rgba(255,255,255,.25);
-  display:grid;place-items:center;font-size:12px;backdrop-filter:blur(8px);cursor:pointer;color:#fff;
+  display:grid;place-items:center;font-size:12px;backdrop-filter:blur(8px);cursor:pointer;color:#fff;z-index:2;
 }
+.wall-item .view-hint{
+  position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) scale(.96);
+  padding:10px 16px;border-radius:999px;font-size:12px;letter-spacing:.04em;
+  background:rgba(0,0,0,.62);border:1px solid rgba(255,255,255,.28);color:#fff;
+  backdrop-filter:blur(10px);opacity:0;pointer-events:none;transition:.2s ease;z-index:2;
+  white-space:nowrap;
+}
+.wall-item:hover .view-hint,.wall-item:focus-visible .view-hint{opacity:1;transform:translate(-50%,-50%) scale(1)}
+.wall-item::after{
+  content:"";position:absolute;inset:0;background:rgba(0,0,0,.0);transition:.2s;pointer-events:none;
+}
+.wall-item:hover::after{background:rgba(0,0,0,.28)}
 .hero-bg{
   position:absolute;inset:0;z-index:-1;opacity:.18;pointer-events:none;overflow:hidden;
 }
@@ -123,13 +135,26 @@ h3{font-size:clamp(18px,2vw,22px)}
   border-radius:22px;overflow:hidden;border:1px solid var(--line);background:var(--bg2);
   display:grid;grid-template-columns:1.2fr 1fr;grid-template-rows:1.2fr 1fr;gap:8px;padding:8px;min-height:460px;
 }
-.svc-cell{position:relative;border-radius:14px;overflow:hidden;background:#000}
+.svc-cell{position:relative;border-radius:14px;overflow:hidden;background:#000;cursor:pointer}
 .svc-cell:first-child{grid-row:1 / span 2}
-.svc-cell video,.svc-cell img{width:100%;height:100%;object-fit:cover}
+.svc-cell video,.svc-cell img{width:100%;height:100%;object-fit:cover;pointer-events:none}
 .svc-cell .label{
   position:absolute;left:12px;bottom:12px;padding:6px 10px;border-radius:999px;
-  background:rgba(0,0,0,.55);border:1px solid rgba(255,255,255,.18);font-size:11px;backdrop-filter:blur(8px);
+  background:rgba(0,0,0,.55);border:1px solid rgba(255,255,255,.18);font-size:11px;backdrop-filter:blur(8px);z-index:2;
 }
+.svc-cell .view-hint{
+  position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) scale(.96);
+  padding:10px 16px;border-radius:999px;font-size:12px;letter-spacing:.04em;
+  background:rgba(0,0,0,.62);border:1px solid rgba(255,255,255,.28);color:#fff;
+  backdrop-filter:blur(10px);opacity:0;pointer-events:none;transition:.2s ease;z-index:2;
+  white-space:nowrap;
+}
+.svc-cell:hover .view-hint,.svc-cell:focus-visible .view-hint{opacity:1;transform:translate(-50%,-50%) scale(1)}
+.svc-cell::after{
+  content:"";position:absolute;inset:0;background:rgba(0,0,0,.0);transition:.2s;pointer-events:none;
+}
+.svc-cell:hover::after{background:rgba(0,0,0,.28)}
+.svc-item:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 
 /* PROCESS */
 .process-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:28px}
@@ -231,10 +256,40 @@ h3{font-size:clamp(18px,2vw,22px)}
 .footer-inner{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:center}
 
 /* lightbox */
-.lb{position:fixed;inset:0;background:rgba(0,0,0,.86);display:none;place-items:center;z-index:100;padding:24px}
+.lb{position:fixed;inset:0;background:rgba(0,0,0,.9);display:none;place-items:center;z-index:100;padding:72px 56px 96px;isolation:isolate}
 .lb.open{display:grid}
-.lb video{width:min(960px,100%);max-height:80vh;border-radius:16px;background:#000}
-.lb-close{position:absolute;top:18px;right:18px}
+.lb-stage{position:relative;width:min(1100px,100%);max-height:78vh;display:grid;place-items:center}
+.lb-stage img,.lb-stage video{
+  width:auto;height:auto;max-width:100%;max-height:78vh;border-radius:16px;background:#000;
+  box-shadow:0 24px 80px rgba(0,0,0,.55);
+}
+.lb-close{position:absolute;top:18px;right:18px;z-index:3}
+.lb-nav{
+  position:absolute;top:50%;transform:translateY(-50%);z-index:3;
+  width:48px;height:48px;border-radius:50%;border:1px solid rgba(255,255,255,.22);
+  background:rgba(0,0,0,.45);color:#fff;font-size:28px;line-height:1;cursor:pointer;
+  display:grid;place-items:center;backdrop-filter:blur(10px);transition:.2s;
+}
+.lb-nav:hover{background:rgba(255,90,31,.35);border-color:rgba(255,90,31,.55)}
+.lb-prev{left:16px}
+.lb-next{right:16px}
+.lb-meta{
+  position:absolute;left:50%;bottom:22px;transform:translateX(-50%);
+  display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:10px 14px;
+  max-width:min(920px,94vw);z-index:3;
+}
+.lb-badge{
+  padding:6px 12px;border-radius:999px;font-size:11px;letter-spacing:.06em;
+  background:rgba(255,90,31,.18);border:1px solid rgba(255,90,31,.45);color:#fff;
+}
+.lb-title{font-size:14px;color:rgba(255,255,255,.88);max-width:42ch;text-align:center}
+@media (max-width:760px){
+  .lb{padding:64px 12px 110px}
+  .lb-nav{width:40px;height:40px;font-size:24px}
+  .lb-prev{left:6px}.lb-next{right:6px}
+  .lb-stage img,.lb-stage video{max-height:68vh;border-radius:12px}
+  .wall-item .view-hint,.svc-cell .view-hint{opacity:.85}
+}
 
 @media (max-width:980px){
   .nav-links{display:none}
@@ -347,42 +402,42 @@ h3{font-size:clamp(18px,2vw,22px)}
       <p class="lead">Видео и дизайн под задачу продаж — не AI-видео-клон и не «контент ради контента».</p>
       <div class="services-grid" style="margin-top:28px">
         <div class="svc-list" id="svcList">
-          <article class="svc-item active" data-svc="0">
+          <article class="svc-item active" data-svc="0" role="button" tabindex="0" aria-pressed="true">
             <div class="svc-num">01</div>
             <div>
               <h3>Видеореклама / Reels / монтаж</h3>
               <p>OLV, pre-roll, вертикали, монтаж и постпродакшн — ролики, которые держат внимание и ведут к заявке.</p>
             </div>
           </article>
-          <article class="svc-item" data-svc="1">
+          <article class="svc-item" data-svc="1" role="button" tabindex="0" aria-pressed="false">
             <div class="svc-num">02</div>
             <div>
               <h3>Баннеры</h3>
               <p>Digital и наружка: один макет или серия в едином визуальном языке под площадки и форматы.</p>
             </div>
           </article>
-          <article class="svc-item" data-svc="2">
+          <article class="svc-item" data-svc="2" role="button" tabindex="0" aria-pressed="false">
             <div class="svc-num">03</div>
             <div>
               <h3>Флаеры / листовки</h3>
               <p>Печать и PDF под раздачу: оффер, офсет/цифровой вывод, читаемая иерархия и сильный CTA.</p>
             </div>
           </article>
-          <article class="svc-item" data-svc="3">
+          <article class="svc-item" data-svc="3" role="button" tabindex="0" aria-pressed="false">
             <div class="svc-num">04</div>
             <div>
               <h3>Афиши</h3>
               <p>Под фильмы, концерты и ивенты — один формат или линейка размеров с киношной подачей.</p>
             </div>
           </article>
-          <article class="svc-item" data-svc="4">
+          <article class="svc-item" data-svc="4" role="button" tabindex="0" aria-pressed="false">
             <div class="svc-num">05</div>
             <div>
               <h3>Key visual / соцсети</h3>
               <p>Статичный дизайн: обложки, сетки, посты и key visual, которые держат бренд в ленте.</p>
             </div>
           </article>
-          <article class="svc-item" data-svc="5">
+          <article class="svc-item" data-svc="5" role="button" tabindex="0" aria-pressed="false">
             <div class="svc-num">06</div>
             <div>
               <h3>Motion и адаптации</h3>
@@ -674,9 +729,19 @@ h3{font-size:clamp(18px,2vw,22px)}
   </div>
 </footer>
 
-<div class="lb" id="lb" role="dialog" aria-modal="true">
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Просмотр работы" hidden>
   <button class="btn btn-ghost btn-sm lb-close" type="button" id="lbClose">Закрыть</button>
-  <video id="lbVideo" controls playsinline preload="metadata"></video>
+  <button class="lb-nav lb-prev" type="button" id="lbPrev" aria-label="Предыдущее">‹</button>
+  <button class="lb-nav lb-next" type="button" id="lbNext" aria-label="Следующее">›</button>
+  <div class="lb-stage">
+    <img id="lbImg" alt="" hidden>
+    <video id="lbVideo" controls playsinline preload="metadata" hidden></video>
+  </div>
+  <div class="lb-meta">
+    <span class="lb-badge" id="lbBadge"></span>
+    <span class="lb-title" id="lbTitle"></span>
+    <a class="btn btn-primary btn-sm" id="lbOrder" href="#contact">Заказать такое</a>
+  </div>
 </div>
 
 <script>
@@ -708,15 +773,49 @@ h3{font-size:clamp(18px,2vw,22px)}
   function wallItem(src, isVideo, wide, badge){
     const el = document.createElement('div');
     el.className = 'wall-item' + (wide ? ' wide' : '');
+    el.setAttribute('role', 'button');
+    el.setAttribute('tabindex', '0');
+    el.setAttribute('aria-label', (badge ? badge + ' — ' : '') + 'Смотреть');
     const badgeHtml = badge ? '<span class="badge">'+badge+'</span>' : '';
+    const hint = '<span class="view-hint">Смотреть</span>';
+    const title = badge || (isVideo ? 'Видео' : 'Дизайн');
+    const type = isVideo ? 'video' : 'img';
     if (isVideo){
-      el.innerHTML = badgeHtml+'<video src="'+src+'" muted loop playsinline preload="metadata" data-wall-video></video><button class="play" type="button" aria-label="Смотреть">▶</button>';
-      el.querySelector('.play').addEventListener('click', function(e){ e.stopPropagation(); openLb(src); });
-      el.addEventListener('click', function(){ openLb(src); });
+      el.innerHTML = badgeHtml+'<video src="'+src+'" muted loop playsinline preload="metadata" data-wall-video></video><button class="play" type="button" aria-label="Смотреть">▶</button>'+hint;
     } else {
-      el.innerHTML = badgeHtml+'<img src="'+src+'" alt="" loading="lazy" decoding="async">';
+      el.innerHTML = badgeHtml+'<img src="'+src+'" alt="'+title+'" loading="lazy" decoding="async">'+hint;
     }
+    el.addEventListener('click', function(){
+      openGallery(collectWallGallery(), {src:src, type:type, badge:badge||title, title:title});
+    });
+    el.addEventListener('keydown', function(e){
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); el.click(); }
+    });
+    const playBtn = el.querySelector('.play');
+    if (playBtn) playBtn.addEventListener('click', function(e){ e.stopPropagation(); el.click(); });
     return el;
+  }
+  function collectWallGallery(){
+    const items = [];
+    document.querySelectorAll('#works .wall-item').forEach(function(el){
+      const v = el.querySelector('video');
+      const img = el.querySelector('img');
+      const badgeEl = el.querySelector('.badge');
+      const badge = badgeEl ? badgeEl.textContent.trim() : '';
+      if (v && v.getAttribute('src')) {
+        items.push({src:v.getAttribute('src'), type:'video', badge:badge||'Видео', title:badge||'Видео'});
+      } else if (img && img.getAttribute('src')) {
+        items.push({src:img.getAttribute('src'), type:'img', badge:badge||'Дизайн', title:badge||'Дизайн'});
+      }
+    });
+    // de-dupe consecutive duplicates from seamless scroll clone
+    const seen = new Set();
+    return items.filter(function(it){
+      const k = it.type+'|'+it.src+'|'+it.badge;
+      if (seen.has(k)) return false;
+      seen.add(k);
+      return true;
+    });
   }
   function fillWall(col, items){
     const frag = document.createDocumentFragment();
@@ -759,37 +858,97 @@ h3{font-size:clamp(18px,2vw,22px)}
   fillWall(document.getElementById('wallA'), colA);
   fillWall(document.getElementById('wallB'), colB);
 
-  /* Services wall */
+  /* Services wall — category filter + clickable tiles */
   const svcAssets = [
-    [{t:'video',s:'work-02.mp4',l:'Видеореклама'},{t:'video',s:'work-04.mp4',l:'Reels'},{t:'video',s:'work-05.mp4',l:'Монтаж'}],
-    [{t:'img',s:'mock-banner-web.png',l:'БАННЕР'},{t:'img',s:'mock-banner-outdoor.png',l:'БАННЕР'},{t:'img',s:'still-16.jpg',l:'Digital'}],
-    [{t:'img',s:'mock-flyer-event.png',l:'ФЛАЕР'},{t:'img',s:'still-08.jpg',l:'Листовка'},{t:'img',s:'still-12.jpg',l:'Оффер'}],
-    [{t:'img',s:'mock-poster-movie.png',l:'АФИША'},{t:'img',s:'mock-poster-cinema.png',l:'АФИША'},{t:'img',s:'still-06.jpg',l:'Кино'}],
-    [{t:'img',s:'mock-story-fashion.png',l:'STORIES'},{t:'img',s:'mock-banner-web.png',l:'БАННЕР'},{t:'img',s:'still-10.jpg',l:'Сетка'}],
-    [{t:'video',s:'work-09.mp4',l:'Motion'},{t:'img',s:'mock-story-fashion.png',l:'STORIES'},{t:'img',s:'still-05.jpg',l:'1:1'}]
+    [
+      {t:'video',s:'work-02.mp4',l:'Видеореклама',title:'Видеореклама / Reels'},
+      {t:'video',s:'work-04.mp4',l:'Reels',title:'Reels / вертикаль'},
+      {t:'video',s:'work-05.mp4',l:'Монтаж',title:'Монтаж и постпродакшн'}
+    ],
+    [
+      {t:'img',s:'mock-banner-web.png',l:'БАННЕР',title:'Баннер web'},
+      {t:'img',s:'mock-banner-outdoor.png',l:'БАННЕР',title:'Баннер outdoor'},
+      {t:'img',s:'mock-banner-web.png',l:'БАННЕР',title:'Баннер digital'}
+    ],
+    [
+      {t:'img',s:'mock-flyer-event.png',l:'ФЛАЕР',title:'Флаер / событие'},
+      {t:'img',s:'mock-flyer-event.png',l:'ФЛАЕР',title:'Листовка / оффер'},
+      {t:'img',s:'still-08.jpg',l:'Листовка',title:'Печатная листовка'}
+    ],
+    [
+      {t:'img',s:'mock-poster-movie.png',l:'АФИША',title:'Афиша movie'},
+      {t:'img',s:'mock-poster-cinema.png',l:'АФИША',title:'Афиша cinema'},
+      {t:'img',s:'mock-poster-movie.png',l:'АФИША',title:'Афиша ивент'}
+    ],
+    [
+      {t:'img',s:'mock-story-fashion.png',l:'STORIES',title:'Key visual / Stories'},
+      {t:'img',s:'still-10.jpg',l:'Сетка',title:'Соцсети — сетка'},
+      {t:'img',s:'still-14.jpg',l:'KV',title:'Key visual still'}
+    ],
+    [
+      {t:'video',s:'work-09.mp4',l:'Motion',title:'Motion / графика'},
+      {t:'video',s:'work-03.mp4',l:'Motion',title:'Адаптация 9:16'},
+      {t:'video',s:'work-11.mp4',l:'Motion',title:'Титры и версии'}
+    ]
+  ];
+  const svcTitles = [
+    'Видеореклама / Reels',
+    'Баннер',
+    'Флаер / листовка',
+    'Афиша',
+    'Key visual / соцсети',
+    'Motion и адаптации'
   ];
   const svcWall = document.getElementById('svcWall');
+  let activeSvc = 0;
+  function bindSvcCells(set){
+    const cells = svcWall.querySelectorAll('.svc-cell');
+    cells.forEach(function(cell, i){
+      const a = set[i];
+      if (!a) return;
+      cell.setAttribute('role', 'button');
+      cell.setAttribute('tabindex', '0');
+      cell.setAttribute('aria-label', (a.l || '') + ' — Смотреть');
+      const open = function(){
+        const gallery = set.map(function(x){
+          return {src:x.s, type:x.t === 'video' ? 'video' : 'img', badge:x.l, title:x.title || x.l};
+        });
+        openGallery(gallery, gallery[i]);
+      };
+      cell.addEventListener('click', open);
+      cell.addEventListener('keydown', function(e){
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); }
+      });
+    });
+  }
   function renderSvcWall(idx){
+    activeSvc = idx;
     const set = svcAssets[idx] || svcAssets[0];
     svcWall.innerHTML = set.map(function(a){
       if (a.t === 'video'){
-        return '<div class="svc-cell"><video src="'+a.s+'" muted loop playsinline preload="metadata" data-svc-video></video><span class="label">'+a.l+'</span></div>';
+        return '<div class="svc-cell"><video src="'+a.s+'" muted loop playsinline preload="metadata" data-svc-video></video><span class="label">'+a.l+'</span><span class="view-hint">Смотреть</span></div>';
       }
-      return '<div class="svc-cell"><img src="'+a.s+'" alt="" loading="lazy" decoding="async"><span class="label">'+a.l+'</span></div>';
+      return '<div class="svc-cell"><img src="'+a.s+'" alt="'+(a.title||a.l)+'" loading="lazy" decoding="async"><span class="label">'+a.l+'</span><span class="view-hint">Смотреть</span></div>';
     }).join('');
+    svcWall.setAttribute('aria-hidden', 'false');
+    bindSvcCells(set);
     observeVideos();
+  }
+  function activateSvc(item){
+    document.querySelectorAll('.svc-item').forEach(function(x){
+      x.classList.remove('active');
+      x.setAttribute('aria-pressed', 'false');
+    });
+    item.classList.add('active');
+    item.setAttribute('aria-pressed', 'true');
+    renderSvcWall(+item.dataset.svc);
   }
   renderSvcWall(0);
   document.querySelectorAll('.svc-item').forEach(function(item){
-    item.addEventListener('mouseenter', function(){
-      document.querySelectorAll('.svc-item').forEach(function(x){ x.classList.remove('active'); });
-      item.classList.add('active');
-      renderSvcWall(+item.dataset.svc);
-    });
-    item.addEventListener('click', function(){
-      document.querySelectorAll('.svc-item').forEach(function(x){ x.classList.remove('active'); });
-      item.classList.add('active');
-      renderSvcWall(+item.dataset.svc);
+    item.addEventListener('mouseenter', function(){ activateSvc(item); });
+    item.addEventListener('click', function(){ activateSvc(item); });
+    item.addEventListener('keydown', function(e){
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); activateSvc(item); }
     });
   });
 
@@ -810,28 +969,107 @@ h3{font-size:clamp(18px,2vw,22px)}
           '<div><b>Результат:</b> '+c.result+'</div>'+
         '</div>'+
       '</div>';
-    art.querySelector('.case-media').addEventListener('click', function(){ openLb(c.src); });
+    art.querySelector('.case-media').style.cursor = 'pointer';
+    art.querySelector('.case-media').addEventListener('click', function(){
+      const gallery = cases.map(function(x){
+        return {src:x.src, type:'video', badge:x.tag, title:x.title};
+      });
+      openGallery(gallery, {src:c.src, type:'video', badge:c.tag, title:c.title});
+    });
     casesGrid.appendChild(art);
   });
 
-  /* Lightbox */
+  /* Lightbox — image + video, prev/next, order CTA */
   const lb = document.getElementById('lb');
   const lbVideo = document.getElementById('lbVideo');
-  function openLb(src){
-    pauseAll();
-    lbVideo.src = src;
-    lb.classList.add('open');
-    lbVideo.play().catch(function(){});
+  const lbImg = document.getElementById('lbImg');
+  const lbBadge = document.getElementById('lbBadge');
+  const lbTitle = document.getElementById('lbTitle');
+  const lbOrder = document.getElementById('lbOrder');
+  let galleryItems = [];
+  let galleryIndex = 0;
+
+  function orderPrefill(item){
+    const kind = item.badge || item.title || 'работу';
+    return 'Хочу заказать похожее: ' + kind + (item.title && item.title !== kind ? ' — ' + item.title : '') + '. Ориентир по референсу с сайта.';
   }
-  function closeLb(){
-    lb.classList.remove('open');
+  function showLbItem(i){
+    if (!galleryItems.length) return;
+    galleryIndex = (i + galleryItems.length) % galleryItems.length;
+    const item = galleryItems[galleryIndex];
+    pauseAll();
     lbVideo.pause();
     lbVideo.removeAttribute('src');
     lbVideo.load();
+    lbVideo.hidden = true;
+    lbImg.hidden = true;
+    lbImg.removeAttribute('src');
+    lbBadge.textContent = item.badge || '';
+    lbBadge.style.display = item.badge ? '' : 'none';
+    lbTitle.textContent = item.title || item.badge || '';
+    lbOrder.setAttribute('data-prefill', orderPrefill(item));
+    if (item.type === 'video'){
+      lbVideo.hidden = false;
+      lbVideo.src = item.src;
+      lbVideo.play().catch(function(){});
+    } else {
+      lbImg.hidden = false;
+      lbImg.src = item.src;
+      lbImg.alt = item.title || item.badge || 'Работа';
+    }
+  }
+  function openGallery(items, current){
+    galleryItems = items && items.length ? items.slice() : [current];
+    let idx = 0;
+    if (current){
+      idx = galleryItems.findIndex(function(it){
+        return it.src === current.src && it.type === current.type;
+      });
+      if (idx < 0){
+        galleryItems.unshift(current);
+        idx = 0;
+      }
+    }
+    lb.hidden = false;
+    lb.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    showLbItem(idx);
+  }
+  function openLb(src){
+    openGallery([{src:src, type:'video', badge:'Видео', title:'Видео'}], null);
+  }
+  function closeLb(){
+    lb.classList.remove('open');
+    lb.hidden = true;
+    document.body.style.overflow = '';
+    lbVideo.pause();
+    lbVideo.removeAttribute('src');
+    lbVideo.load();
+    lbVideo.hidden = true;
+    lbImg.hidden = true;
+    lbImg.removeAttribute('src');
+    galleryItems = [];
   }
   document.getElementById('lbClose').addEventListener('click', closeLb);
+  document.getElementById('lbPrev').addEventListener('click', function(e){
+    e.stopPropagation(); showLbItem(galleryIndex - 1);
+  });
+  document.getElementById('lbNext').addEventListener('click', function(e){
+    e.stopPropagation(); showLbItem(galleryIndex + 1);
+  });
   lb.addEventListener('click', function(e){ if (e.target === lb) closeLb(); });
-  document.addEventListener('keydown', function(e){ if (e.key === 'Escape') closeLb(); });
+  document.addEventListener('keydown', function(e){
+    if (!lb.classList.contains('open')) return;
+    if (e.key === 'Escape') closeLb();
+    if (e.key === 'ArrowLeft') showLbItem(galleryIndex - 1);
+    if (e.key === 'ArrowRight') showLbItem(galleryIndex + 1);
+  });
+  lbOrder.addEventListener('click', function(){
+    const msg = document.getElementById('message');
+    const pre = lbOrder.getAttribute('data-prefill') || '';
+    if (msg && pre) msg.value = pre;
+    closeLb();
+  });
 
   /* Prefill */
   document.querySelectorAll('[data-prefill]').forEach(function(el){
