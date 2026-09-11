@@ -1,17 +1,34 @@
-﻿orbita-video.mp4
+﻿# Large / local-only media (default ignore)
 *.mp4
 !orbita-bg.mp4
 !work-kazakhstan.mp4
+!work-01.mp4
+!work-02.mp4
+!work-03.mp4
+!work-04.mp4
+!work-05.mp4
+!work-06.mp4
+
+# Stills allowed
+!still-*.jpg
+!still-*.jpeg
+!still-*.png
+!still-*.webp
+
 .DS_Store
 Thumbs.db
 
-orbita-agency.html.bak
-orbita-agency.html.bak2
-_scan.py
-_extract_spans.py
-_more_ctx.py
-_inspect_video.py
-_patch_showreel.py
-_patch_showreel2.py
-_orbita_extract.txt
-_orbita_extract_trim.txt
+# Backups / scratch
+orbita-agency.html.bak*
+_*.py
+_*.txt
+_*.json
+_*.js
+_*.b64
+_diag_*.html
+_part_*.html
+_snip_*.html
+_snip_*.js
+_preview-*.mp4
+*.bak
+__pycache__/
