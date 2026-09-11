@@ -4,7 +4,8 @@
 <meta charset="UTF-8">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
-  <meta name="orbita-build" content="20260912005006">
+  <meta name="orbita-build" content="20260912005814">
+  <!-- simple-ux: short IA, one wow (Earth), cut gimmicks -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ОРБИТА — Видео и дизайн, которые продают</title>
 <meta name="description" content="Креативная студия: видеореклама, Reels, монтаж, баннеры, флаеры, афиши и key visual. Договор, NDA, юрлицо. Цены от — финал после брифа.">
@@ -1297,6 +1298,62 @@ button.svc-chip:focus-visible,.svc-chip:focus-visible{outline:2px solid var(--ac
   button.svc-chip,.svc-chip{padding:6px 11px!important;font-size:11px!important;min-height:30px!important}
 }
 
+
+/* === simple-ux 2026: pills, not walls; dead UI off === */
+.kinetic,.price-strip,.mobile-cta-bar,.studio-cursor,.brief-quiz,
+.works-filters-bar,.bento-wrap,.bento-grid,.who-grid,.price-layers,
+.orbit-compact-cta,.principles{display:none!important}
+
+.svc-chip-row{
+  display:flex;flex-wrap:wrap;gap:8px;margin-top:16px;pointer-events:auto;
+}
+button.svc-chip,
+.svc-chip{
+  display:inline-flex!important;align-items:center;justify-content:center;
+  width:auto!important;min-height:36px;padding:8px 14px;margin:0;
+  border-radius:999px!important;border:1px solid rgba(255,255,255,.16)!important;
+  background:rgba(10,12,16,.72)!important;color:rgba(242,242,244,.9)!important;
+  font:inherit;font-size:12px;letter-spacing:.04em;text-transform:uppercase;
+  cursor:pointer;appearance:none;-webkit-appearance:none;
+  grid-template-columns:unset!important;gap:0!important;text-align:center;
+  backdrop-filter:blur(10px);transition:.18s;box-shadow:none!important;
+}
+button.svc-chip:hover,.svc-chip:hover{
+  border-color:rgba(255,90,31,.55)!important;background:rgba(255,90,31,.12)!important;color:#fff!important;
+}
+button.svc-chip.active,.svc-chip.active,
+button.svc-chip[aria-pressed="true"],.svc-chip[aria-pressed="true"]{
+  border-color:rgba(255,90,31,.7)!important;background:rgba(255,90,31,.18)!important;color:#fff!important;
+  box-shadow:0 0 18px rgba(255,90,31,.18)!important;
+}
+/* kill tall svc-item wall leftovers */
+.svc-item:not(.svc-chip){display:none!important}
+.svc-wall,.svc-gallery-wall{display:none!important}
+
+.orbit-works--compact{padding-bottom:28px}
+.orbit-chip-bar{margin-top:10px}
+.cta-band{display:none!important}
+
+.price-table-wrap{margin-top:22px;overflow:auto;border:1px solid var(--line);border-radius:16px}
+.price-table{width:100%;border-collapse:collapse;font-size:14px}
+.price-table th,.price-table td{padding:14px 16px;border-bottom:1px solid var(--line);text-align:left}
+.price-table th{color:var(--muted);font-weight:500;font-size:12px;letter-spacing:.04em;text-transform:uppercase}
+.price-table tr:last-child td{border-bottom:none}
+.pt-price{font-weight:600;white-space:nowrap}
+.pt-cta{color:var(--accent);text-decoration:none;font-size:13px}
+.pt-cta:hover{text-decoration:underline}
+
+.process-grid{gap:14px}
+.step{padding:18px 18px 16px}
+.step .get{display:none!important}
+
+.faq-list{max-width:720px}
+body.has-studio-cursor,body.has-studio-cursor *{cursor:auto!important}
+.btn-primary.is-magnetic{transform:none!important}
+@media (max-width:760px){
+  body{padding-bottom:0!important}
+}
+
 </style>
 </head>
 <body>
@@ -1304,10 +1361,9 @@ button.svc-chip:focus-visible,.svc-chip:focus-visible{outline:2px solid var(--ac
   <div class="wrap nav-inner">
     <a class="logo" href="#top">ОРБИТА<span>.</span></a>
     <nav class="nav-links" aria-label="Основная навигация">
-      <a href="#services">Услуги</a>
       <a href="#orbit">Примеры</a>
-      <a href="#process">Процесс</a>
       <a href="#prices">Цены</a>
+      <a href="#process">Процесс</a>
       <a href="#contact">Контакт</a>
     </nav>
     <div class="nav-cta">
@@ -1316,10 +1372,9 @@ button.svc-chip:focus-visible,.svc-chip:focus-visible{outline:2px solid var(--ac
     </div>
   </div>
   <div class="wrap mobile-menu" id="mobileMenu">
-    <a href="#services">Услуги</a>
     <a href="#orbit">Примеры</a>
-    <a href="#process">Процесс</a>
     <a href="#prices">Цены</a>
+    <a href="#process">Процесс</a>
     <a href="#contact">Контакт</a>
     <a href="#contact">Получить смету</a>
   </div>
@@ -1357,32 +1412,7 @@ button.svc-chip:focus-visible,.svc-chip:focus-visible{outline:2px solid var(--ac
         </div>
       </div>
     </div>
-  </section>
-
-  <section class="trust">
-    <div class="wrap trust-row" aria-label="Гарантии">
-      <span class="chip"><i></i>Договор</span>
-      <span class="chip"><i></i>NDA</span>
-      <span class="chip"><i></i>Юрлицо</span>
-      <span class="chip"><i></i>Видео + дизайн</span>
-      <span class="chip"><i></i>16:9 / 9:16 / 1:1</span>
-      <span class="chip"><i></i>Ответ 24ч</span>
-    </div>
-  </section>
-
-  <div class="kinetic" aria-hidden="true">
-    <div class="kinetic-track">
-      <span>Алматы <i>·</i></span><span>Москва <i>·</i></span><span>Астана <i>·</i></span><span>Дубай <i>·</i></span><span>афиши <i>·</i></span><span>Reels <i>·</i></span><span>9:16 <i>·</i></span><span>баннеры <i>·</i></span><span>key visual <i>·</i></span><span>Ташкент <i>·</i></span><span>Париж <i>·</i></span><span>Нью-Йорк <i>·</i></span>
-      <span>Алматы <i>·</i></span><span>Москва <i>·</i></span><span>Астана <i>·</i></span><span>Дубай <i>·</i></span><span>афиши <i>·</i></span><span>Reels <i>·</i></span><span>9:16 <i>·</i></span><span>баннеры <i>·</i></span><span>key visual <i>·</i></span><span>Ташкент <i>·</i></span><span>Париж <i>·</i></span><span>Нью-Йорк <i>·</i></span>
-    </div>
-  </div>
-
-  <div class="price-strip" role="region" aria-label="Ориентир по цене">
-    <div class="ps-copy">
-      <div class="ps-kicker">Ориентир</div>
-      <div class="ps-line">Сторис <b>от 12 000 ₽</b> · ролик / пакет — после брифа · ответ за 24ч</div>
-    </div>
-    <div class="ps-actions">
+  </section><div class="ps-actions">
       <a class="btn btn-primary btn-sm" href="#contact">Получить смету</a>
       <a class="btn btn-ghost btn-sm" href="#prices">Все цены</a>
     </div>
@@ -1432,130 +1462,15 @@ button.svc-chip:focus-visible,.svc-chip:focus-visible{outline:2px solid var(--ac
           <div class="orbit-fb-hotspots" id="orbitFbHotspots" role="list"></div>
         </div>
       </div>
-    </div>
-
-      <div class="works-filters-bar" id="worksFiltersBar">
-        <div class="wrap">
-          <div class="works-filters" id="worksFilters" role="tablist" aria-label="Фильтр работ">
-            <button type="button" class="wf-chip is-on" role="tab" aria-selected="true" data-filter="all">Все</button>
-            <button type="button" class="wf-chip" role="tab" aria-selected="false" data-filter="video">Видео</button>
-            <button type="button" class="wf-chip" role="tab" aria-selected="false" data-filter="afishi">Афиши</button>
-            <button type="button" class="wf-chip" role="tab" aria-selected="false" data-filter="banner">Баннеры</button>
-            <button type="button" class="wf-chip" role="tab" aria-selected="false" data-filter="motion">Motion</button>
-          </div>
-        </div>
-      </div>
-      <div class="orbit-chip-bar" aria-hidden="false">
+    </div><div class="orbit-chip-bar" aria-hidden="false">
         <div class="orbit-chip-row" id="orbitChipRow" role="list" aria-label="Города и проекты на планете"></div>
-      </div>
-      <div class="wrap orbit-compact-cta">
-        <div class="cta-band">
-          <p>Нужна смета под задачу? <b>Опишите формат — ответим за 24 часа.</b></p>
-          <a class="btn btn-primary btn-sm" href="#contact">Оставить заявку</a>
-        </div>
-      </div>
-  </section>
+      </div></section>
 
-
-
-  
-
-<section class="section" id="cases">
-    <div class="wrap">
-      <div class="bento-head">
-        <div>
-          <div class="eyebrow">Кейсы</div>
-          <h2>Плотная сетка работ</h2>
-          <p class="lead">Reels, горизонталь и афиши 2026 — без чужих логотипов. Клик открывает просмотр.</p>
-        </div>
-      </div>
-      <div class="bento-wrap">
-        <div class="bento-grid" id="bentoGrid" aria-label="Bento-галерея работ"></div>
-      </div>
-      <div class="eyebrow" style="margin-top:36px">Список</div>
-      <h2 style="font-size:clamp(22px,3vw,32px)">Карточки с задачей и результатом</h2>
-      <div class="cases-grid" id="casesGrid" style="margin-top:18px"></div>
-    </div>
-  </section>
-
-  <section class="section" id="process" style="background:linear-gradient(180deg,transparent,rgba(255,255,255,.02),transparent)">
-    <div class="wrap">
-      <div class="eyebrow">Процесс</div>
-      <h2>Бриф → концепт → продакшн → мастера</h2>
-      <p class="lead">Четыре этапа. Под каждым — что вы получаете. Без сюрпризов по срокам и правкам.</p>
-      <div class="process-grid">
-        <article class="step">
-          <div class="step-num">01 / БРИФ</div>
-          <h3><span class="scramble">Задача и рамки</span></h3>
-          <p>Разбираем цель, аудиторию, площадки и дедлайн. Фиксируем формат и бюджетный коридор.</p>
-          <div class="get">
-            <strong>Что получаете</strong>
-            <ul>
-              <li>Краткий бриф проекта</li>
-              <li>Ориентир по срокам и смете</li>
-            </ul>
-          </div>
-        </article>
-        <article class="step">
-          <div class="step-num">02 / КОНЦЕПТ</div>
-          <h3><span class="scramble">Идея и сценарий</span></h3>
-          <p>Предлагаем направление, структуру ролика или макета и визуальные референсы до съёмки, монтажа или дизайна.</p>
-          <div class="get">
-            <strong>Что получаете</strong>
-            <ul>
-              <li>Сценарий / структуру</li>
-              <li>Мудборд и референсы</li>
-            </ul>
-          </div>
-        </article>
-        <article class="step">
-          <div class="step-num">03 / ПРОДАКШН</div>
-          <h3><span class="scramble">Съёмка и сборка</span></h3>
-          <p>Снимаем или собираем из материала, монтируем черновик, синхронизируем звук и ритм.</p>
-          <div class="get">
-            <strong>Что получаете</strong>
-            <ul>
-              <li>Черновой монтаж</li>
-              <li>Раунды правок по договору</li>
-            </ul>
-          </div>
-        </article>
-        <article class="step">
-          <div class="step-num">04 / ФИНАЛ</div>
-          <h3><span class="scramble">Мастера и адаптации</span></h3>
-          <p>Цвет, звук, графика. Сдаём мастер-файлы и версии под нужные форматы размещения.</p>
-          <div class="get">
-            <strong>Что получаете</strong>
-            <ul>
-              <li>Мастер + веб-версии</li>
-              <li>16:9 / 9:16 / 1:1</li>
-            </ul>
-          </div>
-        </article>
-      </div>
-
-      <div class="principles">
-        <h3>Принципы</h3>
-        <ul class="principles-list">
-          <li><span class="scramble">Каждый кадр — стратегия</span></li>
-          <li><span class="scramble">Ритм важнее декора — монтаж</span></li>
-          <li><span class="scramble">Смысл сначала, потом эффект</span></li>
-          <li><span class="scramble">Один стиль — все форматы</span></li>
-          <li><span class="scramble">Сдаём вовремя — это тоже креатив</span></li>
-        </ul>
-      </div>
-      <div class="cta-band">
-        <p>Готовы начать? <b>Короткий бриф — и коммерческое предложение.</b></p>
-        <a class="btn btn-primary btn-sm" href="#contact">Оставить заявку</a>
-      </div>
-    </div>
-  </section>
-
-  <section class="section" id="prices">
+<section class="section" id="prices">
     <div class="wrap">
       <div class="eyebrow">Цены</div>
       <h2>Цены без тумана</h2>
-      <p class="lead">Все суммы — <strong>от</strong>. Финал только после брифа. Таблица — быстрый ориентир; ниже — пакеты.</p>
+      <p class="lead">Все суммы — <strong>от</strong>. Финал только после брифа.</p>
       <div class="price-table-wrap" aria-label="Ориентир по форматам">
         <table class="price-table">
           <thead>
@@ -1600,171 +1515,44 @@ button.svc-chip:focus-visible,.svc-chip:focus-visible{outline:2px solid var(--ac
           </tbody>
         </table>
       </div>
-      <p class="price-note" style="margin-top:12px">Сроки — ориентир. Точная смета после брифа. Оплата в ₽ по договору.</p>
-      <div class="price-layers">
-        <div>
-          <div class="layer-title">Видео — разовые (карточки)</div>
-          <div class="fast-grid">
-            <article class="fast-card">
-              <div class="name">1 сторис</div>
-              <div class="price">от 12 000 <span>₽</span></div>
-              <p>Одна сторис под Instagram / соцсети.</p>
-              <a class="btn btn-ghost btn-sm" href="#contact" data-prefill="Хочу 1 сторис, ориентир от 12 000 ₽">Заказать</a>
-            </article>
-            <article class="fast-card">
-              <div class="name">5 сторис</div>
-              <div class="price">от 35 000 <span>₽</span></div>
-              <p>Пакет сторис в одном визуальном языке.</p>
-              <a class="btn btn-ghost btn-sm" href="#contact" data-prefill="Хочу 5 сторис, ориентир от 35 000 ₽">Заказать</a>
-            </article>
-            <article class="fast-card">
-              <div class="name">TikTok / Shorts</div>
-              <div class="price">от 35 000 <span>₽</span></div>
-              <p>Короткий вертикальный ролик до ~15 сек.</p>
-              <a class="btn btn-ghost btn-sm" href="#contact" data-prefill="Хочу короткий ролик TikTok / Shorts, ориентир от 35 000 ₽">Заказать</a>
-            </article>
-            <article class="fast-card">
-              <div class="name">Ролик ~30 сек</div>
-              <div class="price">от 80 000 <span>₽</span></div>
-              <p>Рекламный / продуктовый ролик около 30 секунд.</p>
-              <a class="btn btn-ghost btn-sm" href="#contact" data-prefill="Хочу ролик около 30 секунд, ориентир от 80 000 ₽">Заказать</a>
-            </article>
-            <article class="fast-card">
-              <div class="name">Адаптация</div>
-              <div class="price">от 12 000 <span>₽</span></div>
-              <p>Перенос под телефон / квадрат / другой формат.</p>
-              <a class="btn btn-ghost btn-sm" href="#contact" data-prefill="Хочу адаптацию ролика, ориентир от 12 000 ₽">Заказать</a>
-            </article>
-          </div>
-        </div>
-
-        <div>
-          <div class="layer-title">Дизайн — разовые</div>
-          <div class="fast-grid design-grid">
-            <article class="fast-card">
-              <div class="name">Баннер (1 макет)</div>
-              <div class="price">от 5 000 <span>₽</span></div>
-              <p>Digital или наружка · ориентир 5–8 тыс.</p>
-              <a class="btn btn-ghost btn-sm" href="#contact" data-prefill="Хочу баннер (1 макет), ориентир от 5 000–8 000 ₽">Заказать</a>
-            </article>
-            <article class="fast-card">
-              <div class="name">Флаер / листовка</div>
-              <div class="price">от 6 000 <span>₽</span></div>
-              <p>1 макет под печать / PDF · ориентир 6–10 тыс.</p>
-              <a class="btn btn-ghost btn-sm" href="#contact" data-prefill="Хочу флаер / листовку, ориентир от 6 000–10 000 ₽">Заказать</a>
-            </article>
-            <article class="fast-card">
-              <div class="name">Афиша (1 формат)</div>
-              <div class="price">от 12 000 <span>₽</span></div>
-              <p>Фильм / ивент · ориентир 12–20 тыс.</p>
-              <a class="btn btn-ghost btn-sm" href="#contact" data-prefill="Хочу афишу (1 формат), ориентир от 12 000–20 000 ₽">Заказать</a>
-            </article>
-            <article class="fast-card">
-              <div class="name">Пакет соцсетей</div>
-              <div class="price">от 25 000 <span>₽</span></div>
-              <p>Набор статичных · ориентир 25–40 тыс.</p>
-              <a class="btn btn-ghost btn-sm" href="#contact" data-prefill="Хочу пакет статичных для соцсетей, ориентир от 25 000–40 000 ₽">Заказать</a>
-            </article>
-          </div>
-          <p class="price-mark">Дизайн: «от», финал после брифа · объём правок фиксируем до старта.</p>
-        </div>
-        <div>
-          <div class="layer-title">Пакеты продакшена</div>
-          <div class="packs">
-            <details class="pack-card">
-              <summary class="pack-sum">
-                <div class="name">Старт</div>
-                <div class="pack-unit">пакет · вход в продакшн</div>
-                <div class="price">от 250 000 <span>₽</span></div>
-              </summary>
-              <div class="pack-body">
-                <p>Вход в системный продакшн: концепт, производство, финальные мастера.</p>
-                <ul>
-                  <li>Бриф и сценарий</li>
-                  <li>1 key-ролик + адаптации</li>
-                  <li>Договор и правки по объёму</li>
-                </ul>
-                <a class="btn btn-ghost btn-sm" href="#contact" data-prefill="Пакет «Старт»: от 250 000 ₽ — обсудить">Обсудить</a>
-              </div>
-            </details>
-            <details class="pack-card popular" open>
-              <summary class="pack-sum">
-                <div class="tag">Популярный</div>
-                <div class="name">Рост</div>
-                <div class="pack-unit">пакет · кампания / серия</div>
-                <div class="price">от 650 000 <span>₽</span></div>
-              </summary>
-              <div class="pack-body">
-                <p>Кампания или серия: hero + cut-downs под площадки.</p>
-                <ul>
-                  <li>Стратегия и визуальный язык</li>
-                  <li>Hero + короткие версии</li>
-                  <li>16:9 / 9:16 / 1:1</li>
-                  <li>Продюсер на проекте</li>
-                </ul>
-                <a class="btn btn-primary btn-sm" href="#contact" data-prefill="Пакет «Рост»: от 650 000 ₽ — получить предложение">Получить КП</a>
-              </div>
-            </details>
-            <details class="pack-card">
-              <summary class="pack-sum">
-                <div class="name">Enterprise</div>
-                <div class="pack-unit">ретейнер · индивидуальный объём</div>
-                <div class="price">индивидуально</div>
-              </summary>
-              <div class="pack-body">
-                <p>Постоянный поток, несколько направлений, NDA и закрывающие.</p>
-                <ul>
-                  <li>Выделенная команда</li>
-                  <li>Ретейнер / объём по договору</li>
-                  <li>Юрлицо, акты, NDA</li>
-                </ul>
-                <a class="btn btn-ghost btn-sm" href="#contact" data-prefill="Enterprise / ретейнер — обсудить объём и условия">Запросить</a>
-              </div>
-            </details>
-          </div>
-          <p class="price-note">Все цены — «от»; финал после брифа. Оплата в рублях, по договору, с закрывающими. Без чужих логотипов и накрученных кейсов.</p>
-      <div class="cta-band">
-        <p>Не нашли свой формат? <b>Смета за 24 часа — без обязательств.</b></p>
-        <a class="btn btn-primary btn-sm" href="#contact">Оставить заявку</a>
-      </div>
-        </div>
-      </div>
+      <p class="price-note" style="margin-top:14px">Сроки — ориентир. Точная смета после брифа. Оплата в ₽ по договору.</p>
     </div>
   </section>
 
-  <section class="section" id="who">
+<section class="section" id="process" style="background:linear-gradient(180deg,transparent,rgba(255,255,255,.02),transparent)">
     <div class="wrap">
-      <div class="eyebrow">Кому подойдёт</div>
-      <h2>Четыре сценария входа</h2>
-      <div class="who-grid" style="grid-template-columns:repeat(2,1fr)">
-        <a class="who-card" href="#contact" data-prefill="Эксперт / личный бренд: нужен сильный ролик или серия сторис.">
-          <h3>Эксперт / блогер</h3>
-          <p>Выглядеть сильно с первого ролика — без студийной бюрократии и лишних созвонов.</p>
-          <span class="btn btn-ghost btn-sm">Оставить заявку</span>
-        </a>
-        <a class="who-card" href="#contact" data-prefill="Стартап / продукт: нужны Reels, баннеры или key visual под запуск.">
-          <h3>Стартап / продукт</h3>
-          <p>Быстрый визуальный язык под запуск: Reels, баннеры, KV — чтобы объяснять ценность.</p>
-          <span class="btn btn-ghost btn-sm">Оставить заявку</span>
-        </a>
-        <a class="who-card" href="#contact" data-prefill="Бренд / маркетинг: пакет Старт или Рост, договор и NDA.">
-          <h3>Бренд / маркетинг</h3>
-          <p>Системный продакшн, договор, NDA, пакеты Старт / Рост / Enterprise.</p>
-          <span class="btn btn-ghost btn-sm">Оставить заявку</span>
-        </a>
-        <a class="who-card" href="#contact" data-prefill="Агентство: нужен production-партнёр под видео и дизайн.">
-          <h3>Агентство</h3>
-          <p>Надёжный production-партнёр: ролики и дизайн под ваш клиентский бриф.</p>
-          <span class="btn btn-ghost btn-sm">Оставить заявку</span>
-        </a>
+      <div class="eyebrow">Процесс</div>
+      <h2>Бриф → концепт → продакшн → мастера</h2>
+      <p class="lead">Четыре этапа — от брифа до мастеров. Сроки и правки фиксируем до старта.</p>
+      <div class="process-grid">
+        <article class="step">
+          <div class="step-num">01 / БРИФ</div>
+          <h3><span class="scramble">Задача и рамки</span></h3>
+          <p>Разбираем цель, аудиторию, площадки и дедлайн. Фиксируем формат и бюджетный коридор.</p>
+</article>
+        <article class="step">
+          <div class="step-num">02 / КОНЦЕПТ</div>
+          <h3><span class="scramble">Идея и сценарий</span></h3>
+          <p>Предлагаем направление, структуру ролика или макета и визуальные референсы до съёмки, монтажа или дизайна.</p>
+</article>
+        <article class="step">
+          <div class="step-num">03 / ПРОДАКШН</div>
+          <h3><span class="scramble">Съёмка и сборка</span></h3>
+          <p>Снимаем или собираем из материала, монтируем черновик, синхронизируем звук и ритм.</p>
+</article>
+        <article class="step">
+          <div class="step-num">04 / ФИНАЛ</div>
+          <h3><span class="scramble">Мастера и адаптации</span></h3>
+          <p>Цвет, звук, графика. Сдаём мастер-файлы и версии под нужные форматы размещения.</p>
+</article>
       </div>
-    </div>
+</div>
   </section>
 
-  <section class="section" id="faq">
+<section class="section" id="faq">
     <div class="wrap">
       <div class="eyebrow">FAQ</div>
-      <h2>Возражения и ответы</h2>
+      <h2>Частые вопросы</h2>
       <div class="faq-list">
         <details class="faq-item">
           <summary>Сколько занимают сроки?</summary>
@@ -1786,23 +1574,10 @@ button.svc-chip:focus-visible,.svc-chip:focus-visible{outline:2px solid var(--ac
           <summary>Кому принадлежат права?</summary>
           <div class="a">После полной оплаты права на использование готового материала переходят заказчику в рамках договора. Территорию и срок лицензии при необходимости прописываем отдельно.</div>
         </details>
-        <details class="faq-item">
-          <summary>Работаете по договору и NDA?</summary>
-          <div class="a">Да. Договор, NDA по запросу, юрлицо, закрывающие. Без демо-телефонов и накрученных кейсов.</div>
-        </details>
-        <details class="faq-item">
-          <summary>Можно только дизайн — без видео?</summary>
-          <div class="a">Да. Афиши, баннеры, флаеры, key visual и соцсети — отдельно или в пакете с роликом.</div>
-        </details>
-        <details class="faq-item">
-          <summary>Почему цены «от»?</summary>
-          <div class="a">Итоговая смета зависит от съёмки, объёма графики, количества версий и сроков. «От» — честный вход; финал — только после брифа, до начала работ.</div>
-        </details>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <section class="section" id="contact">
+<section class="section" id="contact">
     <div class="wrap">
       <div class="eyebrow">Контакт</div>
       <h2>Оставьте заявку — смета за 24ч</h2>
@@ -1817,42 +1592,7 @@ button.svc-chip:focus-visible,.svc-chip:focus-visible{outline:2px solid var(--ac
             <p style="margin:8px 0 0;font-size:13px;color:var(--muted)">Публичный @канал пока не публикуем — только прямой диалог после заявки. Честно.</p>
           </div>
         </div>
-        <div class="form-card">
-          
-          <div class="brief-quiz" id="briefQuiz" aria-label="Короткий бриф">
-            <div class="bq-steps" aria-hidden="true">
-              <span class="bq-step is-on" data-bq-step="1">1 · Задача</span>
-              <span class="bq-step" data-bq-step="2">2 · Срок</span>
-              <span class="bq-step" data-bq-step="3">3 · Бюджет</span>
-            </div>
-            <div class="bq-panel" data-bq-panel="1">
-              <p class="bq-q">Что нужно?</p>
-              <div class="bq-opts">
-                <button type="button" class="bq-opt" data-bq="task" data-val="Видео / Reels">Видео</button>
-                <button type="button" class="bq-opt" data-bq="task" data-val="Афиша">Афиша</button>
-                <button type="button" class="bq-opt" data-bq="task" data-val="Баннер / дизайн">Баннер</button>
-                <button type="button" class="bq-opt" data-bq="task" data-val="Пакет продакшена">Пакет</button>
-              </div>
-            </div>
-            <div class="bq-panel" data-bq-panel="2" hidden>
-              <p class="bq-q">Какой срок?</p>
-              <div class="bq-opts">
-                <button type="button" class="bq-opt" data-bq="deadline" data-val="как можно скорее">ASAP</button>
-                <button type="button" class="bq-opt" data-bq="deadline" data-val="около 2 недель">~2 недели</button>
-                <button type="button" class="bq-opt" data-bq="deadline" data-val="месяц и больше">месяц+</button>
-              </div>
-            </div>
-            <div class="bq-panel" data-bq-panel="3" hidden>
-              <p class="bq-q">Бюджетный ориентир?</p>
-              <div class="bq-opts">
-                <button type="button" class="bq-opt" data-bq="budget" data-val="до 50 000 ₽">до 50к</button>
-                <button type="button" class="bq-opt" data-bq="budget" data-val="50–250 000 ₽">50–250к</button>
-                <button type="button" class="bq-opt" data-bq="budget" data-val="от 250 000 ₽">250к+</button>
-              </div>
-            </div>
-            <p class="bq-hint">Ответы подставятся в сообщение — можно править вручную.</p>
-          </div>
-<form class="form" id="contactForm">
+        <div class="form-card"><form class="form" id="contactForm">
             <label>Имя
               <input name="name" required placeholder="Как к вам обращаться" autocomplete="name">
             </label>
@@ -1869,6 +1609,8 @@ button.svc-chip:focus-visible,.svc-chip:focus-visible{outline:2px solid var(--ac
       </div>
     </div>
   </section>
+
+
 </main>
 
 <footer class="footer">
@@ -1878,10 +1620,9 @@ button.svc-chip:focus-visible,.svc-chip:focus-visible{outline:2px solid var(--ac
       <div>© <span id="year"></span> · видео и дизайн</div>
     </div>
     <nav class="footer-nav" aria-label="Навигация в подвале">
-      <a href="#services">Услуги</a>
       <a href="#orbit">Примеры</a>
-      <a href="#process">Процесс</a>
       <a href="#prices">Цены</a>
+      <a href="#process">Процесс</a>
       <a href="#contact">Контакт</a>
     </nav>
     <div class="footer-meta">
@@ -1890,12 +1631,6 @@ button.svc-chip:focus-visible,.svc-chip:focus-visible{outline:2px solid var(--ac
     </div>
   </div>
 </footer>
-
-<div class="mobile-cta-bar" id="mobileCtaBar" aria-label="Быстрая заявка">
-  <a class="btn btn-primary" href="#contact">Получить смету</a>
-</div>
-<div class="studio-cursor" id="studioCursor" aria-hidden="true"></div>
-
 <div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Просмотр работы" hidden>
   <button class="btn btn-ghost btn-sm lb-close" type="button" id="lbClose">Закрыть</button>
   <button class="lb-nav lb-prev" type="button" id="lbPrev" aria-label="Предыдущее">‹</button>
@@ -2554,8 +2289,7 @@ button.svc-chip:focus-visible,.svc-chip:focus-visible{outline:2px solid var(--ac
   (function(){
     var fine = window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)').matches;
     var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    var cur = document.getElementById('studioCursor');
-    if (!fine || reduce || !cur) return;
+    var cur = document.getElementById('studioCursor'); if (true) return; /* simple-ux: cursor off */ if (!fine || reduce || !cur) return;
     document.body.classList.add('has-studio-cursor');
     var x = 0, y = 0, rx = 0, ry = 0, raf = 0;
     function loop(){
@@ -2582,8 +2316,7 @@ button.svc-chip:focus-visible,.svc-chip:focus-visible{outline:2px solid var(--ac
     var fine = window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)').matches;
     var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (!fine || reduce) return;
-    document.querySelectorAll('.btn-primary').forEach(function(btn){
-      btn.classList.add('is-magnetic');
+    document.querySelectorAll('.btn-primary').forEach(function(btn){ if(window.__ORBITA_NO_MAGNETIC__) return; /* simple-ux: magnetic off */ if(false) btn.classList.add('is-magnetic');
       btn.addEventListener('mousemove', function(e){
         var r = btn.getBoundingClientRect();
         var dx = e.clientX - (r.left + r.width/2);
