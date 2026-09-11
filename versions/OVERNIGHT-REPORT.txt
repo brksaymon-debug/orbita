@@ -60,3 +60,15 @@ SMOKE
 - Local file open recommended after Pages deploy
 - Verify: accent cyan, H1, dual columns, sticky Заказать, posters in «Ещё» wall, FAQ, form → hello@
 
+
+SMOKE RESULT (2026-09-12 ~01:56 Asia/Shanghai)
+- git push: a4ceaca..5eadb9f main -> origin/main OK
+- raw.githubusercontent.com: build 20260912015346, posters+faq present, fake phone GONE
+- Pages https://brksaymon-debug.github.io/orbita/orbita-agency.html?v=20260912015346 : LEN 107341, build match, lightbox OK
+- Local orbita-agency.html opened once for visual smoke
+- Hard-refresh tip if CDN stale: ?v=20260912015346
+
+Commits shipped:
+- 1d085a9 defects (phone/metrics/cyan)
+- 2be1a50 media+lightbox+craft
+- 5eadb9f FAQ/process/case CSS/cache/LOCKED baselines
