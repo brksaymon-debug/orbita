@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
-  <meta name="orbita-build" content="20260911235922">
+  <meta name="orbita-build" content="20260912001039">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ОРБИТА — Видео и дизайн, которые продают</title>
 <meta name="description" content="Креативная студия: видеореклама, Reels, монтаж, баннеры, флаеры, афиши и key visual. Договор, NDA, юрлицо. Цены от — финал после брифа.">
@@ -49,7 +49,7 @@ h3{font-size:clamp(18px,2vw,22px)}
 /* NAV */
 .nav{
   position:sticky;top:0;z-index:50;backdrop-filter:blur(16px);
-  background:rgba(10,10,12,.78);border-bottom:1px solid var(--line);
+  background:rgba(10,10,12,.55);border-bottom:1px solid var(--line);
 }
 .nav-inner{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:68px}
 .logo{font-family:var(--font);font-weight:700;font-size:16px;letter-spacing:.08em}
@@ -63,65 +63,51 @@ h3{font-size:clamp(18px,2vw,22px)}
 .mobile-menu.open{display:block}
 .mobile-menu a{display:block;padding:12px 0;color:var(--muted);border-bottom:1px solid var(--line)}
 
-/* HERO */
-.hero{padding:48px 0 36px;position:relative}
-.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:36px;align-items:center}
-.hero-copy .lead{margin:18px 0 28px}
-.hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:28px}
-.hero-note{font-size:13px;color:var(--muted)}
-.media-wall{
-  position:relative;height:min(72vh,680px);border-radius:24px;overflow:hidden;
-  border:1px solid var(--line);background:var(--bg2);
-  display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:8px;
-  z-index:1;
+/* HERO — cinematic globe stage */
+.hero{
+  padding:0;position:relative;min-height:min(92vh,920px);
+  display:flex;flex-direction:column;justify-content:flex-end;
+  overflow:hidden;background:#050508;
 }
-.wall-col{display:flex;flex-direction:column;gap:8px;animation:wallScroll 42s linear infinite}
-.wall-col.reverse{animation-direction:reverse;animation-duration:48s}
-.wall-col:hover{animation-play-state:paused}
-@keyframes wallScroll{0%{transform:translateY(0)}100%{transform:translateY(-50%)}}
-.wall-item{
-  position:relative;border-radius:14px;overflow:hidden;background:#0a0a0f;
-  aspect-ratio:3/4;flex-shrink:0;cursor:pointer;isolation:isolate;
+.hero-globe-wrap{position:absolute;inset:0;z-index:0}
+.hero .orbit-globe-stage{
+  position:absolute;inset:0;width:100%;height:100%;
+  min-height:0;border-radius:0;border:none;box-shadow:none;
+  background:radial-gradient(ellipse 70% 55% at 50% 48%, #10131c 0%, #050508 68%, #030306 100%);
 }
-.wall-item.wide{aspect-ratio:16/10}
-.wall-item.is-design{aspect-ratio:2/3;background:#0a0a0f}
-.wall-item.is-design.wide{aspect-ratio:16/10}
-.wall-item video,.wall-item img{width:100%;height:100%;object-fit:cover;pointer-events:none;display:block}
-.wall-item.is-design img{object-fit:contain;background:#0a0a0f}
-.wall-item .badge,.wall-item .label{pointer-events:none}
-.wall-item::before{
-  content:"";position:absolute;inset:0;z-index:4;cursor:pointer;
-  background:transparent;pointer-events:auto;
+.hero-overlay{
+  position:relative;z-index:4;padding:calc(68px + 28px) 0 36px;pointer-events:none;
+  background:linear-gradient(180deg,rgba(5,5,8,.55) 0%,rgba(5,5,8,.08) 28%,rgba(5,5,8,.12) 55%,rgba(5,5,8,.78) 100%);
 }
-.wall-item .badge{
-  position:absolute;left:12px;top:12px;padding:6px 10px;border-radius:999px;
-  background:rgba(0,0,0,.55);border:1px solid rgba(255,255,255,.18);font-size:11px;
-  backdrop-filter:blur(8px);letter-spacing:.04em;z-index:2;
+.hero-overlay .wrap{pointer-events:none}
+.hero-overlay .hero-copy,.hero-overlay .hero-actions a,.hero-overlay .btn,
+.hero-overlay .orbit-chip-row,.hero-overlay .orbit-chip-row button{pointer-events:auto}
+.hero-copy{max-width:min(560px,92vw)}
+.hero-copy h1{text-shadow:0 8px 40px rgba(0,0,0,.55)}
+.hero-copy .lead{margin:14px 0 20px;max-width:42ch;color:rgba(242,242,244,.82);text-shadow:0 2px 16px rgba(0,0,0,.45)}
+.hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:16px}
+.hero-note{font-size:13px;color:rgba(154,154,168,.9);margin-bottom:14px}
+.hero-bg{display:none!important}
+.media-wall{display:none!important}
+.wall-col{display:none!important}
+.offer-pills{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 18px}
+.offer-pills span{
+  font-size:12px;color:var(--text);border:1px solid rgba(255,255,255,.14);
+  background:rgba(0,0,0,.35);border-radius:999px;padding:7px 12px;backdrop-filter:blur(8px);
 }
-.mock-note{
-  margin-top:14px;font-size:13px;color:rgba(255,255,255,.55);letter-spacing:.01em;
+.orbit-chip-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px;max-width:720px}
+.orbit-chip-row button{
+  appearance:none;cursor:pointer;border:1px solid rgba(255,255,255,.16);
+  background:rgba(10,12,18,.72);color:#e8eef8;padding:8px 12px;border-radius:999px;
+  font:500 11px/1.2 var(--font,system-ui);letter-spacing:.03em;text-transform:uppercase;
+  backdrop-filter:blur(10px);transition:border-color .15s, transform .15s, background .15s;
 }
-.wall-item .play{
-  position:absolute;inset:auto 12px 12px auto;width:36px;height:36px;border-radius:50%;
-  background:rgba(0,0,0,.55);border:1px solid rgba(255,255,255,.25);
-  display:grid;place-items:center;font-size:12px;backdrop-filter:blur(8px);cursor:pointer;color:#fff;z-index:5;pointer-events:none;
+.orbit-chip-row button:hover,.orbit-chip-row button:focus-visible{
+  border-color:rgba(46,230,255,.55);outline:none;transform:translateY(-1px);
 }
-.wall-item .view-hint{
-  position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) scale(.96);
-  padding:10px 16px;border-radius:999px;font-size:12px;letter-spacing:.04em;
-  background:rgba(0,0,0,.62);border:1px solid rgba(255,255,255,.28);color:#fff;
-  backdrop-filter:blur(10px);opacity:0;pointer-events:none;transition:.2s ease;z-index:2;
-  white-space:nowrap;
-}
-.wall-item:hover .view-hint,.wall-item:focus-visible .view-hint{opacity:1;transform:translate(-50%,-50%) scale(1)}
-.wall-item::after{
-  content:"";position:absolute;inset:0;background:rgba(0,0,0,.0);transition:.2s;pointer-events:none;
-}
-.wall-item:hover::after{background:rgba(0,0,0,.28)}
-.hero-bg{
-  position:absolute;inset:0;z-index:-1;opacity:.18;pointer-events:none;overflow:hidden;
-}
-.hero-bg video{width:100%;height:100%;object-fit:cover;filter:saturate(.7) brightness(.45)}
+.orbit-chip-row button.is-afishi{border-color:rgba(255,90,31,.5);color:var(--accent2)}
+.orbit-chip-row button.is-afishi:hover{border-color:rgba(255,90,31,.85);box-shadow:0 0 18px rgba(255,90,31,.22)}
+.orbit-chip-row button.is-on{border-color:rgba(46,230,255,.7);background:rgba(20,32,48,.9)}
 
 /* TRUST */
 .trust{padding:8px 0 40px}
@@ -133,7 +119,7 @@ h3{font-size:clamp(18px,2vw,22px)}
 .chip i{width:6px;height:6px;border-radius:50%;background:var(--ok);display:inline-block}
 
 /* SERVICES */
-.services-grid{display:grid;grid-template-columns:1fr 1.1fr;gap:28px;align-items:stretch}
+.services-grid{display:grid;grid-template-columns:1fr;gap:18px;align-items:stretch;max-width:720px}
 .svc-list{display:flex;flex-direction:column;gap:10px}
 .svc-item{
   display:grid;grid-template-columns:48px 1fr;gap:14px;padding:18px;border-radius:16px;
@@ -144,7 +130,8 @@ h3{font-size:clamp(18px,2vw,22px)}
 .svc-num{font-family:var(--font);color:var(--accent);font-size:13px;padding-top:2px}
 .svc-item h3{margin-bottom:6px}
 .svc-item p{color:var(--muted);font-size:14px}
-.svc-wall{
+.svc-wall,.svc-wall-debug{display:none!important}
+.svc-wall-REMOVED{
   border-radius:22px;overflow:hidden;border:1px solid var(--line);background:var(--bg2);
   display:grid;grid-template-columns:1.2fr 1fr;grid-template-rows:1.35fr 1fr;gap:8px;padding:8px;min-height:520px;
 }
@@ -371,8 +358,7 @@ h3{font-size:clamp(18px,2vw,22px)}
 @media (max-width:980px){
   .nav-links{display:none}
   .burger{display:inline-grid;place-items:center}
-  .hero-grid,.services-grid,.contact-grid{grid-template-columns:1fr}
-  .media-wall{height:420px}
+  .services-grid,.contact-grid{grid-template-columns:1fr}
   .process-grid,.cases-grid,.who-grid,.packs{grid-template-columns:1fr 1fr}
   .fast-grid{grid-template-columns:1fr 1fr}
 }
@@ -380,8 +366,6 @@ h3{font-size:clamp(18px,2vw,22px)}
   .section{padding:64px 0}
   .process-grid,.cases-grid,.who-grid,.packs,.fast-grid{grid-template-columns:1fr}
   .nav-cta .btn-ghost{display:none}
-  .svc-wall{min-height:340px;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr}
-  .svc-cell:first-child{grid-row:auto}
 }
 @media (prefers-reduced-motion:reduce){
   .wall-col{animation:none!important}
@@ -402,40 +386,14 @@ h3{font-size:clamp(18px,2vw,22px)}
   .fast-grid.design-grid{grid-template-columns:1fr}
 }
 
-/* ========== ORBIT GLOBE ========== */
-.orbit-globe-section{
-  padding:72px 0 96px;
-  background:
-    radial-gradient(ellipse 80% 60% at 50% 40%, rgba(255,90,31,.08), transparent 55%),
-    radial-gradient(ellipse 50% 40% at 70% 70%, rgba(46,230,255,.05), transparent 50%),
-    linear-gradient(180deg, transparent, rgba(255,255,255,.015), transparent);
-  position:relative;
-  overflow:hidden;
-}
-.orbit-globe-head{max-width:52ch;margin-bottom:28px}
-.orbit-globe-hint{
-  margin-top:12px;color:var(--muted);font-size:14px;max-width:48ch;
-}
-.orbit-globe-stage{
-  position:relative;
-  width:100%;
-  height:min(72vh,640px);
-  min-height:380px;
-  border-radius:24px;
-  border:1px solid var(--line);
-  background:
-    radial-gradient(circle at 50% 45%, #12141c 0%, #07070a 70%);
-  overflow:hidden;
-  box-shadow:0 30px 80px rgba(0,0,0,.45), inset 0 0 80px rgba(255,90,31,.04);
-}
-#orbitGlobeCanvas{
-  display:block;width:100%;height:100%;
-  touch-action:none;cursor:grab;
-}
+/* ========== ORBIT GLOBE (hero-integrated) ========== */
+.orbit-globe-section{display:none!important}
+.orbit-globe-stage{position:relative;width:100%;height:100%;overflow:hidden}
+#orbitGlobeCanvas{display:block;width:100%;height:100%;touch-action:none;cursor:grab}
 #orbitGlobeCanvas.is-dragging{cursor:grabbing}
 .orbit-globe-overlay{
-  position:absolute;inset:0;pointer-events:none;
-  background:radial-gradient(circle at 50% 50%, transparent 42%, rgba(0,0,0,.35) 100%);
+  position:absolute;inset:0;pointer-events:none;z-index:1;
+  background:radial-gradient(circle at 50% 48%, transparent 38%, rgba(0,0,0,.22) 72%, rgba(0,0,0,.55) 100%);
 }
 .orbit-globe-legend{
   position:absolute;left:18px;bottom:16px;z-index:3;
@@ -443,82 +401,51 @@ h3{font-size:clamp(18px,2vw,22px)}
   font-size:12px;color:var(--muted);pointer-events:none;
 }
 .orbit-globe-legend span{display:inline-flex;align-items:center;gap:6px}
-.orbit-globe-legend i{
-  width:8px;height:8px;border-radius:50%;display:inline-block;
-  box-shadow:0 0 8px currentColor;
-}
+.orbit-globe-legend i{width:8px;height:8px;border-radius:50%;display:inline-block;box-shadow:0 0 8px currentColor}
 .orbit-globe-legend .lg-video i{background:var(--cyan);color:var(--cyan)}
 .orbit-globe-legend .lg-afishi i{background:var(--accent);color:var(--accent)}
 .orbit-hotspot-tip{
-  position:absolute;z-index:5;pointer-events:none;
-  transform:translate(-50%,-120%);
-  padding:6px 12px;border-radius:999px;
-  background:rgba(10,10,12,.88);border:1px solid rgba(255,255,255,.12);
+  position:absolute;z-index:5;pointer-events:none;transform:translate(-50%,-120%);
+  padding:7px 14px;border-radius:999px;
+  background:rgba(10,10,12,.9);border:1px solid rgba(255,255,255,.14);
   color:#fff;font-family:var(--font);font-size:11px;font-weight:500;
-  letter-spacing:.04em;text-transform:uppercase;white-space:nowrap;
+  letter-spacing:.05em;text-transform:uppercase;white-space:nowrap;
   opacity:0;transition:opacity .18s ease;
-  box-shadow:0 8px 24px rgba(0,0,0,.4);
+  box-shadow:0 10px 28px rgba(0,0,0,.45), 0 0 24px rgba(46,230,255,.12);
 }
 .orbit-hotspot-tip.is-on{opacity:1}
-.orbit-hotspot-tip.is-afishi{border-color:rgba(255,90,31,.55);color:var(--accent2)}
+.orbit-hotspot-tip.is-afishi{border-color:rgba(255,90,31,.55);color:var(--accent2);box-shadow:0 10px 28px rgba(0,0,0,.45),0 0 24px rgba(255,90,31,.18)}
 .orbit-video-preview{
-  position:absolute;z-index:6;pointer-events:none;
-  width:min(180px,42vw);aspect-ratio:9/16;
-  border-radius:16px;overflow:hidden;
-  border:1px solid rgba(255,255,255,.18);
-  background:#000;
+  position:absolute;z-index:6;pointer-events:none;width:min(168px,40vw);aspect-ratio:9/16;
+  border-radius:16px;overflow:hidden;border:1px solid rgba(255,255,255,.18);background:#000;
   box-shadow:0 18px 50px rgba(0,0,0,.55), 0 0 0 1px rgba(255,90,31,.25);
-  opacity:0;transform:translate(-50%,-110%) scale(.92);
-  transition:opacity .2s ease, transform .2s ease;
+  opacity:0;transform:translate(-50%,-110%) scale(.92);transition:opacity .2s ease, transform .2s ease;
 }
-.orbit-video-preview.is-on{
-  opacity:1;transform:translate(-50%,-110%) scale(1);
-}
-.orbit-video-preview video{
-  width:100%;height:100%;object-fit:cover;display:block;
-}
+.orbit-video-preview.is-on{opacity:1;transform:translate(-50%,-110%) scale(1)}
+.orbit-video-preview video{width:100%;height:100%;object-fit:cover;display:block}
 .orbit-video-preview .ovp-label{
-  position:absolute;left:8px;bottom:8px;
-  padding:3px 8px;border-radius:999px;
-  background:rgba(0,0,0,.65);color:#fff;
-  font-size:10px;font-family:var(--font);letter-spacing:.06em;text-transform:uppercase;
+  position:absolute;left:8px;bottom:8px;padding:3px 8px;border-radius:999px;
+  background:rgba(0,0,0,.65);color:#fff;font-size:10px;font-family:var(--font);letter-spacing:.06em;text-transform:uppercase;
 }
 .orbit-globe-fallback{
-  position:absolute;inset:0;display:none;z-index:2;
-  place-items:center;align-content:center;
+  position:absolute;inset:0;display:none;z-index:2;place-items:center;align-content:center;
   color:var(--muted);font-size:14px;padding:20px 24px 56px;text-align:center;
-  background:
-    radial-gradient(circle at 50% 42%, rgba(20,40,70,.55), rgba(7,7,10,.92) 70%);
+  background:radial-gradient(circle at 50% 42%, rgba(20,40,70,.55), rgba(7,7,10,.92) 70%);
 }
 .orbit-globe-fallback.is-on{display:grid;gap:16px}
 .orbit-globe-fallback .ogf-msg{max-width:42ch;margin:0 auto;line-height:1.45;color:rgba(255,255,255,.72)}
 .orbit-globe-fallback .ogf-tip{font-size:12px;color:var(--muted);max-width:48ch;margin:0 auto;opacity:.85}
-.orbit-fb-planet-wrap{
-  position:relative;width:min(280px,62vw);aspect-ratio:1;margin:8px auto 4px;
-}
+.orbit-fb-planet-wrap{position:relative;width:min(280px,62vw);aspect-ratio:1;margin:8px auto 4px}
 .orbit-fb-planet{
   width:100%;height:100%;border-radius:50%;
-  background:
-    radial-gradient(circle at 32% 28%, rgba(255,255,255,.35), transparent 28%),
-    radial-gradient(circle at 60% 55%, #1a6b4a 0%, #0d3d5c 42%, #0a2540 70%, #050b14 100%);
-  box-shadow:
-    inset -18px -10px 40px rgba(0,0,0,.45),
-    0 0 0 2px rgba(46,230,255,.12),
-    0 0 48px rgba(46,168,255,.18),
-    0 0 80px rgba(255,90,31,.08);
-  animation:orbitFbSpin 28s linear infinite;
-  position:relative;overflow:hidden;
+  background:radial-gradient(circle at 32% 28%, rgba(255,255,255,.35), transparent 28%),radial-gradient(circle at 60% 55%, #1a6b4a 0%, #0d3d5c 42%, #0a2540 70%, #050b14 100%);
+  box-shadow:inset -18px -10px 40px rgba(0,0,0,.45),0 0 0 2px rgba(46,230,255,.12),0 0 48px rgba(46,168,255,.18),0 0 80px rgba(255,90,31,.08);
+  animation:orbitFbSpin 28s linear infinite;position:relative;overflow:hidden;
 }
 .orbit-fb-planet::before{
   content:"";position:absolute;inset:-8%;
-  background:
-    repeating-linear-gradient(105deg,
-      transparent 0 18px,
-      rgba(46,230,255,.04) 18px 22px,
-      transparent 22px 40px);
-  border-radius:50%;
-  animation:orbitFbSpin 18s linear infinite reverse;
-  opacity:.7;
+  background:repeating-linear-gradient(105deg,transparent 0 18px,rgba(46,230,255,.04) 18px 22px,transparent 22px 40px);
+  border-radius:50%;animation:orbitFbSpin 18s linear infinite reverse;opacity:.7;
 }
 .orbit-fb-planet::after{
   content:"";position:absolute;inset:0;border-radius:50%;
@@ -526,39 +453,19 @@ h3{font-size:clamp(18px,2vw,22px)}
   background:radial-gradient(circle at 70% 30%, transparent 40%, rgba(0,0,0,.35) 100%);
 }
 @keyframes orbitFbSpin{to{transform:rotate(360deg)}}
-@media (prefers-reduced-motion:reduce){
-  .orbit-fb-planet,.orbit-fb-planet::before{animation:none}
-}
-.orbit-fb-hotspots{
-  display:flex;flex-wrap:wrap;justify-content:center;gap:8px;
-  max-width:520px;margin:0 auto;pointer-events:auto;position:relative;z-index:3;
-}
+@media (prefers-reduced-motion:reduce){.orbit-fb-planet,.orbit-fb-planet::before{animation:none}}
+.orbit-fb-hotspots{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;max-width:520px;margin:0 auto;pointer-events:auto;position:relative;z-index:3}
 .orbit-fb-hotspots button{
-  appearance:none;border:1px solid rgba(255,255,255,.14);
-  background:rgba(12,14,20,.82);color:#e8eef8;
-  padding:8px 12px;border-radius:999px;font:500 12px/1.2 var(--font,system-ui);
-  letter-spacing:.02em;cursor:pointer;
+  appearance:none;border:1px solid rgba(255,255,255,.14);background:rgba(12,14,20,.82);color:#e8eef8;
+  padding:8px 12px;border-radius:999px;font:500 12px/1.2 var(--font,system-ui);letter-spacing:.02em;cursor:pointer;
   transition:border-color .15s, background .15s, transform .15s;
 }
-.orbit-fb-hotspots button:hover,.orbit-fb-hotspots button:focus-visible{
-  border-color:rgba(46,230,255,.55);background:rgba(20,28,40,.95);outline:none;
-  transform:translateY(-1px);
-}
-.orbit-fb-hotspots button.is-afishi{
-  border-color:rgba(255,90,31,.45);color:var(--accent2,#ff8a4c);
-}
-.orbit-fb-hotspots button.is-afishi:hover{
-  border-color:rgba(255,90,31,.8);box-shadow:0 0 16px rgba(255,90,31,.2);
-}
+.orbit-fb-hotspots button:hover,.orbit-fb-hotspots button:focus-visible{border-color:rgba(46,230,255,.55);background:rgba(20,28,40,.95);outline:none;transform:translateY(-1px)}
+.orbit-fb-hotspots button.is-afishi{border-color:rgba(255,90,31,.45);color:var(--accent2,#ff8a4c)}
+.orbit-fb-hotspots button.is-afishi:hover{border-color:rgba(255,90,31,.8);box-shadow:0 0 16px rgba(255,90,31,.2)}
 .orbit-globe-stage.is-fallback #orbitGlobeCanvas{visibility:hidden}
-@media (max-width:900px){
-  .orbit-globe-stage{height:min(62vh,520px);min-height:320px}
-}
-@media (max-width:640px){
-  .orbit-globe-section{padding:56px 0 72px}
-  .orbit-globe-legend{left:12px;bottom:10px;font-size:11px}
-  .orbit-video-preview{width:min(140px,38vw)}
-}
+@media (max-width:980px){.hero{min-height:min(88vh,860px)}.hero-overlay{padding-top:calc(68px + 18px);padding-bottom:28px}}
+@media (max-width:640px){.hero{min-height:min(86vh,780px)}.orbit-globe-legend{left:12px;bottom:10px;font-size:11px}.orbit-video-preview{width:min(130px,36vw)}.orbit-chip-row button{padding:9px 11px;font-size:10px}}
 
 </style>
 </head>
@@ -567,7 +474,7 @@ h3{font-size:clamp(18px,2vw,22px)}
   <div class="wrap nav-inner">
     <a class="logo" href="#top">ОРБИТА<span>.</span></a>
     <nav class="nav-links" aria-label="Основная навигация">
-      <a href="#works">Работы</a>
+      <a href="#cases">Работы</a>
       <a href="#services">Услуги</a>
       <a href="#orbit">Орбита</a>
       <a href="#process">Процесс</a>
@@ -580,7 +487,7 @@ h3{font-size:clamp(18px,2vw,22px)}
     </div>
   </div>
   <div class="wrap mobile-menu" id="mobileMenu">
-    <a href="#works">Работы</a>
+    <a href="#cases">Работы</a>
     <a href="#services">Услуги</a>
     <a href="#orbit">Орбита</a>
     <a href="#process">Процесс</a>
@@ -591,39 +498,55 @@ h3{font-size:clamp(18px,2vw,22px)}
 </header>
 
 <main id="top">
-  <section class="hero">
-    <div class="hero-bg" aria-hidden="true">
-      <video src="orbita-bg.mp4" muted loop playsinline preload="metadata" data-autoplay-bg></video>
-    </div>
-    <div class="wrap hero-grid">
-      <div class="hero-copy">
-        <div class="eyebrow">Креативная студия · видео и дизайн</div>
-        <h1>Видео и дизайн,<br>которые продают</h1>
-        <p class="lead">Ролики, баннеры, афиши, флаеры — под ключ. Видеореклама, монтаж и статичный дизайн для бизнеса: от одной сторис до кампании и печатного макета — с договором, сроками и понятной сметой.</p>
-        <div class="offer-pills" aria-label="Направления">
-          <span>Видеореклама</span>
-          <span>Reels / монтаж</span>
-          <span>Баннеры</span>
-          <span>Флаеры</span>
-          <span>Афиши</span>
-          <span>Key visual</span>
+  <section class="hero" id="orbit" aria-label="Орбита — интерактивная Земля проектов">
+    <div class="hero-globe-wrap">
+      <div class="orbit-globe-stage" id="orbitGlobeStage">
+        <canvas id="orbitGlobeCanvas" aria-label="3D Земля с проектами ОРБИТА"></canvas>
+        <div class="orbit-globe-overlay" aria-hidden="true"></div>
+        <div class="orbit-globe-legend" aria-hidden="true">
+          <span class="lg-video"><i></i> Ролик</span>
+          <span class="lg-afishi"><i></i> Афиши</span>
         </div>
-        <div class="hero-actions">
-          <a class="btn btn-primary" href="#contact">Получить смету</a>
-          <a class="btn btn-ghost" href="#prices">Смотреть цены</a>
-          <a class="btn btn-ghost" href="#works">Работы</a>
+        <div class="orbit-hotspot-tip" id="orbitHotspotTip" hidden></div>
+        <div class="orbit-video-preview" id="orbitVideoPreview" hidden>
+          <video muted loop playsinline preload="none" data-globe-preview></video>
+          <span class="ovp-label" id="orbitVideoLabel">Ролик</span>
         </div>
-        <p class="hero-note">Ответ в течение 24 часов · hello@orbita.agency · финал после брифа</p>
+        <div class="orbit-globe-fallback" id="orbitGlobeFallback" hidden>
+          <div class="orbit-fb-planet-wrap" aria-hidden="true"><div class="orbit-fb-planet"></div></div>
+          <p class="ogf-msg" id="orbitGlobeFallbackMsg">WebGL недоступен</p>
+          <p class="ogf-tip" id="orbitGlobeFallbackTip"></p>
+          <div class="orbit-fb-hotspots" id="orbitFbHotspots" role="list"></div>
+        </div>
       </div>
-      <div class="media-wall" id="works" aria-label="Витрина работ">
-        <div class="wall-col" id="wallA"></div>
-        <div class="wall-col reverse" id="wallB"></div>
+    </div>
+    <div class="hero-overlay">
+      <div class="wrap">
+        <div class="hero-copy">
+          <div class="eyebrow">Креативная студия · видео и дизайн</div>
+          <h1><span class="scramble">Видео и дизайн,</span><br><span class="scramble">которые продают</span></h1>
+          <p class="lead">Ролики, афиши, баннеры и флаеры под ключ. Планета — наша витрина: точки — живые проекты.</p>
+          <div class="offer-pills" aria-label="Направления">
+            <span>Видеореклама</span>
+            <span>Афиши</span>
+            <span>Баннеры</span>
+            <span>Флаеры</span>
+            <span>Key visual</span>
+          </div>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#contact">Получить смету</a>
+            <a class="btn btn-ghost" href="#prices">Смотреть цены</a>
+            <a class="btn btn-ghost" href="#services">Услуги</a>
+          </div>
+          <p class="hero-note">Ответ в течение 24 часов · hello@orbita.agency · финал после брифа</p>
+          <div class="orbit-chip-row" id="orbitChipRow" role="list" aria-label="Города и проекты на планете"></div>
+        </div>
       </div>
     </div>
   </section>
 
   <section class="trust">
-    <div class="wrap trust-row" aria-label="Гарантии">
+<div class="wrap trust-row" aria-label="Гарантии">
       <span class="chip"><i></i>Договор</span>
       <span class="chip"><i></i>NDA</span>
       <span class="chip"><i></i>Юрлицо</span>
@@ -637,7 +560,7 @@ h3{font-size:clamp(18px,2vw,22px)}
     <div class="wrap">
       <div class="eyebrow">Услуги</div>
       <h2>Полная креативная студия</h2>
-      <p class="lead">Видео и дизайн под задачу продаж — не AI-видео-клон и не «контент ради контента».</p>
+      <p class="lead">Выберите направление — покажем на планете и в галерее. Без лишней мозаики картинок.</p>
       <div class="services-grid" style="margin-top:28px">
         <div class="svc-list" id="svcList">
           <button type="button" class="svc-item active" data-svc="0" tabindex="0" aria-pressed="true">
@@ -689,43 +612,12 @@ h3{font-size:clamp(18px,2vw,22px)}
             </div>
           </button>
         </div>
-        <div class="svc-wall" id="svcWall" aria-hidden="true"></div>
-        <p class="svc-wall-debug" id="svcWallDebug" aria-live="polite"></p>
+        <!-- svc-wall mosaic removed: planet is the only visual showcase -->
       </div>
-      <p class="mock-note">«Макеты-заглушки для вида — заменим на ваши»</p>
+      <p class="mock-note">Нажмите услугу — камера летит к точке на планете и открывает примеры.</p>
     </div>
   </section>
 
-
-  <section class="orbit-globe-section section" id="orbit" aria-label="Интерактивный глобус проектов">
-    <div class="wrap">
-      <div class="orbit-globe-head">
-        <div class="eyebrow">Орбита</div>
-        <h2><span class="scramble">Проекты на планете</span></h2>
-        <p class="lead">Наведите на точку — увидите ролик. Точка «Афиши» открывает галерею афиш 2026.</p>
-        <p class="orbit-globe-hint">Тяните глобус мышью или пальцем. На мобильном — тап по точке.</p>
-      </div>
-      <div class="orbit-globe-stage" id="orbitGlobeStage">
-        <canvas id="orbitGlobeCanvas" aria-label="3D Земля с проектами ОРБИТА"></canvas>
-        <div class="orbit-globe-overlay" aria-hidden="true"></div>
-        <div class="orbit-globe-legend" aria-hidden="true">
-          <span class="lg-video"><i></i> Ролик</span>
-          <span class="lg-afishi"><i></i> Афиши</span>
-        </div>
-        <div class="orbit-hotspot-tip" id="orbitHotspotTip" hidden></div>
-        <div class="orbit-video-preview" id="orbitVideoPreview" hidden>
-          <video muted loop playsinline preload="none" data-globe-preview></video>
-          <span class="ovp-label" id="orbitVideoLabel">Ролик</span>
-        </div>
-        <div class="orbit-globe-fallback" id="orbitGlobeFallback" hidden>
-          <div class="orbit-fb-planet-wrap" aria-hidden="true"><div class="orbit-fb-planet"></div></div>
-          <p class="ogf-msg" id="orbitGlobeFallbackMsg">WebGL недоступен</p>
-          <p class="ogf-tip" id="orbitGlobeFallbackTip"></p>
-          <div class="orbit-fb-hotspots" id="orbitFbHotspots" role="list"></div>
-        </div>
-      </div>
-    </div>
-  </section>
 
   <section class="section" id="process" style="background:linear-gradient(180deg,transparent,rgba(255,255,255,.02),transparent)">
     <div class="wrap">
@@ -1243,8 +1135,9 @@ h3{font-size:clamp(18px,2vw,22px)}
 
   /* Media wall fill + event delegation */
   try {
-  fillWall(document.getElementById('wallA'), colA);
-  fillWall(document.getElementById('wallB'), colB);
+  var _wallA = document.getElementById('wallA'); var _wallB = document.getElementById('wallB');
+  if (_wallA) fillWall(_wallA, colA);
+  if (_wallB) fillWall(_wallB, colB);
   } catch (err) { console.warn('fillWall', err); }
 
   const worksWall = document.getElementById('works');
@@ -1366,7 +1259,12 @@ h3{font-size:clamp(18px,2vw,22px)}
     });
     item.classList.add('active');
     item.setAttribute('aria-pressed', 'true');
-    renderSvcWall(idx);
+    try { renderSvcWall(idx); } catch (e) {}
+    try {
+      if (typeof window.orbitaGlobeFocusSvc === 'function'){
+        window.orbitaGlobeFocusSvc(idx, { preview: !(opts && opts.openGallery) });
+      }
+    } catch (e) { console.warn('globe focus', e); }
     if (opts && opts.openGallery){
       openSvcGallery(idx);
     }
@@ -1634,6 +1532,7 @@ function bootOrbitaGlobe(){
     fallbackEl.hidden = false;
     fallbackEl.classList.add('is-on');
     if (stage) stage.classList.add('is-fallback');
+    try { buildChipRow(); } catch (e) {}
   }
 
   if (!stage || !canvas){
@@ -1642,10 +1541,19 @@ function bootOrbitaGlobe(){
   }
   if (typeof THREE === 'undefined'){
     showFallback('three');
+    try { buildChipRow(); } catch (e) {}
     return;
   }
 
   var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var coarse = window.matchMedia && window.matchMedia('(pointer: coarse)').matches;
+  var saveData = !!(navigator.connection && navigator.connection.saveData);
+  var lowMem = typeof navigator.deviceMemory === 'number' && navigator.deviceMemory > 0 && navigator.deviceMemory <= 4;
+  var narrow = (window.innerWidth || 0) < 768;
+  var lowPower = !!(coarse || saveData || lowMem || narrow);
+  var canHoverPreview = !lowPower && !!(window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)').matches);
+  var chipRow = document.getElementById('orbitChipRow');
+
   var TEX_URLS = [
     'https://cdn.jsdelivr.net/npm/three-globe@2.31.1/example/img/earth-blue-marble.jpg',
     'https://unpkg.com/three-globe@2.31.1/example/img/earth-blue-marble.jpg'
@@ -1738,8 +1646,9 @@ function bootOrbitaGlobe(){
       group.position.copy(pos);
       group.lookAt(0, 0, 0);
 
+      var hsSegs = lowPower ? 8 : 12;
       var core = new THREE.Mesh(
-        new THREE.SphereGeometry(0.045, 12, 12),
+        new THREE.SphereGeometry(0.05, hsSegs, hsSegs),
         makeHotspotMaterial(h.type)
       );
       core.userData = { hotspot: h, idx: idx, kind: 'core' };
@@ -1752,12 +1661,20 @@ function bootOrbitaGlobe(){
         side: THREE.DoubleSide,
         depthWrite: false
       });
-      var ring = new THREE.Mesh(new THREE.RingGeometry(0.06, 0.095, 24), ringMat);
+      var ring = new THREE.Mesh(new THREE.RingGeometry(0.065, 0.11, lowPower ? 16 : 28), ringMat);
       ring.userData = { hotspot: h, idx: idx, kind: 'ring' };
       group.add(ring);
 
+      if (h.type === 'afishi' && !lowPower){
+        var ring2 = new THREE.Mesh(
+          new THREE.RingGeometry(0.12, 0.145, 28),
+          new THREE.MeshBasicMaterial({ color: 0xff5a1f, transparent: true, opacity: 0.2, side: THREE.DoubleSide, depthWrite: false })
+        );
+        ring2.userData = { hotspot: h, idx: idx, kind: 'ring2' };
+        group.add(ring2);
+      }
       var hit = new THREE.Mesh(
-        new THREE.SphereGeometry(0.12, 10, 10),
+        new THREE.SphereGeometry(0.14, lowPower ? 8 : 10, lowPower ? 8 : 10),
         new THREE.MeshBasicMaterial({ visible: false })
       );
       hit.userData = { hotspot: h, idx: idx, kind: 'hit' };
@@ -1772,7 +1689,7 @@ function bootOrbitaGlobe(){
   function sizeRenderer(){
     var w = stage.clientWidth || 600;
     var h = stage.clientHeight || 420;
-    var dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+    var dpr = lowPower ? 1 : Math.min(window.devicePixelRatio || 1, 1.5);
     renderer.setPixelRatio(dpr);
     renderer.setSize(w, h, false);
     camera.aspect = w / Math.max(h, 1);
@@ -1782,7 +1699,7 @@ function bootOrbitaGlobe(){
   function createRenderer(){
     return new THREE.WebGLRenderer({
       canvas: canvas,
-      antialias: true,
+      antialias: !lowPower,
       alpha: true,
       powerPreference: 'default',
       failIfMajorPerformanceCaveat: false
@@ -1798,19 +1715,37 @@ function bootOrbitaGlobe(){
       } catch (e) {}
     }
     scene = new THREE.Scene();
-    camera = new THREE.PerspectiveCamera(42, 1, 0.1, 100);
-    camera.position.set(0, 0.15, 3.35);
+    camera = new THREE.PerspectiveCamera(lowPower ? 40 : 38, 1, 0.1, 100);
+    camera.position.set(0, 0.08, lowPower ? 2.55 : 2.35);
 
-    var ambient = new THREE.AmbientLight(0x8899aa, 0.55);
+    var ambient = new THREE.AmbientLight(0x8899aa, 0.58);
     scene.add(ambient);
-    var key = new THREE.DirectionalLight(0xfff2e0, 1.15);
+    var key = new THREE.DirectionalLight(0xfff2e0, 1.2);
     key.position.set(4, 2, 3);
     scene.add(key);
-    var fill = new THREE.DirectionalLight(0x2ee6ff, 0.25);
+    var fill = new THREE.DirectionalLight(0x2ee6ff, 0.28);
     fill.position.set(-3, -1, -2);
     scene.add(fill);
 
-    var segs = 64;
+    if (!lowPower){
+      var starGeo = new THREE.BufferGeometry();
+      var starCount = 180;
+      var starPos = new Float32Array(starCount * 3);
+      for (var si = 0; si < starCount; si++){
+        var r = 8 + Math.random() * 18;
+        var th = Math.random() * Math.PI * 2;
+        var ph = Math.acos(2 * Math.random() - 1);
+        starPos[si*3] = r * Math.sin(ph) * Math.cos(th);
+        starPos[si*3+1] = r * Math.sin(ph) * Math.sin(th);
+        starPos[si*3+2] = r * Math.cos(ph);
+      }
+      starGeo.setAttribute('position', new THREE.BufferAttribute(starPos, 3));
+      scene.add(new THREE.Points(starGeo, new THREE.PointsMaterial({
+        color: 0xb8c8e0, size: 0.035, transparent: true, opacity: 0.65, depthWrite: false, sizeAttenuation: true
+      })));
+    }
+
+    var segs = lowPower ? 40 : 64;
     var geo = new THREE.SphereGeometry(1, segs, segs);
     var mat = new THREE.MeshStandardMaterial({
       map: tex,
@@ -1822,29 +1757,32 @@ function bootOrbitaGlobe(){
     earth = new THREE.Mesh(geo, mat);
     scene.add(earth);
 
-    var atmoGeo = new THREE.SphereGeometry(1.045, 48, 48);
+    var atmoSegs = lowPower ? 24 : 48;
+    var atmoGeo = new THREE.SphereGeometry(1.045, atmoSegs, atmoSegs);
     var atmoMat = new THREE.MeshBasicMaterial({
       color: 0x2ea8ff,
       transparent: true,
-      opacity: 0.12,
+      opacity: lowPower ? 0.09 : 0.14,
       side: THREE.BackSide,
       depthWrite: false
     });
     atmosphere = new THREE.Mesh(atmoGeo, atmoMat);
     scene.add(atmosphere);
 
-    var glow = new THREE.Mesh(
-      new THREE.SphereGeometry(1.12, 32, 32),
-      new THREE.MeshBasicMaterial({
-        color: 0xff5a1f,
-        transparent: true,
-        opacity: 0.045,
-        side: THREE.BackSide,
-        depthWrite: false,
-        blending: THREE.AdditiveBlending
-      })
-    );
-    scene.add(glow);
+    if (!lowPower){
+      var glow = new THREE.Mesh(
+        new THREE.SphereGeometry(1.12, 32, 32),
+        new THREE.MeshBasicMaterial({
+          color: 0xff5a1f,
+          transparent: true,
+          opacity: 0.05,
+          side: THREE.BackSide,
+          depthWrite: false,
+          blending: THREE.AdditiveBlending
+        })
+      );
+      scene.add(glow);
+    }
 
     buildHotspots(1.0);
     sizeRenderer();
@@ -1898,8 +1836,12 @@ function bootOrbitaGlobe(){
     tipEl.style.top = pos.y + 'px';
   }
 
-  function showVideoPreview(h, pos){
+  function showVideoPreview(h, pos, forcePlay){
     if (!previewEl || !previewVideo || !pos) return;
+    if (!forcePlay && !canHoverPreview){
+      showTip(h, pos);
+      return;
+    }
     if (previewVideo.getAttribute('src') !== h.video){
       previewVideo.setAttribute('src', h.video);
       previewVideo.load();
@@ -1951,7 +1893,8 @@ function bootOrbitaGlobe(){
     activeHotspot = h;
     var pos = projectHotspot(h);
     showTip(h, pos);
-    if (h.type === 'video') showVideoPreview(h, pos);
+    if (h.type === 'video' && canHoverPreview) showVideoPreview(h, pos, false);
+    else if (h.type === 'video') showTip(h, pos);
     else if (previewEl){
       previewEl.classList.remove('is-on');
       previewEl.hidden = true;
@@ -1985,7 +1928,7 @@ function bootOrbitaGlobe(){
       activeHotspot = h;
       pausedByHover = true;
       showTip(h, pos);
-      showVideoPreview(h, pos);
+      showVideoPreview(h, pos, true);
     }
   }
 
@@ -2008,7 +1951,8 @@ function bootOrbitaGlobe(){
     var t = clock.elapsedTime;
 
     if (autoRotate && !pausedByHover && !pointerDown && !reduceMotion){
-      targetRotY += dt * 0.12;
+      targetRotY += dt * 0.10;
+      if (!lowPower) targetRotX += Math.sin(t * 0.15) * dt * 0.01;
     }
     rotY += (targetRotY - rotY) * 0.08;
     rotX += (targetRotX - rotX) * 0.08;
@@ -2097,7 +2041,7 @@ function bootOrbitaGlobe(){
       probe.width = 4; probe.height = 4;
       var probeR = new THREE.WebGLRenderer({
         canvas: probe,
-        antialias: true,
+        antialias: !lowPower,
         alpha: true,
         powerPreference: 'default',
         failIfMajorPerformanceCaveat: false
@@ -2141,6 +2085,81 @@ function bootOrbitaGlobe(){
     });
   }
 
+
+  function focusHotspot(h, opts){
+    if (!h) return;
+    opts = opts || {};
+    // Ease globe so hotspot faces camera (match latLonToVec3 convention)
+    var lon = h.lon;
+    var lat = h.lat;
+    targetRotY = (-lon - 90) * Math.PI / 180;
+    targetRotX = (lat * Math.PI / 180) * 0.35;
+    targetRotX = Math.max(-0.55, Math.min(0.55, targetRotX));
+    pausedByHover = true;
+    activeHotspot = h;
+    if (chipRow){
+      Array.prototype.forEach.call(chipRow.querySelectorAll('button'), function(btn){
+        btn.classList.toggle('is-on', btn.getAttribute('data-idx') === String(h._idx));
+      });
+    }
+    setTimeout(function(){
+      var pos = projectHotspot(h);
+      if (!pos) return;
+      showTip(h, pos);
+      if (h.type === 'video' && opts.preview) showVideoPreview(h, pos, true);
+    }, 420);
+    if (h.type === 'afishi' && opts.openGallery){
+      setTimeout(function(){ openAfishi(); }, 500);
+    }
+  }
+
+  function buildChipRow(){
+    chipRow = document.getElementById('orbitChipRow');
+    if (!chipRow || chipRow.childElementCount) return;
+    HOTSPOTS.forEach(function(h, idx){
+      h._idx = idx;
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.setAttribute('role', 'listitem');
+      btn.setAttribute('data-idx', String(idx));
+      btn.textContent = h.label.replace(' · ', ' · ');
+      if (h.type === 'afishi') btn.className = 'is-afishi';
+      btn.addEventListener('click', function(){
+        focusHotspot(h, { preview: true });
+        if (h.type === 'afishi') openAfishi();
+        else if (h.type === 'video'){
+          var pos = projectHotspot(h) || {x: stage.clientWidth/2, y: stage.clientHeight*0.35};
+          activeHotspot = h;
+          showTip(h, pos);
+          showVideoPreview(h, pos, true);
+        }
+        try {
+          document.getElementById('orbit').scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
+        } catch (e) {}
+      });
+      chipRow.appendChild(btn);
+    });
+  }
+
+  window.orbitaGlobeFocusHotspot = function(idx, opts){
+    var h = HOTSPOTS[idx];
+    if (!h) return;
+    focusHotspot(h, opts || {});
+  };
+  window.orbitaGlobeFocusSvc = function(svcIdx, opts){
+    opts = opts || {};
+    var map = { 0: 1, 1: 1, 2: 1, 3: 6, 4: 4, 5: 3 }; // video→Moscow, afishi→Astana, motion→Dubai, kv→NY
+    var hi = map.hasOwnProperty(svcIdx) ? map[svcIdx] : 1;
+    var h = HOTSPOTS[hi];
+    if (!h) return;
+    try {
+      var orbitEl = document.getElementById('orbit');
+      if (orbitEl) orbitEl.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
+    } catch (e) {}
+    focusHotspot(h, { preview: !!opts.preview, openGallery: svcIdx === 3 && !!opts.openGallery });
+  };
+
+  buildChipRow();
   startWhenVisible();
 })();
 }
