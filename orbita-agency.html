@@ -275,6 +275,16 @@ h3{font-size:clamp(18px,2vw,22px)}
 .footer{border-top:1px solid var(--line);padding:28px 0 40px;color:var(--muted);font-size:13px}
 .footer-inner{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:center}
 
+
+.svc-examples{
+  display:inline-flex;align-items:center;gap:6px;margin-top:10px;
+  font-size:13px;font-weight:600;letter-spacing:.02em;color:var(--accent);
+  opacity:.92;transition:.2s;
+}
+.svc-item:hover .svc-examples,.svc-item.active .svc-examples{opacity:1;transform:translateX(2px)}
+.svc-examples::after{content:'';}
+.lb-stage img{object-fit:contain;width:auto;height:auto;max-width:100%;max-height:78vh}
+
 /* lightbox */
 .lb{position:fixed;inset:0;background:rgba(0,0,0,.9);display:none;place-items:center;z-index:100;padding:72px 56px 96px;isolation:isolate}
 .lb.open{display:grid}
@@ -427,6 +437,7 @@ h3{font-size:clamp(18px,2vw,22px)}
             <div>
               <h3>Видеореклама / Reels / монтаж</h3>
               <p>OLV, pre-roll, вертикали, монтаж и постпродакшн — ролики, которые держат внимание и ведут к заявке.</p>
+              <div class="svc-examples" aria-hidden="true">Смотреть примеры →</div>
             </div>
           </button>
           <button type="button" class="svc-item" data-svc="1" tabindex="0" aria-pressed="false">
@@ -434,6 +445,7 @@ h3{font-size:clamp(18px,2vw,22px)}
             <div>
               <h3>Баннеры</h3>
               <p>Digital и наружка: один макет или серия в едином визуальном языке под площадки и форматы.</p>
+              <div class="svc-examples" aria-hidden="true">Смотреть примеры →</div>
             </div>
           </button>
           <button type="button" class="svc-item" data-svc="2" tabindex="0" aria-pressed="false">
@@ -441,6 +453,7 @@ h3{font-size:clamp(18px,2vw,22px)}
             <div>
               <h3>Флаеры / листовки</h3>
               <p>Печать и PDF под раздачу: оффер, офсет/цифровой вывод, читаемая иерархия и сильный CTA.</p>
+              <div class="svc-examples" aria-hidden="true">Смотреть примеры →</div>
             </div>
           </button>
           <button type="button" class="svc-item" data-svc="3" tabindex="0" aria-pressed="false">
@@ -448,6 +461,7 @@ h3{font-size:clamp(18px,2vw,22px)}
             <div>
               <h3>Афиши</h3>
               <p>Под фильмы, концерты и ивенты — один формат или линейка размеров с киношной подачей.</p>
+              <div class="svc-examples" aria-hidden="true">Смотреть примеры →</div>
             </div>
           </button>
           <button type="button" class="svc-item" data-svc="4" tabindex="0" aria-pressed="false">
@@ -455,6 +469,7 @@ h3{font-size:clamp(18px,2vw,22px)}
             <div>
               <h3>Key visual / соцсети</h3>
               <p>Статичный дизайн: обложки, сетки, посты и key visual, которые держат бренд в ленте.</p>
+              <div class="svc-examples" aria-hidden="true">Смотреть примеры →</div>
             </div>
           </button>
           <button type="button" class="svc-item" data-svc="5" tabindex="0" aria-pressed="false">
@@ -462,6 +477,7 @@ h3{font-size:clamp(18px,2vw,22px)}
             <div>
               <h3>Motion и адаптации</h3>
               <p>Титры, графика, версии 16:9 / 9:16 / 1:1 — один смысл, все плейсменты.</p>
+              <div class="svc-examples" aria-hidden="true">Смотреть примеры →</div>
             </div>
           </button>
         </div>
@@ -1019,8 +1035,9 @@ h3{font-size:clamp(18px,2vw,22px)}
     ],
     [
       {t:'img',s:'mock-flyer-event.png',l:'ФЛАЕР',title:'Флаер / событие'},
-      {t:'img',s:'mock-flyer-event.png',l:'ФЛАЕР',title:'Листовка / оффер'},
-      {t:'img',s:'still-08.jpg',l:'Листовка',title:'Печатная листовка'}
+      {t:'img',s:'mock-flyer-event.png',l:'ФЛАЕР',title:'Листовка / оффер (вариант)'},
+      {t:'img',s:'mock-story-fashion.png',l:'Листовка',title:'Листовка / fashion-стиль (заглушка)'},
+      {t:'img',s:'still-08.jpg',l:'Листовка',title:'Печатная листовка / still'}
     ],
     [
       {t:'img',s:'mock-poster-movie.png',l:'АФИША',title:'Афиша movie'},
@@ -1062,15 +1079,28 @@ h3{font-size:clamp(18px,2vw,22px)}
     svcWall.setAttribute('aria-hidden', 'false');
     try { observeVideos(); } catch (err) { console.warn('observeVideos', err); }
   }
-  function activateSvc(item){
+  function openSvcGallery(idx){
+    const set = svcAssets[idx] || svcAssets[0];
+    if (!set || !set.length) return;
+    const gallery = set.map(function(x){
+      return {src:x.s, type:x.t === 'video' ? 'video' : 'img', badge:x.l, title:x.title || x.l};
+    });
+    openGallery(gallery, gallery[0], 0);
+  }
+  function activateSvc(item, opts){
     if (!item) return;
+    const idx = parseInt(item.getAttribute('data-svc'), 10);
+    if (isNaN(idx)) { console.warn('activateSvc: bad data-svc', item); return; }
     document.querySelectorAll('.svc-item').forEach(function(x){
       x.classList.remove('active');
       x.setAttribute('aria-pressed', 'false');
     });
     item.classList.add('active');
     item.setAttribute('aria-pressed', 'true');
-    renderSvcWall(+item.dataset.svc);
+    renderSvcWall(idx);
+    if (opts && opts.openGallery){
+      openSvcGallery(idx);
+    }
   }
   function openSvcCell(cell){
     if (!cell || !svcWall) return;
@@ -1106,7 +1136,8 @@ h3{font-size:clamp(18px,2vw,22px)}
     if (svcList && !svcList.contains(item)) return;
     if (e.type === 'keydown' && e.key !== 'Enter' && e.key !== ' ') return;
     if (e.type === 'keydown') e.preventDefault();
-    activateSvc(item);
+    // Click / Enter: filter wall to this service AND open examples lightbox immediately
+    activateSvc(item, {openGallery: true});
   }
   if (svcList){
     svcList.addEventListener('click', onSvcItemActivate);
@@ -1115,7 +1146,8 @@ h3{font-size:clamp(18px,2vw,22px)}
       const item = e.target.closest && e.target.closest('.svc-item');
       if (!item || !svcList.contains(item)) return;
       if (item.classList.contains('active')) return;
-      activateSvc(item);
+      // Hover only swaps wall preview — gallery opens on click
+      activateSvc(item, {openGallery: false});
     });
   }
 
