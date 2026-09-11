@@ -15,6 +15,7 @@
 # Stills allowed
 !still-*.jpg
 !mock-*.png
+!poster-2026-*.png
 !mock-*.jpg
 !still-*.jpeg
 !still-*.png
