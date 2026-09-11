@@ -2,6 +2,9 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta name="orbita-build" content="20260911231934">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ОРБИТА — Видео и дизайн, которые продают</title>
 <meta name="description" content="Креативная студия: видеореклама, Reels, монтаж, баннеры, флаеры, афиши и key visual. Договор, NDA, юрлицо. Цены от — финал после брифа.">
@@ -67,20 +70,29 @@ h3{font-size:clamp(18px,2vw,22px)}
 .hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:28px}
 .hero-note{font-size:13px;color:var(--muted)}
 .media-wall{
-  position:relative;height:min(68vh,620px);border-radius:24px;overflow:hidden;
+  position:relative;height:min(72vh,680px);border-radius:24px;overflow:hidden;
   border:1px solid var(--line);background:var(--bg2);
   display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:8px;
+  z-index:1;
 }
 .wall-col{display:flex;flex-direction:column;gap:8px;animation:wallScroll 42s linear infinite}
 .wall-col.reverse{animation-direction:reverse;animation-duration:48s}
 .wall-col:hover{animation-play-state:paused}
 @keyframes wallScroll{0%{transform:translateY(0)}100%{transform:translateY(-50%)}}
 .wall-item{
-  position:relative;border-radius:14px;overflow:hidden;background:#000;
-  aspect-ratio:3/4;flex-shrink:0;cursor:pointer;
+  position:relative;border-radius:14px;overflow:hidden;background:#0a0a0f;
+  aspect-ratio:3/4;flex-shrink:0;cursor:pointer;isolation:isolate;
 }
 .wall-item.wide{aspect-ratio:16/10}
-.wall-item video,.wall-item img{width:100%;height:100%;object-fit:cover;pointer-events:none}
+.wall-item.is-design{aspect-ratio:2/3;background:#0a0a0f}
+.wall-item.is-design.wide{aspect-ratio:16/10}
+.wall-item video,.wall-item img{width:100%;height:100%;object-fit:cover;pointer-events:none;display:block}
+.wall-item.is-design img{object-fit:contain;background:#0a0a0f}
+.wall-item .badge,.wall-item .label{pointer-events:none}
+.wall-item::before{
+  content:"";position:absolute;inset:0;z-index:4;cursor:pointer;
+  background:transparent;pointer-events:auto;
+}
 .wall-item .badge{
   position:absolute;left:12px;top:12px;padding:6px 10px;border-radius:999px;
   background:rgba(0,0,0,.55);border:1px solid rgba(255,255,255,.18);font-size:11px;
@@ -92,7 +104,7 @@ h3{font-size:clamp(18px,2vw,22px)}
 .wall-item .play{
   position:absolute;inset:auto 12px 12px auto;width:36px;height:36px;border-radius:50%;
   background:rgba(0,0,0,.55);border:1px solid rgba(255,255,255,.25);
-  display:grid;place-items:center;font-size:12px;backdrop-filter:blur(8px);cursor:pointer;color:#fff;z-index:2;
+  display:grid;place-items:center;font-size:12px;backdrop-filter:blur(8px);cursor:pointer;color:#fff;z-index:5;pointer-events:none;
 }
 .wall-item .view-hint{
   position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) scale(.96);
@@ -126,6 +138,7 @@ h3{font-size:clamp(18px,2vw,22px)}
 .svc-item{
   display:grid;grid-template-columns:48px 1fr;gap:14px;padding:18px;border-radius:16px;
   border:1px solid var(--line);background:rgba(255,255,255,.02);cursor:pointer;transition:.2s;
+  width:100%;text-align:left;font:inherit;color:inherit;appearance:none;-webkit-appearance:none;
 }
 .svc-item:hover,.svc-item.active{border-color:rgba(255,90,31,.45);background:rgba(255,90,31,.06)}
 .svc-num{font-family:var(--font);color:var(--accent);font-size:13px;padding-top:2px}
@@ -133,11 +146,18 @@ h3{font-size:clamp(18px,2vw,22px)}
 .svc-item p{color:var(--muted);font-size:14px}
 .svc-wall{
   border-radius:22px;overflow:hidden;border:1px solid var(--line);background:var(--bg2);
-  display:grid;grid-template-columns:1.2fr 1fr;grid-template-rows:1.2fr 1fr;gap:8px;padding:8px;min-height:460px;
+  display:grid;grid-template-columns:1.2fr 1fr;grid-template-rows:1.35fr 1fr;gap:8px;padding:8px;min-height:520px;
 }
-.svc-cell{position:relative;border-radius:14px;overflow:hidden;background:#000;cursor:pointer}
+.svc-cell{position:relative;border-radius:14px;overflow:hidden;background:#0a0a0f;cursor:pointer;isolation:isolate;min-height:0}
 .svc-cell:first-child{grid-row:1 / span 2}
-.svc-cell video,.svc-cell img{width:100%;height:100%;object-fit:cover;pointer-events:none}
+.svc-cell.is-design{background:#0a0a0f}
+.svc-cell video,.svc-cell img{width:100%;height:100%;object-fit:cover;pointer-events:none;display:block}
+.svc-cell.is-design img{object-fit:contain;background:#0a0a0f}
+.svc-cell .label,.svc-cell .view-hint,.svc-cell .badge{pointer-events:none}
+.svc-cell::before{
+  content:"";position:absolute;inset:0;z-index:4;cursor:pointer;
+  background:transparent;pointer-events:auto;
+}
 .svc-cell .label{
   position:absolute;left:12px;bottom:12px;padding:6px 10px;border-radius:999px;
   background:rgba(0,0,0,.55);border:1px solid rgba(255,255,255,.18);font-size:11px;backdrop-filter:blur(8px);z-index:2;
@@ -402,48 +422,48 @@ h3{font-size:clamp(18px,2vw,22px)}
       <p class="lead">Видео и дизайн под задачу продаж — не AI-видео-клон и не «контент ради контента».</p>
       <div class="services-grid" style="margin-top:28px">
         <div class="svc-list" id="svcList">
-          <article class="svc-item active" data-svc="0" role="button" tabindex="0" aria-pressed="true">
+          <button type="button" class="svc-item active" data-svc="0" tabindex="0" aria-pressed="true">
             <div class="svc-num">01</div>
             <div>
               <h3>Видеореклама / Reels / монтаж</h3>
               <p>OLV, pre-roll, вертикали, монтаж и постпродакшн — ролики, которые держат внимание и ведут к заявке.</p>
             </div>
-          </article>
-          <article class="svc-item" data-svc="1" role="button" tabindex="0" aria-pressed="false">
+          </button>
+          <button type="button" class="svc-item" data-svc="1" tabindex="0" aria-pressed="false">
             <div class="svc-num">02</div>
             <div>
               <h3>Баннеры</h3>
               <p>Digital и наружка: один макет или серия в едином визуальном языке под площадки и форматы.</p>
             </div>
-          </article>
-          <article class="svc-item" data-svc="2" role="button" tabindex="0" aria-pressed="false">
+          </button>
+          <button type="button" class="svc-item" data-svc="2" tabindex="0" aria-pressed="false">
             <div class="svc-num">03</div>
             <div>
               <h3>Флаеры / листовки</h3>
               <p>Печать и PDF под раздачу: оффер, офсет/цифровой вывод, читаемая иерархия и сильный CTA.</p>
             </div>
-          </article>
-          <article class="svc-item" data-svc="3" role="button" tabindex="0" aria-pressed="false">
+          </button>
+          <button type="button" class="svc-item" data-svc="3" tabindex="0" aria-pressed="false">
             <div class="svc-num">04</div>
             <div>
               <h3>Афиши</h3>
               <p>Под фильмы, концерты и ивенты — один формат или линейка размеров с киношной подачей.</p>
             </div>
-          </article>
-          <article class="svc-item" data-svc="4" role="button" tabindex="0" aria-pressed="false">
+          </button>
+          <button type="button" class="svc-item" data-svc="4" tabindex="0" aria-pressed="false">
             <div class="svc-num">05</div>
             <div>
               <h3>Key visual / соцсети</h3>
               <p>Статичный дизайн: обложки, сетки, посты и key visual, которые держат бренд в ленте.</p>
             </div>
-          </article>
-          <article class="svc-item" data-svc="5" role="button" tabindex="0" aria-pressed="false">
+          </button>
+          <button type="button" class="svc-item" data-svc="5" tabindex="0" aria-pressed="false">
             <div class="svc-num">06</div>
             <div>
               <h3>Motion и адаптации</h3>
               <p>Титры, графика, версии 16:9 / 9:16 / 1:1 — один смысл, все плейсменты.</p>
             </div>
-          </article>
+          </button>
         </div>
         <div class="svc-wall" id="svcWall" aria-hidden="true"></div>
       </div>
@@ -772,31 +792,22 @@ h3{font-size:clamp(18px,2vw,22px)}
   /* Media wall — dual slow columns */
   function wallItem(src, isVideo, wide, badge){
     const el = document.createElement('div');
-    el.className = 'wall-item' + (wide ? ' wide' : '');
+    el.className = 'wall-item' + (wide ? ' wide' : '') + (isVideo ? '' : ' is-design');
     el.setAttribute('role', 'button');
     el.setAttribute('tabindex', '0');
     el.setAttribute('aria-label', (badge ? badge + ' — ' : '') + 'Смотреть');
+    el.dataset.src = src;
+    el.dataset.type = isVideo ? 'video' : 'img';
+    el.dataset.badge = badge || '';
+    el.dataset.title = badge || (isVideo ? 'Видео' : 'Дизайн');
     const badgeHtml = badge ? '<span class="badge">'+badge+'</span>' : '';
     const hint = '<span class="view-hint">Смотреть</span>';
-    const title = badge || (isVideo ? 'Видео' : 'Дизайн');
-    const type = isVideo ? 'video' : 'img';
+    const title = el.dataset.title;
     if (isVideo){
-      el.innerHTML = badgeHtml+'<video src="'+src+'" muted loop playsinline preload="metadata" data-wall-video></video><button class="play" type="button" aria-label="Смотреть">▶</button>'+hint;
+      el.innerHTML = badgeHtml+'<video src="'+src+'" muted loop playsinline preload="metadata" data-wall-video></video><button class="play" type="button" tabindex="-1" aria-hidden="true">▶</button>'+hint;
     } else {
       el.innerHTML = badgeHtml+'<img src="'+src+'" alt="'+title+'" loading="lazy" decoding="async">'+hint;
     }
-    el.addEventListener('click', function(){
-      const g = collectWallGallery();
-      const cur = {src:src, type:type, badge:badge||title, title:title};
-      let ix = g.findIndex(function(it){ return it.src===cur.src && it.type===cur.type && it.badge===cur.badge; });
-      if (ix < 0) ix = g.findIndex(function(it){ return it.src===cur.src && it.type===cur.type; });
-      openGallery(g, cur, ix);
-    });
-    el.addEventListener('keydown', function(e){
-      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); el.click(); }
-    });
-    const playBtn = el.querySelector('.play');
-    if (playBtn) playBtn.addEventListener('click', function(e){ e.stopPropagation(); el.click(); });
     return el;
   }
   function collectWallGallery(){
@@ -859,131 +870,7 @@ h3{font-size:clamp(18px,2vw,22px)}
     {src:videos[7], v:true},
     {src:mocks.flyer, v:false, badge:'ФЛАЕР'}
   ];
-  fillWall(document.getElementById('wallA'), colA);
-  fillWall(document.getElementById('wallB'), colB);
-
-  /* Services wall — category filter + clickable tiles */
-  const svcAssets = [
-    [
-      {t:'video',s:'work-02.mp4',l:'Видеореклама',title:'Видеореклама / Reels'},
-      {t:'video',s:'work-04.mp4',l:'Reels',title:'Reels / вертикаль'},
-      {t:'video',s:'work-05.mp4',l:'Монтаж',title:'Монтаж и постпродакшн'}
-    ],
-    [
-      {t:'img',s:'mock-banner-web.png',l:'БАННЕР',title:'Баннер web'},
-      {t:'img',s:'mock-banner-outdoor.png',l:'БАННЕР',title:'Баннер outdoor'},
-      {t:'img',s:'mock-banner-web.png',l:'БАННЕР',title:'Баннер digital'}
-    ],
-    [
-      {t:'img',s:'mock-flyer-event.png',l:'ФЛАЕР',title:'Флаер / событие'},
-      {t:'img',s:'mock-flyer-event.png',l:'ФЛАЕР',title:'Листовка / оффер'},
-      {t:'img',s:'still-08.jpg',l:'Листовка',title:'Печатная листовка'}
-    ],
-    [
-      {t:'img',s:'mock-poster-movie.png',l:'АФИША',title:'Афиша movie'},
-      {t:'img',s:'mock-poster-cinema.png',l:'АФИША',title:'Афиша cinema'},
-      {t:'img',s:'mock-poster-movie.png',l:'АФИША',title:'Афиша ивент'}
-    ],
-    [
-      {t:'img',s:'mock-story-fashion.png',l:'STORIES',title:'Key visual / Stories'},
-      {t:'img',s:'still-10.jpg',l:'Сетка',title:'Соцсети — сетка'},
-      {t:'img',s:'still-14.jpg',l:'KV',title:'Key visual still'}
-    ],
-    [
-      {t:'video',s:'work-09.mp4',l:'Motion',title:'Motion / графика'},
-      {t:'video',s:'work-03.mp4',l:'Motion',title:'Адаптация 9:16'},
-      {t:'video',s:'work-11.mp4',l:'Motion',title:'Титры и версии'}
-    ]
-  ];
-  const svcTitles = [
-    'Видеореклама / Reels',
-    'Баннер',
-    'Флаер / листовка',
-    'Афиша',
-    'Key visual / соцсети',
-    'Motion и адаптации'
-  ];
-  const svcWall = document.getElementById('svcWall');
-  let activeSvc = 0;
-  function bindSvcCells(set){
-    const cells = svcWall.querySelectorAll('.svc-cell');
-    cells.forEach(function(cell, i){
-      const a = set[i];
-      if (!a) return;
-      cell.setAttribute('role', 'button');
-      cell.setAttribute('tabindex', '0');
-      cell.setAttribute('aria-label', (a.l || '') + ' — Смотреть');
-      const open = function(){
-        const gallery = set.map(function(x){
-          return {src:x.s, type:x.t === 'video' ? 'video' : 'img', badge:x.l, title:x.title || x.l};
-        });
-        openGallery(gallery, gallery[i], i);
-      };
-      cell.addEventListener('click', open);
-      cell.addEventListener('keydown', function(e){
-        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); }
-      });
-    });
-  }
-  function renderSvcWall(idx){
-    activeSvc = idx;
-    const set = svcAssets[idx] || svcAssets[0];
-    svcWall.innerHTML = set.map(function(a){
-      if (a.t === 'video'){
-        return '<div class="svc-cell"><video src="'+a.s+'" muted loop playsinline preload="metadata" data-svc-video></video><span class="label">'+a.l+'</span><span class="view-hint">Смотреть</span></div>';
-      }
-      return '<div class="svc-cell"><img src="'+a.s+'" alt="'+(a.title||a.l)+'" loading="lazy" decoding="async"><span class="label">'+a.l+'</span><span class="view-hint">Смотреть</span></div>';
-    }).join('');
-    svcWall.setAttribute('aria-hidden', 'false');
-    bindSvcCells(set);
-    observeVideos();
-  }
-  function activateSvc(item){
-    document.querySelectorAll('.svc-item').forEach(function(x){
-      x.classList.remove('active');
-      x.setAttribute('aria-pressed', 'false');
-    });
-    item.classList.add('active');
-    item.setAttribute('aria-pressed', 'true');
-    renderSvcWall(+item.dataset.svc);
-  }
-  renderSvcWall(0);
-  document.querySelectorAll('.svc-item').forEach(function(item){
-    item.addEventListener('mouseenter', function(){ activateSvc(item); });
-    item.addEventListener('click', function(){ activateSvc(item); });
-    item.addEventListener('keydown', function(e){
-      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); activateSvc(item); }
-    });
-  });
-
-  /* Cases */
-  const casesGrid = document.getElementById('casesGrid');
-  cases.forEach(function(c){
-    const art = document.createElement('article');
-    art.className = 'case';
-    art.innerHTML =
-      '<div class="case-media" data-src="'+c.src+'">'+
-        '<video src="'+c.src+'" poster="'+c.poster+'" muted loop playsinline preload="metadata" data-case-video></video>'+
-        '<span class="badge">'+c.tag+'</span>'+
-      '</div>'+
-      '<div class="case-body">'+
-        '<h3>'+c.title+'</h3>'+
-        '<div class="case-meta">'+
-          '<div><b>Задача:</b> '+c.task+'</div>'+
-          '<div><b>Результат:</b> '+c.result+'</div>'+
-        '</div>'+
-      '</div>';
-    art.querySelector('.case-media').style.cursor = 'pointer';
-    art.querySelector('.case-media').addEventListener('click', function(){
-      const gallery = cases.map(function(x){
-        return {src:x.src, type:'video', badge:x.tag, title:x.title};
-      });
-      openGallery(gallery, {src:c.src, type:'video', badge:c.tag, title:c.title});
-    });
-    casesGrid.appendChild(art);
-  });
-
-  /* Lightbox — image + video, prev/next, order CTA */
+    /* Lightbox — image + video, prev/next, order CTA */
   const lb = document.getElementById('lb');
   const lbVideo = document.getElementById('lbVideo');
   const lbImg = document.getElementById('lbImg');
@@ -1040,6 +927,7 @@ h3{font-size:clamp(18px,2vw,22px)}
         idx = 0;
       }
     }
+    if (!lb) { console.warn('lightbox missing'); return; }
     lb.hidden = false;
     lb.classList.add('open');
     document.body.style.overflow = 'hidden';
@@ -1080,6 +968,185 @@ h3{font-size:clamp(18px,2vw,22px)}
     if (msg && pre) msg.value = pre;
     closeLb();
   });
+
+
+  /* Media wall fill + event delegation */
+  try {
+  fillWall(document.getElementById('wallA'), colA);
+  fillWall(document.getElementById('wallB'), colB);
+  } catch (err) { console.warn('fillWall', err); }
+
+  const worksWall = document.getElementById('works');
+  function openWallItem(item){
+    if (!item) return;
+    const g = collectWallGallery();
+    const cur = {
+      src: item.dataset.src,
+      type: item.dataset.type || 'img',
+      badge: item.dataset.badge || item.dataset.title || '',
+      title: item.dataset.title || item.dataset.badge || ''
+    };
+    let ix = g.findIndex(function(it){ return it.src===cur.src && it.type===cur.type && it.badge===cur.badge; });
+    if (ix < 0) ix = g.findIndex(function(it){ return it.src===cur.src && it.type===cur.type; });
+    openGallery(g, cur, ix);
+  }
+  if (worksWall){
+    worksWall.addEventListener('click', function(e){
+      const item = e.target.closest && e.target.closest('.wall-item');
+      if (!item || !worksWall.contains(item)) return;
+      openWallItem(item);
+    });
+    worksWall.addEventListener('keydown', function(e){
+      if (e.key !== 'Enter' && e.key !== ' ') return;
+      const item = e.target.closest && e.target.closest('.wall-item');
+      if (!item || !worksWall.contains(item)) return;
+      e.preventDefault();
+      openWallItem(item);
+    });
+  }
+
+  /* Services wall — category filter + clickable tiles */
+  const svcAssets = [
+    [
+      {t:'video',s:'work-02.mp4',l:'Видеореклама',title:'Видеореклама / Reels'},
+      {t:'video',s:'work-04.mp4',l:'Reels',title:'Reels / вертикаль'},
+      {t:'video',s:'work-05.mp4',l:'Монтаж',title:'Монтаж и постпродакшн'}
+    ],
+    [
+      {t:'img',s:'mock-banner-web.png',l:'БАННЕР',title:'Баннер web'},
+      {t:'img',s:'mock-banner-outdoor.png',l:'БАННЕР',title:'Баннер outdoor'},
+      {t:'img',s:'mock-banner-web.png',l:'БАННЕР',title:'Баннер digital'}
+    ],
+    [
+      {t:'img',s:'mock-flyer-event.png',l:'ФЛАЕР',title:'Флаер / событие'},
+      {t:'img',s:'mock-flyer-event.png',l:'ФЛАЕР',title:'Листовка / оффер'},
+      {t:'img',s:'still-08.jpg',l:'Листовка',title:'Печатная листовка'}
+    ],
+    [
+      {t:'img',s:'mock-poster-movie.png',l:'АФИША',title:'Афиша movie'},
+      {t:'img',s:'mock-poster-cinema.png',l:'АФИША',title:'Афиша cinema'},
+      {t:'img',s:'mock-poster-movie.png',l:'АФИША',title:'Афиша ивент'}
+    ],
+    [
+      {t:'img',s:'mock-story-fashion.png',l:'STORIES',title:'Key visual / Stories'},
+      {t:'img',s:'still-10.jpg',l:'Сетка',title:'Соцсети — сетка'},
+      {t:'img',s:'still-14.jpg',l:'KV',title:'Key visual still'}
+    ],
+    [
+      {t:'video',s:'work-09.mp4',l:'Motion',title:'Motion / графика'},
+      {t:'video',s:'work-03.mp4',l:'Motion',title:'Адаптация 9:16'},
+      {t:'video',s:'work-11.mp4',l:'Motion',title:'Титры и версии'}
+    ]
+  ];
+  const svcTitles = [
+    'Видеореклама / Reels',
+    'Баннер',
+    'Флаер / листовка',
+    'Афиша',
+    'Key visual / соцсети',
+    'Motion и адаптации'
+  ];
+  const svcWall = document.getElementById('svcWall');
+  let activeSvc = 0;
+  function renderSvcWall(idx){
+    if (!svcWall) return;
+    activeSvc = idx;
+    const set = svcAssets[idx] || svcAssets[0];
+    svcWall.innerHTML = set.map(function(a){
+      const designClass = a.t === 'img' ? ' is-design' : '';
+      if (a.t === 'video'){
+        return '<div class="svc-cell" role="button" tabindex="0" data-src="'+a.s+'" data-type="video" data-badge="'+a.l+'" data-title="'+(a.title||a.l)+'" aria-label="'+(a.l||'')+' — Смотреть"><video src="'+a.s+'" muted loop playsinline preload="metadata" data-svc-video></video><span class="label">'+a.l+'</span><span class="view-hint">Смотреть</span></div>';
+      }
+      return '<div class="svc-cell'+designClass+'" role="button" tabindex="0" data-src="'+a.s+'" data-type="img" data-badge="'+a.l+'" data-title="'+(a.title||a.l)+'" aria-label="'+(a.l||'')+' — Смотреть"><img src="'+a.s+'" alt="'+(a.title||a.l)+'" loading="lazy" decoding="async"><span class="label">'+a.l+'</span><span class="view-hint">Смотреть</span></div>';
+    }).join('');
+    svcWall.setAttribute('aria-hidden', 'false');
+    try { observeVideos(); } catch (err) { console.warn('observeVideos', err); }
+  }
+  function activateSvc(item){
+    if (!item) return;
+    document.querySelectorAll('.svc-item').forEach(function(x){
+      x.classList.remove('active');
+      x.setAttribute('aria-pressed', 'false');
+    });
+    item.classList.add('active');
+    item.setAttribute('aria-pressed', 'true');
+    renderSvcWall(+item.dataset.svc);
+  }
+  function openSvcCell(cell){
+    if (!cell || !svcWall) return;
+    const set = svcAssets[activeSvc] || svcAssets[0];
+    const cells = Array.prototype.slice.call(svcWall.querySelectorAll('.svc-cell'));
+    const i = cells.indexOf(cell);
+    if (i < 0) return;
+    const gallery = set.map(function(x){
+      return {src:x.s, type:x.t === 'video' ? 'video' : 'img', badge:x.l, title:x.title || x.l};
+    });
+    openGallery(gallery, gallery[i], i);
+  }
+  try { renderSvcWall(0); } catch (err) { console.warn('renderSvcWall', err); }
+
+  if (svcWall){
+    svcWall.addEventListener('click', function(e){
+      const cell = e.target.closest && e.target.closest('.svc-cell');
+      if (!cell || !svcWall.contains(cell)) return;
+      openSvcCell(cell);
+    });
+    svcWall.addEventListener('keydown', function(e){
+      if (e.key !== 'Enter' && e.key !== ' ') return;
+      const cell = e.target.closest && e.target.closest('.svc-cell');
+      if (!cell || !svcWall.contains(cell)) return;
+      e.preventDefault();
+      openSvcCell(cell);
+    });
+  }
+  const svcList = document.getElementById('svcList');
+  function onSvcItemActivate(e){
+    const item = e.target.closest && e.target.closest('.svc-item');
+    if (!item) return;
+    if (svcList && !svcList.contains(item)) return;
+    if (e.type === 'keydown' && e.key !== 'Enter' && e.key !== ' ') return;
+    if (e.type === 'keydown') e.preventDefault();
+    activateSvc(item);
+  }
+  if (svcList){
+    svcList.addEventListener('click', onSvcItemActivate);
+    svcList.addEventListener('keydown', onSvcItemActivate);
+    svcList.addEventListener('mouseover', function(e){
+      const item = e.target.closest && e.target.closest('.svc-item');
+      if (!item || !svcList.contains(item)) return;
+      if (item.classList.contains('active')) return;
+      activateSvc(item);
+    });
+  }
+
+  try {
+  /* Cases */
+  const casesGrid = document.getElementById('casesGrid');
+  cases.forEach(function(c){
+    const art = document.createElement('article');
+    art.className = 'case';
+    art.innerHTML =
+      '<div class="case-media" data-src="'+c.src+'">'+
+        '<video src="'+c.src+'" poster="'+c.poster+'" muted loop playsinline preload="metadata" data-case-video></video>'+
+        '<span class="badge">'+c.tag+'</span>'+
+      '</div>'+
+      '<div class="case-body">'+
+        '<h3>'+c.title+'</h3>'+
+        '<div class="case-meta">'+
+          '<div><b>Задача:</b> '+c.task+'</div>'+
+          '<div><b>Результат:</b> '+c.result+'</div>'+
+        '</div>'+
+      '</div>';
+    art.querySelector('.case-media').style.cursor = 'pointer';
+    art.querySelector('.case-media').addEventListener('click', function(){
+      const gallery = cases.map(function(x){
+        return {src:x.src, type:'video', badge:x.tag, title:x.title};
+      });
+      openGallery(gallery, {src:c.src, type:'video', badge:c.tag, title:c.title});
+    });
+    casesGrid.appendChild(art);
+  });
+  } catch (err) { console.warn('cases', err); }
 
   /* Prefill */
   document.querySelectorAll('[data-prefill]').forEach(function(el){
