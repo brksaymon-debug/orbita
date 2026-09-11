@@ -249,6 +249,86 @@ footer{padding:48px 0 28px;border-top:1px solid var(--line);margin-top:40px}
   .feed-track{animation:none}
   html{scroll-behavior:auto}
 }
+
+/* === Enhance: cinematic hero overlays === */
+.hero-bg{background:radial-gradient(ellipse 70% 55% at 25% 35%,rgba(34,224,255,.22),transparent 60%),radial-gradient(ellipse 55% 45% at 78% 25%,rgba(124,92,255,.2),transparent 55%),linear-gradient(160deg,#0a0e18,#07070a 70%)}
+.hero-bg video{opacity:0;transition:opacity .8s ease;will-change:opacity}
+.hero-bg video.is-ready{opacity:.38}
+.hero-bg .scrim{position:absolute;inset:0;pointer-events:none;background:
+  linear-gradient(90deg,rgba(7,7,10,.88) 0%,rgba(7,7,10,.55) 28%,rgba(7,7,10,.25) 50%,rgba(7,7,10,.5) 72%,rgba(7,7,10,.85) 100%),
+  linear-gradient(180deg,rgba(7,7,10,.45) 0%,transparent 28%,transparent 55%,rgba(7,7,10,.92) 100%)}
+.hero-bg::after{display:none}
+
+/* Hero entrance */
+.hero-copy .badge,
+.hero-copy h1,
+.hero-copy .lead,
+.hero-copy .hero-actions,
+.hero-copy .hero-meta{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
+.hero.is-in .hero-copy .badge{opacity:1;transform:none;transition-delay:.05s}
+.hero.is-in .hero-copy h1{opacity:1;transform:none;transition-delay:.15s}
+.hero.is-in .hero-copy .lead{opacity:1;transform:none;transition-delay:.28s}
+.hero.is-in .hero-copy .hero-actions{opacity:1;transform:none;transition-delay:.4s}
+.hero.is-in .hero-copy .hero-meta{opacity:1;transform:none;transition-delay:.52s}
+.btn-primary{box-shadow:0 0 0 0 rgba(34,224,255,.35),0 8px 28px rgba(34,224,255,.18)}
+.btn-primary:hover{box-shadow:0 0 0 4px rgba(34,224,255,.15),0 14px 36px rgba(34,224,255,.3)}
+
+/* Scroll reveal */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .65s ease,transform .65s ease}
+.reveal.in{opacity:1;transform:none}
+.reveal-delay-1{transition-delay:.08s}
+.reveal-delay-2{transition-delay:.16s}
+.reveal-delay-3{transition-delay:.24s}
+
+/* Soft hover lift */
+.card,.price,.case,.step{transition:transform .25s ease,border-color .25s ease,box-shadow .25s ease}
+.card:hover,.price:hover{transform:translateY(-4px);box-shadow:0 18px 40px rgba(0,0,0,.35)}
+.case:hover{transform:translateY(-3px);border-color:rgba(34,224,255,.35);box-shadow:0 20px 48px rgba(0,0,0,.4)}
+.feed-card{transition:transform .25s ease,border-color .25s ease,box-shadow .25s ease}
+.feed-card:hover{transform:scale(1.02);border-color:rgba(34,224,255,.4);box-shadow:0 12px 32px rgba(34,224,255,.12);z-index:1}
+
+/* Process glow on enter */
+.step.in{border-color:rgba(34,224,255,.35);box-shadow:0 0 0 1px rgba(34,224,255,.12),0 16px 48px rgba(34,224,255,.08)}
+.step.in .step-n{text-shadow:0 0 24px rgba(34,224,255,.55)}
+
+/* Metrics */
+.hero-meta [data-count]{font-variant-numeric:tabular-nums}
+
+/* CTA band after pricing */
+.cta-band{margin-top:40px;padding:36px 32px;border-radius:24px;border:1px solid rgba(34,224,255,.28);background:
+  radial-gradient(ellipse 80% 120% at 10% 50%,rgba(34,224,255,.16),transparent 55%),
+  radial-gradient(ellipse 60% 100% at 90% 40%,rgba(124,92,255,.14),transparent 50%),
+  linear-gradient(135deg,rgba(18,18,26,.95),rgba(10,14,24,.98));
+  display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:20px}
+.cta-band h3{margin:0 0 6px;font-size:clamp(1.25rem,2.4vw,1.65rem)}
+.cta-band p{margin:0;color:var(--muted);font-size:15px;max-width:42ch}
+.cta-band .actions{display:flex;flex-wrap:wrap;gap:10px}
+
+/* Form focus */
+.form input:focus,.form textarea:focus,.form select:focus{
+  border-color:rgba(34,224,255,.55);
+  box-shadow:0 0 0 3px rgba(34,224,255,.18);
+  background:#0c0c14
+}
+
+/* Sticky mobile CTA enhanced */
+.sticky-cta{align-items:center}
+.sticky-cta .link-ico{display:inline-flex;align-items:center;justify-content:center;width:42px;height:42px;border-radius:12px;border:1px solid var(--line);color:var(--accent);font-size:18px;flex:0 0 auto;background:rgba(255,255,255,.03)}
+.sticky-cta .link-ico:hover{border-color:rgba(34,224,255,.4);background:rgba(34,224,255,.08)}
+
+@media (max-width:640px){
+  .cta-band{padding:24px 18px;text-align:center;justify-content:center}
+  .cta-band .actions{width:100%;justify-content:center}
+  .cta-band .actions .btn{flex:1}
+}
+@media (prefers-reduced-motion:reduce){
+  .hero-bg video{display:none!important}
+  .hero-copy .badge,.hero-copy h1,.hero-copy .lead,.hero-copy .hero-actions,.hero-copy .hero-meta,
+  .reveal{opacity:1!important;transform:none!important;transition:none!important}
+  .card:hover,.price:hover,.case:hover,.feed-card:hover{transform:none}
+  .feed-track{animation:none}
+}
+
 </style>
 </head>
 <body>
@@ -287,7 +367,8 @@ footer{padding:48px 0 28px;border-top:1px solid var(--line);margin-top:40px}
   <!-- HERO -->
   <section class="hero">
     <div class="hero-bg" aria-hidden="true">
-      <video src="orbita-bg.mp4" muted playsinline loop preload="metadata" autoplay></video>
+      <video id="heroBgVideo" src="orbita-bg.mp4" muted playsinline loop preload="none"></video>
+      <div class="scrim"></div>
     </div>
     <div class="hero-grid">
       <div class="hero-copy">
@@ -299,7 +380,7 @@ footer{padding:48px 0 28px;border-top:1px solid var(--line);margin-top:40px}
           <a class="btn btn-ghost" href="#cases">Смотреть работы</a>
         </div>
         <div class="hero-meta">
-          <div><strong>24 часа</strong><br>ответ на бриф</div>
+          <div><strong><span data-count="24" data-suffix=" часа">24 часа</span></strong><br>ответ на бриф</div>
           <div><strong>16:9 · 9:16 · 1:1</strong><br>все плейсменты</div>
           <div><strong>Договор + NDA</strong><br>юрлицо РФ</div>
         </div>
@@ -404,18 +485,18 @@ footer{padding:48px 0 28px;border-top:1px solid var(--line);margin-top:40px}
   <!-- SERVICES -->
   <section class="section" id="services">
     <div class="container">
-      <div class="section-h">
+      <div class="section-h reveal">
         <div class="eyebrow">Услуги</div>
         <h2>Полный цикл видеорекламы</h2>
         <p class="lead">Шесть направлений одним конвейером — от идеи до медиазакупки. Без россыпи подрядчиков.</p>
       </div>
       <div class="grid-3">
-        <article class="card"><div class="card-num">01</div><h3>Сценарий и креатив</h3><p>Сценарии и раскадровки, которые цепляют в первые 3 секунды — под задачу бизнеса, не «для красоты».</p></article>
-        <article class="card"><div class="card-num">02</div><h3>Продакшн и съёмка</h3><p>Студия или площадка, актёры, операторская группа, реквизит — полный съёмочный цикл.</p></article>
-        <article class="card"><div class="card-num">03</div><h3>Монтаж и пост</h3><p>Монтаж, цвет, звук и адаптация под хронометраж и формат каждой площадки.</p></article>
-        <article class="card"><div class="card-num">04</div><h3>Медиазакупка</h3><p>YouTube, TikTok, VK Видео, Rutube — оптимизация по CPV, CPM и досматриваемости.</p></article>
-        <article class="card"><div class="card-num">05</div><h3>A/B-тест креативов</h3><p>Десятки версий на реальном трафике. В масштаб идут только ролики, которые продают.</p></article>
-        <article class="card"><div class="card-num">06</div><h3>Аналитика</h3><p>Сквозная аналитика CTR, досмотра и конверсий — решения на цифрах, не на вкусе.</p></article>
+        <article class="card reveal reveal-delay-1"><div class="card-num">01</div><h3>Сценарий и креатив</h3><p>Сценарии и раскадровки, которые цепляют в первые 3 секунды — под задачу бизнеса, не «для красоты».</p></article>
+        <article class="card reveal reveal-delay-2"><div class="card-num">02</div><h3>Продакшн и съёмка</h3><p>Студия или площадка, актёры, операторская группа, реквизит — полный съёмочный цикл.</p></article>
+        <article class="card reveal reveal-delay-3"><div class="card-num">03</div><h3>Монтаж и пост</h3><p>Монтаж, цвет, звук и адаптация под хронометраж и формат каждой площадки.</p></article>
+        <article class="card reveal"><div class="card-num">04</div><h3>Медиазакупка</h3><p>YouTube, TikTok, VK Видео, Rutube — оптимизация по CPV, CPM и досматриваемости.</p></article>
+        <article class="card reveal reveal-delay-1"><div class="card-num">05</div><h3>A/B-тест креативов</h3><p>Десятки версий на реальном трафике. В масштаб идут только ролики, которые продают.</p></article>
+        <article class="card reveal reveal-delay-2"><div class="card-num">06</div><h3>Аналитика</h3><p>Сквозная аналитика CTR, досмотра и конверсий — решения на цифрах, не на вкусе.</p></article>
       </div>
     </div>
   </section>
@@ -423,13 +504,13 @@ footer{padding:48px 0 28px;border-top:1px solid var(--line);margin-top:40px}
   <!-- PROCESS -->
   <section class="section" id="process" style="background:var(--bg2)">
     <div class="container">
-      <div class="section-h">
+      <div class="section-h reveal">
         <div class="eyebrow">Процесс</div>
         <h2>От брифа до эфира — 4 шага</h2>
         <p class="lead">Прозрачный пайплайн: на каждом этапе видно, что вы получаете.</p>
       </div>
       <div class="process-list">
-        <article class="step">
+        <article class="step reveal">
           <div class="step-n">01</div>
           <div>
             <h3>Бриф и стратегия</h3>
@@ -437,7 +518,7 @@ footer{padding:48px 0 28px;border-top:1px solid var(--line);margin-top:40px}
             <div class="step-get"><strong>Что получаете</strong><ul><li>Концепция кампании</li><li>Мудборд и референсы</li><li>KPI и сроки</li></ul></div>
           </div>
         </article>
-        <article class="step">
+        <article class="step reveal">
           <div class="step-n">02</div>
           <div>
             <h3>Сценарий и раскадровка</h3>
@@ -445,7 +526,7 @@ footer{padding:48px 0 28px;border-top:1px solid var(--line);margin-top:40px}
             <div class="step-get"><strong>Что получаете</strong><ul><li>Сценарий</li><li>Storyboard</li><li>Tone of voice</li></ul></div>
           </div>
         </article>
-        <article class="step">
+        <article class="step reveal">
           <div class="step-n">03</div>
           <div>
             <h3>Съёмка и монтаж</h3>
@@ -453,7 +534,7 @@ footer{padding:48px 0 28px;border-top:1px solid var(--line);margin-top:40px}
             <div class="step-get"><strong>Что получаете</strong><ul><li>Черновик на согласование</li><li>Раунды правок по договору</li><li>Мастер + веб-версии</li></ul></div>
           </div>
         </article>
-        <article class="step">
+        <article class="step reveal">
           <div class="step-n">04</div>
           <div>
             <h3>Запуск и оптимизация</h3>
@@ -487,7 +568,7 @@ footer{padding:48px 0 28px;border-top:1px solid var(--line);margin-top:40px}
   <!-- CASES -->
   <section class="section" id="cases">
     <div class="container">
-      <div class="section-h">
+      <div class="section-h reveal">
         <div class="eyebrow">Кейсы</div>
         <h2>Ролики, которые окупились</h2>
         <p class="lead">Категория · бренд · формат. Без воды — цифры и задача.</p>
@@ -500,7 +581,7 @@ footer{padding:48px 0 28px;border-top:1px solid var(--line);margin-top:40px}
         <button class="tab" data-filter="brand">Бренд</button>
       </div>
       <div class="cases-grid" id="casesGrid">
-        <article class="case c1" data-cat="retail">
+        <article class="case c1 reveal" data-cat="retail">
           <div class="media"><video data-case src="orbita-video.mp4" muted playsinline loop preload="metadata"></video></div>
           <div class="case-body">
             <div class="case-kicker">Ритейл · YouTube</div>
@@ -508,7 +589,7 @@ footer{padding:48px 0 28px;border-top:1px solid var(--line);margin-top:40px}
             <div class="case-stats"><div><strong>+312%</strong>просмотры</div><div><strong>−64%</strong>CPV</div></div>
           </div>
         </article>
-        <article class="case c2" data-cat="fintech">
+        <article class="case c2 reveal reveal-delay-2" data-cat="fintech">
           <div class="media"><div class="poster"></div></div>
           <div class="case-body">
             <div class="case-kicker">Финтех · Brand film</div>
@@ -516,7 +597,7 @@ footer{padding:48px 0 28px;border-top:1px solid var(--line);margin-top:40px}
             <div class="case-stats"><div><strong>4.8×</strong>конверсия</div><div><strong>78%</strong>досмотр</div></div>
           </div>
         </article>
-        <article class="case c3" data-cat="pharma">
+        <article class="case c3 reveal reveal-delay-3" data-cat="pharma">
           <div class="media"><video data-case src="orbita-bg.mp4" muted playsinline loop preload="metadata"></video></div>
           <div class="case-body">
             <div class="case-kicker">Фарма · TikTok + Reels</div>
@@ -524,7 +605,7 @@ footer{padding:48px 0 28px;border-top:1px solid var(--line);margin-top:40px}
             <div class="case-stats"><div><strong>×5.6</strong>охват</div><div><strong>89%</strong>удержание 3с</div></div>
           </div>
         </article>
-        <article class="case c4" data-cat="retail">
+        <article class="case c4 reveal" data-cat="retail">
           <div class="media"><div class="poster"></div></div>
           <div class="case-body">
             <div class="case-kicker">Ритейл · Stories</div>
@@ -532,7 +613,7 @@ footer{padding:48px 0 28px;border-top:1px solid var(--line);margin-top:40px}
             <div class="case-stats"><div><strong>2.1M</strong>просмотры</div><div><strong>−41%</strong>CPA</div></div>
           </div>
         </article>
-        <article class="case c5" data-cat="brand">
+        <article class="case c5 reveal reveal-delay-2" data-cat="brand">
           <div class="media"><div class="poster"></div></div>
           <div class="case-body">
             <div class="case-kicker">Бренд · OLV</div>
@@ -540,7 +621,7 @@ footer{padding:48px 0 28px;border-top:1px solid var(--line);margin-top:40px}
             <div class="case-stats"><div><strong>6.8%</strong>CTR</div><div><strong>184К</strong>досмотры</div></div>
           </div>
         </article>
-        <article class="case c6" data-cat="brand">
+        <article class="case c6 reveal reveal-delay-3" data-cat="brand">
           <div class="media"><div class="poster"></div></div>
           <div class="case-body">
             <div class="case-kicker">Бренд · Rutube</div>
@@ -555,13 +636,13 @@ footer{padding:48px 0 28px;border-top:1px solid var(--line);margin-top:40px}
   <!-- PRICING -->
   <section class="section" id="pricing" style="background:var(--bg2)">
     <div class="container">
-      <div class="section-h">
+      <div class="section-h reveal">
         <div class="eyebrow">Тарифы</div>
         <h2>Пакеты под задачу</h2>
         <p class="lead">Ориентиры. Финальная стоимость — после брифа, в рублях, по договору.</p>
       </div>
       <div class="price-grid">
-        <article class="price">
+        <article class="price reveal">
           <div class="name">Старт</div>
           <div class="sum">от 250 000 <span>₽/мес</span></div>
           <div class="desc">Локальный бизнес, выход в диджитал</div>
@@ -573,7 +654,7 @@ footer{padding:48px 0 28px;border-top:1px solid var(--line);margin-top:40px}
           </ul>
           <a class="btn btn-ghost btn-block" href="#contact">Выбрать тариф</a>
         </article>
-        <article class="price popular">
+        <article class="price popular reveal reveal-delay-1">
           <div class="badge-pop">Популярный</div>
           <div class="name">Рост</div>
           <div class="sum">от 650 000 <span>₽/мес</span></div>
@@ -587,7 +668,7 @@ footer{padding:48px 0 28px;border-top:1px solid var(--line);margin-top:40px}
           </ul>
           <a class="btn btn-primary btn-block" href="#contact">Заказать рекламу</a>
         </article>
-        <article class="price">
+        <article class="price reveal reveal-delay-2">
           <div class="name">Энтерпрайз</div>
           <div class="sum">индивидуально</div>
           <div class="desc">Крупный бизнес и сетевые бренды</div>
@@ -601,13 +682,23 @@ footer{padding:48px 0 28px;border-top:1px solid var(--line);margin-top:40px}
         </article>
       </div>
       <p class="price-note">Сравнивая с классическим продакшеном: один цикл закрывает съёмку + адаптации + закупку — без трёх разных подрядчиков.</p>
+      <div class="cta-band reveal">
+        <div>
+          <h3>Готовы к ролику?</h3>
+          <p>Брифинг за 24 часа — разберём задачу, формат и бюджет. Без воды, с ориентиром по срокам.</p>
+        </div>
+        <div class="actions">
+          <a class="btn btn-primary" href="#contact">Заказать рекламу</a>
+          <a class="btn btn-ghost" href="https://t.me/orbita_agency" target="_blank" rel="noopener">Telegram</a>
+        </div>
+      </div>
     </div>
   </section>
 
   <!-- FAQ + CONTACT -->
   <section class="section" id="faq">
     <div class="container">
-      <div class="section-h">
+      <div class="section-h reveal">
         <div class="eyebrow">FAQ</div>
         <h2>Частые вопросы</h2>
       </div>
@@ -625,7 +716,7 @@ footer{padding:48px 0 28px;border-top:1px solid var(--line);margin-top:40px}
 
   <section class="section" id="contact" style="padding-top:24px">
     <div class="container">
-      <div class="section-h">
+      <div class="section-h reveal">
         <div class="eyebrow">Контакты</div>
         <h2>Обсудим ваш проект</h2>
         <p class="lead">Опишите задачу — ответим за 24 часа с ориентиром по сроку и бюджету.</p>
@@ -673,7 +764,7 @@ footer{padding:48px 0 28px;border-top:1px solid var(--line);margin-top:40px}
       </div>
       <div>
         <h4>Соцсети</h4>
-        <a href="#" rel="noopener">Telegram</a>
+        <a href="https://t.me/orbita_agency" target="_blank" rel="noopener">Telegram</a>
         <a href="#" rel="noopener">VK</a>
         <a href="#" rel="noopener">Behance</a>
       </div>
@@ -686,69 +777,207 @@ footer{padding:48px 0 28px;border-top:1px solid var(--line);margin-top:40px}
 </footer>
 
 <div class="sticky-cta" aria-label="Быстрые действия">
-  <a class="btn btn-ghost btn-sm" href="tel:+74951234567">Позвонить</a>
+  <a class="link-ico" href="https://t.me/orbita_agency" target="_blank" rel="noopener" aria-label="Telegram" title="Telegram">✈</a>
+  <a class="link-ico" href="mailto:hello@orbita.agency" aria-label="Email" title="Email">✉</a>
   <a class="btn btn-primary btn-sm" href="#contact">Заказать</a>
 </div>
 
 <script>
 (function(){
-  const nav=document.getElementById('nav');
-  const burger=document.getElementById('burger');
-  const menu=document.getElementById('mobileMenu');
-  window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>8),{passive:true});
-  burger.addEventListener('click',()=>{
-    const open=menu.classList.toggle('open');
-    burger.setAttribute('aria-expanded',open?'true':'false');
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const nav = document.getElementById('nav');
+  const burger = document.getElementById('burger');
+  const menu = document.getElementById('mobileMenu');
+  const hero = document.querySelector('.hero');
+  const heroVid = document.getElementById('heroBgVideo');
+
+  window.addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 8), {passive:true});
+  burger.addEventListener('click', () => {
+    const open = menu.classList.toggle('open');
+    burger.setAttribute('aria-expanded', open ? 'true' : 'false');
   });
-  menu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{menu.classList.remove('open');burger.setAttribute('aria-expanded','false')}));
+  menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    menu.classList.remove('open');
+    burger.setAttribute('aria-expanded', 'false');
+  }));
+
+  // Hero entrance
+  requestAnimationFrame(() => hero && hero.classList.add('is-in'));
 
   // Case filter
-  document.querySelectorAll('.cases-tabs .tab').forEach(tab=>{
-    tab.addEventListener('click',()=>{
-      document.querySelectorAll('.cases-tabs .tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.cases-tabs .tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.cases-tabs .tab').forEach(t => t.classList.remove('active'));
       tab.classList.add('active');
-      const f=tab.dataset.filter;
-      document.querySelectorAll('#casesGrid .case').forEach(c=>{
-        c.style.display=(f==='all'||c.dataset.cat===f)?'':'none';
+      const f = tab.dataset.filter;
+      document.querySelectorAll('#casesGrid .case').forEach(c => {
+        c.style.display = (f === 'all' || c.dataset.cat === f) ? '' : 'none';
       });
     });
   });
 
   // Form
-  const form=document.getElementById('leadForm');
-  const ok=document.getElementById('formOk');
-  form.addEventListener('submit',e=>{
+  const form = document.getElementById('leadForm');
+  const ok = document.getElementById('formOk');
+  form.addEventListener('submit', e => {
     e.preventDefault();
-    if(!form.reportValidity())return;
-    ok.style.display='block';
+    if (!form.reportValidity()) return;
+    ok.style.display = 'block';
     form.reset();
   });
 
-  // Videos: muted, max one playing, pause offscreen
-  const allVideos=[...document.querySelectorAll('video')];
-  allVideos.forEach(v=>{v.muted=true;v.playsInline=true;});
-  let current=null;
-  const io=new IntersectionObserver((entries)=>{
-    entries.forEach(en=>{
-      const v=en.target;
-      if(en.isIntersecting && en.intersectionRatio>0.45){
-        if(current && current!==v){try{current.pause()}catch(_){}}
-        current=v;
-        v.play().catch(()=>{});
-      }else{
-        try{v.pause()}catch(_){}
-        if(current===v)current=null;
+  // Scroll reveal + process glow
+  const revealIO = new IntersectionObserver((entries) => {
+    entries.forEach(en => {
+      if (en.isIntersecting) {
+        en.target.classList.add('in');
+        revealIO.unobserve(en.target);
       }
     });
-  },{threshold:[0,0.45,0.7]});
-  allVideos.forEach(v=>io.observe(v));
+  }, {threshold: 0.14, rootMargin: '0px 0px -40px 0px'});
+  document.querySelectorAll('.reveal, .step').forEach(el => revealIO.observe(el));
 
-  // Prefer feed video in hero when desktop feed visible
-  const feedVids=document.querySelectorAll('.work-feed video[data-feed]');
-  if(feedVids.length && matchMedia('(min-width:901px)').matches){
-    const first=feedVids[0];
-    first.play().catch(()=>{});
-    current=first;
+  // Counter tick (hero meta)
+  function tickCounters() {
+    document.querySelectorAll('[data-count]').forEach(el => {
+      const target = +el.dataset.count;
+      const suffix = el.dataset.suffix || '';
+      if (reduced) { el.textContent = target + suffix; return; }
+      const start = performance.now();
+      const dur = 900;
+      function frame(now) {
+        const t = Math.min(1, (now - start) / dur);
+        const eased = 1 - Math.pow(1 - t, 3);
+        el.textContent = Math.round(target * eased) + suffix;
+        if (t < 1) requestAnimationFrame(frame);
+      }
+      requestAnimationFrame(frame);
+    });
+  }
+  if (hero) {
+    const once = new IntersectionObserver((ents) => {
+      if (ents.some(e => e.isIntersecting)) { tickCounters(); once.disconnect(); }
+    }, {threshold: 0.3});
+    once.observe(hero);
+  }
+
+  // --- Video orchestration ---
+  // Priority: hero bg wins while hero in view; feed plays only on card hover
+  const feedVids = [...document.querySelectorAll('video[data-feed]')];
+  const caseVids = [...document.querySelectorAll('video[data-case]')];
+  [...feedVids, ...caseVids].forEach(v => { v.muted = true; v.playsInline = true; });
+
+  let heroPlaying = false;
+  let heroLoaded = false;
+
+  function pauseFeeds() {
+    feedVids.forEach(v => { try { v.pause(); } catch(_){} });
+  }
+  function pauseCases() {
+    caseVids.forEach(v => { try { v.pause(); } catch(_){} });
+  }
+
+  function loadHeroBg() {
+    if (!heroVid || reduced || heroLoaded) return;
+    heroLoaded = true;
+    try { heroVid.setAttribute('preload', 'auto'); } catch(_){}
+    const play = () => {
+      heroVid.classList.add('is-ready');
+      heroVid.play().then(() => { heroPlaying = true; pauseFeeds(); }).catch(() => {});
+    };
+    if (heroVid.readyState >= 2) play();
+    else heroVid.addEventListener('loadeddata', play, {once:true});
+    heroVid.load();
+  }
+
+  function stopHeroBg() {
+    if (!heroVid) return;
+    try { heroVid.pause(); } catch(_){}
+    heroPlaying = false;
+  }
+
+  // Hero in view → load+play bg; offscreen → pause
+  if (heroVid && !reduced) {
+    const heroIO = new IntersectionObserver((entries) => {
+      entries.forEach(en => {
+        if (en.isIntersecting && en.intersectionRatio > 0.2) {
+          loadHeroBg();
+          if (heroLoaded) {
+            heroVid.play().then(() => { heroPlaying = true; pauseFeeds(); }).catch(()=>{});
+          }
+        } else {
+          stopHeroBg();
+        }
+      });
+    }, {threshold: [0, 0.2, 0.5]});
+    heroIO.observe(hero || heroVid);
+  } else if (heroVid && reduced) {
+    heroVid.removeAttribute('src');
+    heroVid.load();
+  }
+
+  // Tab visibility
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+      stopHeroBg();
+      pauseFeeds();
+      pauseCases();
+    } else if (hero && hero.getBoundingClientRect().bottom > 80 && !reduced) {
+      loadHeroBg();
+      heroVid && heroVid.play().then(() => { heroPlaying = true; pauseFeeds(); }).catch(()=>{});
+    }
+  });
+
+  // Feed: play on hover only (when not reduced); pause when hero bg owns decode
+  document.querySelectorAll('.feed-card').forEach(card => {
+    const v = card.querySelector('video[data-feed]');
+    if (!v) return;
+    card.addEventListener('mouseenter', () => {
+      if (reduced) return;
+      if (heroPlaying) stopHeroBg();
+      pauseFeeds();
+      v.play().catch(()=>{});
+    });
+    card.addEventListener('mouseleave', () => {
+      try { v.pause(); } catch(_){}
+      // Resume hero bg if hero still in view
+      if (hero && !reduced) {
+        const r = hero.getBoundingClientRect();
+        if (r.bottom > 100 && r.top < innerHeight * 0.85) {
+          loadHeroBg();
+          heroVid && heroVid.play().then(() => { heroPlaying = true; }).catch(()=>{});
+        }
+      }
+    });
+  });
+
+  // Case videos: play when in view only if hero not playing
+  const caseIO = new IntersectionObserver((entries) => {
+    entries.forEach(en => {
+      const v = en.target;
+      if (en.isIntersecting && en.intersectionRatio > 0.4 && !heroPlaying && !reduced) {
+        pauseCases();
+        v.play().catch(()=>{});
+      } else {
+        try { v.pause(); } catch(_){}
+      }
+    });
+  }, {threshold: [0, 0.4, 0.7]});
+  caseVids.forEach(v => caseIO.observe(v));
+
+  // Mobile feed videos: play when card mostly visible, pause otherwise
+  if (matchMedia('(max-width:900px)').matches && !reduced) {
+    const mobIO = new IntersectionObserver((entries) => {
+      entries.forEach(en => {
+        const v = en.target;
+        if (en.isIntersecting && en.intersectionRatio > 0.5 && !heroPlaying) {
+          v.play().catch(()=>{});
+        } else {
+          try { v.pause(); } catch(_){}
+        }
+      });
+    }, {threshold: [0, 0.5]});
+    document.querySelectorAll('.feed-mobile video[data-feed]').forEach(v => mobIO.observe(v));
   }
 })();
 </script>
