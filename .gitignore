@@ -1,6 +1,7 @@
 ﻿orbita-video.mp4
 *.mp4
 !orbita-bg.mp4
+!work-kazakhstan.mp4
 .DS_Store
 Thumbs.db
 
