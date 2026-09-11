@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ОРБИТА — ролики под заявки</title>
-<meta name="description" content="Закажите видеоролик под заявки и продажи: сценарий, съёмка, монтаж, запуск. От брифа до мастера от 10 дней. Ответ за 24 часа — hello@orbita.agency">
+<title>ОРБИТА — видеореклама для бизнеса</title>
+<meta name="description" content="Делаем видеорекламу для бизнеса — чтобы люди узнали о вас и покупали. Instagram, TikTok, YouTube. Напишите своими словами — объясним за 24 часа.">
 <meta name="theme-color" content="#07070a">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -717,6 +717,23 @@ body{padding-bottom:76px}
   .section-order{padding:20px 0 36px}
 }
 
+
+/* Beginner plain-language layer */
+.hero-copy h1{font-size:clamp(2.1rem,5vw,3.6rem);line-height:1.08;max-width:16ch}
+.hero-copy .lead{max-width:34ch !important;margin:14px 0 0 !important;font-size:clamp(1.05rem,1.6vw,1.25rem);color:rgba(255,255,255,.82)}
+.hero-copy .hero-actions{margin:22px 0 0 !important}
+.hero-copy .btn-giant{font-size:1.05rem;padding:16px 28px;border-radius:999px;letter-spacing:-.01em;box-shadow:0 0 0 1px rgba(34,224,255,.35),0 12px 40px rgba(34,224,255,.18)}
+.hero-help{margin:14px 0 0;font-size:13px;line-height:1.45;color:var(--dim);max-width:38ch}
+.hero-help a{color:var(--accent);text-decoration:underline;text-underline-offset:3px}
+.beginner-steps{padding:8px 0 28px;position:relative;z-index:2}
+.beginner-steps .bsteps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.beginner-steps .bsteps li{display:flex;align-items:center;gap:10px;padding:14px 16px;border:1px solid var(--line);border-radius:16px;background:rgba(255,255,255,.03);font-size:14px;font-weight:600;color:var(--text)}
+.beginner-steps .bsteps span{flex:0 0 auto;width:28px;height:28px;border-radius:999px;display:inline-flex;align-items:center;justify-content:center;background:rgba(34,224,255,.12);color:var(--accent);font-size:13px;font-weight:800}
+@media (max-width:700px){
+  .beginner-steps .bsteps{grid-template-columns:1fr}
+  .hero-copy .btn-giant{width:100%;text-align:center}
+}
+
 </style>
 </head>
 <body>
@@ -733,7 +750,7 @@ body{padding-bottom:76px}
     </nav>
     <div class="nav-cta">
       <a class="nav-phone" href="tel:+74951234567">+7 495 123-45-67</a>
-      <a class="btn btn-primary btn-sm" href="#contact">Заказать</a>
+      <a class="btn btn-primary btn-sm" href="#contact">Хочу рекламу</a>
       <button class="burger" id="burger" aria-label="Меню" aria-expanded="false">☰</button>
     </div>
   </div>
@@ -742,7 +759,7 @@ body{padding-bottom:76px}
   <a href="#works">Работы</a>
   <a href="#prices-fast">Цены</a>
   <a href="#contact">Заказать</a>
-  <a class="btn btn-primary" href="#contact">Заказать</a>
+  <a class="btn btn-primary" href="#contact">Хочу рекламу</a>
 </div>
 
 <main id="top">
@@ -755,27 +772,27 @@ body{padding-bottom:76px}
     </div>
     <div class="hero-grid">
             <div class="hero-copy">
-        <h1>Ролики, которые<span>приносят заявки</span></h1>
-        <p class="lead">Ответ за 24 часа</p>
+        <h1>Делаем видеорекламу<span>для бизнеса</span></h1>
+        <p class="lead">Чтобы люди узнали о вас и покупали — в Instagram, TikTok и YouTube</p>
         <div class="hero-actions">
-          <a class="btn btn-primary" href="#contact">Заказать</a>
-          <a class="btn btn-ghost" href="#prices-fast">Цены</a>
+          <a class="btn btn-primary btn-giant" href="#contact">Хочу рекламу для бизнеса</a>
         </div>
+        <p class="hero-help">Не разбираетесь? <a href="#contact">Напишите</a> — объясним за 24 часа, что лучше для вашего дела.</p>
       </div>
 
       <!-- Dual vertical feeds (desktop) — videos | prices -->
-      <aside class="work-feed" aria-label="Лента работ и тарифов">
-        <div class="feed-float-label">работы · цены</div>
+      <aside class="work-feed" aria-label="Примеры видео и цены">
+        <div class="feed-float-label">примеры · цены</div>
         <div class="feed-dual">
           <div class="feed-col feed-col-up" aria-label="Видео работ">
             <div class="feed-col-inner" data-feed-col="up">
               <article class="feed-tile h240">
                 <video data-feed src="work-kazakhstan.mp4" muted playsinline loop preload="metadata"></video>
-                <div class="feed-meta"><div class="tag">YouTube · 0:30</div><div class="title">Ритейл · перформанс</div><div class="sub">−64% CPV</div></div>
+                <div class="feed-meta"><div class="tag">YouTube · 0:30</div><div class="title">Магазин · реклама</div><div class="sub">дешевле клики</div></div>
               </article>
               <article class="feed-tile landscape">
                 <video data-feed src="work-09.mp4" muted playsinline loop preload="metadata"></video>
-                <div class="feed-meta"><div class="tag">Brand · 16:9</div><div class="title">Фьючер · сити</div><div class="sub">AI brand film</div></div>
+                <div class="feed-meta"><div class="tag">Brand · 16:9</div><div class="title">Фьючер · сити</div><div class="sub">бренд-ролик</div></div>
               </article>
               <article class="feed-tile h280 portrait">
                 <video data-feed src="work-02.mp4" muted playsinline loop preload="metadata"></video>
@@ -795,7 +812,7 @@ body{padding-bottom:76px}
               </article>
               <article class="feed-tile h200">
                 <video data-feed src="work-05.mp4" muted playsinline loop preload="metadata"></video>
-                <div class="feed-meta"><div class="tag">OLV</div><div class="title">Авто · бренд</div><div class="sub">2.1× VTR</div></div>
+                <div class="feed-meta"><div class="tag">YouTube</div><div class="title">Авто · бренд</div><div class="sub">больше смотрят</div></div>
               </article>
               <article class="feed-tile h240">
                 <video data-feed src="work-11.mp4" muted playsinline loop preload="metadata"></video>
@@ -807,17 +824,17 @@ body{padding-bottom:76px}
               </article>
               <article class="feed-tile h260 portrait">
                 <video data-feed src="work-04.mp4" muted playsinline loop preload="metadata"></video>
-                <div class="feed-meta"><div class="tag">Reels</div><div class="title">Beauty · серия</div><div class="sub">×3.2 ER</div></div>
+                <div class="feed-meta"><div class="tag">Reels</div><div class="title">Красота · серия</div><div class="sub">больше реакций</div></div>
               </article>
 
               <!-- duplicate for seamless loop -->
               <article class="feed-tile h240">
                 <video data-feed src="work-kazakhstan.mp4" muted playsinline loop preload="metadata"></video>
-                <div class="feed-meta"><div class="tag">YouTube · 0:30</div><div class="title">Ритейл · перформанс</div><div class="sub">−64% CPV</div></div>
+                <div class="feed-meta"><div class="tag">YouTube · 0:30</div><div class="title">Магазин · реклама</div><div class="sub">дешевле клики</div></div>
               </article>
               <article class="feed-tile landscape">
                 <video data-feed src="work-09.mp4" muted playsinline loop preload="metadata"></video>
-                <div class="feed-meta"><div class="tag">Brand · 16:9</div><div class="title">Фьючер · сити</div><div class="sub">AI brand film</div></div>
+                <div class="feed-meta"><div class="tag">Brand · 16:9</div><div class="title">Фьючер · сити</div><div class="sub">бренд-ролик</div></div>
               </article>
               <article class="feed-tile h280 portrait">
                 <video data-feed src="work-02.mp4" muted playsinline loop preload="metadata"></video>
@@ -837,7 +854,7 @@ body{padding-bottom:76px}
               </article>
               <article class="feed-tile h200">
                 <video data-feed src="work-05.mp4" muted playsinline loop preload="metadata"></video>
-                <div class="feed-meta"><div class="tag">OLV</div><div class="title">Авто · бренд</div><div class="sub">2.1× VTR</div></div>
+                <div class="feed-meta"><div class="tag">YouTube</div><div class="title">Авто · бренд</div><div class="sub">больше смотрят</div></div>
               </article>
               <article class="feed-tile h240">
                 <video data-feed src="work-11.mp4" muted playsinline loop preload="metadata"></video>
@@ -849,97 +866,97 @@ body{padding-bottom:76px}
               </article>
               <article class="feed-tile h260 portrait">
                 <video data-feed src="work-04.mp4" muted playsinline loop preload="metadata"></video>
-                <div class="feed-meta"><div class="tag">Reels</div><div class="title">Beauty · серия</div><div class="sub">×3.2 ER</div></div>
+                <div class="feed-meta"><div class="tag">Reels</div><div class="title">Красота · серия</div><div class="sub">больше реакций</div></div>
               </article>
             </div>
           </div>
-          <div class="feed-col feed-col-down feed-col-prices" aria-label="Тарифы">
+          <div class="feed-col feed-col-down feed-col-prices" aria-label="Цены">
             <div class="feed-col-inner" data-feed-col="down">
               <article class="feed-tile price-tile h200">
-                <div class="pt-eyebrow">тариф</div>
+                <div class="pt-eyebrow">Instagram</div>
                 <div class="pt-price">от 12 000 <span>₽</span></div>
-                <div class="pt-label">Сторис / пост</div>
-                <div class="pt-sub">1 шт · статика / motion</div>
-                <a class="pt-chip" href="#contact" data-prefill="Заказ формата: Сторис / пост (1 шт), ориентир от 12 000 ₽">заказать</a>
+                <div class="pt-label">1 сторис в Instagram</div>
+                <div class="pt-sub">одна картинка или короткое видео</div>
+                <a class="pt-chip" href="#contact" data-prefill="Хочу 1 сторис в Instagram, ориентир от 12 000 ₽">заказать</a>
               </article>
               <article class="feed-tile price-tile h240">
                 <div class="pt-eyebrow">пакет</div>
                 <div class="pt-price">от 35 000 <span>₽</span></div>
-                <div class="pt-label">5 сторис</div>
-                <div class="pt-sub">Серия · единый стиль</div>
-                <a class="pt-chip" href="#contact" data-prefill="Заказ формата: Пакет 5 сторис, ориентир от 35 000 ₽">заказать</a>
+                <div class="pt-label">5 сторис в Instagram</div>
+                <div class="pt-sub">пять в одном стиле</div>
+                <a class="pt-chip" href="#contact" data-prefill="Хочу 5 сторис в Instagram, ориентир от 35 000 ₽">заказать</a>
               </article>
               <article class="feed-tile price-tile h220">
-                <div class="pt-eyebrow">формат</div>
+                <div class="pt-eyebrow">TikTok</div>
                 <div class="pt-price">от 35 000 <span>₽</span></div>
-                <div class="pt-label">Reels / Shorts</div>
-                <div class="pt-sub">До 15 сек · 9:16</div>
-                <a class="pt-chip" href="#contact" data-prefill="Заказ формата: Reels / Shorts до 15 сек, ориентир от 35 000 ₽">заказать</a>
+                <div class="pt-label">короткое видео в TikTok</div>
+                <div class="pt-sub">до 15 сек · Instagram / TikTok / YouTube</div>
+                <a class="pt-chip" href="#contact" data-prefill="Хочу короткое видео в TikTok / Instagram / YouTube, ориентир от 35 000 ₽">заказать</a>
               </article>
               <article class="feed-tile price-tile h280 featured">
-                <div class="pt-eyebrow">спот</div>
+                <div class="pt-eyebrow">ролик</div>
                 <div class="pt-price">от 80 000 <span>₽</span></div>
-                <div class="pt-label">Ролик 15–30 сек</div>
-                <div class="pt-sub">Сценарий + монтаж</div>
-                <a class="pt-chip" href="#contact" data-prefill="Заказ формата: Короткий рекламный ролик 15–30 сек, ориентир от 80 000 ₽">заказать</a>
+                <div class="pt-label">ролик 30 секунд</div>
+                <div class="pt-sub">придумаем текст и смонтируем</div>
+                <a class="pt-chip" href="#contact" data-prefill="Хочу ролик около 30 секунд, ориентир от 80 000 ₽">заказать</a>
               </article>
               <article class="feed-tile price-tile h200">
-                <div class="pt-eyebrow">сервис</div>
+                <div class="pt-eyebrow">доработка</div>
                 <div class="pt-price">от 12 000 <span>₽</span></div>
-                <div class="pt-label">Адаптация</div>
-                <div class="pt-sub">→ 9:16 / 1:1</div>
-                <a class="pt-chip" href="#contact" data-prefill="Заказ формата: Адаптация в 9:16 / 1:1, ориентир от 12 000 ₽">заказать</a>
+                <div class="pt-label">подогнать под телефон</div>
+                <div class="pt-sub">переделать под вертикаль или квадрат</div>
+                <a class="pt-chip" href="#contact" data-prefill="Хочу подогнать ролик под телефон / квадрат, ориентир от 12 000 ₽">заказать</a>
               </article>
               <article class="feed-tile price-tile h260 pack">
                 <div class="pt-eyebrow">пакет</div>
-                <div class="pt-price">от 250k <span>₽</span></div>
-                <div class="pt-label">Старт</div>
-                <div class="pt-sub">1 ролик · локальный запуск</div>
-                <a class="pt-chip" href="#contact" data-prefill="Пакет Старт: от 250 000 ₽ — обсудить">заказать</a>
+                <div class="pt-price">от 250 000 <span>₽</span></div>
+                <div class="pt-label">пакет «Старт»</div>
+                <div class="pt-sub">1 ролик + поможем запустить</div>
+                <a class="pt-chip" href="#contact" data-prefill="Пакет «Старт»: от 250 000 ₽ — обсудить">заказать</a>
               </article>
 
               <!-- duplicate for seamless loop -->
               <article class="feed-tile price-tile h200">
-                <div class="pt-eyebrow">тариф</div>
+                <div class="pt-eyebrow">Instagram</div>
                 <div class="pt-price">от 12 000 <span>₽</span></div>
-                <div class="pt-label">Сторис / пост</div>
-                <div class="pt-sub">1 шт · статика / motion</div>
-                <a class="pt-chip" href="#contact" data-prefill="Заказ формата: Сторис / пост (1 шт), ориентир от 12 000 ₽">заказать</a>
+                <div class="pt-label">1 сторис в Instagram</div>
+                <div class="pt-sub">одна картинка или короткое видео</div>
+                <a class="pt-chip" href="#contact" data-prefill="Хочу 1 сторис в Instagram, ориентир от 12 000 ₽">заказать</a>
               </article>
               <article class="feed-tile price-tile h240">
                 <div class="pt-eyebrow">пакет</div>
                 <div class="pt-price">от 35 000 <span>₽</span></div>
-                <div class="pt-label">5 сторис</div>
-                <div class="pt-sub">Серия · единый стиль</div>
-                <a class="pt-chip" href="#contact" data-prefill="Заказ формата: Пакет 5 сторис, ориентир от 35 000 ₽">заказать</a>
+                <div class="pt-label">5 сторис в Instagram</div>
+                <div class="pt-sub">пять в одном стиле</div>
+                <a class="pt-chip" href="#contact" data-prefill="Хочу 5 сторис в Instagram, ориентир от 35 000 ₽">заказать</a>
               </article>
               <article class="feed-tile price-tile h220">
-                <div class="pt-eyebrow">формат</div>
+                <div class="pt-eyebrow">TikTok</div>
                 <div class="pt-price">от 35 000 <span>₽</span></div>
-                <div class="pt-label">Reels / Shorts</div>
-                <div class="pt-sub">До 15 сек · 9:16</div>
-                <a class="pt-chip" href="#contact" data-prefill="Заказ формата: Reels / Shorts до 15 сек, ориентир от 35 000 ₽">заказать</a>
+                <div class="pt-label">короткое видео в TikTok</div>
+                <div class="pt-sub">до 15 сек · Instagram / TikTok / YouTube</div>
+                <a class="pt-chip" href="#contact" data-prefill="Хочу короткое видео в TikTok / Instagram / YouTube, ориентир от 35 000 ₽">заказать</a>
               </article>
               <article class="feed-tile price-tile h280 featured">
-                <div class="pt-eyebrow">спот</div>
+                <div class="pt-eyebrow">ролик</div>
                 <div class="pt-price">от 80 000 <span>₽</span></div>
-                <div class="pt-label">Ролик 15–30 сек</div>
-                <div class="pt-sub">Сценарий + монтаж</div>
-                <a class="pt-chip" href="#contact" data-prefill="Заказ формата: Короткий рекламный ролик 15–30 сек, ориентир от 80 000 ₽">заказать</a>
+                <div class="pt-label">ролик 30 секунд</div>
+                <div class="pt-sub">придумаем текст и смонтируем</div>
+                <a class="pt-chip" href="#contact" data-prefill="Хочу ролик около 30 секунд, ориентир от 80 000 ₽">заказать</a>
               </article>
               <article class="feed-tile price-tile h200">
-                <div class="pt-eyebrow">сервис</div>
+                <div class="pt-eyebrow">доработка</div>
                 <div class="pt-price">от 12 000 <span>₽</span></div>
-                <div class="pt-label">Адаптация</div>
-                <div class="pt-sub">→ 9:16 / 1:1</div>
-                <a class="pt-chip" href="#contact" data-prefill="Заказ формата: Адаптация в 9:16 / 1:1, ориентир от 12 000 ₽">заказать</a>
+                <div class="pt-label">подогнать под телефон</div>
+                <div class="pt-sub">переделать под вертикаль или квадрат</div>
+                <a class="pt-chip" href="#contact" data-prefill="Хочу подогнать ролик под телефон / квадрат, ориентир от 12 000 ₽">заказать</a>
               </article>
               <article class="feed-tile price-tile h260 pack">
                 <div class="pt-eyebrow">пакет</div>
-                <div class="pt-price">от 250k <span>₽</span></div>
-                <div class="pt-label">Старт</div>
-                <div class="pt-sub">1 ролик · локальный запуск</div>
-                <a class="pt-chip" href="#contact" data-prefill="Пакет Старт: от 250 000 ₽ — обсудить">заказать</a>
+                <div class="pt-price">от 250 000 <span>₽</span></div>
+                <div class="pt-label">пакет «Старт»</div>
+                <div class="pt-sub">1 ролик + поможем запустить</div>
+                <a class="pt-chip" href="#contact" data-prefill="Пакет «Старт»: от 250 000 ₽ — обсудить">заказать</a>
               </article>
             </div>
           </div>
@@ -948,13 +965,13 @@ body{padding-bottom:76px}
     </div>
 
     <!-- Mobile: two horizontal strips — videos then prices -->
-    <div class="feed-mobile" aria-label="Лента работ и тарифов">
+    <div class="feed-mobile" aria-label="Примеры видео и цены">
       <div class="feed-mobile-block">
-        <div class="feed-mobile-cap">работы</div>
+        <div class="feed-mobile-cap">примеры видео</div>
         <div class="feed-mobile-track" data-mob-strip="videos">
           <article class="feed-tile">
             <video data-feed src="work-kazakhstan.mp4" muted playsinline loop preload="metadata"></video>
-            <div class="feed-meta"><div class="tag">YouTube</div><div class="title">Ритейл · перформанс</div><div class="sub">−64% CPV</div></div>
+            <div class="feed-meta"><div class="tag">YouTube</div><div class="title">Магазин · реклама</div><div class="sub">дешевле клики</div></div>
           </article>
           <article class="feed-tile">
             <video data-feed src="work-10.mp4" muted playsinline loop preload="metadata"></video>
@@ -962,7 +979,7 @@ body{padding-bottom:76px}
           </article>
           <article class="feed-tile">
             <video data-feed src="work-09.mp4" muted playsinline loop preload="metadata"></video>
-            <div class="feed-meta"><div class="tag">Brand</div><div class="title">Фьючер · сити</div><div class="sub">AI brand film</div></div>
+            <div class="feed-meta"><div class="tag">Brand</div><div class="title">Фьючер · сити</div><div class="sub">бренд-ролик</div></div>
           </article>
           <article class="feed-tile">
             <video data-feed src="work-03.mp4" muted playsinline loop preload="metadata"></video>
@@ -978,7 +995,7 @@ body{padding-bottom:76px}
           </article>
           <article class="feed-tile">
             <video data-feed src="work-04.mp4" muted playsinline loop preload="metadata"></video>
-            <div class="feed-meta"><div class="tag">Reels</div><div class="title">Beauty · серия</div><div class="sub">×3.2 ER</div></div>
+            <div class="feed-meta"><div class="tag">Reels</div><div class="title">Красота · серия</div><div class="sub">больше реакций</div></div>
           </article>
           <article class="feed-tile">
             <video data-feed src="work-11.mp4" muted playsinline loop preload="metadata"></video>
@@ -987,52 +1004,62 @@ body{padding-bottom:76px}
         </div>
       </div>
       <div class="feed-mobile-block">
-        <div class="feed-mobile-cap">цены</div>
+        <div class="feed-mobile-cap">сколько стоит</div>
         <div class="feed-mobile-track" data-mob-strip="prices">
           <article class="feed-tile price-tile">
-            <div class="pt-eyebrow">тариф</div>
+            <div class="pt-eyebrow">Instagram</div>
             <div class="pt-price">от 12 000 <span>₽</span></div>
-            <div class="pt-label">Сторис / пост</div>
-            <div class="pt-sub">1 шт · статика / motion</div>
-            <a class="pt-chip" href="#contact" data-prefill="Заказ формата: Сторис / пост (1 шт), ориентир от 12 000 ₽">заказать</a>
+            <div class="pt-label">1 сторис в Instagram</div>
+            <div class="pt-sub">одна картинка или короткое видео</div>
+            <a class="pt-chip" href="#contact" data-prefill="Хочу 1 сторис в Instagram, ориентир от 12 000 ₽">заказать</a>
           </article>
           <article class="feed-tile price-tile">
             <div class="pt-eyebrow">пакет</div>
             <div class="pt-price">от 35 000 <span>₽</span></div>
-            <div class="pt-label">5 сторис</div>
-            <div class="pt-sub">Серия · единый стиль</div>
-            <a class="pt-chip" href="#contact" data-prefill="Заказ формата: Пакет 5 сторис, ориентир от 35 000 ₽">заказать</a>
+            <div class="pt-label">5 сторис в Instagram</div>
+            <div class="pt-sub">пять в одном стиле</div>
+            <a class="pt-chip" href="#contact" data-prefill="Хочу 5 сторис в Instagram, ориентир от 35 000 ₽">заказать</a>
           </article>
           <article class="feed-tile price-tile">
-            <div class="pt-eyebrow">формат</div>
+            <div class="pt-eyebrow">TikTok</div>
             <div class="pt-price">от 35 000 <span>₽</span></div>
-            <div class="pt-label">Reels / Shorts</div>
-            <div class="pt-sub">До 15 сек · 9:16</div>
-            <a class="pt-chip" href="#contact" data-prefill="Заказ формата: Reels / Shorts до 15 сек, ориентир от 35 000 ₽">заказать</a>
+            <div class="pt-label">короткое видео в TikTok</div>
+            <div class="pt-sub">до 15 сек · Instagram / TikTok / YouTube</div>
+            <a class="pt-chip" href="#contact" data-prefill="Хочу короткое видео в TikTok / Instagram / YouTube, ориентир от 35 000 ₽">заказать</a>
           </article>
           <article class="feed-tile price-tile featured">
-            <div class="pt-eyebrow">спот</div>
+            <div class="pt-eyebrow">ролик</div>
             <div class="pt-price">от 80 000 <span>₽</span></div>
-            <div class="pt-label">Ролик 15–30 сек</div>
-            <div class="pt-sub">Сценарий + монтаж</div>
-            <a class="pt-chip" href="#contact" data-prefill="Заказ формата: Короткий рекламный ролик 15–30 сек, ориентир от 80 000 ₽">заказать</a>
+            <div class="pt-label">ролик 30 секунд</div>
+            <div class="pt-sub">придумаем текст и смонтируем</div>
+            <a class="pt-chip" href="#contact" data-prefill="Хочу ролик около 30 секунд, ориентир от 80 000 ₽">заказать</a>
           </article>
           <article class="feed-tile price-tile">
-            <div class="pt-eyebrow">сервис</div>
+            <div class="pt-eyebrow">доработка</div>
             <div class="pt-price">от 12 000 <span>₽</span></div>
-            <div class="pt-label">Адаптация</div>
-            <div class="pt-sub">→ 9:16 / 1:1</div>
-            <a class="pt-chip" href="#contact" data-prefill="Заказ формата: Адаптация в 9:16 / 1:1, ориентир от 12 000 ₽">заказать</a>
+            <div class="pt-label">подогнать под телефон</div>
+            <div class="pt-sub">переделать под вертикаль или квадрат</div>
+            <a class="pt-chip" href="#contact" data-prefill="Хочу подогнать ролик под телефон / квадрат, ориентир от 12 000 ₽">заказать</a>
           </article>
           <article class="feed-tile price-tile pack">
             <div class="pt-eyebrow">пакет</div>
-            <div class="pt-price">от 250k <span>₽</span></div>
-            <div class="pt-label">Старт</div>
-            <div class="pt-sub">1 ролик · локальный запуск</div>
-            <a class="pt-chip" href="#contact" data-prefill="Пакет Старт: от 250 000 ₽ — обсудить">заказать</a>
+            <div class="pt-price">от 250 000 <span>₽</span></div>
+            <div class="pt-label">пакет «Старт»</div>
+            <div class="pt-sub">1 ролик + поможем запустить</div>
+            <a class="pt-chip" href="#contact" data-prefill="Пакет «Старт»: от 250 000 ₽ — обсудить">заказать</a>
           </article>
         </div>
       </div>
+    </div>
+  </section>
+
+  <section class="beginner-steps" aria-label="Как это работает">
+    <div class="container">
+      <ol class="bsteps">
+        <li><span>1</span> Напишите нам</li>
+        <li><span>2</span> Согласуем идею</li>
+        <li><span>3</span> Получите видео</li>
+      </ol>
     </div>
   </section>
 
@@ -1040,74 +1067,74 @@ body{padding-bottom:76px}
     <div class="container">
       <div class="price-panel" id="prices-fast" data-price-panel="fast">
         <div class="fast-head reveal">
-          <h2>Цены</h2>
-          <span class="fast-badge">финал после брифа</span>
+          <h2>Сколько стоит</h2>
+          <span class="fast-badge">точная цена после короткого разговора</span>
         </div>
         <div class="fast-grid reveal">
           <article class="fast-card">
-            <div class="fast-label">Сторис / пост</div>
-            <div class="fast-desc">1 шт · статика / motion</div>
+            <div class="fast-label">1 сторис в Instagram</div>
+            <div class="fast-desc">одна картинка или короткое видео</div>
             <div class="fast-price">от 12 000 <span>₽</span></div>
-            <a class="btn btn-primary btn-block" href="#contact" data-prefill="Заказ формата: Сторис / пост (1 шт), ориентир от 12 000 ₽">Заказать</a>
+            <a class="btn btn-primary btn-block" href="#contact" data-prefill="Хочу 1 сторис в Instagram, ориентир от 12 000 ₽">Заказать</a>
           </article>
           <article class="fast-card">
-            <div class="fast-label">Пакет 5 сторис</div>
-            <div class="fast-desc">Серия · единый стиль</div>
+            <div class="fast-label">5 сторис в Instagram</div>
+            <div class="fast-desc">пять в одном стиле</div>
             <div class="fast-price">от 35 000 <span>₽</span></div>
-            <a class="btn btn-primary btn-block" href="#contact" data-prefill="Заказ формата: Пакет 5 сторис, ориентир от 35 000 ₽">Заказать</a>
+            <a class="btn btn-primary btn-block" href="#contact" data-prefill="Хочу 5 сторис в Instagram, ориентир от 35 000 ₽">Заказать</a>
           </article>
           <article class="fast-card">
-            <div class="fast-label">Reels / Shorts</div>
-            <div class="fast-desc">До 15 сек · 9:16</div>
+            <div class="fast-label">короткое видео в TikTok</div>
+            <div class="fast-desc">до 15 сек · Instagram / TikTok / YouTube</div>
             <div class="fast-price">от 35 000 <span>₽</span></div>
-            <a class="btn btn-primary btn-block" href="#contact" data-prefill="Заказ формата: Reels / Shorts до 15 сек, ориентир от 35 000 ₽">Заказать</a>
+            <a class="btn btn-primary btn-block" href="#contact" data-prefill="Хочу короткое видео в TikTok / Instagram / YouTube, ориентир от 35 000 ₽">Заказать</a>
           </article>
           <article class="fast-card featured">
-            <div class="fast-tag">Спот</div>
-            <div class="fast-label">Ролик 15–30 сек</div>
-            <div class="fast-desc">Сценарий + монтаж</div>
+            <div class="fast-tag">Ролик</div>
+            <div class="fast-label">ролик 30 секунд</div>
+            <div class="fast-desc">придумаем текст и смонтируем</div>
             <div class="fast-price">от 80 000 <span>₽</span></div>
-            <a class="btn btn-primary btn-block" href="#contact" data-prefill="Заказ формата: Короткий рекламный ролик 15–30 сек, ориентир от 80 000 ₽">Заказать</a>
+            <a class="btn btn-primary btn-block" href="#contact" data-prefill="Хочу ролик около 30 секунд, ориентир от 80 000 ₽">Заказать</a>
           </article>
           <article class="fast-card">
-            <div class="fast-label">Адаптация</div>
-            <div class="fast-desc">→ 9:16 / 1:1</div>
+            <div class="fast-label">подогнать под телефон</div>
+            <div class="fast-desc">переделать под вертикаль или квадрат</div>
             <div class="fast-price">от 12 000 <span>₽</span></div>
-            <a class="btn btn-primary btn-block" href="#contact" data-prefill="Заказ формата: Адаптация в 9:16 / 1:1, ориентир от 12 000 ₽">Заказать</a>
+            <a class="btn btn-primary btn-block" href="#contact" data-prefill="Хочу подогнать ролик под телефон / квадрат, ориентир от 12 000 ₽">Заказать</a>
           </article>
         </div>
       </div>
 
       <div class="price-panel packs-compact" id="prices-packs" data-price-panel="packs">
-        <div class="packs-head reveal"><h3>Пакеты</h3></div>
+        <div class="packs-head reveal"><h3>Если нужно больше</h3></div>
         <div class="price-grid">
           <article class="price reveal">
             <div class="name">Старт</div>
             <div class="sum">от 250 000 <span>₽</span></div>
-            <div class="desc">1 ролик · локальный запуск</div>
-            <a class="btn btn-ghost btn-block" href="#contact" data-prefill="Пакет Старт: от 250 000 ₽ — обсудить">Заказать</a>
+            <div class="desc">1 ролик + поможем запустить</div>
+            <a class="btn btn-ghost btn-block" href="#contact" data-prefill="Пакет «Старт»: от 250 000 ₽ — обсудить">Заказать</a>
           </article>
           <article class="price popular reveal reveal-delay-1">
             <div class="badge-pop">Популярный</div>
             <div class="name">Рост</div>
             <div class="sum">от 650 000 <span>₽</span></div>
-            <div class="desc">Серия + запуск + A/B</div>
-            <a class="btn btn-primary btn-block" href="#contact" data-prefill="Пакет Рост: от 650 000 ₽ — получить предложение">Заказать</a>
+            <div class="desc">несколько роликов + запуск + сравнение вариантов</div>
+            <a class="btn btn-primary btn-block" href="#contact" data-prefill="Пакет «Рост»: от 650 000 ₽ — получить предложение">Заказать</a>
           </article>
           <article class="price reveal reveal-delay-2">
-            <div class="name">Энтерпрайз</div>
+            <div class="name">Для сетей</div>
             <div class="sum">индивидуально</div>
-            <div class="desc">Сеть · объём · SLA</div>
-            <a class="btn btn-ghost btn-block" href="#contact" data-prefill="Пакет Энтерпрайз — обсудить условия">Обсудить</a>
+            <div class="desc">много точек · большой объём · свои условия</div>
+            <a class="btn btn-ghost btn-block" href="#contact" data-prefill="Большой объём / сеть магазинов — обсудить условия">Обсудить</a>
           </article>
         </div>
       </div>
 
       <div class="guarantee" aria-label="Гарантии">
         <span class="chip"><i></i>Договор</span>
-        <span class="chip"><i></i>Правки по брифу</span>
+        <span class="chip"><i></i>Правки по договорённости</span>
         <span class="chip"><i></i>Ответ 24ч</span>
-        <span class="chip"><i></i>NDA</span>
+        <span class="chip"><i></i>Конфиденциально</span>
       </div>
     </div>
   </section>
@@ -1115,15 +1142,16 @@ body{padding-bottom:76px}
     <section class="section section-order" id="contact">
     <div class="container">
       <div class="section-h reveal">
-        <h2>Заказать</h2>
+        <h2>Хочу рекламу для бизнеса</h2>
+        <p class="lead" style="margin:10px 0 0;max-width:42ch;color:var(--muted);font-size:15px">Опишите бизнес своими словами — мы предложим вариант и цену.</p>
       </div>
       <div class="contact-grid">
         <form class="form" id="leadForm" novalidate>
           <label>Имя<input name="name" required placeholder="Как к вам обращаться" autocomplete="name"></label>
           <label>Email<input type="email" name="email" required placeholder="name@company.ru" autocomplete="email"></label>
           <label>Телефон<input type="tel" name="phone" placeholder="+7" autocomplete="tel"></label>
-          <label>О проекте<textarea name="about" placeholder="Формат, площадки, срок"></textarea></label>
-          <button class="btn btn-primary" type="submit">Заказать</button>
+          <label>О проекте<textarea name="about" placeholder="Чем занимаетесь? Кому хотите продавать? Бюджет примерно?"></textarea></label>
+          <button class="btn btn-primary" type="submit">Отправить — ответим за 24 часа</button>
           <div class="form-ok" id="formOk">Заявка принята. Ответим в течение 24 часов.</div>
         </form>
         <aside class="contact-side">
@@ -1154,10 +1182,10 @@ body{padding-bottom:76px}
       <section class="section section-process" id="process">
     <div class="container">
       <div class="process-list process-strip">
-        <article class="step reveal"><div class="step-n">01</div><h3>Бриф</h3></article>
-        <article class="step reveal"><div class="step-n">02</div><h3>Сценарий</h3></article>
-        <article class="step reveal"><div class="step-n">03</div><h3>Продакшн</h3></article>
-        <article class="step reveal"><div class="step-n">04</div><h3>Запуск</h3></article>
+        <article class="step reveal"><div class="step-n">01</div><h3>Напишите нам</h3></article>
+        <article class="step reveal"><div class="step-n">02</div><h3>Согласуем идею</h3></article>
+        <article class="step reveal"><div class="step-n">03</div><h3>Снимаем и монтируем</h3></article>
+        <article class="step reveal"><div class="step-n">04</div><h3>Вы получаете видео</h3></article>
       </div>
     </div>
   </section>
@@ -1170,9 +1198,9 @@ body{padding-bottom:76px}
             <video data-case src="work-kazakhstan.mp4" muted playsinline loop preload="metadata" poster="still-12.jpg"></video>
           </div>
           <div class="case-body">
-            <div class="case-kicker">YouTube / OLV · 0:30</div>
-            <h3 class="case-title">Перформанс под запуск</h3>
-            <a class="case-cta" href="#contact" data-prefill="Кейс: перформанс-ролик 0:30 — хочу так же">Заказать так же</a>
+            <div class="case-kicker">YouTube · 30 сек</div>
+            <h3 class="case-title">Реклама под запуск бизнеса</h3>
+            <a class="case-cta" href="#contact" data-prefill="Кейс: ролик 30 сек под запуск — хочу так же">Заказать так же</a>
           </div>
         </article>
         <article class="case case-card reveal reveal-delay-1" data-cat="brand">
@@ -1236,7 +1264,7 @@ body{padding-bottom:76px}
 <div class="sticky-cta" aria-label="Быстрые действия">
   <a class="link-ico" href="https://t.me/orbita_agency" target="_blank" rel="noopener" aria-label="Telegram" title="Telegram">✈</a>
   <a class="link-ico" href="mailto:hello@orbita.agency" aria-label="Email" title="Email">✉</a>
-  <a class="btn btn-primary btn-sm" href="#contact">Заказать</a>
+  <a class="btn btn-primary btn-sm" href="#contact">Хочу рекламу</a>
 </div>
 
 <script>
@@ -1470,7 +1498,7 @@ body{padding-bottom:76px}
   // Persona / case / format -> contact prefill
   document.querySelectorAll("[data-persona]").forEach(function(a){
     a.addEventListener("click", function(){
-      var map = {brand:"Бренд: имидж / OLV", ecom:"E-com: заявки и продажи", expert:"Эксперт: лиды и доверие"};
+      var map = {brand:"Бренд: имидж / YouTube", ecom:"Магазин: заявки и продажи", expert:"Эксперт: заявки и доверие"};
       var about = document.querySelector('textarea[name="about"]');
       if(about && !about.value) about.value = map[a.getAttribute("data-persona")] || "";
     });
