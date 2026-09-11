@@ -78,43 +78,141 @@ h3{font-size:1.15rem;font-weight:700;margin-bottom:8px}
 .hero-meta strong{color:var(--text);font-weight:600}
 
 /* Work feed — desktop side column */
-.work-feed{position:relative;height:min(72vh,640px);border-radius:24px;border:1px solid var(--line);background:linear-gradient(180deg,rgba(255,255,255,.03),rgba(255,255,255,.01));overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.45)}
-.work-feed::before,.work-feed::after{content:"";position:absolute;left:0;right:0;height:56px;z-index:2;pointer-events:none}
-.work-feed::before{top:0;background:linear-gradient(var(--bg2),transparent)}
-.work-feed::after{bottom:0;background:linear-gradient(transparent,var(--bg2))}
-.feed-label{position:absolute;top:14px;left:14px;z-index:3;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);background:rgba(7,7,10,.7);padding:6px 10px;border-radius:999px;border:1px solid rgba(34,224,255,.2);backdrop-filter:blur(8px)}
-.feed-track{display:flex;flex-direction:column;gap:14px;padding:48px 14px 14px;animation:feedUp 42s linear infinite;will-change:transform}
-.work-feed:hover .feed-track{animation-play-state:paused}
-@keyframes feedUp{0%{transform:translateY(0)}100%{transform:translateY(-50%)}}
-.feed-card{position:relative;border-radius:16px;overflow:hidden;border:1px solid var(--line);background:#0a0a10;aspect-ratio:9/14;flex:0 0 auto;isolation:isolate}
-.feed-card.wide{aspect-ratio:16/10}
-.feed-card video,.feed-card .poster{width:100%;height:100%;object-fit:cover}
-.feed-card .poster{background:
-  radial-gradient(circle at 30% 20%,rgba(34,224,255,.35),transparent 45%),
-  radial-gradient(circle at 70% 80%,rgba(124,92,255,.4),transparent 40%),
-  linear-gradient(145deg,#141422,#0a0a12 60%,#121028)}
-.feed-card.p2 .poster{background:
-  radial-gradient(circle at 70% 25%,rgba(255,92,122,.35),transparent 40%),
-  radial-gradient(circle at 20% 70%,rgba(34,224,255,.25),transparent 45%),
-  linear-gradient(160deg,#1a1020,#0b0b12)}
-.feed-card.p3 .poster{background:
-  radial-gradient(circle at 40% 40%,rgba(52,211,153,.28),transparent 40%),
-  radial-gradient(circle at 80% 10%,rgba(124,92,255,.3),transparent 35%),
-  linear-gradient(180deg,#101820,#0a0a10)}
-.feed-card.p4 .poster{background:
-  radial-gradient(circle at 50% 30%,rgba(255,200,80,.25),transparent 40%),
-  radial-gradient(circle at 10% 90%,rgba(34,224,255,.2),transparent 40%),
-  linear-gradient(200deg,#181410,#0a0a10)}
-.feed-meta{position:absolute;left:0;right:0;bottom:0;padding:14px;background:linear-gradient(transparent,rgba(0,0,0,.85));z-index:1}
-.feed-meta .tag{font-size:11px;color:var(--accent);font-weight:600;letter-spacing:.04em;margin-bottom:4px}
-.feed-meta .title{font-size:14px;font-weight:700;font-family:var(--display)}
-.feed-meta .sub{font-size:12px;color:rgba(255,255,255,.65);margin-top:2px}
+/* Hero dual vertical feeds — frameless Aiskra+ */
+.work-feed{
+  position:relative;
+  height:min(78vh,680px);
+  overflow:hidden;
+  border:0;
+  background:transparent;
+  box-shadow:none;
+  border-radius:0;
+  isolation:isolate;
+  -webkit-mask-image:linear-gradient(180deg,transparent 0%,#000 8%,#000 92%,transparent 100%);
+  mask-image:linear-gradient(180deg,transparent 0%,#000 8%,#000 92%,transparent 100%);
+}
+.feed-float-label{
+  position:absolute;top:10px;left:50%;transform:translateX(-50%);
+  z-index:4;pointer-events:none;
+  font-size:10px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;
+  color:rgba(34,224,255,.85);
+  text-shadow:0 0 18px rgba(34,224,255,.45);
+  opacity:.9;
+}
+.feed-dual{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px;
+  height:100%;
+  padding:0 2px;
+}
+.feed-col{
+  position:relative;
+  overflow:hidden;
+  height:100%;
+}
+.feed-col-inner{
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+  will-change:transform;
+}
+.feed-col-up .feed-col-inner{animation:feedMarqueeUp 38s linear infinite}
+.feed-col-down .feed-col-inner{animation:feedMarqueeDown 44s linear infinite}
+.work-feed:hover .feed-col-inner{animation-play-state:paused}
+@keyframes feedMarqueeUp{0%{transform:translateY(0)}100%{transform:translateY(-50%)}}
+@keyframes feedMarqueeDown{0%{transform:translateY(-50%)}100%{transform:translateY(0)}}
 
-/* Mobile horizontal feed */
-.feed-mobile{display:none;margin-top:28px}
-.feed-mobile-track{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding:4px 20px 12px;scrollbar-width:none}
+.feed-tile{
+  position:relative;
+  flex:0 0 auto;
+  width:100%;
+  border-radius:18px;
+  overflow:hidden;
+  border:0;
+  isolation:isolate;
+  background:#0c0c14;
+  box-shadow:0 12px 36px rgba(0,0,0,.35), inset 0 0 0 1px rgba(255,255,255,.06);
+  transition:transform .28s ease, box-shadow .28s ease;
+}
+.feed-tile:hover{
+  transform:translateY(-3px) scale(1.015);
+  box-shadow:0 18px 48px rgba(34,224,255,.18), 0 0 0 1px rgba(34,224,255,.25);
+  z-index:1;
+}
+.feed-tile.h140{height:140px}
+.feed-tile.h160{height:160px}
+.feed-tile.h180{height:180px}
+.feed-tile.h200{height:200px}
+.feed-tile.h220{height:220px}
+.feed-tile.h240{height:240px}
+.feed-tile.h260{height:260px}
+.feed-tile.h280{height:280px}
+.feed-tile.landscape{height:150px}
+.feed-tile.portrait{height:260px}
+
+.feed-tile video,
+.feed-tile .poster{
+  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;
+}
+.feed-tile .poster{background-size:cover;background-position:center}
+
+/* Vivid static tiles — cooler than plain frames */
+.feed-tile .poster.g-neon{background:
+  radial-gradient(circle at 28% 22%,#fff76a 0%,transparent 28%),
+  radial-gradient(circle at 78% 72%,#ff3d9a 0%,transparent 42%),
+  linear-gradient(135deg,#1a0a3a,#5b2bff 45%,#22e0ff)}
+.feed-tile .poster.g-sunset{background:
+  radial-gradient(circle at 70% 18%,#ffe566 0%,transparent 34%),
+  linear-gradient(160deg,#ff4d1a,#ff2d6f 50%,#7c1aff)}
+.feed-tile .poster.g-acid{background:
+  repeating-linear-gradient(45deg,rgba(255,255,255,.07) 0 8px,transparent 8px 16px),
+  radial-gradient(circle at 40% 60%,#b8ff3c,transparent 45%),
+  linear-gradient(135deg,#0d1f12,#1dff9a 40%,#ffe600)}
+.feed-tile .poster.g-cosmo{background:
+  radial-gradient(circle at 20% 30%,#fff 0 1px,transparent 2px),
+  radial-gradient(circle at 70% 60%,#fff 0 1.5px,transparent 2px),
+  radial-gradient(circle at 50% 40%,#7c5cff,transparent 50%),
+  linear-gradient(180deg,#05051a,#1a0a40 40%,#ff5c7a)}
+.feed-tile .poster.g-fire{background:
+  radial-gradient(circle at 50% 110%,#ffeb3b 0%,transparent 40%),
+  radial-gradient(circle at 30% 60%,#ff6a00,transparent 45%),
+  linear-gradient(180deg,#2a0505,#ff2a2a 55%,#ff9a1a)}
+.feed-tile .poster.g-mint{background:
+  radial-gradient(circle at 80% 20%,#eafff6,transparent 30%),
+  linear-gradient(135deg,#003d3a,#00d4a8 40%,#7c5cff 90%)}
+.feed-tile .poster.g-violet{background:
+  conic-gradient(from 210deg at 50% 50%,#ff3d9a,#7c5cff,#22e0ff,#ff7a2f,#ff3d9a);
+  filter:saturate(1.2)}
+.feed-tile .poster.g-candy{background:
+  radial-gradient(circle at 25% 25%,#ff9ad5,transparent 40%),
+  radial-gradient(circle at 80% 70%,#7cf0ff,transparent 40%),
+  linear-gradient(135deg,#ff4fa3,#ffb347)}
+.feed-tile .poster.g-ice{background:
+  radial-gradient(circle at 30% 20%,rgba(34,224,255,.55),transparent 45%),
+  radial-gradient(circle at 70% 80%,rgba(124,92,255,.5),transparent 40%),
+  linear-gradient(145deg,#141422,#0a0a12 60%,#121028)}
+
+.feed-meta{
+  position:absolute;left:0;right:0;bottom:0;z-index:1;
+  padding:16px 12px 12px;
+  background:linear-gradient(transparent,rgba(0,0,0,.78));
+}
+.feed-meta .tag{font-size:10px;color:var(--accent);font-weight:700;letter-spacing:.06em;margin-bottom:3px;text-transform:uppercase}
+.feed-meta .title{font-size:13px;font-weight:700;font-family:var(--display);line-height:1.2}
+.feed-meta .sub{font-size:11px;color:rgba(255,255,255,.7);margin-top:2px}
+
+/* Mobile / tablet horizontal snap */
+.feed-mobile{display:none;margin-top:22px}
+.feed-mobile-track{
+  display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;
+  -webkit-overflow-scrolling:touch;padding:4px 20px 14px;scrollbar-width:none;
+}
 .feed-mobile-track::-webkit-scrollbar{display:none}
-.feed-mobile .feed-card{flex:0 0 68vw;max-width:280px;scroll-snap-align:start;aspect-ratio:9/14}
+.feed-mobile .feed-tile{
+  position:relative;flex:0 0 58vw;max-width:240px;height:320px;
+  scroll-snap-align:start;aspect-ratio:auto;
+}
 
 /* Trust */
 .trust{padding:8px 0 40px}
@@ -246,7 +344,11 @@ footer{padding:48px 0 28px;border-top:1px solid var(--line);margin-top:40px}
   .format-table th,.format-table td{padding:12px 10px}
 }
 @media (prefers-reduced-motion:reduce){
-  .feed-track{animation:none}
+  .feed-col-up .feed-col-inner,.feed-col-down .feed-col-inner{animation:none!important;transform:none!important}
+  .work-feed{-webkit-mask-image:none;mask-image:none}
+  .feed-dual{align-content:start;overflow:auto}
+  .feed-col{overflow:visible;height:auto}
+  .feed-col-inner{transform:none!important}
   html{scroll-behavior:auto}
 }
 
@@ -284,8 +386,6 @@ footer{padding:48px 0 28px;border-top:1px solid var(--line);margin-top:40px}
 .card,.price,.case,.step{transition:transform .25s ease,border-color .25s ease,box-shadow .25s ease}
 .card:hover,.price:hover{transform:translateY(-4px);box-shadow:0 18px 40px rgba(0,0,0,.35)}
 .case:hover{transform:translateY(-3px);border-color:rgba(34,224,255,.35);box-shadow:0 20px 48px rgba(0,0,0,.4)}
-.feed-card{transition:transform .25s ease,border-color .25s ease,box-shadow .25s ease}
-.feed-card:hover{transform:scale(1.02);border-color:rgba(34,224,255,.4);box-shadow:0 12px 32px rgba(34,224,255,.12);z-index:1}
 
 /* Process glow on enter */
 .step.in{border-color:rgba(34,224,255,.35);box-shadow:0 0 0 1px rgba(34,224,255,.12),0 16px 48px rgba(34,224,255,.08)}
@@ -325,8 +425,8 @@ footer{padding:48px 0 28px;border-top:1px solid var(--line);margin-top:40px}
   .hero-bg video{display:none!important}
   .hero-copy .badge,.hero-copy h1,.hero-copy .lead,.hero-copy .hero-actions,.hero-copy .hero-meta,
   .reveal{opacity:1!important;transform:none!important;transition:none!important}
-  .card:hover,.price:hover,.case:hover,.feed-card:hover{transform:none}
-  .feed-track{animation:none}
+  .card:hover,.price:hover,.case:hover,.feed-tile:hover{transform:none}
+  .feed-col-up .feed-col-inner,.feed-col-down .feed-col-inner{animation:none!important}
 }
 
 
@@ -493,60 +593,124 @@ footer{padding:48px 0 28px;border-top:1px solid var(--line);margin-top:40px}
         </div>
       </div>
 
-      <!-- Always-visible work feed (desktop) -->
+      <!-- Dual vertical feeds (desktop) — frameless -->
       <aside class="work-feed" aria-label="Лента работ">
-        <div class="feed-label">Работы · live</div>
-        <div class="feed-track" id="feedTrack">
-          <!-- set A -->
-          <article class="feed-card">
-            <video data-feed src="orbita-video.mp4" muted playsinline loop preload="metadata" poster=""></video>
-            <div class="feed-meta"><div class="tag">YouTube · 0:30</div><div class="title">Ритейл · перформанс</div><div class="sub">−64% CPV</div></div>
-          </article>
-          <article class="feed-card wide p2">
-            <div class="poster" aria-hidden="true"></div>
-            <div class="feed-meta"><div class="tag">Brand · 16:9</div><div class="title">Финтех · имидж</div><div class="sub">4.8× конверсия</div></div>
-          </article>
-          <article class="feed-card p3">
-            <video data-feed src="orbita-bg.mp4" muted playsinline loop preload="metadata"></video>
-            <div class="feed-meta"><div class="tag">TikTok · Reels</div><div class="title">Фарма · Reels</div><div class="sub">×5.6 охват</div></div>
-          </article>
-          <article class="feed-card p4">
-            <div class="poster" aria-hidden="true"></div>
-            <div class="feed-meta"><div class="tag">Stories · 9:16</div><div class="title">E-com · UGC</div><div class="sub">UGC-серия</div></div>
-          </article>
-          <article class="feed-card wide p2">
-            <div class="poster" aria-hidden="true"></div>
-            <div class="feed-meta"><div class="tag">VK Видео</div><div class="title">Бренд · OLV</div><div class="sub">6.8% CTR</div></div>
-          </article>
-          <article class="feed-card p3">
-            <div class="poster" aria-hidden="true"></div>
-            <div class="feed-meta"><div class="tag">Rutube</div><div class="title">Бренд · серия</div><div class="sub">81% досмотр</div></div>
-          </article>
-          <!-- set B duplicate for seamless loop -->
-          <article class="feed-card">
-            <video data-feed src="orbita-video.mp4" muted playsinline loop preload="metadata"></video>
-            <div class="feed-meta"><div class="tag">YouTube · 0:30</div><div class="title">Ритейл · перформанс</div><div class="sub">−64% CPV</div></div>
-          </article>
-          <article class="feed-card wide p2">
-            <div class="poster" aria-hidden="true"></div>
-            <div class="feed-meta"><div class="tag">Brand · 16:9</div><div class="title">Финтех · имидж</div><div class="sub">4.8× конверсия</div></div>
-          </article>
-          <article class="feed-card p3">
-            <video data-feed src="orbita-bg.mp4" muted playsinline loop preload="metadata"></video>
-            <div class="feed-meta"><div class="tag">TikTok · Reels</div><div class="title">Фарма · Reels</div><div class="sub">×5.6 охват</div></div>
-          </article>
-          <article class="feed-card p4">
-            <div class="poster" aria-hidden="true"></div>
-            <div class="feed-meta"><div class="tag">Stories · 9:16</div><div class="title">E-com · UGC</div><div class="sub">UGC-серия</div></div>
-          </article>
-          <article class="feed-card wide p2">
-            <div class="poster" aria-hidden="true"></div>
-            <div class="feed-meta"><div class="tag">VK Видео</div><div class="title">Бренд · OLV</div><div class="sub">6.8% CTR</div></div>
-          </article>
-          <article class="feed-card p3">
-            <div class="poster" aria-hidden="true"></div>
-            <div class="feed-meta"><div class="tag">Rutube</div><div class="title">Бренд · серия</div><div class="sub">81% досмотр</div></div>
-          </article>
+        <div class="feed-float-label">работы</div>
+        <div class="feed-dual">
+          <div class="feed-col feed-col-up" aria-hidden="false">
+            <div class="feed-col-inner" data-feed-col="up">
+              <article class="feed-tile h240">
+                <video data-feed src="orbita-video.mp4" muted playsinline loop preload="metadata"></video>
+                <div class="feed-meta"><div class="tag">YouTube · 0:30</div><div class="title">Ритейл · перформанс</div><div class="sub">−64% CPV</div></div>
+              </article>
+              <article class="feed-tile landscape">
+                <div class="poster g-sunset" aria-hidden="true"></div>
+                <div class="feed-meta"><div class="tag">Brand · 16:9</div><div class="title">Финтех · имидж</div><div class="sub">4.8× конверсия</div></div>
+              </article>
+              <article class="feed-tile h200">
+                <div class="poster g-neon" aria-hidden="true"></div>
+                <div class="feed-meta"><div class="tag">VK Видео</div><div class="title">Бренд · OLV</div><div class="sub">6.8% CTR</div></div>
+              </article>
+              <article class="feed-tile h280 portrait">
+                <div class="poster g-cosmo" aria-hidden="true"></div>
+                <div class="feed-meta"><div class="tag">Stories · 9:16</div><div class="title">E-com · UGC</div><div class="sub">UGC-серия</div></div>
+              </article>
+              <article class="feed-tile h160">
+                <div class="poster g-acid" aria-hidden="true"></div>
+                <div class="feed-meta"><div class="tag">Rutube</div><div class="title">Бренд · серия</div><div class="sub">81% досмотр</div></div>
+              </article>
+              <article class="feed-tile h220">
+                <video data-feed src="orbita-bg.mp4" muted playsinline loop preload="metadata"></video>
+                <div class="feed-meta"><div class="tag">TikTok · Reels</div><div class="title">Фарма · Reels</div><div class="sub">×5.6 охват</div></div>
+              </article>
+              <!-- duplicate for seamless loop -->
+              <article class="feed-tile h240">
+                <video data-feed src="orbita-video.mp4" muted playsinline loop preload="metadata"></video>
+                <div class="feed-meta"><div class="tag">YouTube · 0:30</div><div class="title">Ритейл · перформанс</div><div class="sub">−64% CPV</div></div>
+              </article>
+              <article class="feed-tile landscape">
+                <div class="poster g-sunset" aria-hidden="true"></div>
+                <div class="feed-meta"><div class="tag">Brand · 16:9</div><div class="title">Финтех · имидж</div><div class="sub">4.8× конверсия</div></div>
+              </article>
+              <article class="feed-tile h200">
+                <div class="poster g-neon" aria-hidden="true"></div>
+                <div class="feed-meta"><div class="tag">VK Видео</div><div class="title">Бренд · OLV</div><div class="sub">6.8% CTR</div></div>
+              </article>
+              <article class="feed-tile h280 portrait">
+                <div class="poster g-cosmo" aria-hidden="true"></div>
+                <div class="feed-meta"><div class="tag">Stories · 9:16</div><div class="title">E-com · UGC</div><div class="sub">UGC-серия</div></div>
+              </article>
+              <article class="feed-tile h160">
+                <div class="poster g-acid" aria-hidden="true"></div>
+                <div class="feed-meta"><div class="tag">Rutube</div><div class="title">Бренд · серия</div><div class="sub">81% досмотр</div></div>
+              </article>
+              <article class="feed-tile h220">
+                <video data-feed src="orbita-bg.mp4" muted playsinline loop preload="metadata"></video>
+                <div class="feed-meta"><div class="tag">TikTok · Reels</div><div class="title">Фарма · Reels</div><div class="sub">×5.6 охват</div></div>
+              </article>
+            </div>
+          </div>
+          <div class="feed-col feed-col-down">
+            <div class="feed-col-inner" data-feed-col="down">
+              <article class="feed-tile h180">
+                <div class="poster g-fire" aria-hidden="true"></div>
+                <div class="feed-meta"><div class="tag">Launch</div><div class="title">Продукт · тизер</div><div class="sub">D0 buzz</div></div>
+              </article>
+              <article class="feed-tile h260 portrait">
+                <video data-feed src="orbita-bg.mp4" muted playsinline loop preload="metadata"></video>
+                <div class="feed-meta"><div class="tag">Reels · 9:16</div><div class="title">Эксперт · лиды</div><div class="sub">+38% заявок</div></div>
+              </article>
+              <article class="feed-tile landscape">
+                <div class="poster g-mint" aria-hidden="true"></div>
+                <div class="feed-meta"><div class="tag">YouTube</div><div class="title">Сервис · FAQ</div><div class="sub">Trust series</div></div>
+              </article>
+              <article class="feed-tile h200">
+                <div class="poster g-violet" aria-hidden="true"></div>
+                <div class="feed-meta"><div class="tag">VK Клипы</div><div class="title">Мода · drop</div><div class="sub">Viral cut</div></div>
+              </article>
+              <article class="feed-tile h240">
+                <video data-feed src="orbita-video.mp4" muted playsinline loop preload="metadata"></video>
+                <div class="feed-meta"><div class="tag">OLV · 15s</div><div class="title">Авто · оффер</div><div class="sub">−42% CPA</div></div>
+              </article>
+              <article class="feed-tile h140">
+                <div class="poster g-candy" aria-hidden="true"></div>
+                <div class="feed-meta"><div class="tag">Stories</div><div class="title">Beauty · UGC</div><div class="sub">Hook ×3</div></div>
+              </article>
+              <article class="feed-tile h220">
+                <div class="poster g-ice" aria-hidden="true"></div>
+                <div class="feed-meta"><div class="tag">Brand film</div><div class="title">Корп · имидж</div><div class="sub">Award cut</div></div>
+              </article>
+              <!-- duplicate -->
+              <article class="feed-tile h180">
+                <div class="poster g-fire" aria-hidden="true"></div>
+                <div class="feed-meta"><div class="tag">Launch</div><div class="title">Продукт · тизер</div><div class="sub">D0 buzz</div></div>
+              </article>
+              <article class="feed-tile h260 portrait">
+                <video data-feed src="orbita-bg.mp4" muted playsinline loop preload="metadata"></video>
+                <div class="feed-meta"><div class="tag">Reels · 9:16</div><div class="title">Эксперт · лиды</div><div class="sub">+38% заявок</div></div>
+              </article>
+              <article class="feed-tile landscape">
+                <div class="poster g-mint" aria-hidden="true"></div>
+                <div class="feed-meta"><div class="tag">YouTube</div><div class="title">Сервис · FAQ</div><div class="sub">Trust series</div></div>
+              </article>
+              <article class="feed-tile h200">
+                <div class="poster g-violet" aria-hidden="true"></div>
+                <div class="feed-meta"><div class="tag">VK Клипы</div><div class="title">Мода · drop</div><div class="sub">Viral cut</div></div>
+              </article>
+              <article class="feed-tile h240">
+                <video data-feed src="orbita-video.mp4" muted playsinline loop preload="metadata"></video>
+                <div class="feed-meta"><div class="tag">OLV · 15s</div><div class="title">Авто · оффер</div><div class="sub">−42% CPA</div></div>
+              </article>
+              <article class="feed-tile h140">
+                <div class="poster g-candy" aria-hidden="true"></div>
+                <div class="feed-meta"><div class="tag">Stories</div><div class="title">Beauty · UGC</div><div class="sub">Hook ×3</div></div>
+              </article>
+              <article class="feed-tile h220">
+                <div class="poster g-ice" aria-hidden="true"></div>
+                <div class="feed-meta"><div class="tag">Brand film</div><div class="title">Корп · имидж</div><div class="sub">Award cut</div></div>
+              </article>
+            </div>
+          </div>
         </div>
       </aside>
     </div>
@@ -554,25 +718,29 @@ footer{padding:48px 0 28px;border-top:1px solid var(--line);margin-top:40px}
     <!-- Mobile horizontal snap feed -->
     <div class="feed-mobile" aria-label="Лента работ">
       <div class="feed-mobile-track">
-        <article class="feed-card">
+        <article class="feed-tile">
           <video data-feed src="orbita-video.mp4" muted playsinline loop preload="metadata"></video>
           <div class="feed-meta"><div class="tag">YouTube</div><div class="title">Ритейл · перформанс</div><div class="sub">−64% CPV</div></div>
         </article>
-        <article class="feed-card p2">
-          <div class="poster"></div>
+        <article class="feed-tile">
+          <div class="poster g-sunset"></div>
           <div class="feed-meta"><div class="tag">Brand</div><div class="title">Финтех · имидж</div><div class="sub">4.8× конверсия</div></div>
         </article>
-        <article class="feed-card p3">
+        <article class="feed-tile">
           <video data-feed src="orbita-bg.mp4" muted playsinline loop preload="metadata"></video>
           <div class="feed-meta"><div class="tag">Reels</div><div class="title">Фарма · Reels</div><div class="sub">×5.6 охват</div></div>
         </article>
-        <article class="feed-card p4">
-          <div class="poster"></div>
+        <article class="feed-tile">
+          <div class="poster g-neon"></div>
           <div class="feed-meta"><div class="tag">Stories</div><div class="title">E-com · UGC</div><div class="sub">UGC-серия</div></div>
         </article>
-        <article class="feed-card p2">
-          <div class="poster"></div>
+        <article class="feed-tile">
+          <div class="poster g-fire"></div>
           <div class="feed-meta"><div class="tag">VK Видео</div><div class="title">Бренд · OLV</div><div class="sub">6.8% CTR</div></div>
+        </article>
+        <article class="feed-tile">
+          <div class="poster g-cosmo"></div>
+          <div class="feed-meta"><div class="tag">Launch</div><div class="title">Продукт · тизер</div><div class="sub">D0 buzz</div></div>
         </article>
       </div>
     </div>
@@ -1051,13 +1219,14 @@ footer{padding:48px 0 28px;border-top:1px solid var(--line);margin-top:40px}
   }
 
   // --- Video orchestration ---
-  // Priority: hero bg wins while hero in view; feed plays only on card hover
+  // Hero bg + feed: max 2 feed videos playing; pause feeds when hero offscreen / reduced-motion
   const feedVids = [...document.querySelectorAll('video[data-feed]')];
   const caseVids = [...document.querySelectorAll('video[data-case]')];
   [...feedVids, ...caseVids].forEach(v => { v.muted = true; v.playsInline = true; });
 
   let heroPlaying = false;
   let heroLoaded = false;
+  const MAX_FEED_PLAYING = 2;
 
   function pauseFeeds() {
     feedVids.forEach(v => { try { v.pause(); } catch(_){} });
@@ -1066,13 +1235,58 @@ footer{padding:48px 0 28px;border-top:1px solid var(--line);margin-top:40px}
     caseVids.forEach(v => { try { v.pause(); } catch(_){} });
   }
 
+  function pickVisibleFeedVideos(limit) {
+    const heroEl = hero || document.querySelector('.hero');
+    const heroRect = heroEl ? heroEl.getBoundingClientRect() : null;
+    const heroOnscreen = heroRect && heroRect.bottom > 60 && heroRect.top < innerHeight * 0.9;
+    if (!heroOnscreen) return [];
+    const scored = feedVids
+      .filter(v => v.offsetParent !== null || v.closest('.work-feed'))
+      .map(v => {
+        const r = v.getBoundingClientRect();
+        const visible = Math.max(0, Math.min(r.bottom, innerHeight) - Math.max(r.top, 0));
+        const inFeed = !!v.closest('.work-feed, .feed-mobile');
+        return { v, score: inFeed ? visible : 0, top: r.top };
+      })
+      .filter(x => x.score > 40)
+      .sort((a, b) => b.score - a.score || a.top - b.top);
+    // Prefer unique src so we don't play duplicate loop clones
+    const picked = [];
+    const seenSrc = new Set();
+    for (const item of scored) {
+      const src = item.v.currentSrc || item.v.getAttribute('src') || '';
+      if (seenSrc.has(src)) continue;
+      seenSrc.add(src);
+      picked.push(item.v);
+      if (picked.length >= limit) break;
+    }
+    return picked;
+  }
+
+  function syncFeedPlayback() {
+    if (reduced || document.hidden) { pauseFeeds(); return; }
+    const heroEl = hero || document.querySelector('.hero');
+    if (!heroEl) { pauseFeeds(); return; }
+    const r = heroEl.getBoundingClientRect();
+    const heroOnscreen = r.bottom > 60 && r.top < innerHeight * 0.9;
+    if (!heroOnscreen) { pauseFeeds(); return; }
+    const want = new Set(pickVisibleFeedVideos(MAX_FEED_PLAYING));
+    feedVids.forEach(v => {
+      if (want.has(v)) {
+        v.play().catch(()=>{});
+      } else {
+        try { v.pause(); } catch(_){}
+      }
+    });
+  }
+
   function loadHeroBg() {
     if (!heroVid || reduced || heroLoaded) return;
     heroLoaded = true;
     try { heroVid.setAttribute('preload', 'auto'); } catch(_){}
     const play = () => {
       heroVid.classList.add('is-ready');
-      heroVid.play().then(() => { heroPlaying = true; pauseFeeds(); }).catch(() => {});
+      heroVid.play().then(() => { heroPlaying = true; }).catch(() => {});
     };
     if (heroVid.readyState >= 2) play();
     else heroVid.addEventListener('loadeddata', play, {once:true});
@@ -1085,17 +1299,18 @@ footer{padding:48px 0 28px;border-top:1px solid var(--line);margin-top:40px}
     heroPlaying = false;
   }
 
-  // Hero in view → load+play bg; offscreen → pause
   if (heroVid && !reduced) {
     const heroIO = new IntersectionObserver((entries) => {
       entries.forEach(en => {
         if (en.isIntersecting && en.intersectionRatio > 0.2) {
           loadHeroBg();
           if (heroLoaded) {
-            heroVid.play().then(() => { heroPlaying = true; pauseFeeds(); }).catch(()=>{});
+            heroVid.play().then(() => { heroPlaying = true; }).catch(()=>{});
           }
+          syncFeedPlayback();
         } else {
           stopHeroBg();
+          pauseFeeds();
         }
       });
     }, {threshold: [0, 0.2, 0.5]});
@@ -1103,9 +1318,9 @@ footer{padding:48px 0 28px;border-top:1px solid var(--line);margin-top:40px}
   } else if (heroVid && reduced) {
     heroVid.removeAttribute('src');
     heroVid.load();
+    pauseFeeds();
   }
 
-  // Tab visibility
   document.addEventListener('visibilitychange', () => {
     if (document.hidden) {
       stopHeroBg();
@@ -1113,32 +1328,23 @@ footer{padding:48px 0 28px;border-top:1px solid var(--line);margin-top:40px}
       pauseCases();
     } else if (hero && hero.getBoundingClientRect().bottom > 80 && !reduced) {
       loadHeroBg();
-      heroVid && heroVid.play().then(() => { heroPlaying = true; pauseFeeds(); }).catch(()=>{});
+      heroVid && heroVid.play().then(() => { heroPlaying = true; }).catch(()=>{});
+      syncFeedPlayback();
     }
   });
 
-  // Feed: play on hover only (when not reduced); pause when hero bg owns decode
-  document.querySelectorAll('.feed-card').forEach(card => {
-    const v = card.querySelector('video[data-feed]');
-    if (!v) return;
-    card.addEventListener('mouseenter', () => {
-      if (reduced) return;
-      if (heroPlaying) stopHeroBg();
-      pauseFeeds();
-      v.play().catch(()=>{});
+  // Keep max-2 feed videos in sync while scrolling / animating
+  let feedSyncTick = 0;
+  function scheduleFeedSync() {
+    if (feedSyncTick) return;
+    feedSyncTick = requestAnimationFrame(() => {
+      feedSyncTick = 0;
+      syncFeedPlayback();
     });
-    card.addEventListener('mouseleave', () => {
-      try { v.pause(); } catch(_){}
-      // Resume hero bg if hero still in view
-      if (hero && !reduced) {
-        const r = hero.getBoundingClientRect();
-        if (r.bottom > 100 && r.top < innerHeight * 0.85) {
-          loadHeroBg();
-          heroVid && heroVid.play().then(() => { heroPlaying = true; }).catch(()=>{});
-        }
-      }
-    });
-  });
+  }
+  window.addEventListener('scroll', scheduleFeedSync, {passive:true});
+  setInterval(scheduleFeedSync, 1200);
+  syncFeedPlayback();
 
   // Case videos: play when in view only if hero not playing
   const caseIO = new IntersectionObserver((entries) => {
@@ -1154,18 +1360,9 @@ footer{padding:48px 0 28px;border-top:1px solid var(--line);margin-top:40px}
   }, {threshold: [0, 0.4, 0.7]});
   caseVids.forEach(v => caseIO.observe(v));
 
-  // Mobile feed videos: play when card mostly visible, pause otherwise
+  // Mobile feed videos: play when card mostly visible (still capped via syncFeedPlayback)
   if (matchMedia('(max-width:900px)').matches && !reduced) {
-    const mobIO = new IntersectionObserver((entries) => {
-      entries.forEach(en => {
-        const v = en.target;
-        if (en.isIntersecting && en.intersectionRatio > 0.5 && !heroPlaying) {
-          v.play().catch(()=>{});
-        } else {
-          try { v.pause(); } catch(_){}
-        }
-      });
-    }, {threshold: [0, 0.5]});
+    const mobIO = new IntersectionObserver(() => scheduleFeedSync(), {threshold: [0, 0.5]});
     document.querySelectorAll('.feed-mobile video[data-feed]').forEach(v => mobIO.observe(v));
   }
 })();
