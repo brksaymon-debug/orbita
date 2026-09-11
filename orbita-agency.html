@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
-  <meta name="orbita-build" content="20260912003756">
+  <meta name="orbita-build" content="20260912004214">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ОРБИТА — Видео и дизайн, которые продают</title>
 <meta name="description" content="Креативная студия: видеореклама, Reels, монтаж, баннеры, флаеры, афиши и key visual. Договор, NDA, юрлицо. Цены от — финал после брифа.">
@@ -1054,6 +1054,105 @@ body::before{
 .orbit-chip-row button.is-filtered-out,.case.is-filtered-out,.bento-item.is-filtered-out{display:none!important}
 @media (max-width:640px){.orbit-works .works-filters-bar{bottom:96px}.works-filters .wf-chip{padding:8px 11px;font-size:10px}}
 
+
+/* Compact Earth + slim service chips (replaces tall svcList wall) */
+.orbit-works.orbit-works--compact{
+  min-height:0!important;
+  justify-content:flex-start;
+  padding:0 0 28px;
+  overflow:visible;
+}
+.orbit-works.orbit-works--compact::before{
+  background:
+    radial-gradient(ellipse 85% 70% at 50% 42%, transparent 40%, rgba(0,0,0,.18) 82%, rgba(0,0,0,.45) 100%),
+    linear-gradient(180deg, rgba(5,5,8,.35) 0%, transparent 22%, transparent 78%, rgba(5,5,8,.55) 100%);
+}
+.orbit-works.orbit-works--compact .orbit-works-head{
+  position:relative;z-index:4;pointer-events:auto;
+  padding:calc(68px + 18px) 0 8px;
+}
+.orbit-works.orbit-works--compact .orbit-works-head .wrap{pointer-events:auto}
+.orbit-works.orbit-works--compact .orbit-works-head h2{margin-bottom:8px;font-size:clamp(24px,3.2vw,36px)}
+.orbit-works.orbit-works--compact .orbit-works-head .lead{margin-bottom:0;max-width:46ch}
+.orbit-works.orbit-works--compact .hero-globe-wrap{
+  display:block!important;
+  position:relative!important;
+  inset:auto!important;
+  z-index:1;
+  width:100%;
+  max-width:920px;
+  margin:10px auto 0;
+  height:min(52vh, 520px);
+  max-height:560px;
+  min-height:280px;
+  border-radius:20px;
+  overflow:hidden;
+  border:1px solid rgba(255,255,255,.08);
+  box-shadow:0 20px 60px rgba(0,0,0,.45);
+}
+.orbit-works.orbit-works--compact .orbit-globe-stage{
+  position:absolute!important;
+  inset:0!important;
+  width:100%!important;
+  height:100%!important;
+  min-height:0!important;
+  border-radius:20px;
+}
+.orbit-works.orbit-works--compact .works-filters-bar{
+  position:relative!important;
+  left:auto;right:auto;bottom:auto!important;
+  z-index:5;pointer-events:none;
+  margin-top:14px;
+}
+.orbit-works.orbit-works--compact .works-filters-bar .wrap{pointer-events:auto}
+.orbit-works.orbit-works--compact .orbit-chip-bar{
+  position:relative!important;
+  left:auto;right:auto;bottom:auto!important;
+  z-index:5;
+  padding:8px 0 4px;
+  background:transparent;
+  pointer-events:none;
+}
+.orbit-works.orbit-works--compact .orbit-chip-bar .orbit-chip-row{pointer-events:auto}
+.orbit-works.orbit-works--compact .orbit-globe-legend{bottom:12px;z-index:4}
+.orbit-compact-cta{position:relative;z-index:4;margin-top:18px}
+.orbit-compact-cta .cta-band{margin-top:0}
+
+.svc-chip-row{
+  display:flex;flex-wrap:wrap;gap:8px;
+  margin-top:18px;pointer-events:auto;
+}
+button.svc-item.svc-chip{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:auto;min-height:36px;padding:8px 14px;margin:0;
+  border-radius:999px;border:1px solid rgba(255,255,255,.16);
+  background:rgba(10,12,16,.72);color:rgba(242,242,244,.9);
+  font:inherit;font-size:12px;letter-spacing:.04em;text-transform:uppercase;
+  cursor:pointer;appearance:none;-webkit-appearance:none;
+  grid-template-columns:unset;gap:0;text-align:center;
+  backdrop-filter:blur(10px);transition:.18s;box-shadow:none;
+}
+button.svc-item.svc-chip:hover{
+  border-color:rgba(255,90,31,.55);background:rgba(255,90,31,.12);color:#fff;
+}
+button.svc-item.svc-chip.active,
+button.svc-item.svc-chip[aria-pressed="true"]{
+  border-color:rgba(255,90,31,.7);background:rgba(255,90,31,.18);color:#fff;
+  box-shadow:0 0 18px rgba(255,90,31,.18);
+}
+button.svc-item.svc-chip:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+@media (max-width:720px){
+  .orbit-works.orbit-works--compact .hero-globe-wrap{
+    height:min(42vh, 360px);
+    max-height:380px;
+    min-height:220px;
+    border-radius:16px;
+    max-width:100%;
+  }
+  .orbit-works.orbit-works--compact .orbit-works-head{padding-top:calc(64px + 12px)}
+  button.svc-item.svc-chip{padding:7px 11px;font-size:11px;min-height:32px}
+}
+
 /* Richer lightbox */
 .lb-meta{flex-direction:column;gap:8px}
 .lb-meta-top{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:10px 14px}
@@ -1245,86 +1344,20 @@ body::before{
     </div>
   </div>
 
-  <section class="section" id="services">
-    <div class="wrap">
-      <div class="eyebrow">Услуги</div>
-      <h2>Шесть направлений — одна студия</h2>
-      <p class="lead">Выберите задачу — покажем примеры на планете ниже и в галерее.</p>
-      <div class="services-grid" style="margin-top:28px">
-        <div class="svc-list" id="svcList">
-          <button type="button" class="svc-item active" data-svc="0" tabindex="0" aria-pressed="true">
-            <div class="svc-num">01</div>
-            <div class="svc-body">
-              <h3>Видеореклама / Reels / монтаж</h3>
-              <p>OLV, pre-roll, вертикали и постпродакшн — ролики, которые держат внимание и ведут к заявке.</p>
-              <div class="svc-for">Для кого: <b>Для брендов и экспертов с трафиком</b></div>
-            </div>
-            <div class="svc-examples">Смотреть примеры</div>
-          </button>
-          <button type="button" class="svc-item" data-svc="1" tabindex="0" aria-pressed="false">
-            <div class="svc-num">02</div>
-            <div class="svc-body">
-              <h3>Баннеры</h3>
-              <p>Digital и наружка: один макет или серия в едином языке под площадки и форматы.</p>
-              <div class="svc-for">Для кого: <b>Для performance и охватных кампаний</b></div>
-            </div>
-            <div class="svc-examples">Смотреть примеры</div>
-          </button>
-          <button type="button" class="svc-item" data-svc="2" tabindex="0" aria-pressed="false">
-            <div class="svc-num">03</div>
-            <div class="svc-body">
-              <h3>Флаеры / листовки</h3>
-              <p>Печать и PDF: оффер, иерархия, сильный CTA — без визуального шума.</p>
-              <div class="svc-for">Для кого: <b>Для ивентов, ритейла, запусков</b></div>
-            </div>
-            <div class="svc-examples">Смотреть примеры</div>
-          </button>
-          <button type="button" class="svc-item" data-svc="3" tabindex="0" aria-pressed="false">
-            <div class="svc-num">04</div>
-            <div class="svc-body">
-              <h3>Афиши</h3>
-              <p>Фильмы, концерты, ивенты — киношная подача и линейка размеров.</p>
-              <div class="svc-for">Для кого: <b>Для проката, клубов, фестивалей</b></div>
-            </div>
-            <div class="svc-examples">Смотреть примеры</div>
-          </button>
-          <button type="button" class="svc-item" data-svc="4" tabindex="0" aria-pressed="false">
-            <div class="svc-num">05</div>
-            <div class="svc-body">
-              <h3>Key visual / соцсети</h3>
-              <p>Обложки, сетки, посты и key visual, которые держат бренд в ленте.</p>
-              <div class="svc-for">Для кого: <b>Для SMM и постоянного контента</b></div>
-            </div>
-            <div class="svc-examples">Смотреть примеры</div>
-          </button>
-          <button type="button" class="svc-item" data-svc="5" tabindex="0" aria-pressed="false">
-            <div class="svc-num">06</div>
-            <div class="svc-body">
-              <h3>Motion и адаптации</h3>
-              <p>Титры, графика, версии 16:9 / 9:16 / 1:1 — один смысл, все плейсменты.</p>
-              <div class="svc-for">Для кого: <b>Для медиа и digital-размещений</b></div>
-            </div>
-            <div class="svc-examples">Смотреть примеры</div>
-          </button>
-        </div></div>
-        <!-- svc-wall mosaic removed: planet is the only visual showcase -->
-      </div>
-      <p class="mock-note">Клик = планета + галерея. На десктопе наведение подсвечивает направление.</p>
-      <div class="cta-band">
-        <p>Нужна смета под задачу? <b>Опишите формат — ответим за 24 часа.</b></p>
-        <a class="btn btn-primary btn-sm" href="#contact">Оставить заявку</a>
-      </div>
-    </div>
-  </section>
-
-
-
-  <section class="orbit-works" id="orbit" aria-label="Примеры работ — интерактивная Земля">
-    <div class="orbit-works-head">
+  <section class="orbit-works orbit-works--compact" id="orbit" aria-label="Примеры работ — интерактивная Земля">
+    <div class="orbit-works-head" id="services">
       <div class="wrap">
         <div class="eyebrow">Примеры работ</div>
         <h2>Планета — наша витрина</h2>
-        <p class="lead">Ни у кого из конкурентов так нельзя: крутите Землю, точки — живые проекты. Чип города или хотспот — превью и галерея.</p>
+        <p class="lead">Выберите задачу — покажем примеры на планете и в галерее.</p>
+        <div class="svc-chip-row" id="svcList" role="tablist" aria-label="Направления">
+          <button type="button" class="svc-item svc-chip active" data-svc="0" role="tab" aria-selected="true" aria-pressed="true">Видео</button>
+          <button type="button" class="svc-item svc-chip" data-svc="1" role="tab" aria-selected="false" aria-pressed="false">Баннеры</button>
+          <button type="button" class="svc-item svc-chip" data-svc="2" role="tab" aria-selected="false" aria-pressed="false">Флаеры</button>
+          <button type="button" class="svc-item svc-chip" data-svc="3" role="tab" aria-selected="false" aria-pressed="false">Афиши</button>
+          <button type="button" class="svc-item svc-chip" data-svc="4" role="tab" aria-selected="false" aria-pressed="false">KV</button>
+          <button type="button" class="svc-item svc-chip" data-svc="5" role="tab" aria-selected="false" aria-pressed="false">Motion</button>
+        </div>
       </div>
     </div>
     <div class="hero-globe-wrap">
@@ -1371,9 +1404,19 @@ body::before{
       <div class="orbit-chip-bar" aria-hidden="false">
         <div class="orbit-chip-row" id="orbitChipRow" role="list" aria-label="Города и проекты на планете"></div>
       </div>
+      <div class="wrap orbit-compact-cta">
+        <div class="cta-band">
+          <p>Нужна смета под задачу? <b>Опишите формат — ответим за 24 часа.</b></p>
+          <a class="btn btn-primary btn-sm" href="#contact">Оставить заявку</a>
+        </div>
+      </div>
   </section>
 
-    <section class="section" id="cases">
+
+
+  
+
+<section class="section" id="cases">
     <div class="wrap">
       <div class="bento-head">
         <div>
@@ -2223,9 +2266,11 @@ body::before{
     document.querySelectorAll('.svc-item').forEach(function(x){
       x.classList.remove('active');
       x.setAttribute('aria-pressed', 'false');
+      if (x.hasAttribute('aria-selected')) x.setAttribute('aria-selected', 'false');
     });
     item.classList.add('active');
     item.setAttribute('aria-pressed', 'true');
+    if (item.hasAttribute('aria-selected')) item.setAttribute('aria-selected', 'true');
     try { renderSvcWall(idx); } catch (e) {}
     const openGal = !!(opts && opts.openGallery);
     if (openGal){
