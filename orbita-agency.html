@@ -614,6 +614,47 @@ footer{padding:48px 0 28px;border-top:1px solid var(--line);margin-top:40px}
   .cases-grid-trust{grid-template-columns:1fr}
 }
 
+
+/* IA: WORK → PRICES → ORDER, rest collapsed */
+.hero-copy .lead{margin:12px 0 0;max-width:28ch}
+.hero-copy .hero-actions{margin:20px 0 0}
+.section-prices{padding:48px 0 24px;background:var(--bg2)}
+.section-prices .fast-head{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin:0 0 10px}
+.section-prices .fast-head h2{margin:0;font-size:clamp(1.6rem,3vw,2.2rem)}
+.section-prices .fast-grid{margin-top:10px}
+.packs-compact{margin-top:28px}
+.packs-compact .packs-head{margin:0 0 10px}
+.packs-compact .packs-head h3{margin:0;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.packs-compact .price{padding:18px 18px 16px}
+.packs-compact .price .sum{font-size:1.45rem;margin-bottom:2px}
+.packs-compact .price .desc{margin-bottom:12px}
+.section-order{padding:28px 0 48px}
+.section-order .section-h{margin-bottom:18px}
+.section-order .section-h h2{margin:0}
+.more-block{width:min(100% - 40px,var(--max));margin:0 auto 64px;border:1px solid var(--line);border-radius:22px;background:linear-gradient(180deg,rgba(255,255,255,.03),rgba(255,255,255,.01))}
+.more-block > summary{cursor:pointer;list-style:none;display:flex;align-items:center;justify-content:space-between;padding:16px 22px;font-family:var(--display);font-weight:800;font-size:1rem;letter-spacing:.08em;text-transform:uppercase}
+.more-block > summary::-webkit-details-marker{display:none}
+.more-block > summary::after{content:"+";color:var(--accent);font-size:22px;font-weight:400}
+.more-block[open] > summary::after{content:"–"}
+.more-inner{padding:4px 18px 28px}
+.more-block .section{padding:28px 0}
+.more-block .section-h{margin-bottom:14px}
+.more-block .media-wall{min-height:420px;height:420px}
+.process-strip{grid-template-columns:repeat(4,1fr);gap:10px}
+.process-strip .step{grid-template-columns:1fr;padding:16px 14px;gap:6px}
+.process-strip .step-n{font-size:18px}
+.process-strip h3{margin:0;font-size:15px}
+.more-block .cases-grid-trust{grid-template-columns:repeat(3,1fr)}
+body{padding-bottom:76px}
+.sticky-cta{display:flex}
+@media (max-width:900px){
+  .process-strip{grid-template-columns:repeat(2,1fr)}
+  .more-block .cases-grid-trust{grid-template-columns:1fr}
+  .more-block .media-wall{min-height:300px;height:300px}
+  .section-prices{padding:36px 0 16px}
+  .section-order{padding:20px 0 36px}
+}
+
 </style>
 </head>
 <body>
@@ -624,7 +665,7 @@ footer{padding:48px 0 28px;border-top:1px solid var(--line);margin-top:40px}
       ОРБИТА
     </a>
         <nav class="nav-links" aria-label="Основная навигация">
-      <a href="#cases">Работы</a>
+      <a href="#works">Работы</a>
       <a href="#prices-fast">Цены</a>
       <a href="#contact">Заказать</a>
     </nav>
@@ -636,7 +677,7 @@ footer{padding:48px 0 28px;border-top:1px solid var(--line);margin-top:40px}
   </div>
 </header>
 <div class="mobile-menu" id="mobileMenu">
-  <a href="#cases">Работы</a>
+  <a href="#works">Работы</a>
   <a href="#prices-fast">Цены</a>
   <a href="#contact">Заказать</a>
   <a class="btn btn-primary" href="#contact">Заказать</a>
@@ -644,19 +685,19 @@ footer{padding:48px 0 28px;border-top:1px solid var(--line);margin-top:40px}
 
 <main id="top">
   <!-- HERO -->
-  <section class="hero">
+  
+    <section class="hero" id="works">
     <div class="hero-bg" aria-hidden="true">
       <video id="heroBgVideo" src="orbita-bg.mp4" muted playsinline loop preload="none"></video>
       <div class="scrim"></div>
     </div>
     <div class="hero-grid">
             <div class="hero-copy">
-        <div class="badge">Видеореклама · Москва</div>
         <h1>Ролики, которые<span>приносят заявки</span></h1>
-        <p class="lead">Сценарий → съёмка → монтаж → запуск. Ответ за 24 часа.</p>
+        <p class="lead">Ответ за 24 часа</p>
         <div class="hero-actions">
-          <a class="btn btn-primary" href="#contact">Заказать ролик</a>
-          <a class="btn btn-ghost" href="#cases">Смотреть работы</a>
+          <a class="btn btn-primary" href="#contact">Заказать</a>
+          <a class="btn btn-ghost" href="#prices-fast">Цены</a>
         </div>
       </div>
 
@@ -841,136 +882,11 @@ footer{padding:48px 0 28px;border-top:1px solid var(--line);margin-top:40px}
     </div>
   </section>
 
-  <!-- PROOF -->
-  <!-- FIT / PERSONAS -->
-  <!-- SERVICES -->
-    <section class="section section-services" id="services">
+    <section class="section section-prices" id="pricing">
     <div class="container">
-            <div class="section-h reveal">
-        <div class="eyebrow">Услуги</div>
-        <h2>Полный цикл. Живые кадры.</h2>
-      </div>
-      <div class="svc-wall">
-        <div class="svc-list reveal">
-          <article class="svc-item"><div class="svc-num">01</div><div class="svc-body"><h3>Сценарий и креатив</h3><div class="svc-tags"><span>РЕКЛАМА</span><span>HOOK</span><span>СЦЕНАРИЙ</span></div></div></article><article class="svc-item"><div class="svc-num">02</div><div class="svc-body"><h3>Продакшн и съёмка</h3><div class="svc-tags"><span>СЪЁМКА</span><span>СТУДИЯ</span><span>ПРОДУКТ</span></div></div></article><article class="svc-item"><div class="svc-num">03</div><div class="svc-body"><h3>Монтаж и адаптация</h3><div class="svc-tags"><span>REELS</span><span>SHORTS</span><span>OLV</span></div></div></article><article class="svc-item"><div class="svc-num">04</div><div class="svc-body"><h3>Медиазакупка</h3><div class="svc-tags"><span>YOUTUBE</span><span>TIKTOK</span><span>VK</span></div></div></article><article class="svc-item"><div class="svc-num">05</div><div class="svc-body"><h3>A/B-тест креативов</h3><div class="svc-tags"><span>A/B</span><span>CTR</span><span>CPV</span></div></div></article><article class="svc-item"><div class="svc-num">06</div><div class="svc-body"><h3>Аналитика и рост</h3><div class="svc-tags"><span>АНАЛИТИКА</span><span>ROI</span><span>KPI</span></div></div></article>
-          <div class="svc-cta">
-            <a class="btn btn-orange" href="#contact">Заказать</a>
-            <span class="svc-cta-note">Ответ за 24 часа</span>
-          </div>
-        </div>
-        <div class="media-wall reveal reveal-delay-1" aria-label="Примеры форматов">
-          <div class="media-wall-viewport">
-                        <div class="media-wall-track" data-wall-track>
-                            <div class="media-col" data-wall-col><figure class="wall-tile wall-video tall"><video muted playsinline loop preload="metadata" data-wall-vid src="work-kazakhstan.mp4"></video><span class="wall-badge video">ВИДЕО</span><figcaption>Reels / Shorts</figcaption></figure><figure class="wall-tile wall-static"><img src="still-13.jpg" alt="" loading="lazy" decoding="async"><span class="wall-badge static">СТАТИКА</span><figcaption>Cyber KV</figcaption></figure><figure class="wall-tile wall-static mid"><img src="still-14.jpg" alt="" loading="lazy" decoding="async"><span class="wall-badge static">СТАТИКА</span><figcaption>Action poster</figcaption></figure><figure class="wall-tile wall-video"><video muted playsinline loop preload="metadata" data-wall-vid src="work-09.mp4"></video><span class="wall-badge video">ВИДЕО</span><figcaption>Brand film</figcaption></figure><figure class="wall-tile wall-static"><img src="still-08.jpg" alt="" loading="lazy" decoding="async"><span class="wall-badge static">СТАТИКА</span><figcaption>Stories cover</figcaption></figure><figure class="wall-tile wall-static mid"><img src="still-16.jpg" alt="" loading="lazy" decoding="async"><span class="wall-badge static">СТАТИКА</span><figcaption>Lifestyle</figcaption></figure></div>
-              <div class="media-col media-col-b" data-wall-col><figure class="wall-tile wall-static mid"><img src="still-15.jpg" alt="" loading="lazy" decoding="async"><span class="wall-badge static">СТАТИКА</span><figcaption>Event sunset</figcaption></figure><figure class="wall-tile wall-video tall"><video muted playsinline loop preload="metadata" data-wall-vid src="work-10.mp4"></video><span class="wall-badge video">ВИДЕО</span><figcaption>Fashion cut</figcaption></figure><figure class="wall-tile wall-static"><img src="still-02.jpg" alt="" loading="lazy" decoding="async"><span class="wall-badge static">СТАТИКА</span><figcaption>Key visual</figcaption></figure><figure class="wall-tile wall-video"><video muted playsinline loop preload="metadata" data-wall-vid src="work-11.mp4"></video><span class="wall-badge video">ВИДЕО</span><figcaption>Cine storm</figcaption></figure><figure class="wall-tile wall-static mid"><img src="still-11.jpg" alt="" loading="lazy" decoding="async"><span class="wall-badge static">СТАТИКА</span><figcaption>Carousel frame</figcaption></figure><figure class="wall-tile wall-static"><img src="still-12.jpg" alt="" loading="lazy" decoding="async"><span class="wall-badge static">СТАТИКА</span><figcaption>Анонс запуска</figcaption></figure></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- PROCESS -->
-    <section class="section" id="process" style="background:var(--bg2)">
-    <div class="container">
-      <div class="section-h reveal">
-        <div class="eyebrow">Процесс</div>
-        <h2>4 шага до эфира</h2>
-      </div>
-      <div class="process-list">
-        <article class="step reveal">
-          <div class="step-n">01</div>
-          <div>
-            <h3>Бриф</h3>
-            <p class="muted">Цель · KPI · сроки</p>
-          </div>
-        </article>
-        <article class="step reveal">
-          <div class="step-n">02</div>
-          <div>
-            <h3>Сценарий</h3>
-            <p class="muted">Хук · раскадровка</p>
-          </div>
-        </article>
-        <article class="step reveal">
-          <div class="step-n">03</div>
-          <div>
-            <h3>Продакшн</h3>
-            <p class="muted">Съёмка · монтаж</p>
-          </div>
-        </article>
-        <article class="step reveal">
-          <div class="step-n">04</div>
-          <div>
-            <h3>Запуск</h3>
-            <p class="muted">Эфир · A/B · рост</p>
-          </div>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <!-- CASES -->
-    <section class="section" id="cases">
-    <div class="container">
-      <div class="section-h reveal">
-        <div class="eyebrow">Работы</div>
-        <h2>Сняли. Сдали. Запустили.</h2>
-      </div>
-      <div class="cases-grid cases-grid-trust" id="casesGrid">
-        <article class="case case-card reveal" data-cat="spot">
-          <div class="media">
-            <video data-case src="work-kazakhstan.mp4" muted playsinline loop preload="metadata" poster="still-12.jpg"></video>
-          </div>
-          <div class="case-body">
-            <div class="case-kicker">YouTube / OLV · 0:30</div>
-            <h3 class="case-title">Перформанс под запуск</h3>
-            <p class="case-line">Хук → мастер 16:9 + 9:16 · 2–3 нед.</p>
-            <a class="case-cta" href="#contact" data-prefill="Кейс: перформанс-ролик 0:30 — хочу так же">Заказать так же</a>
-          </div>
-        </article>
-        <article class="case case-card reveal reveal-delay-1" data-cat="brand">
-          <div class="media">
-            <video data-case src="work-01.mp4" muted playsinline loop preload="metadata" poster="still-01.jpg"></video>
-          </div>
-          <div class="case-body">
-            <div class="case-kicker">Brand film · 16:9</div>
-            <h3 class="case-title">Имидж с сильным кадром</h3>
-            <p class="case-line">Story-driven · OLV + соцсети</p>
-            <a class="case-cta" href="#contact" data-prefill="Кейс: имиджевый brand film — хочу так же">Заказать так же</a>
-          </div>
-        </article>
-        <article class="case case-card reveal reveal-delay-2" data-cat="shorts">
-          <div class="media">
-            <video data-case src="work-03.mp4" muted playsinline loop preload="metadata" poster="still-08.jpg"></video>
-          </div>
-          <div class="case-body">
-            <div class="case-kicker">Reels / Shorts / TikTok</div>
-            <h3 class="case-title">Пакет вертикалей</h3>
-            <p class="case-line">До 15 сек · серия под A/B · от 7 дней</p>
-            <a class="case-cta" href="#contact" data-prefill="Кейс: пакет Reels/Shorts — хочу так же">Заказать так же</a>
-          </div>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <!-- PRICING -->
-  <section class="section" id="pricing" style="background:var(--bg2)">
-    <div class="container">
-      <div class="section-h reveal">
-        <div class="eyebrow">Цены</div>
-        <h2>Сначала цена — потом заявка</h2>
-      </div>
-
-      <div class="price-tabs" role="tablist" aria-label="Тип цен">
-        <button type="button" class="price-tab active" data-price-tab="fast" aria-selected="true">Быстрые форматы</button>
-        <button type="button" class="price-tab" data-price-tab="packs" aria-selected="false">Пакеты кампаний</button>
-      </div>
-
       <div class="price-panel" id="prices-fast" data-price-panel="fast">
         <div class="fast-head reveal">
-          <h3>One-off · цены от</h3>
+          <h2>Цены</h2>
           <span class="fast-badge">финал после брифа</span>
         </div>
         <div class="fast-grid reveal">
@@ -1006,12 +922,10 @@ footer{padding:48px 0 28px;border-top:1px solid var(--line);margin-top:40px}
             <a class="btn btn-primary btn-block" href="#contact" data-prefill="Заказ формата: Адаптация в 9:16 / 1:1, ориентир от 12 000 ₽">Заказать</a>
           </article>
         </div>
-        </div>
+      </div>
 
-      <div class="price-panel" id="prices-packs" data-price-panel="packs" hidden>
-        <div class="packs-head reveal">
-          <h3>Пакеты кампаний</h3>
-        </div>
+      <div class="price-panel packs-compact" id="prices-packs" data-price-panel="packs">
+        <div class="packs-head reveal"><h3>Пакеты</h3></div>
         <div class="price-grid">
           <article class="price reveal">
             <div class="name">Старт</div>
@@ -1041,24 +955,13 @@ footer{padding:48px 0 28px;border-top:1px solid var(--line);margin-top:40px}
         <span class="chip"><i></i>Ответ 24ч</span>
         <span class="chip"><i></i>NDA</span>
       </div>
-      <div class="cta-band reveal">
-        <div>
-          <h3>Смета за 24 часа</h3>
-        </div>
-        <div class="actions">
-          <a class="btn btn-primary" href="#contact">Заказать</a>
-          <a class="btn btn-ghost" href="https://t.me/orbita_agency" target="_blank" rel="noopener">Telegram</a>
-        </div>
-      </div>
     </div>
   </section>
 
-  <!-- FAQ + CONTACT -->
-    <section class="section" id="contact" style="padding-top:24px">
+    <section class="section section-order" id="contact">
     <div class="container">
       <div class="section-h reveal">
-        <div class="eyebrow">Заказ</div>
-        <h2>Напишите — ответим за 24 часа</h2>
+        <h2>Заказать</h2>
       </div>
       <div class="contact-grid">
         <form class="form" id="leadForm" novalidate>
@@ -1066,7 +969,7 @@ footer{padding:48px 0 28px;border-top:1px solid var(--line);margin-top:40px}
           <label>Email<input type="email" name="email" required placeholder="name@company.ru" autocomplete="email"></label>
           <label>Телефон<input type="tel" name="phone" placeholder="+7" autocomplete="tel"></label>
           <label>О проекте<textarea name="about" placeholder="Формат, площадки, срок"></textarea></label>
-          <button class="btn btn-primary" type="submit">Заказать ролик</button>
+          <button class="btn btn-primary" type="submit">Заказать</button>
           <div class="form-ok" id="formOk">Заявка принята. Ответим в течение 24 часов.</div>
         </form>
         <aside class="contact-side">
@@ -1078,7 +981,72 @@ footer{padding:48px 0 28px;border-top:1px solid var(--line);margin-top:40px}
       </div>
     </div>
   </section>
-</main>
+
+    <details class="more-block" id="more">
+    <summary>Ещё</summary>
+    <div class="more-inner">
+      <section class="section section-services" id="services">
+    <div class="container">
+      <div class="media-wall reveal reveal-delay-1" aria-label="Примеры форматов">
+          <div class="media-wall-viewport">
+                        <div class="media-wall-track" data-wall-track>
+                            <div class="media-col" data-wall-col><figure class="wall-tile wall-video tall"><video muted playsinline loop preload="metadata" data-wall-vid src="work-kazakhstan.mp4"></video><span class="wall-badge video">ВИДЕО</span><figcaption>Reels / Shorts</figcaption></figure><figure class="wall-tile wall-static"><img src="still-13.jpg" alt="" loading="lazy" decoding="async"><span class="wall-badge static">СТАТИКА</span><figcaption>Cyber KV</figcaption></figure><figure class="wall-tile wall-static mid"><img src="still-14.jpg" alt="" loading="lazy" decoding="async"><span class="wall-badge static">СТАТИКА</span><figcaption>Action poster</figcaption></figure><figure class="wall-tile wall-video"><video muted playsinline loop preload="metadata" data-wall-vid src="work-09.mp4"></video><span class="wall-badge video">ВИДЕО</span><figcaption>Brand film</figcaption></figure><figure class="wall-tile wall-static"><img src="still-08.jpg" alt="" loading="lazy" decoding="async"><span class="wall-badge static">СТАТИКА</span><figcaption>Stories cover</figcaption></figure><figure class="wall-tile wall-static mid"><img src="still-16.jpg" alt="" loading="lazy" decoding="async"><span class="wall-badge static">СТАТИКА</span><figcaption>Lifestyle</figcaption></figure></div>
+              <div class="media-col media-col-b" data-wall-col><figure class="wall-tile wall-static mid"><img src="still-15.jpg" alt="" loading="lazy" decoding="async"><span class="wall-badge static">СТАТИКА</span><figcaption>Event sunset</figcaption></figure><figure class="wall-tile wall-video tall"><video muted playsinline loop preload="metadata" data-wall-vid src="work-10.mp4"></video><span class="wall-badge video">ВИДЕО</span><figcaption>Fashion cut</figcaption></figure><figure class="wall-tile wall-static"><img src="still-02.jpg" alt="" loading="lazy" decoding="async"><span class="wall-badge static">СТАТИКА</span><figcaption>Key visual</figcaption></figure><figure class="wall-tile wall-video"><video muted playsinline loop preload="metadata" data-wall-vid src="work-11.mp4"></video><span class="wall-badge video">ВИДЕО</span><figcaption>Cine storm</figcaption></figure><figure class="wall-tile wall-static mid"><img src="still-11.jpg" alt="" loading="lazy" decoding="async"><span class="wall-badge static">СТАТИКА</span><figcaption>Carousel frame</figcaption></figure><figure class="wall-tile wall-static"><img src="still-12.jpg" alt="" loading="lazy" decoding="async"><span class="wall-badge static">СТАТИКА</span><figcaption>Анонс запуска</figcaption></figure></div>
+            </div>
+          </div>
+        </div>
+    </div>
+  </section>
+      <section class="section section-process" id="process">
+    <div class="container">
+      <div class="process-list process-strip">
+        <article class="step reveal"><div class="step-n">01</div><h3>Бриф</h3></article>
+        <article class="step reveal"><div class="step-n">02</div><h3>Сценарий</h3></article>
+        <article class="step reveal"><div class="step-n">03</div><h3>Продакшн</h3></article>
+        <article class="step reveal"><div class="step-n">04</div><h3>Запуск</h3></article>
+      </div>
+    </div>
+  </section>
+      <section class="section" id="cases">
+    <div class="container">
+      
+      <div class="cases-grid cases-grid-trust" id="casesGrid">
+        <article class="case case-card reveal" data-cat="spot">
+          <div class="media">
+            <video data-case src="work-kazakhstan.mp4" muted playsinline loop preload="metadata" poster="still-12.jpg"></video>
+          </div>
+          <div class="case-body">
+            <div class="case-kicker">YouTube / OLV · 0:30</div>
+            <h3 class="case-title">Перформанс под запуск</h3>
+            <a class="case-cta" href="#contact" data-prefill="Кейс: перформанс-ролик 0:30 — хочу так же">Заказать так же</a>
+          </div>
+        </article>
+        <article class="case case-card reveal reveal-delay-1" data-cat="brand">
+          <div class="media">
+            <video data-case src="work-01.mp4" muted playsinline loop preload="metadata" poster="still-01.jpg"></video>
+          </div>
+          <div class="case-body">
+            <div class="case-kicker">Brand film · 16:9</div>
+            <h3 class="case-title">Имидж с сильным кадром</h3>
+            <a class="case-cta" href="#contact" data-prefill="Кейс: имиджевый brand film — хочу так же">Заказать так же</a>
+          </div>
+        </article>
+        <article class="case case-card reveal reveal-delay-2" data-cat="shorts">
+          <div class="media">
+            <video data-case src="work-03.mp4" muted playsinline loop preload="metadata" poster="still-08.jpg"></video>
+          </div>
+          <div class="case-body">
+            <div class="case-kicker">Reels / Shorts / TikTok</div>
+            <h3 class="case-title">Пакет вертикалей</h3>
+            <a class="case-cta" href="#contact" data-prefill="Кейс: пакет Reels/Shorts — хочу так же">Заказать так же</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+    </div>
+  </details>
+  </main>
 
 <footer>
   <div class="container">
@@ -1088,7 +1056,7 @@ footer{padding:48px 0 28px;border-top:1px solid var(--line);margin-top:40px}
       </div>
       <div>
         <h4>Меню</h4>
-        <a href="#cases">Работы</a>
+        <a href="#works">Работы</a>
         <a href="#prices-fast">Цены</a>
         <a href="#contact">Заказать</a>
       </div>
@@ -1114,7 +1082,7 @@ footer{padding:48px 0 28px;border-top:1px solid var(--line);margin-top:40px}
 <div class="sticky-cta" aria-label="Быстрые действия">
   <a class="link-ico" href="https://t.me/orbita_agency" target="_blank" rel="noopener" aria-label="Telegram" title="Telegram">✈</a>
   <a class="link-ico" href="mailto:hello@orbita.agency" aria-label="Email" title="Email">✉</a>
-  <a class="btn btn-primary btn-sm" href="#contact">Заказать ролик</a>
+  <a class="btn btn-primary btn-sm" href="#contact">Заказать</a>
 </div>
 
 <script>
@@ -1390,6 +1358,19 @@ footer{padding:48px 0 28px;border-top:1px solid var(--line);margin-top:40px}
   })();
 
 
+
+
+  // Open «Ещё» when deep-linking into collapsed sections
+  (function(){
+    var more = document.getElementById("more");
+    if(!more) return;
+    function sync(){
+      var h = (location.hash || "").replace("#","");
+      if(["more","services","process","cases"].indexOf(h) >= 0) more.open = true;
+    }
+    sync();
+    window.addEventListener("hashchange", sync);
+  })();
 
 /* === Services media wall JS === */
 (function(){
