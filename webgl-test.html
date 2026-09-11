@@ -1,0 +1,70 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>WebGL / THREE diagnostic</title>
+<style>
+body{font-family:system-ui,sans-serif;background:#0b1220;color:#e8eef8;padding:24px;line-height:1.5}
+.ok{color:#3ddc97}.fail{color:#ff6b6b}.box{background:#142033;padding:16px;border-radius:12px;margin:12px 0;white-space:pre-wrap}
+</style>
+</head>
+<body>
+<h1>WebGL / THREE test</h1>
+<div id="out" class="box">Running…</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" crossorigin="anonymous"></script>
+<script>
+(function(){
+  var lines = [];
+  function log(s){ lines.push(s); document.getElementById('out').textContent = lines.join('\n'); }
+  log('UA: ' + navigator.userAgent);
+  log('hardwareConcurrency: ' + (navigator.hardwareConcurrency||'?'));
+  log('deviceMemory: ' + (navigator.deviceMemory||'?') + ' GB');
+  log('typeof THREE: ' + (typeof THREE));
+
+  var c = document.createElement('canvas');
+  var gl = null, glErr = null;
+  try {
+    gl = c.getContext('webgl') || c.getContext('experimental-webgl');
+  } catch(e){ glErr = String(e); }
+  if (gl) {
+    log('getContext(webgl): PASS');
+    try {
+      var dbg = gl.getExtension('WEBGL_debug_renderer_info');
+      if (dbg) {
+        log('VENDOR: ' + gl.getParameter(dbg.UNMASKED_VENDOR_WEBGL));
+        log('RENDERER: ' + gl.getParameter(dbg.UNMASKED_RENDERER_WEBGL));
+      }
+      log('MAX_TEXTURE_SIZE: ' + gl.getParameter(gl.MAX_TEXTURE_SIZE));
+    } catch(e){ log('GL info err: ' + e); }
+  } else {
+    log('getContext(webgl): FAIL ' + (glErr||'(null context)'));
+  }
+
+  if (typeof THREE === 'undefined') {
+    log('THREE CDN load: FAIL (typeof THREE === undefined)');
+    log('ROOT CAUSE CANDIDATE: CDN blocked on file:// or network');
+  } else {
+    log('THREE CDN load: PASS r?' + (THREE.REVISION||'?'));
+    try {
+      var r = new THREE.WebGLRenderer({ antialias:true, alpha:true, powerPreference:'default', failIfMajorPerformanceCaveat:false });
+      log('WebGLRenderer(default): PASS');
+      r.dispose();
+    } catch(e) {
+      log('WebGLRenderer(default): FAIL ' + e);
+    }
+    try {
+      var r2 = new THREE.WebGLRenderer({ antialias:true, alpha:true, powerPreference:'high-performance', failIfMajorPerformanceCaveat:true });
+      log('WebGLRenderer(high-perf+caveat): PASS');
+      r2.dispose();
+    } catch(e) {
+      log('WebGLRenderer(high-perf+caveat): FAIL ' + e);
+    }
+  }
+  // Hint about HW accel — can't read chrome://flags from page, but soft software renderer is a clue
+  log('---');
+  log('If RENDERER contains \"SwiftShader\" or \"Microsoft Basic\", HW accel may be off.');
+  log('Chrome tip: Settings → System → Use hardware acceleration when available.');
+})();
+</script>
+</body>
+</html>

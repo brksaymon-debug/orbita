@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
-  <meta name="orbita-build" content="20260911235220">
+  <meta name="orbita-build" content="20260911235922">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ОРБИТА — Видео и дизайн, которые продают</title>
 <meta name="description" content="Креативная студия: видеореклама, Reels, монтаж, баннеры, флаеры, афиши и key visual. Договор, NDA, юрлицо. Цены от — финал после брифа.">
@@ -484,10 +484,73 @@ h3{font-size:clamp(18px,2vw,22px)}
   font-size:10px;font-family:var(--font);letter-spacing:.06em;text-transform:uppercase;
 }
 .orbit-globe-fallback{
-  position:absolute;inset:0;display:none;place-items:center;
-  color:var(--muted);font-size:14px;padding:24px;text-align:center;z-index:2;
+  position:absolute;inset:0;display:none;z-index:2;
+  place-items:center;align-content:center;
+  color:var(--muted);font-size:14px;padding:20px 24px 56px;text-align:center;
+  background:
+    radial-gradient(circle at 50% 42%, rgba(20,40,70,.55), rgba(7,7,10,.92) 70%);
 }
-.orbit-globe-fallback.is-on{display:grid}
+.orbit-globe-fallback.is-on{display:grid;gap:16px}
+.orbit-globe-fallback .ogf-msg{max-width:42ch;margin:0 auto;line-height:1.45;color:rgba(255,255,255,.72)}
+.orbit-globe-fallback .ogf-tip{font-size:12px;color:var(--muted);max-width:48ch;margin:0 auto;opacity:.85}
+.orbit-fb-planet-wrap{
+  position:relative;width:min(280px,62vw);aspect-ratio:1;margin:8px auto 4px;
+}
+.orbit-fb-planet{
+  width:100%;height:100%;border-radius:50%;
+  background:
+    radial-gradient(circle at 32% 28%, rgba(255,255,255,.35), transparent 28%),
+    radial-gradient(circle at 60% 55%, #1a6b4a 0%, #0d3d5c 42%, #0a2540 70%, #050b14 100%);
+  box-shadow:
+    inset -18px -10px 40px rgba(0,0,0,.45),
+    0 0 0 2px rgba(46,230,255,.12),
+    0 0 48px rgba(46,168,255,.18),
+    0 0 80px rgba(255,90,31,.08);
+  animation:orbitFbSpin 28s linear infinite;
+  position:relative;overflow:hidden;
+}
+.orbit-fb-planet::before{
+  content:"";position:absolute;inset:-8%;
+  background:
+    repeating-linear-gradient(105deg,
+      transparent 0 18px,
+      rgba(46,230,255,.04) 18px 22px,
+      transparent 22px 40px);
+  border-radius:50%;
+  animation:orbitFbSpin 18s linear infinite reverse;
+  opacity:.7;
+}
+.orbit-fb-planet::after{
+  content:"";position:absolute;inset:0;border-radius:50%;
+  box-shadow:inset 0 0 40px rgba(46,168,255,.15);
+  background:radial-gradient(circle at 70% 30%, transparent 40%, rgba(0,0,0,.35) 100%);
+}
+@keyframes orbitFbSpin{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){
+  .orbit-fb-planet,.orbit-fb-planet::before{animation:none}
+}
+.orbit-fb-hotspots{
+  display:flex;flex-wrap:wrap;justify-content:center;gap:8px;
+  max-width:520px;margin:0 auto;pointer-events:auto;position:relative;z-index:3;
+}
+.orbit-fb-hotspots button{
+  appearance:none;border:1px solid rgba(255,255,255,.14);
+  background:rgba(12,14,20,.82);color:#e8eef8;
+  padding:8px 12px;border-radius:999px;font:500 12px/1.2 var(--font,system-ui);
+  letter-spacing:.02em;cursor:pointer;
+  transition:border-color .15s, background .15s, transform .15s;
+}
+.orbit-fb-hotspots button:hover,.orbit-fb-hotspots button:focus-visible{
+  border-color:rgba(46,230,255,.55);background:rgba(20,28,40,.95);outline:none;
+  transform:translateY(-1px);
+}
+.orbit-fb-hotspots button.is-afishi{
+  border-color:rgba(255,90,31,.45);color:var(--accent2,#ff8a4c);
+}
+.orbit-fb-hotspots button.is-afishi:hover{
+  border-color:rgba(255,90,31,.8);box-shadow:0 0 16px rgba(255,90,31,.2);
+}
+.orbit-globe-stage.is-fallback #orbitGlobeCanvas{visibility:hidden}
 @media (max-width:900px){
   .orbit-globe-stage{height:min(62vh,520px);min-height:320px}
 }
@@ -654,7 +717,12 @@ h3{font-size:clamp(18px,2vw,22px)}
           <video muted loop playsinline preload="none" data-globe-preview></video>
           <span class="ovp-label" id="orbitVideoLabel">Ролик</span>
         </div>
-        <div class="orbit-globe-fallback" id="orbitGlobeFallback">WebGL недоступен — откройте сайт в современном браузере.</div>
+        <div class="orbit-globe-fallback" id="orbitGlobeFallback" hidden>
+          <div class="orbit-fb-planet-wrap" aria-hidden="true"><div class="orbit-fb-planet"></div></div>
+          <p class="ogf-msg" id="orbitGlobeFallbackMsg">WebGL недоступен</p>
+          <p class="ogf-tip" id="orbitGlobeFallbackTip"></p>
+          <div class="orbit-fb-hotspots" id="orbitFbHotspots" role="list"></div>
+        </div>
       </div>
     </div>
   </section>
@@ -1466,8 +1534,33 @@ h3{font-size:clamp(18px,2vw,22px)}
 })();
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</script>
 <script>
+/* Load THREE locally first (file:// + Pages), CDN only if local missing */
+(function(){
+  function loadScript(src, onload, onerror){
+    var s = document.createElement('script');
+    s.src = src;
+    s.async = false;
+    s.onload = onload;
+    s.onerror = onerror || function(){};
+    document.head.appendChild(s);
+  }
+  function startGlobe(){
+    if (window.__orbitaGlobeStarted) return;
+    window.__orbitaGlobeStarted = true;
+    bootOrbitaGlobe();
+  }
+  loadScript('three.min.js', startGlobe, function(){
+    loadScript(
+      'https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js',
+      startGlobe,
+      function(){ startGlobe(); /* still boot → accurate THREE-missing fallback */ }
+    );
+  });
+})();
+
+function bootOrbitaGlobe(){
 /* ========== Interactive 3D Earth (Orbita) ========== */
 (function(){
   'use strict';
@@ -1478,12 +1571,10 @@ h3{font-size:clamp(18px,2vw,22px)}
   var previewVideo = previewEl ? previewEl.querySelector('video') : null;
   var previewLabel = document.getElementById('orbitVideoLabel');
   var fallbackEl = document.getElementById('orbitGlobeFallback');
-  if (!stage || !canvas || typeof THREE === 'undefined'){
-    if (fallbackEl) fallbackEl.classList.add('is-on');
-    return;
-  }
+  var fallbackMsg = document.getElementById('orbitGlobeFallbackMsg');
+  var fallbackTip = document.getElementById('orbitGlobeFallbackTip');
+  var fbHotspots = document.getElementById('orbitFbHotspots');
 
-  var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var HOTSPOTS = [
     { lat: 43.24, lon: 76.91, type: 'video', label: 'Алматы · Ролик', video: 'work-kazakhstan.mp4' },
     { lat: 55.75, lon: 37.62, type: 'video', label: 'Москва · Ролик', video: 'work-02.mp4' },
@@ -1493,12 +1584,74 @@ h3{font-size:clamp(18px,2vw,22px)}
     { lat: 48.86, lon: 2.35, type: 'video', label: 'Париж · Ролик', video: 'work-01.mp4' },
     { lat: 51.13, lon: 71.43, type: 'afishi', label: 'Афиши', svcIndex: 3 }
   ];
+
+  function openAfishi(){
+    try {
+      var item = document.querySelector('.svc-item[data-svc="3"]');
+      if (item && typeof window.activateSvc === 'function'){
+        window.activateSvc(item, { openGallery: true });
+      } else if (typeof window.openSvcGallery === 'function'){
+        window.openSvcGallery(3);
+      }
+    } catch (err){
+      console.warn('openAfishi', err);
+    }
+  }
+
+  function showFallback(kind, detail){
+    if (!fallbackEl) return;
+    var msg = '';
+    var tip = '';
+    if (kind === 'three'){
+      msg = 'Не удалось загрузить 3D-библиотеку';
+      tip = 'Проверьте файл three.min.js рядом со страницей или подключение к сети.';
+    } else {
+      msg = 'WebGL отключён в браузере или недоступен на этом устройстве';
+      tip = 'Включите аппаратное ускорение в Chrome: Настройки → Система → «Использовать аппаратное ускорение».';
+    }
+    if (fallbackMsg) fallbackMsg.textContent = msg;
+    if (fallbackTip) fallbackTip.textContent = tip + (detail ? ' (' + detail + ')' : '');
+    if (fbHotspots && !fbHotspots.childElementCount){
+      HOTSPOTS.forEach(function(h){
+        var btn = document.createElement('button');
+        btn.type = 'button';
+        btn.textContent = h.label;
+        btn.setAttribute('role', 'listitem');
+        if (h.type === 'afishi') btn.className = 'is-afishi';
+        btn.addEventListener('click', function(){
+          if (h.type === 'afishi') openAfishi();
+          else if (h.video){
+            try {
+              var v = document.querySelector('video[src="' + h.video + '"], source[src="' + h.video + '"]');
+              var section = document.getElementById('works');
+              if (section) section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            } catch (e) {}
+          }
+        });
+        fbHotspots.appendChild(btn);
+      });
+    }
+    fallbackEl.hidden = false;
+    fallbackEl.classList.add('is-on');
+    if (stage) stage.classList.add('is-fallback');
+  }
+
+  if (!stage || !canvas){
+    showFallback('webgl', 'no stage');
+    return;
+  }
+  if (typeof THREE === 'undefined'){
+    showFallback('three');
+    return;
+  }
+
+  var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var TEX_URLS = [
     'https://cdn.jsdelivr.net/npm/three-globe@2.31.1/example/img/earth-blue-marble.jpg',
     'https://unpkg.com/three-globe@2.31.1/example/img/earth-blue-marble.jpg'
   ];
 
-  var renderer, scene, camera, earth, atmosphere, cloudish, hotspotGroup;
+  var renderer, scene, camera, earth, atmosphere, hotspotGroup;
   var hotspotMeshes = [];
   var raf = 0, inView = false, ready = false, disposed = false;
   var autoRotate = !reduceMotion;
@@ -1523,39 +1676,28 @@ h3{font-size:clamp(18px,2vw,22px)}
   }
 
   function makeProceduralEarthTexture(){
-    var size = 1024;
     var c = document.createElement('canvas');
-    c.width = size; c.height = size;
+    c.width = 1024; c.height = 512;
     var ctx = c.getContext('2d');
-    var g = ctx.createLinearGradient(0, 0, 0, size);
-    g.addColorStop(0, '#0b1a3a');
-    g.addColorStop(0.5, '#0d3d6e');
-    g.addColorStop(1, '#0b1a3a');
+    var g = ctx.createLinearGradient(0, 0, 0, 512);
+    g.addColorStop(0, '#0a1a2e');
+    g.addColorStop(0.5, '#0d3d5c');
+    g.addColorStop(1, '#0a1a2e');
     ctx.fillStyle = g;
-    ctx.fillRect(0, 0, size, size);
-    function blob(x, y, rx, ry, color){
-      ctx.fillStyle = color;
+    ctx.fillRect(0, 0, 1024, 512);
+    ctx.fillStyle = 'rgba(26,107,74,0.85)';
+    for (var i = 0; i < 40; i++){
+      var x = (Math.sin(i * 12.9898) * 43758.5453 % 1) * 1024;
+      var y = (Math.sin(i * 78.233) * 12345.678 % 1) * 512;
+      var w = 40 + (i % 7) * 18;
+      var h = 20 + (i % 5) * 12;
       ctx.beginPath();
-      ctx.ellipse(x, y, rx, ry, 0, 0, Math.PI * 2);
+      ctx.ellipse(x, y, w, h, i * 0.4, 0, Math.PI * 2);
       ctx.fill();
     }
-    // crude continents
-    blob(280, 360, 160, 110, '#2f6b3a');
-    blob(420, 300, 90, 70, '#3a7a44');
-    blob(700, 340, 200, 90, '#2a5e34');
-    blob(820, 420, 70, 120, '#356f3f');
-    blob(180, 520, 70, 130, '#2f6238');
-    blob(520, 620, 130, 60, '#3d6a3a');
-    blob(900, 280, 60, 50, '#4a7a45');
-    // ice caps
-    ctx.fillStyle = '#dfe9f2';
-    ctx.fillRect(0, 0, size, 48);
-    ctx.fillRect(0, size - 48, size, 48);
-    // soft noise speckles
-    for (var i = 0; i < 1800; i++){
-      ctx.fillStyle = 'rgba(255,255,255,' + (Math.random() * 0.04) + ')';
-      ctx.fillRect(Math.random() * size, Math.random() * size, 1, 1);
-    }
+    ctx.fillStyle = 'rgba(220,230,240,0.55)';
+    ctx.fillRect(0, 20, 1024, 36);
+    ctx.fillRect(0, 456, 1024, 36);
     var tex = new THREE.CanvasTexture(c);
     tex.wrapS = tex.wrapT = THREE.ClampToEdgeWrapping;
     return tex;
@@ -1572,7 +1714,6 @@ h3{font-size:clamp(18px,2vw,22px)}
       }
       var url = TEX_URLS[i++];
       loader.load(url, function(tex){
-        tex.anisotropy = Math.min(4, renderer.capabilities.getMaxAnisotropy());
         cb(tex, false);
       }, undefined, function(){ tryNext(); });
     }
@@ -1593,7 +1734,7 @@ h3{font-size:clamp(18px,2vw,22px)}
     hotspotGroup = new THREE.Group();
     HOTSPOTS.forEach(function(h, idx){
       var group = new THREE.Group();
-      var pos = latLonToVec3(h.lat, h.lon, radius + 0.02);
+      var pos = latLonToVec3(h.lat, h.lon, radius);
       group.position.copy(pos);
       group.lookAt(0, 0, 0);
 
@@ -1638,14 +1779,24 @@ h3{font-size:clamp(18px,2vw,22px)}
     camera.updateProjectionMatrix();
   }
 
-  function initScene(tex){
-    renderer = new THREE.WebGLRenderer({
+  function createRenderer(){
+    return new THREE.WebGLRenderer({
       canvas: canvas,
       antialias: true,
       alpha: true,
-      powerPreference: 'high-performance'
+      powerPreference: 'default',
+      failIfMajorPerformanceCaveat: false
     });
+  }
+
+  function initScene(tex){
+    renderer = createRenderer();
     renderer.setClearColor(0x000000, 0);
+    if (tex && tex.anisotropy !== undefined && renderer.capabilities){
+      try {
+        tex.anisotropy = Math.min(4, renderer.capabilities.getMaxAnisotropy());
+      } catch (e) {}
+    }
     scene = new THREE.Scene();
     camera = new THREE.PerspectiveCamera(42, 1, 0.1, 100);
     camera.position.set(0, 0.15, 3.35);
@@ -1682,7 +1833,6 @@ h3{font-size:clamp(18px,2vw,22px)}
     atmosphere = new THREE.Mesh(atmoGeo, atmoMat);
     scene.add(atmosphere);
 
-    // subtle outer glow shell
     var glow = new THREE.Mesh(
       new THREE.SphereGeometry(1.12, 32, 32),
       new THREE.MeshBasicMaterial({
@@ -1699,14 +1849,17 @@ h3{font-size:clamp(18px,2vw,22px)}
     buildHotspots(1.0);
     sizeRenderer();
     ready = true;
+    if (fallbackEl){
+      fallbackEl.classList.remove('is-on');
+      fallbackEl.hidden = true;
+    }
+    if (stage) stage.classList.remove('is-fallback');
   }
 
   function projectHotspot(h){
     if (!earth || !camera) return null;
     var world = latLonToVec3(h.lat, h.lon, 1.05);
     world.applyMatrix4(earth.matrixWorld);
-    // front-face check
-    var camDir = world.clone().sub(camera.position).normalize();
     var normal = world.clone().normalize();
     if (normal.dot(camera.position.clone().normalize()) < 0.15) return null;
     var v = world.clone().project(camera);
@@ -1726,7 +1879,6 @@ h3{font-size:clamp(18px,2vw,22px)}
     }
     if (previewVideo){
       try { previewVideo.pause(); } catch(e){}
-      // keep src to avoid reload thrash; clear if switching often
     }
     if (tipEl){
       tipEl.classList.remove('is-on', 'is-afishi');
@@ -1758,19 +1910,6 @@ h3{font-size:clamp(18px,2vw,22px)}
     previewEl.style.left = pos.x + 'px';
     previewEl.style.top = pos.y + 'px';
     previewVideo.play().catch(function(){});
-  }
-
-  function openAfishi(){
-    try {
-      var item = document.querySelector('.svc-item[data-svc="3"]');
-      if (item && typeof window.activateSvc === 'function'){
-        window.activateSvc(item, { openGallery: true });
-      } else if (typeof window.openSvcGallery === 'function'){
-        window.openSvcGallery(3);
-      }
-    } catch (err){
-      console.warn('openAfishi', err);
-    }
   }
 
   function pickHotspot(clientX, clientY){
@@ -1842,7 +1981,6 @@ h3{font-size:clamp(18px,2vw,22px)}
     if (h.type === 'afishi'){
       openAfishi();
     } else if (h.type === 'video'){
-      // tap on mobile: toggle preview
       var pos = projectHotspot(h);
       activeHotspot = h;
       pausedByHover = true;
@@ -1932,32 +2070,54 @@ h3{font-size:clamp(18px,2vw,22px)}
   function boot(){
     if (booting || ready || disposed) return;
     booting = true;
+    var webglOk = false;
+    var errDetail = '';
     try {
       var test = document.createElement('canvas');
-      var gl = test.getContext('webgl') || test.getContext('experimental-webgl');
-      if (!gl){
-        if (fallbackEl) fallbackEl.classList.add('is-on');
-        return;
+      var gl = test.getContext('webgl', { failIfMajorPerformanceCaveat: false })
+            || test.getContext('experimental-webgl', { failIfMajorPerformanceCaveat: false });
+      webglOk = !!gl;
+      if (gl){
+        try {
+          var lose = gl.getExtension('WEBGL_lose_context');
+          if (lose) lose.loseContext();
+        } catch (e2) {}
       }
     } catch (e){
-      if (fallbackEl) fallbackEl.classList.add('is-on');
+      errDetail = String(e && e.message || e);
+      webglOk = false;
+    }
+    if (!webglOk){
+      showFallback('webgl', errDetail);
       return;
     }
-    // create renderer early so texture anisotropy works
-    renderer = new THREE.WebGLRenderer({
-      canvas: canvas,
-      antialias: true,
-      alpha: true,
-      powerPreference: 'high-performance'
-    });
-    renderer.setClearColor(0x000000, 0);
+    // Probe THREE renderer on a throwaway canvas — never dispose the real page canvas early
+    try {
+      var probe = document.createElement('canvas');
+      probe.width = 4; probe.height = 4;
+      var probeR = new THREE.WebGLRenderer({
+        canvas: probe,
+        antialias: true,
+        alpha: true,
+        powerPreference: 'default',
+        failIfMajorPerformanceCaveat: false
+      });
+      probeR.dispose();
+    } catch (e){
+      showFallback('webgl', String(e && e.message || e));
+      return;
+    }
+
     loadEarthTexture(function(tex){
-      // tear down temporary renderer state handled in initScene reassign
-      try { renderer.dispose(); } catch(e){}
-      initScene(tex);
-      bindEvents();
-      clock.start();
-      tick();
+      try {
+        initScene(tex);
+        bindEvents();
+        clock.start();
+        tick();
+      } catch (err){
+        console.warn('globe init', err);
+        showFallback('webgl', String(err && err.message || err));
+      }
     });
   }
 
@@ -1968,7 +2128,6 @@ h3{font-size:clamp(18px,2vw,22px)}
     canvas.addEventListener('pointerleave', function(){
       if (!pointerDown) hidePreview();
     });
-    // touch
     canvas.addEventListener('touchstart', function(e){
       if (e.touches[0]) onPointerDown(e.touches[0]);
     }, { passive: true });
@@ -1982,12 +2141,13 @@ h3{font-size:clamp(18px,2vw,22px)}
     });
   }
 
-  // Pause managePlayback conflict: globe preview uses data-globe-preview (not auto-managed)
   startWhenVisible();
 })();
+}
 </script>
 
-  /* Text scramble / decode — Aiskra-style */
+<script>
+/* Text scramble / decode — Aiskra-style */
   (function(){
     var CHARSET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%&*<>/\\|';
     var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -2050,7 +2210,6 @@ h3{font-size:clamp(18px,2vw,22px)}
     if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', bind);
     else bind();
   })();
-
 </script>
 </body>
 </html>
