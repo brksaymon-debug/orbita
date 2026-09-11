@@ -8,6 +8,9 @@
 !work-04.mp4
 !work-05.mp4
 !work-06.mp4
+!work-09.mp4
+!work-10.mp4
+!work-11.mp4
 
 # Stills allowed
 !still-*.jpg
@@ -30,5 +33,8 @@ _part_*.html
 _snip_*.html
 _snip_*.js
 _preview-*.mp4
+_pick_preview/
+_tmp_*.mp4
+_ff*.log
 *.bak
 __pycache__/
