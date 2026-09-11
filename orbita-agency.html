@@ -13,7 +13,7 @@
 :root{
   --bg:#07070a;--bg2:#0e0e14;--card:#12121a;--line:rgba(255,255,255,.08);
   --text:#f3f4f6;--muted:#9ca3af;--dim:#6b7280;
-  --accent:#22e0ff;--accent2:#7c5cff;--ok:#34d399;--hot:#ff5c7a;
+  --accent:#22e0ff;--accent2:#7c5cff;--ok:#34d399;--hot:#ff5c7a;--orange:#ff6a2a;
   --r:18px;--max:1180px;--nav:72px;
   --font:Inter,system-ui,-apple-system,sans-serif;
   --display:Manrope,Inter,system-ui,sans-serif;
@@ -376,6 +376,66 @@ footer{padding:48px 0 28px;border-top:1px solid var(--line);margin-top:40px}
   .proof-grid{grid-template-columns:1fr 1fr}
 }
 
+
+/* === Services wall (Aiskra-style) === */
+.btn-orange{background:linear-gradient(135deg,#ff7a2f,#ff3d6e);color:#1a0800;box-shadow:0 8px 28px rgba(255,106,42,.28);border-color:transparent}
+.btn-orange:hover{filter:brightness(1.06);transform:translateY(-1px)}
+.section-services{position:relative;overflow:hidden}
+.section-services::before{content:"";position:absolute;inset:-20% -10% auto auto;width:55%;height:70%;background:radial-gradient(ellipse at center,rgba(255,106,42,.12),transparent 65%);pointer-events:none;z-index:0}
+.section-services .container{position:relative;z-index:1}
+.svc-wall{display:grid;grid-template-columns:minmax(280px,1fr) minmax(300px,1.05fr);gap:28px 36px;align-items:stretch;margin-top:8px}
+.svc-list{display:flex;flex-direction:column;gap:10px;min-width:0}
+.svc-item{display:grid;grid-template-columns:52px 1fr;gap:14px;padding:16px 18px;border-radius:16px;border:1px solid var(--line);background:linear-gradient(180deg,rgba(255,255,255,.035),rgba(255,255,255,.012));transition:.2s ease}
+.svc-item:hover{border-color:rgba(255,106,42,.35);background:linear-gradient(180deg,rgba(255,106,42,.07),rgba(255,255,255,.02));transform:translateX(2px)}
+.svc-num{font-family:var(--display);font-size:22px;font-weight:800;line-height:1.1;color:var(--orange,#ff6a2a);letter-spacing:.02em;padding-top:2px}
+.svc-body h3{margin:0 0 4px;font-size:17px;font-weight:700}
+.svc-for{margin:0 0 6px;font-size:12px;color:var(--orange,#ff6a2a);font-weight:600;letter-spacing:.02em}
+.svc-desc{margin:0 0 10px;font-size:13.5px;color:var(--muted);line-height:1.45}
+.svc-tags{display:flex;flex-wrap:wrap;gap:6px}
+.svc-tags span{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:4px 9px;border-radius:999px;background:rgba(255,106,42,.1);border:1px solid rgba(255,106,42,.22);color:#ffc9a8}
+.svc-cta{display:flex;flex-wrap:wrap;align-items:center;gap:14px;margin-top:14px;padding-top:6px}
+.svc-cta-note{font-size:13px;color:var(--dim)}
+.media-wall{position:relative;min-height:560px;height:100%;border-radius:22px;border:1px solid var(--line);background:radial-gradient(120% 80% at 70% 20%,rgba(255,106,42,.14),transparent 50%),radial-gradient(90% 70% at 20% 90%,rgba(124,92,255,.16),transparent 55%),#0a0a10;overflow:hidden;isolation:isolate}
+.media-wall::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:2;background:linear-gradient(180deg,#0a0a10 0%,transparent 12%,transparent 88%,#0a0a10 100%),linear-gradient(90deg,rgba(10,10,16,.35),transparent 18%,transparent 82%,rgba(10,10,16,.25))}
+.media-wall-viewport{position:absolute;inset:12px;overflow:hidden;border-radius:16px}
+.media-wall-track{display:grid;grid-template-columns:1fr 1fr;gap:12px;height:max-content;will-change:transform;animation:wallScroll 42s linear infinite}
+.media-wall:hover .media-wall-track{animation-play-state:paused}
+.media-col{display:flex;flex-direction:column;gap:12px}
+.media-col-b{margin-top:36px}
+@keyframes wallScroll{0%{transform:translateY(0)}100%{transform:translateY(-50%)}}
+.wall-tile{position:relative;margin:0;border-radius:14px;overflow:hidden;border:1px solid rgba(255,255,255,.1);background:#12121a;aspect-ratio:3/4;isolation:isolate;box-shadow:0 10px 30px rgba(0,0,0,.35)}
+.wall-tile.tall{aspect-ratio:3/5}
+.wall-tile.mid{aspect-ratio:4/5}
+.wall-tile video,.wall-tile .wall-poster{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.wall-badge{position:absolute;top:10px;left:10px;z-index:2;font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:5px 9px;border-radius:999px;backdrop-filter:blur(8px)}
+.wall-badge.video{background:rgba(255,61,110,.88);color:#fff}
+.wall-badge.static{background:rgba(255,122,47,.92);color:#1a0800}
+.wall-tile figcaption{position:absolute;left:0;right:0;bottom:0;z-index:2;padding:28px 12px 10px;font-size:12px;font-weight:600;color:#fff;background:linear-gradient(transparent,rgba(0,0,0,.65))}
+.wall-poster{background-size:cover}
+.p-neon{background:radial-gradient(circle at 30% 25%,#fff76a 0%,transparent 28%),radial-gradient(circle at 75% 70%,#ff3d9a 0%,transparent 40%),linear-gradient(135deg,#1a0a3a,#5b2bff 45%,#22e0ff)}
+.p-sunset{background:radial-gradient(circle at 70% 20%,#ffe566 0%,transparent 35%),linear-gradient(160deg,#ff4d1a,#ff2d6f 50%,#7c1aff)}
+.p-acid{background:repeating-linear-gradient(45deg,rgba(255,255,255,.08) 0 8px,transparent 8px 16px),radial-gradient(circle at 40% 60%,#b8ff3c,transparent 45%),linear-gradient(135deg,#0d1f12,#1dff9a 40%,#ffe600)}
+.p-cosmo{background:radial-gradient(circle at 20% 30%,#ffffff 0 1px,transparent 2px),radial-gradient(circle at 70% 60%,#ffffff 0 1.5px,transparent 2px),radial-gradient(circle at 50% 40%,#7c5cff,transparent 50%),linear-gradient(180deg,#05051a,#1a0a40 40%,#ff5c7a)}
+.p-fire{background:radial-gradient(circle at 50% 110%,#ffeb3b 0%,transparent 40%),radial-gradient(circle at 30% 60%,#ff6a00,transparent 45%),linear-gradient(180deg,#2a0505,#ff2a2a 55%,#ff9a1a)}
+.p-mint{background:radial-gradient(circle at 80% 20%,#eafff6,transparent 30%),linear-gradient(135deg,#003d3a,#00d4a8 40%,#7c5cff 90%)}
+.p-violet{background:conic-gradient(from 210deg at 50% 50%,#ff3d9a,#7c5cff,#22e0ff,#ff7a2f,#ff3d9a);filter:saturate(1.25)}
+.p-candy{background:radial-gradient(circle at 25% 25%,#ff9ad5,transparent 40%),radial-gradient(circle at 80% 70%,#7cf0ff,transparent 40%),linear-gradient(135deg,#ff4fa3,#ffb347)}
+@media (prefers-reduced-motion:reduce){.media-wall-track{animation:none !important;transform:none !important}}
+@media (max-width:980px){
+  .svc-wall{grid-template-columns:1fr;gap:22px}
+  .media-wall{min-height:340px;height:360px}
+  .media-wall-track{animation:none;display:flex;grid-template-columns:none;gap:12px;height:100%;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding-bottom:4px}
+  .media-col,.media-col-b{flex:0 0 auto;flex-direction:row;margin-top:0;gap:12px;height:100%}
+  .wall-tile{flex:0 0 160px;width:160px;height:100%;aspect-ratio:auto;scroll-snap-align:start}
+  .wall-tile.tall,.wall-tile.mid{aspect-ratio:auto}
+}
+@media (max-width:640px){
+  .svc-item{grid-template-columns:40px 1fr;padding:14px}
+  .svc-num{font-size:18px}
+  .wall-tile{flex-basis:140px;width:140px}
+  .svc-cta{flex-direction:column;align-items:flex-start}
+}
+
 </style>
 </head>
 <body>
@@ -578,20 +638,29 @@ footer{padding:48px 0 28px;border-top:1px solid var(--line);margin-top:40px}
   </section>
 
 <!-- SERVICES -->
-  <section class="section" id="services">
+    <section class="section section-services" id="services">
     <div class="container">
       <div class="section-h reveal">
         <div class="eyebrow">Услуги</div>
         <h2>Полный цикл видеорекламы</h2>
-        <p class="lead">Не «красивый сайт», а ролики под заявки, продажи и охват. Один конвейер: идея → эфир.</p>
+        <p class="lead">Не «красивый сайт» — ролики под заявки, продажи и охват. Слева — конвейер. Справа — живая стена форматов.</p>
       </div>
-      <div class="grid-3">
-        <article class="card reveal reveal-delay-1"><div class="card-num">01</div><h3>Сценарий и креатив</h3><p>Сценарии и раскадровки, которые цепляют в первые 3 секунды — под задачу бизнеса, не «для красоты».</p></article>
-        <article class="card reveal reveal-delay-2"><div class="card-num">02</div><h3>Продакшн и съёмка</h3><p>Студия или площадка, актёры, операторская группа, реквизит — полный съёмочный цикл.</p></article>
-        <article class="card reveal reveal-delay-3"><div class="card-num">03</div><h3>Монтаж и пост</h3><p>Монтаж, цвет, звук и адаптация под хронометраж и формат каждой площадки.</p></article>
-        <article class="card reveal"><div class="card-num">04</div><h3>Медиазакупка</h3><p>YouTube, TikTok, VK Видео, Rutube — оптимизация по CPV, CPM и досматриваемости.</p></article>
-        <article class="card reveal reveal-delay-1"><div class="card-num">05</div><h3>A/B-тест креативов</h3><p>Десятки версий на реальном трафике. В масштаб идут только ролики, которые продают.</p></article>
-        <article class="card reveal reveal-delay-2"><div class="card-num">06</div><h3>Аналитика</h3><p>Сквозная аналитика CTR, досмотра и конверсий — решения на цифрах, не на вкусе.</p></article>
+      <div class="svc-wall">
+        <div class="svc-list reveal">
+          <article class="svc-item"><div class="svc-num">01</div><div class="svc-body"><h3>Сценарий и креатив</h3><p class="svc-for">Для: брендов, e-com и экспертов</p><p class="svc-desc">Хуки в первые 3 секунды, раскадровка и оффер — под задачу бизнеса, не «для красоты».</p><div class="svc-tags"><span>РЕКЛАМА</span><span>HOOK</span><span>СЦЕНАРИЙ</span></div></div></article><article class="svc-item"><div class="svc-num">02</div><div class="svc-body"><h3>Продакшн и съёмка</h3><p class="svc-for">Для: имидж-роликов и продукта</p><p class="svc-desc">Студия или локация, свет, актёры, операторская группа — полный съёмочный день под ключ.</p><div class="svc-tags"><span>СЪЁМКА</span><span>СТУДИЯ</span><span>ПРОДУКТ</span></div></div></article><article class="svc-item"><div class="svc-num">03</div><div class="svc-body"><h3>Монтаж и адаптация</h3><p class="svc-for">Для: Reels, Shorts, OLV и Stories</p><p class="svc-desc">Монтаж, цвет, звук и нарезка под хронометраж каждой площадки — один мастер, много форматов.</p><div class="svc-tags"><span>REELS</span><span>SHORTS</span><span>OLV</span></div></div></article><article class="svc-item"><div class="svc-num">04</div><div class="svc-body"><h3>Медиазакупка</h3><p class="svc-for">Для: масштаба охватов и CPV</p><p class="svc-desc">YouTube, TikTok, VK Видео, Rutube — закупка и оптимизация по досмотру, заявкам и CPM.</p><div class="svc-tags"><span>YOUTUBE</span><span>TIKTOK</span><span>VK</span></div></div></article><article class="svc-item"><div class="svc-num">05</div><div class="svc-body"><h3>A/B-тест креативов</h3><p class="svc-for">Для: performance-кампаний</p><p class="svc-desc">Десятки версий на реальном трафике. В масштаб идут только ролики, которые продают.</p><div class="svc-tags"><span>A/B</span><span>CTR</span><span>CPV</span></div></div></article><article class="svc-item"><div class="svc-num">06</div><div class="svc-body"><h3>Аналитика и рост</h3><p class="svc-for">Для: команд с KPI по ROI</p><p class="svc-desc">Сквозная аналитика досмотра, CTR и конверсий — решения на цифрах, не на вкусе.</p><div class="svc-tags"><span>АНАЛИТИКА</span><span>ROI</span><span>KPI</span></div></div></article>
+          <div class="svc-cta">
+            <a class="btn btn-orange" href="#contact">Обсудить проект</a>
+            <span class="svc-cta-note">Ответ за 1 рабочий день · бриф на 10 минут</span>
+          </div>
+        </div>
+        <div class="media-wall reveal reveal-delay-1" aria-label="Примеры форматов">
+          <div class="media-wall-viewport">
+            <div class="media-wall-track" data-wall-track>
+              <div class="media-col" data-wall-col><figure class="wall-tile wall-video tall"><video muted playsinline loop preload="metadata" data-wall-vid src="orbita-video.mp4"></video><span class="wall-badge video">ВИДЕО</span><figcaption>Reels / Shorts</figcaption></figure><figure class="wall-tile wall-static"><div class="wall-poster p-neon"></div><span class="wall-badge static">СТАТИКА</span><figcaption>Key visual</figcaption></figure><figure class="wall-tile wall-static mid"><div class="wall-poster p-sunset"></div><span class="wall-badge static">СТАТИКА</span><figcaption>Баннер OLV</figcaption></figure><figure class="wall-tile wall-video"><video muted playsinline loop preload="metadata" data-wall-vid src="orbita-bg.mp4"></video><span class="wall-badge video">ВИДЕО</span><figcaption>OLV 15s</figcaption></figure><figure class="wall-tile wall-static"><div class="wall-poster p-acid"></div><span class="wall-badge static">СТАТИКА</span><figcaption>Stories cover</figcaption></figure><figure class="wall-tile wall-static mid"><div class="wall-poster p-cosmo"></div><span class="wall-badge static">СТАТИКА</span><figcaption>Thumb YouTube</figcaption></figure></div>
+              <div class="media-col media-col-b" data-wall-col><figure class="wall-tile wall-static mid"><div class="wall-poster p-fire"></div><span class="wall-badge static">СТАТИКА</span><figcaption>Постер кампании</figcaption></figure><figure class="wall-tile wall-video tall"><video muted playsinline loop preload="metadata" data-wall-vid src="orbita-bg.mp4"></video><span class="wall-badge video">ВИДЕО</span><figcaption>Brand film cut</figcaption></figure><figure class="wall-tile wall-static"><div class="wall-poster p-mint"></div><span class="wall-badge static">СТАТИКА</span><figcaption>Карточка товара</figcaption></figure><figure class="wall-tile wall-video"><video muted playsinline loop preload="metadata" data-wall-vid src="orbita-video.mp4"></video><span class="wall-badge video">ВИДЕО</span><figcaption>TikTok cut</figcaption></figure><figure class="wall-tile wall-static mid"><div class="wall-poster p-violet"></div><span class="wall-badge static">СТАТИКА</span><figcaption>Carousel frame</figcaption></figure><figure class="wall-tile wall-static"><div class="wall-poster p-candy"></div><span class="wall-badge static">СТАТИКА</span><figcaption>Анонс запуска</figcaption></figure></div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -1109,6 +1178,62 @@ footer{padding:48px 0 28px;border-top:1px solid var(--line);margin-top:40px}
       if(about && !about.value) about.value = map[a.getAttribute("data-persona")] || "";
     });
   });
+
+
+
+/* === Services media wall JS === */
+(function(){
+  const wall = document.querySelector('.media-wall');
+  if(!wall) return;
+  const track = wall.querySelector('[data-wall-track]');
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const isMobile = () => matchMedia('(max-width:980px)').matches;
+  function ensureLoopClone(){
+    if(!track || isMobile() || reduced) return;
+    if(track.dataset.cloned === '1') return;
+    track.querySelectorAll('[data-wall-col]').forEach(col => {
+      const clone = col.cloneNode(true);
+      clone.querySelectorAll('video').forEach(v => {
+        v.removeAttribute('data-wall-vid');
+        v.setAttribute('data-wall-vid-clone','');
+        v.preload = 'none';
+      });
+      track.appendChild(clone);
+    });
+    track.dataset.cloned = '1';
+  }
+  ensureLoopClone();
+  function pauseAll(){
+    wall.querySelectorAll('video').forEach(v => { try{ v.pause(); }catch(_){ } });
+  }
+  function playLimited(){
+    if(reduced) return;
+    const live = Array.from(wall.querySelectorAll('video[data-wall-vid]'));
+    const pick = live.slice(0, 2);
+    live.forEach(v => {
+      if(pick.includes(v)) v.play().catch(()=>{});
+      else { try{ v.pause(); }catch(_){ } }
+    });
+    wall.querySelectorAll('video[data-wall-vid-clone]').forEach(v => { try{v.pause();}catch(_){}});
+  }
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(en => {
+      if(en.isIntersecting && en.intersectionRatio > 0.25){ ensureLoopClone(); playLimited(); }
+      else pauseAll();
+    });
+  }, {threshold:[0, 0.25, 0.5]});
+  io.observe(wall);
+  wall.addEventListener('mouseenter', () => {
+    if(reduced) return;
+    const v = wall.querySelector('video[data-wall-vid]');
+    if(v) v.play().catch(()=>{});
+  });
+  let rt;
+  addEventListener('resize', () => {
+    clearTimeout(rt);
+    rt = setTimeout(() => { if(isMobile()) pauseAll(); else playLimited(); }, 200);
+  });
+})();
 
 </script>
 </body>
