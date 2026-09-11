@@ -247,26 +247,49 @@ h3{font-size:1.15rem;font-weight:700;margin-bottom:8px}
 .format-table td:last-child,.format-table th:last-child{text-align:right;color:var(--accent);font-weight:600;white-space:nowrap}
 .format-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
 
-/* Cases */
+/* Cases - trust cards with real previews */
 .cases-tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px}
 .tab{padding:8px 14px;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--muted);font-size:13px;cursor:pointer}
 .tab.active,.tab:hover{color:var(--text);border-color:rgba(34,224,255,.35);background:rgba(34,224,255,.08)}
-.cases-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-.case{position:relative;border-radius:var(--r);overflow:hidden;border:1px solid var(--line);background:#0c0c12;min-height:260px;isolation:isolate}
+.cases-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+.cases-grid-trust{grid-template-columns:repeat(2,1fr)}
+.case{position:relative;border-radius:var(--r);overflow:hidden;border:1px solid var(--line);background:#0c0c12;isolation:isolate}
+.case-card{display:flex;flex-direction:column;min-height:0;background:var(--card)}
+.case-card .media{position:relative;inset:auto;aspect-ratio:16/9;height:auto;min-height:180px;background:#000}
+.case-card .media video,.case-card .media .poster,.case-card .media img{width:100%;height:100%;object-fit:cover;display:block}
 .case .media{position:absolute;inset:0}
 .case .media video,.case .media .poster{width:100%;height:100%;object-fit:cover}
-.case .media .poster{background:linear-gradient(145deg,#1a1a28,#0c0c14)}
-.case.c1 .poster{background:radial-gradient(circle at 30% 20%,rgba(34,224,255,.4),transparent 45%),linear-gradient(160deg,#142028,#0a0a12)}
-.case.c2 .poster{background:radial-gradient(circle at 70% 30%,rgba(124,92,255,.45),transparent 40%),linear-gradient(180deg,#18122a,#0a0a12)}
-.case.c3 .poster{background:radial-gradient(circle at 40% 60%,rgba(255,92,122,.35),transparent 45%),linear-gradient(200deg,#221018,#0a0a12)}
-.case.c4 .poster{background:radial-gradient(circle at 50% 40%,rgba(52,211,153,.35),transparent 40%),linear-gradient(180deg,#102018,#0a0a12)}
-.case.c5 .poster{background:radial-gradient(circle at 20% 80%,rgba(255,200,80,.3),transparent 40%),linear-gradient(160deg,#201810,#0a0a12)}
-.case.c6 .poster{background:radial-gradient(circle at 80% 20%,rgba(34,224,255,.3),transparent 40%),linear-gradient(200deg,#101828,#0a0a12)}
+.case-card .case-body{position:relative;inset:auto;padding:18px 18px 20px;background:linear-gradient(180deg,rgba(12,12,18,.96),rgba(8,8,12,.98));z-index:1;flex:1;display:flex;flex-direction:column}
 .case-body{position:absolute;inset:auto 0 0;padding:18px;background:linear-gradient(transparent,rgba(0,0,0,.88));z-index:1}
 .case-kicker{font-size:12px;color:var(--accent);font-weight:600;margin-bottom:4px}
-.case-title{font-family:var(--display);font-weight:800;font-size:1.05rem;margin:0 0 6px}
-.case-stats{display:flex;gap:14px;font-size:12px;color:rgba(255,255,255,.7)}
+.case-title{font-family:var(--display);font-weight:800;font-size:1.08rem;margin:0 0 10px;line-height:1.25}
+.case-stats{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:rgba(255,255,255,.7)}
 .case-stats strong{color:#fff;display:block;font-size:15px;font-family:var(--display)}
+.case-outcomes{margin:10px 0 14px;padding-top:10px;border-top:1px solid rgba(255,255,255,.08)}
+.case-outcomes div{min-width:72px}
+.cases-note{margin-top:18px;text-align:center}
+.process-price-link{margin-top:28px;padding:16px 18px;border:1px dashed rgba(34,224,255,.28);border-radius:16px;background:rgba(34,224,255,.04)}
+.process-price-link p{margin:0;color:var(--muted);font-size:14px}
+.process-price-link a{color:var(--accent);font-weight:700;text-decoration:underline;text-underline-offset:3px}
+
+/* Pricing tabs + fast menu board */
+.price-tabs{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 22px}
+.price-tab{padding:10px 18px;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--muted);font-size:14px;font-weight:600;cursor:pointer;transition:.2s}
+.price-tab.active,.price-tab:hover{color:var(--text);border-color:rgba(34,224,255,.4);background:rgba(34,224,255,.1)}
+.price-panel[hidden]{display:none!important}
+.fast-head,.packs-head{margin-bottom:16px}
+.fast-head h3,.packs-head h3{margin:0 0 6px;font-family:var(--display);font-size:1.25rem}
+.fast-head p,.packs-head p{margin:0 0 10px;color:var(--muted);font-size:14px;max-width:60ch}
+.fast-badge{display:inline-flex;align-items:center;padding:5px 12px;border-radius:999px;font-size:12px;font-weight:700;letter-spacing:.02em;color:#b8f7ff;background:rgba(34,224,255,.12);border:1px solid rgba(34,224,255,.3)}
+.fast-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:18px 0 8px}
+.fast-card{position:relative;padding:22px 20px;border-radius:18px;border:1px solid var(--line);background:var(--card);display:flex;flex-direction:column;gap:8px;min-height:210px}
+.fast-card.featured{border-color:rgba(34,224,255,.45);background:linear-gradient(180deg,rgba(34,224,255,.1),rgba(18,18,26,.92));box-shadow:0 16px 48px rgba(34,224,255,.1)}
+.fast-tag{position:absolute;top:12px;right:12px;font-size:11px;font-weight:700;padding:4px 8px;border-radius:999px;background:rgba(34,224,255,.16);color:var(--accent)}
+.fast-label{font-family:var(--display);font-weight:800;font-size:1.12rem;line-height:1.2}
+.fast-desc{font-size:13px;color:var(--muted);line-height:1.4;flex:1}
+.fast-price{font-family:var(--display);font-weight:800;font-size:clamp(1.45rem,2.4vw,1.85rem);color:#fff;margin:4px 0 10px}
+.fast-price span{font-size:.65em;color:var(--accent)}
+.fast-card .btn{margin-top:auto}
 
 /* Pricing */
 .price-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;align-items:stretch}
@@ -322,7 +345,7 @@ footer{padding:48px 0 28px;border-top:1px solid var(--line);margin-top:40px}
 .sep{height:1px;background:var(--line);margin:8px 0}
 
 @media (max-width:1100px){
-  .grid-3,.cases-grid,.price-grid{grid-template-columns:repeat(2,1fr)}
+  .grid-3,.cases-grid,.price-grid,.fast-grid{grid-template-columns:repeat(2,1fr)}
   .price-grid .price:last-child{grid-column:1 / -1}
 }
 @media (max-width:900px){
@@ -338,7 +361,7 @@ footer{padding:48px 0 28px;border-top:1px solid var(--line);margin-top:40px}
   body{padding-bottom:76px}
 }
 @media (max-width:640px){
-  .grid-3,.cases-grid,.price-grid,.contact-grid,.footer-grid{grid-template-columns:1fr}
+  .grid-3,.cases-grid,.price-grid,.fast-grid,.contact-grid,.footer-grid{grid-template-columns:1fr}
   .price-grid .price:last-child{grid-column:auto}
   .step{grid-template-columns:1fr;gap:10px}
   .hero{min-height:auto;padding-top:calc(var(--nav) + 28px)}
@@ -552,7 +575,7 @@ footer{padding:48px 0 28px;border-top:1px solid var(--line);margin-top:40px}
       <a href="#fit">Кому подходит</a>
       <a href="#cases">Кейсы</a>
       <a href="#process">Процесс</a>
-      <a href="#pricing">Пакеты</a>
+      <a href="#prices-fast">Цены</a>
       <a href="#faq">Вопросы</a>
       <a href="#contact">Контакты</a>
     </nav>
@@ -567,7 +590,7 @@ footer{padding:48px 0 28px;border-top:1px solid var(--line);margin-top:40px}
   <a href="#fit">Кому подходит</a>
   <a href="#cases">Кейсы</a>
   <a href="#process">Процесс</a>
-  <a href="#pricing">Пакеты</a>
+  <a href="#prices-fast">Цены</a>
   <a href="#faq">Вопросы</a>
   <a href="#contact">Контакты</a>
   <a class="btn btn-primary" href="#contact">Получить предложение</a>
@@ -906,24 +929,8 @@ footer{padding:48px 0 28px;border-top:1px solid var(--line);margin-top:40px}
           </div>
         </article>
       </div>
-
-      <div style="margin-top:36px">
-        <div class="section-h" style="margin-bottom:16px">
-          <div class="eyebrow">Форматы</div>
-          <h2 style="font-size:clamp(1.3rem,2.4vw,1.8rem)">Формат → срок → ориентир цены</h2>
-        </div>
-        <div class="format-wrap">
-          <table class="format-table">
-            <thead><tr><th>Формат</th><th>Срок</th><th>Ориентир</th></tr></thead>
-            <tbody>
-              <tr><td>Короткий ролик 15–30с (Reels / Shorts / Stories)</td><td>7–14 дней</td><td>от 90 000 ₽</td></tr>
-              <tr><td>OLV / преролл 15–30с</td><td>14–21 день</td><td>от 180 000 ₽</td></tr>
-              <tr><td>Hero + адаптации 16:9 / 9:16 / 1:1</td><td>21–35 дней</td><td>от 380 000 ₽</td></tr>
-              <tr><td>Пакет + медиазакупка / мес</td><td>ongoing</td><td>от 250 000 ₽/мес</td></tr>
-            </tbody>
-          </table>
-        </div>
-        <p class="price-note">Финальная смета — после брифа. Без скрытых доплат за базовые правки в рамках договора.</p>
+      <div class="process-price-link reveal">
+        <p>Нужен ориентир по one-off? Смотрите <a href="#prices-fast">быстрые форматы</a> — цены на странице, без звонка «узнать прайс».</p>
       </div>
     </div>
   </section>
@@ -932,143 +939,193 @@ footer{padding:48px 0 28px;border-top:1px solid var(--line);margin-top:40px}
   <section class="section" id="cases">
     <div class="container">
       <div class="section-h reveal">
-        <div class="eyebrow">Кейсы как продажи</div>
-        <h2>Задача → решение → результат</h2>
-        <p class="lead">Категории без чужих логотипов. Цифры — структура типичных кампаний; подставим ваши метрики после доступа к кабинетам.</p>
+        <div class="eyebrow">Реальные работы</div>
+        <h2>Кейсы: задача → что сделали → результат</h2>
+        <p class="lead">Превью — из нашего продакшена. Без чужих логотипов и накрученных процентов. Где нет доступа к кабинету клиента — говорим о формате, сроке и сдаче.</p>
       </div>
-      <div class="cases-tabs" role="tablist">
-        <button class="tab active" data-filter="all">Все</button>
-        <button class="tab" data-filter="retail">Ритейл</button>
-        <button class="tab" data-filter="fintech">Финтех</button>
-        <button class="tab" data-filter="pharma">Фарма</button>
-        <button class="tab" data-filter="brand">Бренд</button>
-      </div>
-      <div class="cases-grid" id="casesGrid">
-        <article class="case c1 reveal" data-cat="retail">
-          <div class="media"><video data-case src="orbita-video.mp4" muted playsinline loop preload="metadata"></video></div>
+      <div class="cases-grid cases-grid-trust" id="casesGrid">
+        <article class="case case-card reveal" data-cat="spot">
+          <div class="media">
+            <video data-case src="work-kazakhstan.mp4" muted playsinline loop preload="metadata" poster="still-12.jpg"></video>
+          </div>
           <div class="case-body">
-            <div class="case-kicker">Ритейл · YouTube</div>
-            <h3 class="case-title">Перформанс-серия 0:30</h3>
-            <p class="case-task"><strong>Задача:</strong> снизить CPV при росте просмотров</p>
-            <p class="case-sol"><strong>Решение:</strong> хук в 3 сек + 6 версий под A/B</p>
-            <div class="case-stats"><div><strong>+312%</strong>просмотры</div><div><strong>−64%</strong>CPV</div></div>
-            <a class="case-cta" href="#contact">Хочу так же</a>
+            <div class="case-kicker">YouTube / OLV · 0:30</div>
+            <h3 class="case-title">Перформанс-ролик под запуск</h3>
+            <p class="case-task"><strong>Задача:</strong> понятный рекламный ролик 15–30 сек, который держит внимание с первых секунд и готов к медиазапуску.</p>
+            <p class="case-sol"><strong>Что сделали:</strong> сценарий с хуком → продакшен → монтаж → мастер 16:9 и вертикальная адаптация.</p>
+            <div class="case-stats case-outcomes">
+              <div><strong>0:30</strong>формат</div>
+              <div><strong>2–3 нед.</strong>срок</div>
+              <div><strong>мастер + 9:16</strong>сдача</div>
+            </div>
+            <a class="case-cta" href="#contact" data-prefill="Кейс: перформанс-ролик 0:30 как в портфолио — хочу так же">Хочу так же</a>
           </div>
         </article>
-        <article class="case c2 reveal reveal-delay-2" data-cat="fintech">
-          <div class="media"><div class="poster"></div></div>
+        <article class="case case-card reveal reveal-delay-1" data-cat="brand">
+          <div class="media">
+            <video data-case src="work-01.mp4" muted playsinline loop preload="metadata" poster="still-01.jpg"></video>
+          </div>
           <div class="case-body">
-            <div class="case-kicker">Финтех · Brand film</div>
-            <h3 class="case-title">Имиджевый OLV</h3>
-            <p class="case-task"><strong>Задача:</strong> досмотр и конверсия в заявку</p>
-            <p class="case-sol"><strong>Решение:</strong> story-driven сценарий + CTA-хвост</p>
-            <div class="case-stats"><div><strong>4.8×</strong>конверсия</div><div><strong>78%</strong>досмотр</div></div>
-            <a class="case-cta" href="#contact">Хочу так же</a>
+            <div class="case-kicker">Brand film · 16:9</div>
+            <h3 class="case-title">Имиджевый ролик с сильным первым кадром</h3>
+            <p class="case-task"><strong>Задача:</strong> бренд-видео, которое выглядит как агентская работа, а не «ролик из Telegram-канала за вчера».</p>
+            <p class="case-sol"><strong>Что сделали:</strong> story-driven сценарий, цветокор, end-card под CTA, версии под OLV и соцсети.</p>
+            <div class="case-stats case-outcomes">
+              <div><strong>16:9</strong>мастер</div>
+              <div><strong>9:16 / 1:1</strong>адаптации</div>
+              <div><strong>к запуску</strong>готовность</div>
+            </div>
+            <a class="case-cta" href="#contact" data-prefill="Кейс: имиджевый brand film — хочу так же">Хочу так же</a>
           </div>
         </article>
-        <article class="case c3 reveal reveal-delay-3" data-cat="pharma">
-          <div class="media"><video data-case src="orbita-bg.mp4" muted playsinline loop preload="metadata"></video></div>
+        <article class="case case-card reveal reveal-delay-2" data-cat="shorts">
+          <div class="media">
+            <video data-case src="work-03.mp4" muted playsinline loop preload="metadata" poster="still-08.jpg"></video>
+          </div>
           <div class="case-body">
-            <div class="case-kicker">Фарма · TikTok + Reels</div>
-            <h3 class="case-title">Пакет коротких роликов</h3>
-            <p class="case-task"><strong>Задача:</strong> охват и удержание 3 сек</p>
-            <p class="case-sol"><strong>Решение:</strong> 24 вертикали в одном пайплайне</p>
-            <div class="case-stats"><div><strong>×5.6</strong>охват</div><div><strong>89%</strong>удержание 3с</div></div>
-            <a class="case-cta" href="#contact">Хочу так же</a>
+            <div class="case-kicker">Reels / Shorts / TikTok</div>
+            <h3 class="case-title">Пакет коротких вертикалей</h3>
+            <p class="case-task"><strong>Задача:</strong> серия роликов до 15 сек для теста гипотез — единый стиль, разные хуки.</p>
+            <p class="case-sol"><strong>Что сделали:</strong> пайплайн продакшена, хук в 1–3 сек, несколько версий под A/B без потери визуального языка.</p>
+            <div class="case-stats case-outcomes">
+              <div><strong>до 15 сек</strong>хронометраж</div>
+              <div><strong>от 7 дней</strong>срок</div>
+              <div><strong>серия</strong>сдача</div>
+            </div>
+            <a class="case-cta" href="#contact" data-prefill="Кейс: пакет Reels/Shorts — хочу так же">Хочу так же</a>
           </div>
         </article>
-        <article class="case c4 reveal" data-cat="retail">
-          <div class="media"><div class="poster"></div></div>
-          <div class="case-body">
-            <div class="case-kicker">E-com · Stories</div>
-            <h3 class="case-title">UGC под CPA</h3>
-            <p class="case-task"><strong>Задача:</strong> заявки без «глянца»</p>
-            <p class="case-sol"><strong>Решение:</strong> UGC-серия + нативные офферы</p>
-            <div class="case-stats"><div><strong>2.1M</strong>просмотры</div><div><strong>−41%</strong>CPA</div></div>
-            <a class="case-cta" href="#contact">Хочу так же</a>
+        <article class="case case-card reveal reveal-delay-3" data-cat="stories">
+          <div class="media">
+            <video data-case src="work-02.mp4" muted playsinline loop preload="metadata" poster="still-14.jpg"></video>
           </div>
-        </article>
-        <article class="case c5 reveal reveal-delay-2" data-cat="brand">
-          <div class="media"><div class="poster"></div></div>
           <div class="case-body">
-            <div class="case-kicker">Бренд · OLV</div>
-            <h3 class="case-title">Преролл с CTR</h3>
-            <p class="case-task"><strong>Задача:</strong> кликабельный преролл</p>
-            <p class="case-sol"><strong>Решение:</strong> оффер в первые кадры + end-card</p>
-            <div class="case-stats"><div><strong>6.8%</strong>CTR</div><div><strong>184К</strong>досмотры</div></div>
-            <a class="case-cta" href="#contact">Хочу так же</a>
-          </div>
-        </article>
-        <article class="case c6 reveal reveal-delay-3" data-cat="brand">
-          <div class="media"><div class="poster"></div></div>
-          <div class="case-body">
-            <div class="case-kicker">Бренд · Rutube</div>
-            <h3 class="case-title">Серия под лиды</h3>
-            <p class="case-task"><strong>Задача:</strong> лиды с досмотром</p>
-            <p class="case-sol"><strong>Решение:</strong> сериал + единый CTA</p>
-            <div class="case-stats"><div><strong>81%</strong>досмотр</div><div><strong>+2.4×</strong>лиды</div></div>
-            <a class="case-cta" href="#contact">Хочу так же</a>
+            <div class="case-kicker">Stories · 9:16</div>
+            <h3 class="case-title">Сторис и лёгкий motion под оффер</h3>
+            <p class="case-task"><strong>Задача:</strong> нативные сторис/посты — быстро, читаемо, без «глянцевой рекламы ради рекламы».</p>
+            <p class="case-sol"><strong>Что сделали:</strong> статика + лёгкий motion, оффер в кадре, пакет под регулярные публикации.</p>
+            <div class="case-stats case-outcomes">
+              <div><strong>9:16</strong>формат</div>
+              <div><strong>1–5 шт</strong>объём</div>
+              <div><strong>быстрый цикл</strong>правки</div>
+            </div>
+            <a class="case-cta" href="#contact" data-prefill="Кейс: сторис / пост пакет — хочу так же">Хочу так же</a>
           </div>
         </article>
       </div>
+      <p class="price-note cases-note">Метрики кабинетов показываем по NDA после брифа. Здесь — честно: что сняли, в каком формате и за какой цикл сдали.</p>
     </div>
-</section>
+  </section>
 
   <!-- PRICING -->
   <section class="section" id="pricing" style="background:var(--bg2)">
     <div class="container">
       <div class="section-h reveal">
-        <div class="eyebrow">Пакеты</div>
-        <h2>Лестница оффера — прозрачно</h2>
-        <p class="lead">Ориентиры по объёму. Финальная смета — после брифа, в рублях, по договору. Популярный пакет закрывает большинство заказов на ролик + запуск.</p>
+        <div class="eyebrow">Цены</div>
+        <h2>Сначала видите цену — потом пишете</h2>
+        <p class="lead">Одноразовые форматы — как меню. Пакеты кампаний — отдельно. Все цены «от»: финал после брифа, в рублях, по договору.</p>
       </div>
-      <div class="price-grid">
-        <article class="price reveal">
-          <div class="name">Старт</div>
-          <div class="sum">от 250 000 <span>₽</span></div>
-          <div class="desc">Один ролик / локальный запуск</div>
-          <ul>
-            <li>Сценарий + съёмка + монтаж</li>
-            <li>1 приоритетный канал</li>
-            <li>2 раунда правок по брифу</li>
-            <li>Мастер + веб-версии</li>
-          </ul>
-          <a class="btn btn-ghost btn-block" href="#contact">Заказать ролик</a>
-        </article>
-        <article class="price popular reveal reveal-delay-1">
-          <div class="badge-pop">Популярный</div>
-          <div class="name">Рост</div>
-          <div class="sum">от 650 000 <span>₽</span></div>
-          <div class="desc">Серия роликов + запуск и A/B</div>
-          <ul>
-            <li>Пакет креативов под 2–4 канала</li>
-            <li>Адаптации 16:9 / 9:16 / 1:1</li>
-            <li>A/B на реальном трафике</li>
-            <li>Дашборд метрик и синки</li>
-            <li>Приоритетная поддержка</li>
-          </ul>
-          <a class="btn btn-primary btn-block" href="#contact">Получить предложение</a>
-        </article>
-        <article class="price reveal reveal-delay-2">
-          <div class="name">Энтерпрайз</div>
-          <div class="sum">индивидуально</div>
-          <div class="desc">Сетевой бренд / большой объём</div>
-          <ul>
-            <li>Выделенная команда под бренд</li>
-            <li>Серии, интеграции, SLA</li>
-            <li>Медиазакупка и отчётность</li>
-            <li>NDA и договор под закупку</li>
-          </ul>
-          <a class="btn btn-ghost btn-block" href="#contact">Обсудить условия</a>
-        </article>
+
+      <div class="price-tabs" role="tablist" aria-label="Тип цен">
+        <button type="button" class="price-tab active" data-price-tab="fast" aria-selected="true">Быстрые форматы</button>
+        <button type="button" class="price-tab" data-price-tab="packs" aria-selected="false">Пакеты кампаний</button>
       </div>
+
+      <div class="price-panel" id="prices-fast" data-price-panel="fast">
+        <div class="fast-head reveal">
+          <h3>Быстрые форматы · one-off</h3>
+          <p>Минимальные ориентиры, чтобы открыли страницу и сразу увидели порядок цифр. Не нужно звонить «просто узнать цену».</p>
+          <span class="fast-badge">цены от · финал после брифа</span>
+        </div>
+        <div class="fast-grid reveal">
+          <article class="fast-card">
+            <div class="fast-label">Сторис / пост</div>
+            <div class="fast-desc">Статика или лёгкий motion · 1 шт</div>
+            <div class="fast-price">от 12 000 <span>₽</span></div>
+            <a class="btn btn-primary btn-block" href="#contact" data-prefill="Заказ формата: Сторис / пост (1 шт), ориентир от 12 000 ₽">Заказать формат</a>
+          </article>
+          <article class="fast-card">
+            <div class="fast-label">Пакет 5 сторис</div>
+            <div class="fast-desc">Единый стиль · серия под публикации</div>
+            <div class="fast-price">от 35 000 <span>₽</span></div>
+            <a class="btn btn-primary btn-block" href="#contact" data-prefill="Заказ формата: Пакет 5 сторис, ориентир от 35 000 ₽">Заказать формат</a>
+          </article>
+          <article class="fast-card">
+            <div class="fast-label">Reels / Shorts</div>
+            <div class="fast-desc">До 15 секунд · вертикаль 9:16</div>
+            <div class="fast-price">от 35 000 <span>₽</span></div>
+            <a class="btn btn-primary btn-block" href="#contact" data-prefill="Заказ формата: Reels / Shorts до 15 сек, ориентир от 35 000 ₽">Заказать формат</a>
+          </article>
+          <article class="fast-card featured">
+            <div class="fast-tag">Рекламный ролик</div>
+            <div class="fast-label">Ролик 15–30 сек</div>
+            <div class="fast-desc">Короткий рекламный спот · сценарий + монтаж</div>
+            <div class="fast-price">от 80 000 <span>₽</span></div>
+            <a class="btn btn-primary btn-block" href="#contact" data-prefill="Заказ формата: Короткий рекламный ролик 15–30 сек, ориентир от 80 000 ₽">Заказать формат</a>
+          </article>
+          <article class="fast-card">
+            <div class="fast-label">Адаптация ролика</div>
+            <div class="fast-desc">Один ролик → 9:16 / 1:1</div>
+            <div class="fast-price">от 12 000 <span>₽</span></div>
+            <a class="btn btn-primary btn-block" href="#contact" data-prefill="Заказ формата: Адаптация ролика в 9:16 / 1:1, ориентир от 12 000 ₽">Заказать формат</a>
+          </article>
+        </div>
+        <p class="price-note">Это стартовые «от» по рынку one-off. Сложный продакшен, съёмка с актёрами, лицензии и медиазакупка — в отдельной смете.</p>
+      </div>
+
+      <div class="price-panel" id="prices-packs" data-price-panel="packs" hidden>
+        <div class="packs-head reveal">
+          <h3>Пакеты кампаний · не путать с one-off</h3>
+          <p>Объём под запуск: сценарий, продакшен, адаптации, поддержка. Популярный пакет закрывает большинство заказов «ролик + запуск».</p>
+        </div>
+        <div class="price-grid">
+          <article class="price reveal">
+            <div class="name">Старт</div>
+            <div class="sum">от 250 000 <span>₽</span></div>
+            <div class="desc">Один ролик / локальный запуск</div>
+            <ul>
+              <li>Сценарий + съёмка + монтаж</li>
+              <li>1 приоритетный канал</li>
+              <li>2 раунда правок по брифу</li>
+              <li>Мастер + веб-версии</li>
+            </ul>
+            <a class="btn btn-ghost btn-block" href="#contact" data-prefill="Пакет Старт: от 250 000 ₽ — обсудить">Заказать ролик</a>
+          </article>
+          <article class="price popular reveal reveal-delay-1">
+            <div class="badge-pop">Популярный</div>
+            <div class="name">Рост</div>
+            <div class="sum">от 650 000 <span>₽</span></div>
+            <div class="desc">Серия роликов + запуск и A/B</div>
+            <ul>
+              <li>Пакет креативов под 2–4 канала</li>
+              <li>Адаптации 16:9 / 9:16 / 1:1</li>
+              <li>A/B на реальном трафике</li>
+              <li>Дашборд метрик и синки</li>
+              <li>Приоритетная поддержка</li>
+            </ul>
+            <a class="btn btn-primary btn-block" href="#contact" data-prefill="Пакет Рост: от 650 000 ₽ — получить предложение">Получить предложение</a>
+          </article>
+          <article class="price reveal reveal-delay-2">
+            <div class="name">Энтерпрайз</div>
+            <div class="sum">индивидуально</div>
+            <div class="desc">Сетевой бренд / большой объём</div>
+            <ul>
+              <li>Выделенная команда под бренд</li>
+              <li>Серии, интеграции, SLA</li>
+              <li>Медиазакупка и отчётность</li>
+              <li>NDA и договор под закупку</li>
+            </ul>
+            <a class="btn btn-ghost btn-block" href="#contact" data-prefill="Пакет Энтерпрайз — обсудить условия">Обсудить условия</a>
+          </article>
+        </div>
+      </div>
+
       <div class="guarantee" aria-label="Гарантии">
         <span class="chip"><i></i>Договор и закрывающие</span>
         <span class="chip"><i></i>Правки по брифу</span>
         <span class="chip"><i></i>Ответ за 24 часа</span>
         <span class="chip"><i></i>NDA до старта</span>
       </div>
-      <p class="price-note">Один цикл: съёмка + адаптации + запуск — без трёх разных подрядчиков. Финальная смета после брифа.</p>
       <div class="cta-band reveal">
         <div>
           <h3>Разберём задачу за 24 часа</h3>
@@ -1141,7 +1198,7 @@ footer{padding:48px 0 28px;border-top:1px solid var(--line);margin-top:40px}
         <h4>Агентство</h4>
         <a href="#fit">Кому подходит</a>
         <a href="#cases">Кейсы</a>
-        <a href="#pricing">Тарифы</a>
+        <a href="#prices-fast">Цены</a>
         <a href="#process">Процесс</a>
       </div>
       <div>
@@ -1398,7 +1455,7 @@ footer{padding:48px 0 28px;border-top:1px solid var(--line);margin-top:40px}
   }
 })();
 
-  // Persona → contact prefill
+  // Persona / case / format -> contact prefill
   document.querySelectorAll("[data-persona]").forEach(function(a){
     a.addEventListener("click", function(){
       var map = {brand:"Бренд: имидж / OLV", ecom:"E-com: заявки и продажи", expert:"Эксперт: лиды и доверие"};
@@ -1406,6 +1463,41 @@ footer{padding:48px 0 28px;border-top:1px solid var(--line);margin-top:40px}
       if(about && !about.value) about.value = map[a.getAttribute("data-persona")] || "";
     });
   });
+  document.querySelectorAll("[data-prefill]").forEach(function(a){
+    a.addEventListener("click", function(){
+      var about = document.querySelector('textarea[name="about"]');
+      var msg = a.getAttribute("data-prefill");
+      if(about && msg) about.value = msg;
+    });
+  });
+
+  // Pricing tabs: Быстрые / Пакеты + deep links #prices-fast / #prices-packs
+  (function(){
+    var tabs = document.querySelectorAll("[data-price-tab]");
+    var panels = document.querySelectorAll("[data-price-panel]");
+    if(!tabs.length) return;
+    function show(name){
+      tabs.forEach(function(t){
+        var on = t.getAttribute("data-price-tab") === name;
+        t.classList.toggle("active", on);
+        t.setAttribute("aria-selected", on ? "true" : "false");
+      });
+      panels.forEach(function(p){
+        var on = p.getAttribute("data-price-panel") === name;
+        if(on) p.removeAttribute("hidden"); else p.setAttribute("hidden", "");
+      });
+    }
+    tabs.forEach(function(t){
+      t.addEventListener("click", function(){ show(t.getAttribute("data-price-tab")); });
+    });
+    function fromHash(){
+      var h = (location.hash || "").replace("#","");
+      if(h === "prices-packs") show("packs");
+      else if(h === "prices-fast" || h === "pricing") show("fast");
+    }
+    fromHash();
+    window.addEventListener("hashchange", fromHash);
+  })();
 
 
 
