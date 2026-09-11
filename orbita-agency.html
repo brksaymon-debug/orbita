@@ -1375,8 +1375,7 @@ body.rm-off .hero-chip {
   font-size:10px;letter-spacing:.28em;color:var(--text-faint);
   opacity:0;transform:translateY(8px);
 }
-#preloader.is-done{pointer-events:none;}
-#preloader.is-skip{display:none !important;}
+#preloader.is-done, #preloader.is-skip{opacity:0 !important;visibility:hidden !important;display:none !important;pointer-events:none !important;}
 @keyframes ploadSpin{to{transform:rotate(360deg)}}
 
 /* Cursor trail */
@@ -1666,6 +1665,50 @@ body.rm-off .film-grain{opacity:.04;}
   <div class="bar"><span id="pload"></span></div>
   <div class="pct mono" id="ppct">0%</div>
 </div>
+
+
+<script>
+/* Early preloader failsafe: starts before huge HTML/CDN parse; no GSAP */
+(function(){
+  var pre = document.getElementById('preloader');
+  if(!pre) return;
+  var done = false;
+  function forceHide(){
+    if(done || !pre) return;
+    if(pre.classList.contains('is-skip') || pre.style.display === 'none'){ done = true; return; }
+    done = true;
+    try {
+      pre.style.opacity = '0';
+      pre.style.visibility = 'hidden';
+      pre.style.display = 'none';
+      pre.classList.add('is-skip');
+      if(document.body) document.body.classList.add('pre-done');
+    } catch (e) {}
+  }
+  var t0 = (typeof performance !== 'undefined' && performance.now) ? performance.now() : Date.now();
+  /* Hard max 900ms from this early script (ticks while parser continues) */
+  setTimeout(forceHide, 900);
+  /* Sooner on first paint while still parsing (hang case) */
+  if(typeof requestAnimationFrame === 'function'){
+    requestAnimationFrame(function(){
+      requestAnimationFrame(function(){
+        if(document.readyState !== 'loading') return;
+        var now = (typeof performance !== 'undefined' && performance.now) ? performance.now() : Date.now();
+        var elapsed = now - t0;
+        setTimeout(forceHide, Math.max(0, 300 - elapsed));
+      });
+    });
+  }
+  function onDCL(){
+    if(pre && pre.style.display !== 'none' && !pre.classList.contains('is-skip')) forceHide();
+  }
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', onDCL, {once:true});
+  } else {
+    onDCL();
+  }
+})();
+</script>
 
 <header id="header">
   <div class="container">
@@ -2340,7 +2383,7 @@ body.rm-off .film-grain{opacity:.04;}
 <script>
 gsap.registerPlugin(ScrollTrigger);
 
-/* ---------- Preloader (≤1.2s; skip on reduced-motion / revisit) ---------- */
+/* ---------- Preloader (~1s; skip on reduced-motion / revisit; no window.load) ---------- */
 (function(){
   const pre = document.getElementById('preloader');
   const bar = document.getElementById('pload');
@@ -2348,35 +2391,62 @@ gsap.registerPlugin(ScrollTrigger);
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     || document.body.classList.contains('rm-off');
   const seen = (()=>{ try{ return sessionStorage.getItem('orbita_pre_seen')==='1'; }catch(_){ return false; } })();
+  const tStart = (typeof performance !== 'undefined' && performance.now) ? performance.now() : Date.now();
+
+  function cssHide(el){
+    if(!el) return;
+    el.style.opacity = '0';
+    el.style.visibility = 'hidden';
+    el.style.display = 'none';
+    el.classList.add('is-done');
+    el.classList.add('is-skip');
+  }
+
+  function forceHide(){
+    if(!pre) return;
+    cssHide(pre);
+    document.body.classList.add('pre-done');
+    const hero = document.querySelector('.hero');
+    if(hero) hero.classList.add('is-ready');
+  }
 
   function finish(){
     try{ sessionStorage.setItem('orbita_pre_seen','1'); }catch(_){}
     if(!pre){ playHero(); return; }
-    pre.classList.add('is-done');
+    // Always apply plain CSS hide (do not rely only on GSAP onComplete)
     const hide = ()=>{
-      pre.style.display = 'none';
-      pre.classList.add('is-skip');
+      cssHide(pre);
       document.body.classList.add('pre-done');
       const hero = document.querySelector('.hero');
       if(hero) hero.classList.add('is-ready');
       playHero();
     };
+    pre.classList.add('is-done');
     if(reduce || seen || typeof gsap === 'undefined'){
       hide();
       return;
     }
-    gsap.to(pre, {opacity:0, duration:.35, ease:'power2.out', onComplete:hide});
+    try {
+      gsap.to(pre, {opacity:0, duration:.35, ease:'power2.out', onComplete:hide});
+      // CSS backup if onComplete never fires
+      setTimeout(hide, 500);
+    } catch (_) {
+      hide();
+    }
   }
 
   function runShort(){
-    if(!pre){ finish(); return; }
+    if(!pre || pre.classList.contains('is-skip') || pre.style.display === 'none'){
+      document.body.classList.add('pre-done');
+      playHero();
+      return;
+    }
     if(reduce || seen){
       if(bar) bar.style.width = '100%';
       if(pct) pct.textContent = '100%';
       finish();
       return;
     }
-    // branded reveal ≤1.2s
     if(typeof gsap !== 'undefined'){
       gsap.to('#preloader .mark', {opacity:1, y:0, duration:.4, ease:'power3.out'});
       gsap.to('#preloader .pload-tag', {opacity:1, y:0, duration:.4, delay:.12, ease:'power3.out'});
@@ -2385,8 +2455,9 @@ gsap.registerPlugin(ScrollTrigger);
       const t = pre.querySelector('.pload-tag'); if(t){ t.style.opacity=1; t.style.transform='none'; }
     }
     const t0 = performance.now();
-    const DUR = 1000;
+    const DUR = 900;
     function tick(now){
+      if(pre.classList.contains('is-skip') || pre.style.display === 'none') return;
       const p = Math.min(100, ((now - t0) / DUR) * 100);
       if(bar) bar.style.width = p + '%';
       if(pct) pct.textContent = Math.floor(p) + '%';
@@ -2396,10 +2467,23 @@ gsap.registerPlugin(ScrollTrigger);
     requestAnimationFrame(tick);
   }
 
-  if(document.readyState === 'complete') runShort();
-  else window.addEventListener('load', runShort, {once:true});
-  // hard cap so we never block scroll >1.2s
-  setTimeout(()=>{ if(pre && pre.style.display !== 'none' && !pre.classList.contains('is-done')) finish(); }, 1200);
+  // Do NOT wait for window.load — run immediately / on DOMContentLoaded
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', runShort, {once:true});
+  } else {
+    runShort();
+  }
+  // Hard cap ~900ms from IIFE start (backup)
+  setTimeout(function(){
+    if(pre && pre.style.display !== 'none' && !pre.classList.contains('is-skip')) finish();
+  }, 900);
+  // Absolute failsafe
+  setTimeout(function(){
+    if(pre && pre.style.display !== 'none'){
+      forceHide();
+      try { playHero(); } catch (_) {}
+    }
+  }, 1500);
 })();
 
 /* ---------- Hero text reveal ---------- */
