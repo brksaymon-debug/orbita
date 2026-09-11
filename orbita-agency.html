@@ -734,6 +734,60 @@ body{padding-bottom:76px}
   .hero-copy .btn-giant{width:100%;text-align:center}
 }
 
+
+/* Client path doors */
+.section-paths{padding:8px 0 8px;position:relative;z-index:2}
+.paths-head{margin:0 0 18px;max-width:42ch}
+.paths-head h2{margin:0;font-size:clamp(1.45rem,2.6vw,2rem);letter-spacing:-.02em}
+.paths-head .lead{margin:8px 0 0;color:var(--muted);font-size:15px;line-height:1.45}
+.path-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.path-card{
+  appearance:none;-webkit-appearance:none;cursor:pointer;text-align:left;
+  display:flex;flex-direction:column;gap:8px;min-height:168px;
+  padding:20px 18px 18px;border-radius:20px;
+  border:1px solid var(--line);background:rgba(255,255,255,.03);
+  color:var(--text);transition:border-color .2s,background .2s,box-shadow .2s,transform .2s;
+  font:inherit;
+}
+.path-card:hover{border-color:rgba(34,224,255,.35);background:rgba(34,224,255,.04);transform:translateY(-1px)}
+.path-card:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.path-card.is-active{
+  border-color:rgba(34,224,255,.55);
+  background:linear-gradient(160deg,rgba(34,224,255,.12),rgba(255,255,255,.03));
+  box-shadow:0 0 0 1px rgba(34,224,255,.25),0 16px 40px rgba(0,0,0,.28);
+}
+.path-eyebrow{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+.path-card h3{margin:0;font-size:1.15rem;letter-spacing:-.02em;line-height:1.2}
+.path-card p{margin:0;flex:1;font-size:13.5px;line-height:1.45;color:var(--muted)}
+.path-cta{
+  display:inline-flex;align-self:flex-start;margin-top:6px;padding:8px 12px;border-radius:999px;
+  font-size:12.5px;font-weight:700;letter-spacing:-.01em;
+  color:var(--accent);background:rgba(34,224,255,.1);border:1px solid rgba(34,224,255,.22);
+}
+.path-card.is-active .path-cta{background:rgba(34,224,255,.18);border-color:rgba(34,224,255,.4);color:#fff}
+.path-tip{
+  margin:14px 0 0;padding:12px 14px;border-radius:14px;
+  border:1px solid rgba(34,224,255,.2);background:rgba(34,224,255,.06);
+  font-size:13.5px;line-height:1.45;color:rgba(255,255,255,.85);
+  min-height:1.45em;
+}
+.path-tip[hidden]{display:none !important}
+/* Price highlight when a path is chosen */
+.section-prices.path-filter-on .fast-card,
+.section-prices.path-filter-on .price{opacity:.42;transform:scale(.985);transition:opacity .25s,transform .25s,box-shadow .25s,border-color .25s}
+.section-prices.path-filter-on .fast-card.path-hit,
+.section-prices.path-filter-on .price.path-hit{
+  opacity:1;transform:none;
+  border-color:rgba(34,224,255,.45);
+  box-shadow:0 0 0 1px rgba(34,224,255,.28),0 12px 32px rgba(34,224,255,.12);
+}
+.section-prices.path-filter-on .price-panel:not(.path-panel-hit){opacity:.55;transition:opacity .25s}
+.section-prices.path-filter-on .price-panel.path-panel-hit{opacity:1}
+@media (max-width:800px){
+  .path-grid{grid-template-columns:1fr}
+  .path-card{min-height:0}
+}
+
 </style>
 </head>
 <body>
@@ -1063,7 +1117,38 @@ body{padding-bottom:76px}
     </div>
   </section>
 
-    <section class="section section-prices" id="pricing">
+  
+  <section class="section section-paths" id="paths" aria-label="С чего начнём">
+    <div class="container">
+      <div class="paths-head reveal">
+        <h2>С чего начнём?</h2>
+        <p class="lead">Три входа — один сайт. Выберите свой путь: подсветим форматы и цены.</p>
+      </div>
+      <div class="path-grid" role="list">
+        <button type="button" class="path-card" data-path="newbie" role="listitem" aria-pressed="false">
+          <div class="path-eyebrow">Новичок</div>
+          <h3>Первый бизнес</h3>
+          <p>Поможем выбрать: сторис, пост или короткий TikTok — без лишнего.</p>
+          <span class="path-cta">Помогите выбрать</span>
+        </button>
+        <button type="button" class="path-card" data-path="business" role="listitem" aria-pressed="false">
+          <div class="path-eyebrow">Уже веду бизнес</div>
+          <h3>Reels и реклама</h3>
+          <p>Короткие ролики 15–30 сек, средние бюджеты, быстрый запуск.</p>
+          <span class="path-cta">Смотреть цены</span>
+        </button>
+        <button type="button" class="path-card" data-path="company" role="listitem" aria-pressed="false">
+          <div class="path-eyebrow">Компания / маркетинг</div>
+          <h3>Пакеты и договор</h3>
+          <p>Старт и Рост (от 250 / 650 тыс.), NDA, работа с продюсером.</p>
+          <span class="path-cta">Обсудить с продюсером</span>
+        </button>
+      </div>
+      <p class="path-tip" id="pathTip" hidden aria-live="polite"></p>
+    </div>
+  </section>
+
+  <section class="section section-prices" id="pricing">
     <div class="container">
       <div class="price-panel" id="prices-fast" data-price-panel="fast">
         <div class="fast-head reveal">
@@ -1071,32 +1156,32 @@ body{padding-bottom:76px}
           <span class="fast-badge">точная цена после короткого разговора</span>
         </div>
         <div class="fast-grid reveal">
-          <article class="fast-card">
+          <article class="fast-card" data-path-match="newbie">
             <div class="fast-label">1 сторис в Instagram</div>
             <div class="fast-desc">одна картинка или короткое видео</div>
             <div class="fast-price">от 12 000 <span>₽</span></div>
             <a class="btn btn-primary btn-block" href="#contact" data-prefill="Хочу 1 сторис в Instagram, ориентир от 12 000 ₽">Заказать</a>
           </article>
-          <article class="fast-card">
+          <article class="fast-card" data-path-match="newbie">
             <div class="fast-label">5 сторис в Instagram</div>
             <div class="fast-desc">пять в одном стиле</div>
             <div class="fast-price">от 35 000 <span>₽</span></div>
             <a class="btn btn-primary btn-block" href="#contact" data-prefill="Хочу 5 сторис в Instagram, ориентир от 35 000 ₽">Заказать</a>
           </article>
-          <article class="fast-card">
+          <article class="fast-card" data-path-match="newbie business">
             <div class="fast-label">короткое видео в TikTok</div>
             <div class="fast-desc">до 15 сек · Instagram / TikTok / YouTube</div>
             <div class="fast-price">от 35 000 <span>₽</span></div>
             <a class="btn btn-primary btn-block" href="#contact" data-prefill="Хочу короткое видео в TikTok / Instagram / YouTube, ориентир от 35 000 ₽">Заказать</a>
           </article>
-          <article class="fast-card featured">
+          <article class="fast-card featured" data-path-match="business">
             <div class="fast-tag">Ролик</div>
             <div class="fast-label">ролик 30 секунд</div>
             <div class="fast-desc">придумаем текст и смонтируем</div>
             <div class="fast-price">от 80 000 <span>₽</span></div>
             <a class="btn btn-primary btn-block" href="#contact" data-prefill="Хочу ролик около 30 секунд, ориентир от 80 000 ₽">Заказать</a>
           </article>
-          <article class="fast-card">
+          <article class="fast-card" data-path-match="business">
             <div class="fast-label">подогнать под телефон</div>
             <div class="fast-desc">переделать под вертикаль или квадрат</div>
             <div class="fast-price">от 12 000 <span>₽</span></div>
@@ -1108,20 +1193,20 @@ body{padding-bottom:76px}
       <div class="price-panel packs-compact" id="prices-packs" data-price-panel="packs">
         <div class="packs-head reveal"><h3>Если нужно больше</h3></div>
         <div class="price-grid">
-          <article class="price reveal">
+          <article class="price reveal" data-path-match="company">
             <div class="name">Старт</div>
             <div class="sum">от 250 000 <span>₽</span></div>
             <div class="desc">1 ролик + поможем запустить</div>
             <a class="btn btn-ghost btn-block" href="#contact" data-prefill="Пакет «Старт»: от 250 000 ₽ — обсудить">Заказать</a>
           </article>
-          <article class="price popular reveal reveal-delay-1">
+          <article class="price popular reveal reveal-delay-1" data-path-match="company">
             <div class="badge-pop">Популярный</div>
             <div class="name">Рост</div>
             <div class="sum">от 650 000 <span>₽</span></div>
             <div class="desc">несколько роликов + запуск + сравнение вариантов</div>
             <a class="btn btn-primary btn-block" href="#contact" data-prefill="Пакет «Рост»: от 650 000 ₽ — получить предложение">Заказать</a>
           </article>
-          <article class="price reveal reveal-delay-2">
+          <article class="price reveal reveal-delay-2" data-path-match="company">
             <div class="name">Для сетей</div>
             <div class="sum">индивидуально</div>
             <div class="desc">много точек · большой объём · свои условия</div>
@@ -1541,6 +1626,85 @@ body{padding-bottom:76px}
 
 
 
+
+
+  // Client path doors → highlight prices + prefill form
+  (function(){
+    var cards = document.querySelectorAll(".path-card[data-path]");
+    var tip = document.getElementById("pathTip");
+    var pricing = document.getElementById("pricing");
+    var about = document.querySelector('#leadForm textarea[name="about"]');
+    if(!cards.length || !pricing) return;
+
+    var META = {
+      newbie: {
+        tip: "Сторис и короткий TikTok — спокойная точка входа. Подсветили подходящие позиции ниже.",
+        prefill: "Путь: новичок / первый бизнес. Помогите выбрать формат (сторис / пост / короткий TikTok).",
+        panels: ["fast"],
+        match: ["newbie"]
+      },
+      business: {
+        tip: "Reels и ролики 15–30 сек обычно дают быстрый ответ аудитории. Средний ряд цен ниже.",
+        prefill: "Путь: уже веду бизнес. Нужны Reels / реклама 15–30 секунд.",
+        panels: ["fast"],
+        match: ["business"]
+      },
+      company: {
+        tip: "Пакеты Старт и Рост — с договором и NDA. Обсудим объём с продюсером.",
+        prefill: "Путь: компания / маркетинг. Обсудить пакет Старт/Рост с продюсером. Договор / NDA.",
+        panels: ["packs"],
+        match: ["company"]
+      }
+    };
+
+    function clearHits(){
+      pricing.classList.remove("path-filter-on");
+      pricing.querySelectorAll(".path-hit").forEach(function(el){ el.classList.remove("path-hit"); });
+      pricing.querySelectorAll(".path-panel-hit").forEach(function(el){ el.classList.remove("path-panel-hit"); });
+    }
+
+    function apply(path){
+      var meta = META[path];
+      if(!meta) return;
+      cards.forEach(function(c){
+        var on = c.getAttribute("data-path") === path;
+        c.classList.toggle("is-active", on);
+        c.setAttribute("aria-pressed", on ? "true" : "false");
+      });
+      clearHits();
+      pricing.classList.add("path-filter-on");
+      meta.panels.forEach(function(name){
+        var panel = pricing.querySelector('[data-price-panel="'+name+'"]');
+        if(panel) panel.classList.add("path-panel-hit");
+      });
+      pricing.querySelectorAll("[data-path-match]").forEach(function(el){
+        var tags = (el.getAttribute("data-path-match") || "").split(/\s+/);
+        if(meta.match.some(function(m){ return tags.indexOf(m) >= 0; })){
+          el.classList.add("path-hit");
+        }
+      });
+      if(tip){
+        tip.hidden = false;
+        tip.textContent = meta.tip;
+      }
+      if(about) about.value = meta.prefill;
+      // reveal both panels (tabs may hide one)
+      pricing.querySelectorAll("[data-price-panel]").forEach(function(p){
+        p.removeAttribute("hidden");
+      });
+      try {
+        pricing.scrollIntoView({behavior: "smooth", block: "start"});
+      } catch(_) {
+        location.hash = "#pricing";
+      }
+    }
+
+    cards.forEach(function(card){
+      card.addEventListener("click", function(){
+        apply(card.getAttribute("data-path"));
+      });
+    });
+  })();
 
   // Open «Ещё» when deep-linking into collapsed sections
   (function(){
