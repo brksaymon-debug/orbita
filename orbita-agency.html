@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
-  <meta name="orbita-build" content="20260912001039">
+  <meta name="orbita-build" content="20260912002544">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ОРБИТА — Видео и дизайн, которые продают</title>
 <meta name="description" content="Креативная студия: видеореклама, Reels, монтаж, баннеры, флаеры, афиши и key visual. Договор, NDA, юрлицо. Цены от — финал после брифа.">
@@ -467,6 +467,536 @@ h3{font-size:clamp(18px,2vw,22px)}
 @media (max-width:980px){.hero{min-height:min(88vh,860px)}.hero-overlay{padding-top:calc(68px + 18px);padding-bottom:28px}}
 @media (max-width:640px){.hero{min-height:min(86vh,780px)}.orbit-globe-legend{left:12px;bottom:10px;font-size:11px}.orbit-video-preview{width:min(130px,36vw)}.orbit-chip-row button{padding:9px 11px;font-size:10px}}
 
+
+/* ========== ART DIR 2026 — cinema + craft ========== */
+.hero{isolation:isolate}
+.hero::before{
+  content:"";position:absolute;inset:0;z-index:3;pointer-events:none;
+  background:
+    radial-gradient(ellipse 85% 70% at 50% 45%, transparent 35%, rgba(0,0,0,.35) 78%, rgba(0,0,0,.72) 100%),
+    linear-gradient(180deg, rgba(5,5,8,.5) 0%, transparent 22%, transparent 62%, rgba(5,5,8,.85) 100%);
+}
+.hero::after{
+  content:"";position:absolute;inset:0;z-index:3;pointer-events:none;opacity:.045;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size:180px 180px;mix-blend-mode:overlay;
+}
+.hero-overlay{
+  position:relative;z-index:4;padding:calc(68px + 36px) 0 88px;pointer-events:none;
+  background:transparent;display:flex;flex-direction:column;justify-content:flex-end;flex:1;
+  min-height:inherit;
+}
+.hero-overlay .wrap{pointer-events:none;width:min(100% - 32px,var(--max));margin-inline:auto}
+.hero-overlay .hero-copy,.hero-overlay .hero-actions a,.hero-overlay .btn{pointer-events:auto}
+.hero-copy{max-width:min(520px,92vw)}
+.hero-copy .eyebrow{margin-bottom:12px;text-shadow:0 2px 12px rgba(0,0,0,.5)}
+.hero-copy h1{
+  font-size:clamp(28px,4.6vw,48px);text-shadow:0 8px 40px rgba(0,0,0,.55);
+  max-width:16ch;
+}
+.hero-copy .lead{margin:14px 0 22px;max-width:38ch;color:rgba(242,242,244,.84);text-shadow:0 2px 16px rgba(0,0,0,.45)}
+.hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:0}
+.offer-pills{display:none!important}
+.hero-note{display:none!important}
+
+/* Cinema chip bar — pinned bottom of viewport/hero */
+.orbit-chip-bar{
+  position:absolute;left:0;right:0;bottom:0;z-index:5;
+  padding:10px 0 14px;
+  background:linear-gradient(180deg, transparent, rgba(5,5,8,.82) 40%, rgba(5,5,8,.94));
+  pointer-events:none;
+}
+.orbit-chip-bar .orbit-chip-row{
+  pointer-events:auto;display:flex;flex-wrap:nowrap;gap:8px;
+  max-width:none;margin:0;overflow-x:auto;padding:0 16px 2px;
+  -webkit-overflow-scrolling:touch;scrollbar-width:none;
+}
+.orbit-chip-bar .orbit-chip-row::-webkit-scrollbar{display:none}
+.orbit-chip-row button{
+  appearance:none;cursor:pointer;border:1px solid rgba(255,255,255,.14);
+  background:rgba(10,12,18,.7);color:#e8eef8;padding:8px 14px;border-radius:999px;
+  font:500 11px/1.2 var(--font,system-ui);letter-spacing:.04em;text-transform:uppercase;
+  backdrop-filter:blur(12px);transition:border-color .15s, transform .15s, background .15s, box-shadow .15s;
+  white-space:nowrap;flex:0 0 auto;
+}
+.orbit-chip-row button:hover,.orbit-chip-row button:focus-visible{
+  border-color:rgba(46,230,255,.55);outline:none;transform:translateY(-1px);
+  box-shadow:0 0 20px rgba(46,230,255,.12);
+}
+.orbit-chip-row button.is-afishi{border-color:rgba(255,90,31,.5);color:var(--accent2)}
+.orbit-chip-row button.is-afishi:hover{border-color:rgba(255,90,31,.85);box-shadow:0 0 18px rgba(255,90,31,.22)}
+.orbit-chip-row button.is-on{border-color:rgba(46,230,255,.7);background:rgba(20,32,48,.92)}
+.orbit-globe-legend{bottom:58px}
+
+/* Hotspot case-card preview */
+.orbit-video-preview{
+  position:absolute;z-index:6;pointer-events:none;
+  width:min(220px,52vw);aspect-ratio:auto;min-height:0;
+  border-radius:18px;overflow:hidden;border:1px solid rgba(255,255,255,.16);background:rgba(8,8,12,.92);
+  box-shadow:0 22px 60px rgba(0,0,0,.6), 0 0 0 1px rgba(255,90,31,.18);
+  opacity:0;transform:translate(-50%,-112%) scale(.94);transition:opacity .2s ease, transform .2s ease;
+  display:flex;flex-direction:column;
+}
+.orbit-video-preview.is-on{opacity:1;transform:translate(-50%,-112%) scale(1)}
+.orbit-video-preview .ovp-media{
+  position:relative;aspect-ratio:9/14;background:#000;overflow:hidden;
+}
+.orbit-video-preview video,.orbit-video-preview .ovp-thumb{
+  width:100%;height:100%;object-fit:cover;display:block;
+}
+.orbit-video-preview .ovp-thumb{position:absolute;inset:0}
+.orbit-video-preview .ovp-meta{
+  padding:10px 12px 12px;display:grid;gap:3px;
+  background:linear-gradient(180deg, rgba(10,10,14,.92), rgba(8,8,12,.98));
+}
+.orbit-video-preview .ovp-city{
+  font-family:var(--font);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--cyan);
+}
+.orbit-video-preview.is-afishi .ovp-city{color:var(--accent2)}
+.orbit-video-preview .ovp-type{font-size:12px;color:#fff;font-weight:600;font-family:var(--font)}
+.orbit-video-preview .ovp-line{font-size:11px;color:var(--muted);line-height:1.35}
+.orbit-video-preview .ovp-cta{
+  margin-top:4px;font-size:10px;letter-spacing:.06em;text-transform:uppercase;
+  color:var(--accent);font-family:var(--font);
+}
+.orbit-hotspot-tip{display:none!important} /* card replaces tip */
+
+/* Kinetic marquee */
+.kinetic{
+  border-block:1px solid var(--line);background:rgba(255,255,255,.015);
+  overflow:hidden;padding:14px 0;margin:0 0 8px;
+}
+.kinetic-track{
+  display:flex;width:max-content;gap:0;
+  animation:kineticScroll 38s linear infinite;
+}
+.kinetic:hover .kinetic-track{animation-play-state:paused}
+.kinetic-track span{
+  font-family:var(--font);font-size:12px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--muted);padding:0 22px;white-space:nowrap;
+}
+.kinetic-track span i{color:rgba(255,90,31,.55);font-style:normal;margin:0 4px}
+@keyframes kineticScroll{to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion:reduce){
+  .kinetic-track{animation:none;flex-wrap:wrap;width:auto;justify-content:center;row-gap:8px}
+  .hero::after{opacity:.02}
+}
+
+/* Trust tighter */
+.trust{padding:20px 0 28px}
+.trust-row{display:flex;flex-wrap:wrap;gap:8px;justify-content:flex-start}
+
+/* Services — premium control panel */
+.services-grid{display:grid;grid-template-columns:1fr;gap:18px;align-items:stretch;max-width:820px}
+.svc-list{
+  display:flex;flex-direction:column;gap:0;
+  border:1px solid var(--line);border-radius:20px;overflow:hidden;
+  background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01));
+}
+.svc-item{
+  display:grid;grid-template-columns:56px 1fr auto;gap:14px;align-items:start;
+  padding:18px 20px;border-radius:0;border:none;border-bottom:1px solid var(--line);
+  background:transparent;cursor:pointer;transition:.2s;width:100%;text-align:left;
+  font:inherit;color:inherit;appearance:none;-webkit-appearance:none;
+}
+.svc-item:last-child{border-bottom:none}
+.svc-item:hover{background:rgba(255,90,31,.05)}
+.svc-item.active{
+  background:linear-gradient(90deg, rgba(255,90,31,.1), rgba(255,90,31,.03));
+  box-shadow:inset 3px 0 0 var(--accent);
+}
+.svc-num{font-family:var(--font);color:var(--accent);font-size:12px;padding-top:4px;letter-spacing:.06em}
+.svc-item h3{margin-bottom:4px;font-size:clamp(15px,1.6vw,18px)}
+.svc-item p{color:var(--muted);font-size:13px;max-width:52ch}
+.svc-examples{
+  display:inline-flex;align-items:center;gap:6px;margin-top:0;align-self:center;
+  font-size:12px;font-weight:600;letter-spacing:.04em;color:var(--accent);
+  opacity:.7;transition:.2s;white-space:nowrap;padding:8px 0 0;
+  grid-column:2 / -1;
+}
+.svc-item:hover .svc-examples,.svc-item.active .svc-examples{opacity:1}
+.svc-examples::after{content:'→'}
+@media (min-width:761px){
+  .svc-examples{grid-column:auto;padding:8px 4px 0 0;opacity:.85}
+  .svc-item{grid-template-columns:56px 1fr auto;align-items:center}
+  .svc-item > div:nth-child(2){min-width:0}
+}
+.mock-note{margin-top:16px;font-size:13px;color:var(--muted)}
+
+/* Cases — denser cinematic mosaic */
+.cases-grid{
+  display:grid;grid-template-columns:repeat(12,1fr);gap:12px;margin-top:28px;
+}
+.case{
+  border-radius:18px;overflow:hidden;border:1px solid var(--line);background:var(--bg2);
+  display:flex;flex-direction:column;grid-column:span 4;
+  transition:transform .25s ease, border-color .25s ease, box-shadow .25s ease;
+}
+.case:nth-child(1){grid-column:span 7}
+.case:nth-child(2){grid-column:span 5}
+.case:nth-child(3){grid-column:span 4}
+.case:nth-child(4){grid-column:span 4}
+.case:nth-child(5){grid-column:span 4}
+.case:nth-child(6){grid-column:span 5}
+.case:nth-child(7){grid-column:span 7}
+.case:nth-child(8){grid-column:span 6}
+.case:nth-child(9){grid-column:span 6}
+.case:hover{
+  transform:translateY(-3px);border-color:rgba(255,90,31,.4);
+  box-shadow:0 18px 50px rgba(0,0,0,.35);
+}
+.case-media{position:relative;aspect-ratio:16/10;background:#000;cursor:pointer;overflow:hidden}
+.case:nth-child(1) .case-media,.case:nth-child(7) .case-media{aspect-ratio:16/9}
+.case:nth-child(2) .case-media,.case:nth-child(6) .case-media{aspect-ratio:4/5}
+.case-media video,.case-media img{
+  width:100%;height:100%;object-fit:cover;transition:transform .45s ease;
+}
+.case:hover .case-media video,.case:hover .case-media img{transform:scale(1.04)}
+.case-media .badge{
+  position:absolute;left:12px;top:12px;padding:6px 10px;border-radius:999px;
+  background:rgba(0,0,0,.55);border:1px solid rgba(255,255,255,.15);font-size:11px;backdrop-filter:blur(8px);z-index:2;
+}
+.case-media .case-play{
+  position:absolute;right:12px;bottom:12px;z-index:2;
+  width:36px;height:36px;border-radius:50%;display:grid;place-items:center;
+  background:rgba(255,90,31,.85);color:#fff;font-size:12px;border:none;
+  opacity:0;transform:scale(.9);transition:.2s;pointer-events:none;
+}
+.case:hover .case-play{opacity:1;transform:scale(1)}
+.case-body{padding:16px 18px 18px}
+.case-body h3{margin-bottom:6px;font-size:15px}
+.case-meta{display:grid;gap:6px;margin-top:8px}
+.case-meta div{font-size:12px;color:var(--muted);line-height:1.4}
+.case-meta b{color:rgba(242,242,244,.88);font-weight:600}
+@media (max-width:980px){
+  .cases-grid{grid-template-columns:1fr 1fr}
+  .case,.case:nth-child(n){grid-column:span 1}
+  .case:nth-child(1){grid-column:span 2}
+  .case:nth-child(1) .case-media{aspect-ratio:16/9}
+  .case:nth-child(n) .case-media{aspect-ratio:16/10}
+}
+@media (max-width:640px){
+  .cases-grid{grid-template-columns:1fr}
+  .case,.case:nth-child(n){grid-column:span 1}
+  .case-play{opacity:.9}
+}
+
+/* Sticky mobile CTA */
+.mobile-cta-bar{
+  display:none;position:fixed;left:0;right:0;bottom:0;z-index:60;
+  padding:10px 16px calc(10px + env(safe-area-inset-bottom,0px));
+  background:linear-gradient(180deg, transparent, rgba(8,8,10,.92) 28%, rgba(8,8,10,.98));
+  border-top:1px solid rgba(255,255,255,.06);backdrop-filter:blur(14px);
+}
+.mobile-cta-bar .btn{width:100%;min-height:48px}
+body.has-mobile-cta{padding-bottom:76px}
+body.has-mobile-cta #contact{scroll-margin-bottom:90px}
+@media (max-width:760px){
+  .mobile-cta-bar{display:block}
+  .orbit-globe-legend{bottom:52px;left:12px}
+  .hero-overlay{padding-bottom:72px}
+  .orbit-video-preview{width:min(168px,46vw)}
+}
+
+/* Studio cursor — desktop fine pointer only */
+.studio-cursor{
+  position:fixed;left:0;top:0;width:22px;height:22px;margin:-11px 0 0 -11px;
+  border:1.5px solid rgba(255,255,255,.55);border-radius:50%;
+  pointer-events:none;z-index:9999;opacity:0;
+  transition:width .2s, height .2s, margin .2s, border-color .2s, opacity .2s, background .2s;
+  mix-blend-mode:difference;
+}
+.studio-cursor.is-on{opacity:1}
+.studio-cursor.is-hot{
+  width:42px;height:42px;margin:-21px 0 0 -21px;
+  border-color:var(--accent);background:rgba(255,90,31,.12);
+  mix-blend-mode:normal;
+}
+.studio-cursor.is-hide{opacity:0}
+@media (hover:hover) and (pointer:fine){
+  body.has-studio-cursor, body.has-studio-cursor *{cursor:none!important}
+  body.has-studio-cursor input, body.has-studio-cursor textarea,
+  body.has-studio-cursor select, body.has-studio-cursor [contenteditable]{cursor:text!important}
+}
+@media (hover:none), (pointer:coarse), (prefers-reduced-motion:reduce){
+  .studio-cursor{display:none!important}
+  body.has-studio-cursor, body.has-studio-cursor *{cursor:auto!important}
+}
+
+/* Magnetic primary */
+.btn-primary.is-magnetic{will-change:transform}
+@media (prefers-reduced-motion:reduce){
+  .btn-primary.is-magnetic{transform:none!important}
+}
+
+/* Footer richer */
+.footer{border-top:1px solid var(--line);padding:36px 0 44px;color:var(--muted);font-size:13px}
+.footer-inner{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:24px;align-items:start}
+.footer .logo{display:inline-block;margin-bottom:10px}
+.footer-nav{display:flex;flex-wrap:wrap;gap:10px 18px}
+.footer-nav a{color:var(--muted);transition:.2s}
+.footer-nav a:hover{color:var(--text)}
+.footer-meta{display:grid;gap:8px;justify-items:start}
+.footer-meta a{color:var(--text);font-family:var(--font);font-size:14px}
+@media (max-width:760px){
+  .footer-inner{grid-template-columns:1fr;gap:18px}
+}
+
+/* Focus + anchors */
+a:focus-visible,button:focus-visible,.svc-item:focus-visible,.case-media:focus-visible{
+  outline:2px solid var(--accent);outline-offset:3px;
+}
+#orbit,#services,#process,#cases,#prices,#who,#faq,#contact,#top{
+  scroll-margin-top:78px;
+}
+
+/* Section rhythm polish */
+.section{padding:96px 0}
+@media (max-width:640px){.section{padding:72px 0}}
+.eyebrow{opacity:.95}
+
+@media (max-width:980px){
+  .hero{min-height:min(90vh,900px)}
+  .hero-overlay{padding-top:calc(68px + 22px)}
+}
+@media (max-width:640px){
+  .hero{min-height:min(88vh,820px)}
+  .hero-copy h1{font-size:clamp(26px,7.2vw,36px)}
+  .orbit-chip-row button{padding:9px 12px;font-size:10px}
+}
+
+
+/* ========== ELEVATE — conversion + craft ========== */
+.price-strip{
+  display:flex;flex-wrap:wrap;gap:10px 14px;align-items:center;justify-content:space-between;
+  margin:8px auto 0;padding:16px 18px;border-radius:16px;
+  border:1px solid rgba(255,90,31,.28);
+  background:linear-gradient(135deg, rgba(255,90,31,.1), rgba(255,255,255,.02) 55%);
+  max-width:var(--max);width:min(100% - 32px, var(--max));
+}
+.price-strip .ps-copy{display:grid;gap:4px}
+.price-strip .ps-kicker{font-family:var(--font);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
+.price-strip .ps-line{font-size:14px;color:rgba(242,242,244,.9)}
+.price-strip .ps-line b{color:#fff;font-weight:600}
+.price-strip .ps-actions{display:flex;flex-wrap:wrap;gap:10px}
+@media (max-width:640px){
+  .price-strip{flex-direction:column;align-items:stretch}
+  .price-strip .ps-actions .btn{width:100%}
+}
+
+/* Services panel: examples as action column */
+.svc-item .svc-body{min-width:0}
+.svc-item .svc-examples{
+  justify-self:end;align-self:center;margin:0;padding:8px 12px;border-radius:999px;
+  border:1px solid rgba(255,90,31,.35);background:rgba(255,90,31,.08);
+  font-size:11px;letter-spacing:.06em;text-transform:uppercase;opacity:1;
+  grid-column:auto;
+}
+.svc-item:hover .svc-examples,.svc-item.active .svc-examples{
+  background:rgba(255,90,31,.18);border-color:rgba(255,90,31,.55);transform:none;
+}
+@media (max-width:760px){
+  .svc-item{grid-template-columns:48px 1fr}
+  .svc-item .svc-examples{grid-column:2;justify-self:start;margin-top:10px}
+}
+
+/* Process — tighter cinematic rails */
+.process-grid{gap:12px}
+.step{
+  position:relative;overflow:hidden;
+  background:linear-gradient(165deg, rgba(255,255,255,.04), rgba(255,255,255,.01));
+}
+.step::before{
+  content:"";position:absolute;inset:0 auto 0 0;width:2px;
+  background:linear-gradient(180deg, var(--accent), transparent 70%);opacity:.7;
+}
+
+/* Who — quieter conversion cards */
+.who-card{
+  background:linear-gradient(180deg, rgba(255,255,255,.035), transparent);
+}
+.who-card h3{font-size:16px}
+
+/* Hide mobile CTA while contact form visible */
+.mobile-cta-bar.is-away{transform:translateY(110%);opacity:0;pointer-events:none;transition:.25s ease}
+.mobile-cta-bar{transition:transform .25s ease, opacity .25s ease}
+
+/* Hero lead slightly stronger */
+.hero-copy .lead{font-size:clamp(15px,1.55vw,17px)}
+
+/* Nav logo mark */
+.logo{letter-spacing:.1em}
+
+
+/* ========== IA: classic hero + Earth as works ========== */
+.hero{
+  padding:0;position:relative;min-height:auto;
+  display:block;overflow:hidden;
+  background:
+    radial-gradient(ellipse 80% 60% at 70% 20%, rgba(255,90,31,.12), transparent 55%),
+    radial-gradient(ellipse 60% 50% at 15% 80%, rgba(46,230,255,.06), transparent 50%),
+    linear-gradient(180deg, #0a0a0c 0%, #0c0c10 100%);
+  isolation:isolate;
+}
+.hero::before,.hero::after{display:none!important} /* no grain on sales hero */
+.hero-globe-wrap{display:none!important} /* globe not in hero */
+.hero-overlay{
+  position:relative;z-index:2;padding:calc(68px + 48px) 0 56px;pointer-events:auto;
+  background:transparent;display:block;min-height:0;
+}
+.hero-overlay .wrap{pointer-events:auto;width:min(100% - 32px,var(--max));margin-inline:auto;
+  display:grid;grid-template-columns:1.15fr .85fr;gap:36px;align-items:center}
+.hero-copy{max-width:36rem}
+.hero-copy h1{
+  font-size:clamp(32px,5.2vw,56px);max-width:14ch;
+  text-shadow:none;letter-spacing:-.03em;
+}
+.hero-copy .lead{margin:16px 0 26px;max-width:40ch;color:var(--muted);text-shadow:none;font-size:clamp(16px,1.6vw,18px)}
+.hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:18px}
+.hero-note{display:block!important;font-size:13px;color:var(--muted);margin:0}
+.hero-visual{
+  position:relative;border-radius:22px;overflow:hidden;border:1px solid var(--line);
+  aspect-ratio:4/5;max-height:min(520px,70vh);background:#08080c;
+  box-shadow:0 30px 80px rgba(0,0,0,.45);
+}
+.hero-visual img,.hero-visual video{
+  width:100%;height:100%;object-fit:cover;display:block;
+}
+.hero-visual .hv-badge{
+  position:absolute;left:14px;bottom:14px;z-index:2;
+  padding:8px 12px;border-radius:999px;font-family:var(--font);font-size:11px;
+  letter-spacing:.06em;text-transform:uppercase;
+  background:rgba(0,0,0,.55);border:1px solid rgba(255,255,255,.16);backdrop-filter:blur(10px);
+}
+.hero-visual .hv-link{
+  position:absolute;right:14px;top:14px;z-index:2;
+  font-size:11px;font-family:var(--font);letter-spacing:.06em;text-transform:uppercase;
+  color:#fff;padding:8px 12px;border-radius:999px;
+  background:rgba(255,90,31,.85);border:1px solid rgba(255,255,255,.12);
+}
+.hero-visual::after{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(180deg, transparent 45%, rgba(0,0,0,.55));
+  pointer-events:none;
+}
+@media (max-width:900px){
+  .hero-overlay .wrap{grid-template-columns:1fr;gap:28px}
+  .hero-visual{aspect-ratio:16/10;max-height:340px}
+  .hero-overlay{padding:calc(68px + 28px) 0 36px}
+}
+
+/* Orbit = examples / works showcase */
+.orbit-works{
+  position:relative;padding:0;min-height:min(92vh,960px);
+  display:flex;flex-direction:column;justify-content:flex-end;
+  overflow:hidden;background:#050508;isolation:isolate;
+}
+.orbit-works::before{
+  content:"";position:absolute;inset:0;z-index:3;pointer-events:none;
+  background:
+    radial-gradient(ellipse 85% 70% at 50% 45%, transparent 35%, rgba(0,0,0,.28) 78%, rgba(0,0,0,.7) 100%),
+    linear-gradient(180deg, rgba(5,5,8,.65) 0%, transparent 18%, transparent 70%, rgba(5,5,8,.88) 100%);
+}
+.orbit-works::after{
+  content:"";position:absolute;inset:0;z-index:3;pointer-events:none;opacity:.04;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size:180px 180px;mix-blend-mode:overlay;
+}
+.orbit-works .hero-globe-wrap{display:block!important;position:absolute;inset:0;z-index:0}
+.orbit-works .orbit-globe-stage{
+  position:absolute;inset:0;width:100%;height:100%;
+  min-height:0;border-radius:0;border:none;box-shadow:none;
+  background:radial-gradient(ellipse 70% 55% at 50% 48%, #10131c 0%, #050508 68%, #030306 100%);
+}
+.orbit-works-head{
+  position:relative;z-index:4;pointer-events:none;
+  padding:calc(68px + 28px) 0 12px;
+}
+.orbit-works-head .wrap{pointer-events:none}
+.orbit-works-head .eyebrow,.orbit-works-head h2,.orbit-works-head .lead{pointer-events:none;text-shadow:0 4px 24px rgba(0,0,0,.5)}
+.orbit-works-head h2{margin-bottom:10px;font-size:clamp(26px,3.6vw,42px)}
+.orbit-works-head .lead{color:rgba(242,242,244,.82);max-width:42ch}
+.orbit-works .orbit-chip-bar{
+  position:absolute;left:0;right:0;bottom:0;z-index:5;
+  padding:10px 0 14px;
+  background:linear-gradient(180deg, transparent, rgba(5,5,8,.82) 40%, rgba(5,5,8,.94));
+  pointer-events:none;
+}
+.orbit-works .orbit-chip-bar .orbit-chip-row{pointer-events:auto}
+.orbit-works .orbit-globe-legend{bottom:58px;z-index:4}
+@media (max-width:980px){
+  .orbit-works{min-height:min(88vh,860px)}
+  .orbit-works-head{padding-top:calc(68px + 18px)}
+}
+@media (max-width:640px){
+  .orbit-works{min-height:min(86vh,780px)}
+  .orbit-works .orbit-globe-legend{bottom:52px}
+}
+@media (prefers-reduced-motion:reduce){
+  .orbit-works::after{opacity:.02}
+}
+
+/* Cases quieter under orbit */
+#cases{padding-top:56px}
+#cases .lead{max-width:48ch}
+
+
+/* ========== COMPETITOR PATTERNS (UX only) ========== */
+.svc-for{
+  display:inline-block;margin-top:8px;font-size:11px;letter-spacing:.04em;
+  color:rgba(154,154,168,.95);font-family:var(--font);text-transform:uppercase;
+}
+.svc-for b{color:rgba(242,242,244,.75);font-weight:500}
+
+/* VD-style price table */
+.price-table-wrap{margin-top:18px;overflow-x:auto;border:1px solid var(--line);border-radius:16px}
+.price-table{width:100%;border-collapse:collapse;min-width:640px;font-size:14px}
+.price-table th,.price-table td{padding:14px 16px;text-align:left;border-bottom:1px solid var(--line)}
+.price-table th{
+  font-family:var(--font);font-size:11px;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--muted);background:rgba(255,255,255,.03);font-weight:500;
+}
+.price-table tr:last-child td{border-bottom:none}
+.price-table td.pt-price{font-family:var(--font);color:#fff;white-space:nowrap}
+.price-table tr:hover td{background:rgba(255,90,31,.04)}
+.price-table .pt-cta{font-size:12px;color:var(--accent);font-weight:600;white-space:nowrap}
+
+/* Repeating CTA band (Uncle) */
+.cta-band{
+  margin:28px 0 0;padding:22px 24px;border-radius:18px;
+  border:1px solid rgba(255,90,31,.3);
+  background:linear-gradient(135deg, rgba(255,90,31,.12), rgba(255,255,255,.02));
+  display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between;
+}
+.cta-band p{margin:0;font-size:15px;color:rgba(242,242,244,.9);max-width:40ch}
+.cta-band p b{color:#fff}
+
+/* Contact TG prominence */
+.contact-links a.tg-hint{opacity:.9}
+.tg-pill{
+  display:inline-flex;align-items:center;gap:8px;margin-top:4px;
+  padding:8px 12px;border-radius:999px;border:1px solid var(--line);
+  font-size:13px;color:var(--muted);background:rgba(255,255,255,.03);
+}
+
+/* Cases: vertical reel energy on alternate cards */
+.case.is-reel .case-media{aspect-ratio:9/14;max-height:420px}
+@media (min-width:981px){
+  .case.is-reel{grid-column:span 3}
+  .case.is-reel .case-media{aspect-ratio:9/14}
+}
+
+/* Hero CULT restraint */
+.hero-copy h1{max-width:12ch}
+.hero-trust-inline{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.hero-trust-inline .chip{padding:7px 11px;font-size:12px}
+
+@media (max-width:640px){
+  .cta-band{flex-direction:column;align-items:stretch}
+  .cta-band .btn{width:100%}
+  .case.is-reel .case-media{aspect-ratio:9/14;max-height:none}
+}
+
 </style>
 </head>
 <body>
@@ -474,9 +1004,8 @@ h3{font-size:clamp(18px,2vw,22px)}
   <div class="wrap nav-inner">
     <a class="logo" href="#top">ОРБИТА<span>.</span></a>
     <nav class="nav-links" aria-label="Основная навигация">
-      <a href="#cases">Работы</a>
       <a href="#services">Услуги</a>
-      <a href="#orbit">Орбита</a>
+      <a href="#orbit">Примеры</a>
       <a href="#process">Процесс</a>
       <a href="#prices">Цены</a>
       <a href="#contact">Контакт</a>
@@ -487,9 +1016,8 @@ h3{font-size:clamp(18px,2vw,22px)}
     </div>
   </div>
   <div class="wrap mobile-menu" id="mobileMenu">
-    <a href="#cases">Работы</a>
     <a href="#services">Услуги</a>
-    <a href="#orbit">Орбита</a>
+    <a href="#orbit">Примеры</a>
     <a href="#process">Процесс</a>
     <a href="#prices">Цены</a>
     <a href="#contact">Контакт</a>
@@ -498,7 +1026,145 @@ h3{font-size:clamp(18px,2vw,22px)}
 </header>
 
 <main id="top">
-  <section class="hero" id="orbit" aria-label="Орбита — интерактивная Земля проектов">
+  <section class="hero" id="top-hero" aria-label="ОРБИТА — креативная студия">
+    <div class="hero-overlay">
+      <div class="wrap">
+        <div class="hero-copy">
+          <div class="eyebrow">Студия · видео и дизайн</div>
+          <h1><span class="scramble">Делаем кадр, который продаёт</span></h1>
+          <p class="lead">Ролики, афиши и баннеры под ключ. Цены «от» — финал после брифа. Ответ за 24 часа.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#contact">Получить смету</a>
+            <a class="btn btn-ghost" href="#prices">Смотреть цены</a>
+          </div>
+          <p class="hero-note">hello@orbita.agency · без фейковых метрик и чужих логотипов</p>
+          <div class="hero-trust-inline" aria-label="Гарантии">
+            <span class="chip"><i></i>Договор</span>
+            <span class="chip"><i></i>NDA</span>
+            <span class="chip"><i></i>Юрлицо</span>
+            <span class="chip"><i></i>Ответ 24ч</span>
+          </div>
+        </div>
+        <div class="hero-visual">
+          <video src="work-kazakhstan.mp4" poster="still-02.jpg" muted loop playsinline preload="metadata" data-hero-visual></video>
+          <a class="hv-link" href="#orbit">Примеры на планете →</a>
+          <span class="hv-badge">Реальный ролик · Алматы</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="trust">
+    <div class="wrap trust-row" aria-label="Гарантии">
+      <span class="chip"><i></i>Договор</span>
+      <span class="chip"><i></i>NDA</span>
+      <span class="chip"><i></i>Юрлицо</span>
+      <span class="chip"><i></i>Видео + дизайн</span>
+      <span class="chip"><i></i>16:9 / 9:16 / 1:1</span>
+      <span class="chip"><i></i>Ответ 24ч</span>
+    </div>
+  </section>
+
+  <div class="kinetic" aria-hidden="true">
+    <div class="kinetic-track">
+      <span>Алматы <i>·</i></span><span>Москва <i>·</i></span><span>Астана <i>·</i></span><span>Дубай <i>·</i></span><span>афиши <i>·</i></span><span>Reels <i>·</i></span><span>9:16 <i>·</i></span><span>баннеры <i>·</i></span><span>key visual <i>·</i></span><span>Ташкент <i>·</i></span><span>Париж <i>·</i></span><span>Нью-Йорк <i>·</i></span>
+      <span>Алматы <i>·</i></span><span>Москва <i>·</i></span><span>Астана <i>·</i></span><span>Дубай <i>·</i></span><span>афиши <i>·</i></span><span>Reels <i>·</i></span><span>9:16 <i>·</i></span><span>баннеры <i>·</i></span><span>key visual <i>·</i></span><span>Ташкент <i>·</i></span><span>Париж <i>·</i></span><span>Нью-Йорк <i>·</i></span>
+    </div>
+  </div>
+
+  <div class="price-strip" role="region" aria-label="Ориентир по цене">
+    <div class="ps-copy">
+      <div class="ps-kicker">Ориентир</div>
+      <div class="ps-line">Сторис <b>от 12 000 ₽</b> · ролик / пакет — после брифа · ответ за 24ч</div>
+    </div>
+    <div class="ps-actions">
+      <a class="btn btn-primary btn-sm" href="#contact">Получить смету</a>
+      <a class="btn btn-ghost btn-sm" href="#prices">Все цены</a>
+    </div>
+  </div>
+
+  <section class="section" id="services">
+    <div class="wrap">
+      <div class="eyebrow">Услуги</div>
+      <h2>Шесть направлений — одна студия</h2>
+      <p class="lead">Выберите задачу — покажем примеры на планете ниже и в галерее.</p>
+      <div class="services-grid" style="margin-top:28px">
+        <div class="svc-list" id="svcList">
+          <button type="button" class="svc-item active" data-svc="0" tabindex="0" aria-pressed="true">
+            <div class="svc-num">01</div>
+            <div class="svc-body">
+              <h3>Видеореклама / Reels / монтаж</h3>
+              <p>OLV, pre-roll, вертикали и постпродакшн — ролики, которые держат внимание и ведут к заявке.</p>
+              <div class="svc-for">Для кого: <b>Для брендов и экспертов с трафиком</b></div>
+            </div>
+            <div class="svc-examples">Смотреть примеры</div>
+          </button>
+          <button type="button" class="svc-item" data-svc="1" tabindex="0" aria-pressed="false">
+            <div class="svc-num">02</div>
+            <div class="svc-body">
+              <h3>Баннеры</h3>
+              <p>Digital и наружка: один макет или серия в едином языке под площадки и форматы.</p>
+              <div class="svc-for">Для кого: <b>Для performance и охватных кампаний</b></div>
+            </div>
+            <div class="svc-examples">Смотреть примеры</div>
+          </button>
+          <button type="button" class="svc-item" data-svc="2" tabindex="0" aria-pressed="false">
+            <div class="svc-num">03</div>
+            <div class="svc-body">
+              <h3>Флаеры / листовки</h3>
+              <p>Печать и PDF: оффер, иерархия, сильный CTA — без визуального шума.</p>
+              <div class="svc-for">Для кого: <b>Для ивентов, ритейла, запусков</b></div>
+            </div>
+            <div class="svc-examples">Смотреть примеры</div>
+          </button>
+          <button type="button" class="svc-item" data-svc="3" tabindex="0" aria-pressed="false">
+            <div class="svc-num">04</div>
+            <div class="svc-body">
+              <h3>Афиши</h3>
+              <p>Фильмы, концерты, ивенты — киношная подача и линейка размеров.</p>
+              <div class="svc-for">Для кого: <b>Для проката, клубов, фестивалей</b></div>
+            </div>
+            <div class="svc-examples">Смотреть примеры</div>
+          </button>
+          <button type="button" class="svc-item" data-svc="4" tabindex="0" aria-pressed="false">
+            <div class="svc-num">05</div>
+            <div class="svc-body">
+              <h3>Key visual / соцсети</h3>
+              <p>Обложки, сетки, посты и key visual, которые держат бренд в ленте.</p>
+              <div class="svc-for">Для кого: <b>Для SMM и постоянного контента</b></div>
+            </div>
+            <div class="svc-examples">Смотреть примеры</div>
+          </button>
+          <button type="button" class="svc-item" data-svc="5" tabindex="0" aria-pressed="false">
+            <div class="svc-num">06</div>
+            <div class="svc-body">
+              <h3>Motion и адаптации</h3>
+              <p>Титры, графика, версии 16:9 / 9:16 / 1:1 — один смысл, все плейсменты.</p>
+              <div class="svc-for">Для кого: <b>Для медиа и digital-размещений</b></div>
+            </div>
+            <div class="svc-examples">Смотреть примеры</div>
+          </button>
+        </div></div>
+        <!-- svc-wall mosaic removed: planet is the only visual showcase -->
+      </div>
+      <p class="mock-note">Клик = планета + галерея. На десктопе наведение подсвечивает направление.</p>
+      <div class="cta-band">
+        <p>Нужна смета под задачу? <b>Опишите формат — ответим за 24 часа.</b></p>
+        <a class="btn btn-primary btn-sm" href="#contact">Оставить заявку</a>
+      </div>
+    </div>
+  </section>
+
+
+
+  <section class="orbit-works" id="orbit" aria-label="Примеры работ — интерактивная Земля">
+    <div class="orbit-works-head">
+      <div class="wrap">
+        <div class="eyebrow">Примеры работ</div>
+        <h2>Планета — наша витрина</h2>
+        <p class="lead">Ни у кого из конкурентов так нельзя: крутите Землю, точки — живые проекты. Чип города или хотспот — превью и галерея.</p>
+      </div>
+    </div>
     <div class="hero-globe-wrap">
       <div class="orbit-globe-stage" id="orbitGlobeStage">
         <canvas id="orbitGlobeCanvas" aria-label="3D Земля с проектами ОРБИТА"></canvas>
@@ -509,8 +1175,16 @@ h3{font-size:clamp(18px,2vw,22px)}
         </div>
         <div class="orbit-hotspot-tip" id="orbitHotspotTip" hidden></div>
         <div class="orbit-video-preview" id="orbitVideoPreview" hidden>
-          <video muted loop playsinline preload="none" data-globe-preview></video>
-          <span class="ovp-label" id="orbitVideoLabel">Ролик</span>
+          <div class="ovp-media">
+            <img class="ovp-thumb" id="orbitPreviewThumb" alt="" hidden>
+            <video muted loop playsinline preload="none" data-globe-preview></video>
+          </div>
+          <div class="ovp-meta">
+            <span class="ovp-city" id="orbitPreviewCity">Город</span>
+            <span class="ovp-type" id="orbitPreviewType">Ролик</span>
+            <span class="ovp-line" id="orbitPreviewLine">Реальный проект</span>
+            <span class="ovp-cta" id="orbitPreviewCta">Открыть</span>
+          </div>
         </div>
         <div class="orbit-globe-fallback" id="orbitGlobeFallback" hidden>
           <div class="orbit-fb-planet-wrap" aria-hidden="true"><div class="orbit-fb-planet"></div></div>
@@ -520,110 +1194,25 @@ h3{font-size:clamp(18px,2vw,22px)}
         </div>
       </div>
     </div>
-    <div class="hero-overlay">
-      <div class="wrap">
-        <div class="hero-copy">
-          <div class="eyebrow">Креативная студия · видео и дизайн</div>
-          <h1><span class="scramble">Видео и дизайн,</span><br><span class="scramble">которые продают</span></h1>
-          <p class="lead">Ролики, афиши, баннеры и флаеры под ключ. Планета — наша витрина: точки — живые проекты.</p>
-          <div class="offer-pills" aria-label="Направления">
-            <span>Видеореклама</span>
-            <span>Афиши</span>
-            <span>Баннеры</span>
-            <span>Флаеры</span>
-            <span>Key visual</span>
-          </div>
-          <div class="hero-actions">
-            <a class="btn btn-primary" href="#contact">Получить смету</a>
-            <a class="btn btn-ghost" href="#prices">Смотреть цены</a>
-            <a class="btn btn-ghost" href="#services">Услуги</a>
-          </div>
-          <p class="hero-note">Ответ в течение 24 часов · hello@orbita.agency · финал после брифа</p>
-          <div class="orbit-chip-row" id="orbitChipRow" role="list" aria-label="Города и проекты на планете"></div>
-        </div>
+      <div class="orbit-chip-bar" aria-hidden="false">
+        <div class="orbit-chip-row" id="orbitChipRow" role="list" aria-label="Города и проекты на планете"></div>
       </div>
-    </div>
   </section>
 
-  <section class="trust">
-<div class="wrap trust-row" aria-label="Гарантии">
-      <span class="chip"><i></i>Договор</span>
-      <span class="chip"><i></i>NDA</span>
-      <span class="chip"><i></i>Юрлицо</span>
-      <span class="chip"><i></i>Видео + дизайн</span>
-      <span class="chip"><i></i>16:9 / 9:16 / 1:1</span>
-      <span class="chip"><i></i>Ответ 24ч</span>
-    </div>
-  </section>
-
-  <section class="section" id="services">
+  <section class="section" id="cases">
     <div class="wrap">
-      <div class="eyebrow">Услуги</div>
-      <h2>Полная креативная студия</h2>
-      <p class="lead">Выберите направление — покажем на планете и в галерее. Без лишней мозаики картинок.</p>
-      <div class="services-grid" style="margin-top:28px">
-        <div class="svc-list" id="svcList">
-          <button type="button" class="svc-item active" data-svc="0" tabindex="0" aria-pressed="true">
-            <div class="svc-num">01</div>
-            <div>
-              <h3>Видеореклама / Reels / монтаж</h3>
-              <p>OLV, pre-roll, вертикали, монтаж и постпродакшн — ролики, которые держат внимание и ведут к заявке.</p>
-              <div class="svc-examples" aria-hidden="true">Смотреть примеры →</div>
-            </div>
-          </button>
-          <button type="button" class="svc-item" data-svc="1" tabindex="0" aria-pressed="false">
-            <div class="svc-num">02</div>
-            <div>
-              <h3>Баннеры</h3>
-              <p>Digital и наружка: один макет или серия в едином визуальном языке под площадки и форматы.</p>
-              <div class="svc-examples" aria-hidden="true">Смотреть примеры →</div>
-            </div>
-          </button>
-          <button type="button" class="svc-item" data-svc="2" tabindex="0" aria-pressed="false">
-            <div class="svc-num">03</div>
-            <div>
-              <h3>Флаеры / листовки</h3>
-              <p>Печать и PDF под раздачу: оффер, офсет/цифровой вывод, читаемая иерархия и сильный CTA.</p>
-              <div class="svc-examples" aria-hidden="true">Смотреть примеры →</div>
-            </div>
-          </button>
-          <button type="button" class="svc-item" data-svc="3" tabindex="0" aria-pressed="false">
-            <div class="svc-num">04</div>
-            <div>
-              <h3>Афиши</h3>
-              <p>Под фильмы, концерты и ивенты — один формат или линейка размеров с киношной подачей.</p>
-              <div class="svc-examples" aria-hidden="true">Смотреть примеры →</div>
-            </div>
-          </button>
-          <button type="button" class="svc-item" data-svc="4" tabindex="0" aria-pressed="false">
-            <div class="svc-num">05</div>
-            <div>
-              <h3>Key visual / соцсети</h3>
-              <p>Статичный дизайн: обложки, сетки, посты и key visual, которые держат бренд в ленте.</p>
-              <div class="svc-examples" aria-hidden="true">Смотреть примеры →</div>
-            </div>
-          </button>
-          <button type="button" class="svc-item" data-svc="5" tabindex="0" aria-pressed="false">
-            <div class="svc-num">06</div>
-            <div>
-              <h3>Motion и адаптации</h3>
-              <p>Титры, графика, версии 16:9 / 9:16 / 1:1 — один смысл, все плейсменты.</p>
-              <div class="svc-examples" aria-hidden="true">Смотреть примеры →</div>
-            </div>
-          </button>
-        </div>
-        <!-- svc-wall mosaic removed: planet is the only visual showcase -->
-      </div>
-      <p class="mock-note">Нажмите услугу — камера летит к точке на планете и открывает примеры.</p>
+      <div class="eyebrow">Ещё кадры</div>
+      <h2>Спокойный список</h2>
+      <p class="lead">Если удобнее листать сеткой — вот избранные ролики. Планета выше остаётся главным обзором.</p>
+      <div class="cases-grid" id="casesGrid"></div>
     </div>
   </section>
-
 
   <section class="section" id="process" style="background:linear-gradient(180deg,transparent,rgba(255,255,255,.02),transparent)">
     <div class="wrap">
       <div class="eyebrow">Процесс</div>
-      <h2>Как проходит работа</h2>
-      <p class="lead">Четыре этапа с понятными точками согласования — как в топ-продакшене.</p>
+      <h2>Бриф → концепт → продакшн → мастера</h2>
+      <p class="lead">Четыре этапа. Под каждым — что вы получаете. Без сюрпризов по срокам и правкам.</p>
       <div class="process-grid">
         <article class="step">
           <div class="step-num">01 / БРИФ</div>
@@ -685,26 +1274,66 @@ h3{font-size:clamp(18px,2vw,22px)}
           <li><span class="scramble">Сдаём вовремя — это тоже креатив</span></li>
         </ul>
       </div>
-    </div>
-  </section>
-
-  <section class="section" id="cases">
-    <div class="wrap">
-      <div class="eyebrow">Кейсы</div>
-      <h2>Избранные работы</h2>
-      <p class="lead">Реальные работы ОРБИТЫ — видео и кадры. Без чужих логотипов и выдуманных клиентов.</p>
-      <div class="cases-grid" id="casesGrid"></div>
+      <div class="cta-band">
+        <p>Готовы начать? <b>Короткий бриф — и коммерческое предложение.</b></p>
+        <a class="btn btn-primary btn-sm" href="#contact">Оставить заявку</a>
+      </div>
     </div>
   </section>
 
   <section class="section" id="prices">
     <div class="wrap">
       <div class="eyebrow">Цены</div>
-      <h2>Прозрачные ориентиры</h2>
-      <p class="lead">Видео и дизайн: разовые задачи и пакеты. Все суммы — <strong>от</strong>; финал после брифа.</p>
+      <h2>Цены без тумана</h2>
+      <p class="lead">Все суммы — <strong>от</strong>. Финал только после брифа. Таблица — быстрый ориентир; ниже — пакеты.</p>
+      <div class="price-table-wrap" aria-label="Ориентир по форматам">
+        <table class="price-table">
+          <thead>
+            <tr><th>Формат</th><th>Длительность / объём</th><th>Срок ориентир</th><th>Цена</th><th></th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1 сторис</td><td>до 15 сек · 9:16</td><td>от 2–4 дней</td>
+              <td class="pt-price">от 12 000 ₽</td>
+              <td><a class="pt-cta" href="#contact" data-prefill="Хочу 1 сторис, ориентир от 12 000 ₽">Заказать</a></td>
+            </tr>
+            <tr>
+              <td>5 сторис</td><td>пакет · один стиль</td><td>от 5–10 дней</td>
+              <td class="pt-price">от 35 000 ₽</td>
+              <td><a class="pt-cta" href="#contact" data-prefill="Хочу 5 сторис, ориентир от 35 000 ₽">Заказать</a></td>
+            </tr>
+            <tr>
+              <td>Reels / Shorts</td><td>до 30–60 сек</td><td>от 1–2 недель</td>
+              <td class="pt-price">от 45 000 ₽</td>
+              <td><a class="pt-cta" href="#contact" data-prefill="Reels / Shorts, ориентир от 45 000 ₽">Заказать</a></td>
+            </tr>
+            <tr>
+              <td>Рекламный ролик</td><td>~15–30 сек · 16:9 / 9:16</td><td>от 2–6 недель</td>
+              <td class="pt-price">от 120 000 ₽</td>
+              <td><a class="pt-cta" href="#contact" data-prefill="Рекламный ролик, ориентир от 120 000 ₽">Заказать</a></td>
+            </tr>
+            <tr>
+              <td>Афиша</td><td>1 макет + адаптации</td><td>от 3–7 дней</td>
+              <td class="pt-price">от 25 000 ₽</td>
+              <td><a class="pt-cta" href="#contact" data-prefill="Афиша, ориентир от 25 000 ₽">Заказать</a></td>
+            </tr>
+            <tr>
+              <td>Баннер / флаер</td><td>серия или 1 макет</td><td>от 2–5 дней</td>
+              <td class="pt-price">от 15 000 ₽</td>
+              <td><a class="pt-cta" href="#contact" data-prefill="Баннер или флаер, ориентир от 15 000 ₽">Заказать</a></td>
+            </tr>
+            <tr>
+              <td>Пакет «Старт»</td><td>hero + адаптации</td><td>по брифу</td>
+              <td class="pt-price">от 250 000 ₽</td>
+              <td><a class="pt-cta" href="#contact" data-prefill="Пакет Старт от 250 000 ₽">Обсудить</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="price-note" style="margin-top:12px">Сроки — ориентир. Точная смета после брифа. Оплата в ₽ по договору.</p>
       <div class="price-layers">
         <div>
-          <div class="layer-title">Видео — разовые</div>
+          <div class="layer-title">Видео — разовые (карточки)</div>
           <div class="fast-grid">
             <article class="fast-card">
               <div class="name">1 сторис</div>
@@ -809,6 +1438,10 @@ h3{font-size:clamp(18px,2vw,22px)}
             </article>
           </div>
           <p class="price-note">Все цены — «от»; финал после брифа. Оплата в рублях, по договору, с закрывающими. Без чужих логотипов и накрученных кейсов.</p>
+      <div class="cta-band">
+        <p>Не нашли свой формат? <b>Смета за 24 часа — без обязательств.</b></p>
+        <a class="btn btn-primary btn-sm" href="#contact">Оставить заявку</a>
+      </div>
         </div>
       </div>
     </div>
@@ -817,22 +1450,27 @@ h3{font-size:clamp(18px,2vw,22px)}
   <section class="section" id="who">
     <div class="wrap">
       <div class="eyebrow">Кому подойдёт</div>
-      <h2>Три коротких сценария</h2>
-      <div class="who-grid">
-        <a class="who-card" href="#contact" data-prefill="Я новичок / эксперт: нужен первый сильный ролик, афиша или серия сторис.">
-          <h3>Новичок / эксперт</h3>
-          <p>Нужно выглядеть сильно с первого ролика или афиши — без студийной бюрократии.</p>
-          <span class="btn btn-ghost btn-sm">Написать</span>
+      <h2>Четыре сценария входа</h2>
+      <div class="who-grid" style="grid-template-columns:repeat(2,1fr)">
+        <a class="who-card" href="#contact" data-prefill="Эксперт / личный бренд: нужен сильный ролик или серия сторис.">
+          <h3>Эксперт / блогер</h3>
+          <p>Выглядеть сильно с первого ролика — без студийной бюрократии и лишних созвонов.</p>
+          <span class="btn btn-ghost btn-sm">Оставить заявку</span>
         </a>
-        <a class="who-card" href="#contact" data-prefill="Малый / средний бизнес: нужны ролики, баннеры или афиши под продажи.">
-          <h3>Бизнес</h3>
-          <p>Reels, реклама, баннеры и статичный дизайн — материалы, которые ведут к заявкам.</p>
-          <span class="btn btn-ghost btn-sm">Написать</span>
+        <a class="who-card" href="#contact" data-prefill="Стартап / продукт: нужны Reels, баннеры или key visual под запуск.">
+          <h3>Стартап / продукт</h3>
+          <p>Быстрый визуальный язык под запуск: Reels, баннеры, KV — чтобы объяснять ценность.</p>
+          <span class="btn btn-ghost btn-sm">Оставить заявку</span>
         </a>
-        <a class="who-card" href="#contact" data-prefill="Компания / маркетинг: пакет Старт или Рост, договор и NDA.">
-          <h3>Компания</h3>
+        <a class="who-card" href="#contact" data-prefill="Бренд / маркетинг: пакет Старт или Рост, договор и NDA.">
+          <h3>Бренд / маркетинг</h3>
           <p>Системный продакшн, договор, NDA, пакеты Старт / Рост / Enterprise.</p>
-          <span class="btn btn-ghost btn-sm">Написать</span>
+          <span class="btn btn-ghost btn-sm">Оставить заявку</span>
+        </a>
+        <a class="who-card" href="#contact" data-prefill="Агентство: нужен production-партнёр под видео и дизайн.">
+          <h3>Агентство</h3>
+          <p>Надёжный production-партнёр: ролики и дизайн под ваш клиентский бриф.</p>
+          <span class="btn btn-ghost btn-sm">Оставить заявку</span>
         </a>
       </div>
     </div>
@@ -841,27 +1479,39 @@ h3{font-size:clamp(18px,2vw,22px)}
   <section class="section" id="faq">
     <div class="wrap">
       <div class="eyebrow">FAQ</div>
-      <h2>Частые вопросы</h2>
+      <h2>Возражения и ответы</h2>
       <div class="faq-list">
         <details class="faq-item">
           <summary>Сколько занимают сроки?</summary>
-          <div class="a">Сторис и короткие вертикали — обычно от нескольких дней. Ролик ~30 сек и пакеты — от 2–6 недель в зависимости от съёмки, графики и согласований. Точный срок фиксируем в брифе.</div>
+          <div class="a">Сторис — обычно от 2–4 дней. Reels / короткий ролик — от 1–2 недель. Рекламный ролик и пакеты — от 2–6 недель в зависимости от съёмки, графики и согласований. Срок фиксируем в брифе до старта.</div>
         </details>
         <details class="faq-item">
-          <summary>Кому принадлежат права на ролик?</summary>
-          <div class="a">После полной оплаты права на использование готового материала переходят заказчику в рамках договора. Территория и срок лицензии при необходимости прописываем отдельно.</div>
+          <summary>Как устроена предоплата?</summary>
+          <div class="a">Обычно этапно: старт после предоплаты по договору, остаток — перед сдачей мастеров. Точный график прописываем в КП. Без «серых» схем и оплаты на карту физлица.</div>
         </details>
         <details class="faq-item">
           <summary>Как устроены правки?</summary>
-          <div class="a">Количество раундов и объём правок фиксируем до старта. Правки вне согласованного объёма тарифицируются отдельно — прозрачно и заранее.</div>
+          <div class="a">Количество раундов и объём правок фиксируем до старта. Правки вне согласованного объёма — отдельно и заранее, без сюрпризов в конце.</div>
         </details>
         <details class="faq-item">
-          <summary>Что нужно, чтобы начать?</summary>
-          <div class="a">Коротко опишите задачу, площадки и дедлайн — или заполните форму. Проведём созвон, уточним бриф и пришлём коммерческое предложение.</div>
+          <summary>Что нужно для брифа?</summary>
+          <div class="a">Задача, площадки (Reels / YouTube / наружка), дедлайн и бюджетный ориентир. Можно просто заполнить форму — уточним на созвоне и пришлём КП.</div>
+        </details>
+        <details class="faq-item">
+          <summary>Кому принадлежат права?</summary>
+          <div class="a">После полной оплаты права на использование готового материала переходят заказчику в рамках договора. Территорию и срок лицензии при необходимости прописываем отдельно.</div>
         </details>
         <details class="faq-item">
           <summary>Работаете по договору и NDA?</summary>
-          <div class="a">Да. Договор, NDA по запросу, юрлицо, закрывающие документы. Без демо-телефонов и «серых» схем.</div>
+          <div class="a">Да. Договор, NDA по запросу, юрлицо, закрывающие. Без демо-телефонов и накрученных кейсов.</div>
+        </details>
+        <details class="faq-item">
+          <summary>Можно только дизайн — без видео?</summary>
+          <div class="a">Да. Афиши, баннеры, флаеры, key visual и соцсети — отдельно или в пакете с роликом.</div>
+        </details>
+        <details class="faq-item">
+          <summary>Почему цены «от»?</summary>
+          <div class="a">Итоговая смета зависит от съёмки, объёма графики, количества версий и сроков. «От» — честный вход; финал — только после брифа, до начала работ.</div>
         </details>
       </div>
     </div>
@@ -870,15 +1520,16 @@ h3{font-size:clamp(18px,2vw,22px)}
   <section class="section" id="contact">
     <div class="wrap">
       <div class="eyebrow">Контакт</div>
-      <h2>Получите смету под задачу</h2>
-      <p class="lead">Ролик, баннер, афиша или пакет — напишите задачу, ответим за 24 часа с ориентиром «от» и следующим шагом.</p>
+      <h2>Оставьте заявку — смета за 24ч</h2>
+      <p class="lead">Ролик, афиша, баннер или пакет. Коротко опишите задачу: пришлём ориентир «от» и следующий шаг.</p>
       <div class="contact-grid">
         <div class="contact-card">
           <h3>Связь</h3>
           <p>Без фейковых номеров. Пишите на почту или укажите удобный Telegram в форме.</p>
           <div class="contact-links">
             <a href="mailto:hello@orbita.agency">hello@orbita.agency<span>почта для брифов и КП</span></a>
-            <div>Telegram<span>по запросу — укажите @ник в форме</span></div>
+            <div class="tg-pill">Telegram · укажите @ник в форме — ответим туда</div>
+            <p style="margin:8px 0 0;font-size:13px;color:var(--muted)">Публичный @канал пока не публикуем — только прямой диалог после заявки. Честно.</p>
           </div>
         </div>
         <div class="form-card">
@@ -903,10 +1554,28 @@ h3{font-size:clamp(18px,2vw,22px)}
 
 <footer class="footer">
   <div class="wrap footer-inner">
-    <div>© <span id="year"></span> ОРБИТА · видео и дизайн</div>
-    <div><a href="mailto:hello@orbita.agency">hello@orbita.agency</a></div>
+    <div>
+      <a class="logo" href="#top">ОРБИТА<span>.</span></a>
+      <div>© <span id="year"></span> · видео и дизайн</div>
+    </div>
+    <nav class="footer-nav" aria-label="Навигация в подвале">
+      <a href="#services">Услуги</a>
+      <a href="#orbit">Примеры</a>
+      <a href="#process">Процесс</a>
+      <a href="#prices">Цены</a>
+      <a href="#contact">Контакт</a>
+    </nav>
+    <div class="footer-meta">
+      <a href="mailto:hello@orbita.agency">hello@orbita.agency</a>
+      <span>Ответ в течение 24 часов</span>
+    </div>
   </div>
 </footer>
+
+<div class="mobile-cta-bar" id="mobileCtaBar" aria-label="Быстрая заявка">
+  <a class="btn btn-primary" href="#contact">Получить смету</a>
+</div>
+<div class="studio-cursor" id="studioCursor" aria-hidden="true"></div>
 
 <div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Просмотр работы" hidden>
   <button class="btn btn-ghost btn-sm lb-close" type="button" id="lbClose">Закрыть</button>
@@ -926,7 +1595,7 @@ h3{font-size:clamp(18px,2vw,22px)}
 <script>
 (function(){
   const YEAR = document.getElementById('year');
-  if (YEAR) YEAR.textContent = new Date().getFullYear();
+  if (YEAR) YEAR.textContent = '2026';
 
   /* Assets */
   const videos = [
@@ -940,12 +1609,15 @@ h3{font-size:clamp(18px,2vw,22px)}
   ];
 
   const cases = [
-    {src:'work-kazakhstan.mp4', poster:'still-02.jpg', tag:'Lifestyle', title:'Динамичный cut', task:'Собрать цепляющий ритм для вертикали и широкого формата', result:'Готовый ролик с хуком и чистым монтажом'},
-    {src:'work-01.mp4', poster:'still-01.jpg', tag:'Reels', title:'Короткий формат', task:'Удержать внимание в первые 1–2 секунды', result:'Плотная нарезка под Reels / Shorts'},
-    {src:'work-03.mp4', poster:'still-03.jpg', tag:'Имидж', title:'Визуальный язык', task:'Показать атмосферу и продукт без лишнего текста', result:'Имиджевый ряд с акцентом на кадр'},
-    {src:'work-05.mp4', poster:'still-05.jpg', tag:'Реклама', title:'Продуктовый акцент', task:'Сделать акцент на продукте и пользе', result:'Ролик для размещения и соцсетей'},
-    {src:'work-09.mp4', poster:'still-09.jpg', tag:'Motion', title:'Графика в кадре', task:'Усилить смысл титрами и ритмом', result:'Монтаж с motion-слоем'},
-    {src:'work-11.mp4', poster:'still-11.jpg', tag:'Кампания', title:'Серийный стиль', task:'Единый стиль для серии материалов', result:'База под адаптации 9:16 / 16:9'}
+    {src:'work-kazakhstan.mp4', poster:'still-02.jpg', tag:'Lifestyle', reel:true, title:'Динамичный cut', task:'Ритм для вертикали и 16:9', result:'Хук + чистый монтаж'},
+    {src:'work-01.mp4', poster:'still-01.jpg', tag:'Reels', reel:true, title:'Короткий формат', task:'Удержать в 1–2 секунды', result:'Плотная нарезка Shorts/Reels'},
+    {src:'work-03.mp4', poster:'still-03.jpg', tag:'Имидж', title:'Визуальный язык', task:'Атмосфера без лишнего текста', result:'Имидж с акцентом на кадр'},
+    {src:'work-05.mp4', poster:'still-05.jpg', tag:'Реклама', reel:true, title:'Продуктовый акцент', task:'Продукт и польза в кадре', result:'Ролик под размещение'},
+    {src:'work-09.mp4', poster:'still-09.jpg', tag:'Motion', title:'Графика в кадре', task:'Титры и ритм', result:'Монтаж с motion-слоем'},
+    {src:'work-11.mp4', poster:'still-11.jpg', tag:'Кампания', title:'Серийный стиль', task:'Единый стиль серии', result:'База 9:16 / 16:9'},
+    {src:'work-02.mp4', poster:'still-04.jpg', tag:'City', title:'Москва · ролик', task:'Городской темп и характер', result:'Кинематографичный cut'},
+    {src:'work-04.mp4', poster:'still-06.jpg', tag:'Travel', title:'Ташкент · ролик', task:'Свет и локальный колорит', result:'Тёплый storytelling'},
+    {src:'work-06.mp4', poster:'still-07.jpg', tag:'Energy', title:'Ритм и энергия', task:'Драйв без перегруза', result:'Плотный экшен-монтаж'}
   ];
 
   /* Media wall — dual slow columns */
@@ -1260,13 +1932,21 @@ h3{font-size:clamp(18px,2vw,22px)}
     item.classList.add('active');
     item.setAttribute('aria-pressed', 'true');
     try { renderSvcWall(idx); } catch (e) {}
+    const openGal = !!(opts && opts.openGallery);
+    if (openGal){
+      try {
+        const orbitEl = document.getElementById('orbit');
+        const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (orbitEl) orbitEl.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+      } catch (e) {}
+    }
     try {
       if (typeof window.orbitaGlobeFocusSvc === 'function'){
-        window.orbitaGlobeFocusSvc(idx, { preview: !(opts && opts.openGallery) });
+        window.orbitaGlobeFocusSvc(idx, { preview: !openGal, openGallery: openGal && idx === 3 });
       }
     } catch (e) { console.warn('globe focus', e); }
-    if (opts && opts.openGallery){
-      openSvcGallery(idx);
+    if (openGal){
+      setTimeout(function(){ openSvcGallery(idx); }, openGal ? 480 : 0);
     }
   }
   function openSvcCell(cell){
@@ -1323,11 +2003,12 @@ h3{font-size:clamp(18px,2vw,22px)}
   const casesGrid = document.getElementById('casesGrid');
   cases.forEach(function(c){
     const art = document.createElement('article');
-    art.className = 'case';
+    art.className = 'case' + (c.reel ? ' is-reel' : '');
     art.innerHTML =
-      '<div class="case-media" data-src="'+c.src+'">'+
+      '<div class="case-media" data-src="'+c.src+'" tabindex="0" role="button" aria-label="'+c.title+'">'+
         '<video src="'+c.src+'" poster="'+c.poster+'" muted loop playsinline preload="metadata" data-case-video></video>'+
         '<span class="badge">'+c.tag+'</span>'+
+        '<span class="case-play" aria-hidden="true">▶</span>'+
       '</div>'+
       '<div class="case-body">'+
         '<h3>'+c.title+'</h3>'+
@@ -1336,12 +2017,25 @@ h3{font-size:clamp(18px,2vw,22px)}
           '<div><b>Результат:</b> '+c.result+'</div>'+
         '</div>'+
       '</div>';
-    art.querySelector('.case-media').style.cursor = 'pointer';
-    art.querySelector('.case-media').addEventListener('click', function(){
+    const media = art.querySelector('.case-media');
+    const vid = art.querySelector('video');
+    function openCase(){
       const gallery = cases.map(function(x){
         return {src:x.src, type:'video', badge:x.tag, title:x.title};
       });
       openGallery(gallery, {src:c.src, type:'video', badge:c.tag, title:c.title});
+    }
+    media.addEventListener('click', openCase);
+    media.addEventListener('keydown', function(e){
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openCase(); }
+    });
+    media.addEventListener('mouseenter', function(){
+      if (window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)').matches){
+        try { vid.play(); } catch (err) {}
+      }
+    });
+    media.addEventListener('mouseleave', function(){
+      try { vid.pause(); } catch (err) {}
     });
     casesGrid.appendChild(art);
   });
@@ -1375,6 +2069,102 @@ h3{font-size:clamp(18px,2vw,22px)}
   mobileMenu.querySelectorAll('a').forEach(function(a){
     a.addEventListener('click', function(){ mobileMenu.classList.remove('open'); });
   });
+
+
+  /* Hero visual: play when in view / hover on fine pointers */
+  (function(){
+    var v = document.querySelector('video[data-hero-visual]');
+    if (!v) return;
+    var fine = window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduce) return;
+    if ('IntersectionObserver' in window){
+      var io = new IntersectionObserver(function(entries){
+        entries.forEach(function(en){
+          if (en.isIntersecting) v.play().catch(function(){});
+          else try { v.pause(); } catch (e) {}
+        });
+      }, {threshold: 0.35});
+      io.observe(v);
+    }
+    if (fine){
+      var wrap = v.closest('.hero-visual');
+      if (wrap){
+        wrap.addEventListener('mouseenter', function(){ v.play().catch(function(){}); });
+      }
+    }
+  })();
+
+  /* Sticky mobile CTA */
+  (function(){
+    var bar = document.getElementById('mobileCtaBar');
+    if (!bar) return;
+    var mq = window.matchMedia ? window.matchMedia('(max-width:760px)') : null;
+    var contact = document.getElementById('contact');
+    function sync(){
+      var on = !mq || mq.matches;
+      document.body.classList.toggle('has-mobile-cta', on);
+      bar.hidden = !on;
+    }
+    sync();
+    if (mq){
+      if (mq.addEventListener) mq.addEventListener('change', sync);
+      else if (mq.addListener) mq.addListener(sync);
+    }
+    if (contact && 'IntersectionObserver' in window){
+      var io = new IntersectionObserver(function(entries){
+        var hit = entries.some(function(en){ return en.isIntersecting; });
+        bar.classList.toggle('is-away', hit);
+      }, { root: null, threshold: 0.15 });
+      io.observe(contact);
+    }
+  })();
+
+  /* Studio cursor — desktop hover:hover + pointer:fine */
+  (function(){
+    var fine = window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var cur = document.getElementById('studioCursor');
+    if (!fine || reduce || !cur) return;
+    document.body.classList.add('has-studio-cursor');
+    var x = 0, y = 0, rx = 0, ry = 0, raf = 0;
+    function loop(){
+      rx += (x - rx) * 0.22;
+      ry += (y - ry) * 0.22;
+      cur.style.transform = 'translate('+rx+'px,'+ry+'px)';
+      raf = requestAnimationFrame(loop);
+    }
+    window.addEventListener('mousemove', function(e){
+      x = e.clientX; y = e.clientY;
+      cur.classList.add('is-on');
+      var t = e.target;
+      var hot = !!(t.closest && (t.closest('a') || t.closest('button') || t.closest('.svc-item') || t.closest('.case-media') || t.closest('.orbit-chip-row button')));
+      var hide = !!(t.closest && (t.closest('input') || t.closest('textarea') || t.closest('select') || t.closest('.lb')));
+      cur.classList.toggle('is-hot', hot && !hide);
+      cur.classList.toggle('is-hide', hide);
+    }, {passive:true});
+    window.addEventListener('mouseleave', function(){ cur.classList.remove('is-on'); });
+    raf = requestAnimationFrame(loop);
+  })();
+
+  /* Magnetic primary buttons — desktop subtle 8–12px */
+  (function(){
+    var fine = window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!fine || reduce) return;
+    document.querySelectorAll('.btn-primary').forEach(function(btn){
+      btn.classList.add('is-magnetic');
+      btn.addEventListener('mousemove', function(e){
+        var r = btn.getBoundingClientRect();
+        var dx = e.clientX - (r.left + r.width/2);
+        var dy = e.clientY - (r.top + r.height/2);
+        var px = Math.max(-12, Math.min(12, dx * 0.22));
+        var py = Math.max(-10, Math.min(10, dy * 0.22));
+        btn.style.transform = 'translate('+px+'px,'+py+'px)';
+      });
+      btn.addEventListener('mouseleave', function(){ btn.style.transform = ''; });
+    });
+  })();
 
   /* Performance: max 2 playing, preload metadata, pause offscreen */
   const MAX_PLAYING = 2;
@@ -1467,20 +2257,25 @@ function bootOrbitaGlobe(){
   var tipEl = document.getElementById('orbitHotspotTip');
   var previewEl = document.getElementById('orbitVideoPreview');
   var previewVideo = previewEl ? previewEl.querySelector('video') : null;
-  var previewLabel = document.getElementById('orbitVideoLabel');
+  var previewThumb = document.getElementById('orbitPreviewThumb');
+  var previewCity = document.getElementById('orbitPreviewCity');
+  var previewType = document.getElementById('orbitPreviewType');
+  var previewLine = document.getElementById('orbitPreviewLine');
+  var previewCta = document.getElementById('orbitPreviewCta');
+  var previewLabel = previewType;
   var fallbackEl = document.getElementById('orbitGlobeFallback');
   var fallbackMsg = document.getElementById('orbitGlobeFallbackMsg');
   var fallbackTip = document.getElementById('orbitGlobeFallbackTip');
   var fbHotspots = document.getElementById('orbitFbHotspots');
 
   var HOTSPOTS = [
-    { lat: 43.24, lon: 76.91, type: 'video', label: 'Алматы · Ролик', video: 'work-kazakhstan.mp4' },
-    { lat: 55.75, lon: 37.62, type: 'video', label: 'Москва · Ролик', video: 'work-02.mp4' },
-    { lat: 41.31, lon: 69.24, type: 'video', label: 'Ташкент · Ролик', video: 'work-04.mp4' },
-    { lat: 25.20, lon: 55.27, type: 'video', label: 'Дубай · Motion', video: 'work-09.mp4' },
-    { lat: 40.71, lon: -74.01, type: 'video', label: 'Нью-Йорк · Reels', video: 'work-05.mp4' },
-    { lat: 48.86, lon: 2.35, type: 'video', label: 'Париж · Ролик', video: 'work-01.mp4' },
-    { lat: 51.13, lon: 71.43, type: 'afishi', label: 'Афиши', svcIndex: 3 }
+    { lat: 43.24, lon: 76.91, type: 'video', label: 'Алматы · Ролик', city: 'Алматы', kind: 'Ролик', line: 'Ролик · Алматы', video: 'work-kazakhstan.mp4', poster: 'still-02.jpg' },
+    { lat: 55.75, lon: 37.62, type: 'video', label: 'Москва · Ролик', city: 'Москва', kind: 'Ролик', line: 'Ролик · Москва', video: 'work-02.mp4', poster: 'still-04.jpg' },
+    { lat: 41.31, lon: 69.24, type: 'video', label: 'Ташкент · Ролик', city: 'Ташкент', kind: 'Ролик', line: 'Ролик · Ташкент', video: 'work-04.mp4', poster: 'still-06.jpg' },
+    { lat: 25.20, lon: 55.27, type: 'video', label: 'Дубай · Motion', city: 'Дубай', kind: 'Motion', line: 'Motion · Дубай', video: 'work-09.mp4', poster: 'still-09.jpg' },
+    { lat: 40.71, lon: -74.01, type: 'video', label: 'Нью-Йорк · Reels', city: 'Нью-Йорк', kind: 'Reels', line: 'Reels · Нью-Йорк', video: 'work-05.mp4', poster: 'still-05.jpg' },
+    { lat: 48.86, lon: 2.35, type: 'video', label: 'Париж · Ролик', city: 'Париж', kind: 'Ролик', line: 'Ролик · Париж', video: 'work-01.mp4', poster: 'still-01.jpg' },
+    { lat: 51.13, lon: 71.43, type: 'afishi', label: 'Афиши', city: 'Астана', kind: 'Афиши', line: 'Галерея афиш 2026', poster: 'poster-2026-neon-horizon.png', svcIndex: 3 }
   ];
 
   function openAfishi(){
@@ -1810,13 +2605,25 @@ function bootOrbitaGlobe(){
     };
   }
 
+  function fillPreviewMeta(h){
+    if (previewCity) previewCity.textContent = h.city || (h.label.split('·')[0] || '').trim() || 'Орбита';
+    if (previewType) previewType.textContent = h.kind || (h.type === 'afishi' ? 'Афиши' : 'Ролик');
+    if (previewLine) previewLine.textContent = h.line || h.label || '';
+    if (previewCta) previewCta.textContent = h.type === 'afishi' ? 'Открыть галерею' : 'Смотреть ролик';
+    if (previewEl) previewEl.classList.toggle('is-afishi', h.type === 'afishi');
+  }
+
   function hidePreview(){
     if (previewEl){
-      previewEl.classList.remove('is-on');
+      previewEl.classList.remove('is-on', 'is-afishi');
       previewEl.hidden = true;
     }
     if (previewVideo){
       try { previewVideo.pause(); } catch(e){}
+    }
+    if (previewThumb){
+      previewThumb.hidden = true;
+      previewThumb.removeAttribute('src');
     }
     if (tipEl){
       tipEl.classList.remove('is-on', 'is-afishi');
@@ -1827,31 +2634,48 @@ function bootOrbitaGlobe(){
   }
 
   function showTip(h, pos){
-    if (!tipEl || !pos) return;
-    tipEl.textContent = h.label;
-    tipEl.hidden = false;
-    tipEl.classList.add('is-on');
-    tipEl.classList.toggle('is-afishi', h.type === 'afishi');
-    tipEl.style.left = pos.x + 'px';
-    tipEl.style.top = pos.y + 'px';
+    /* Card preview replaces tip; keep for fallback calls */
+    if (!pos) return;
+    showCasePreview(h, pos, false);
   }
 
-  function showVideoPreview(h, pos, forcePlay){
-    if (!previewEl || !previewVideo || !pos) return;
-    if (!forcePlay && !canHoverPreview){
-      showTip(h, pos);
-      return;
-    }
-    if (previewVideo.getAttribute('src') !== h.video){
-      previewVideo.setAttribute('src', h.video);
-      previewVideo.load();
-    }
-    if (previewLabel) previewLabel.textContent = h.label.split('·')[0].trim() || 'Ролик';
+  function showCasePreview(h, pos, forcePlay){
+    if (!previewEl || !pos || !h) return;
+    fillPreviewMeta(h);
     previewEl.hidden = false;
     previewEl.classList.add('is-on');
     previewEl.style.left = pos.x + 'px';
     previewEl.style.top = pos.y + 'px';
-    previewVideo.play().catch(function(){});
+    if (h.type === 'afishi'){
+      if (previewVideo){
+        try { previewVideo.pause(); } catch(e){}
+        previewVideo.removeAttribute('src');
+        previewVideo.load();
+        previewVideo.style.display = 'none';
+      }
+      if (previewThumb){
+        previewThumb.hidden = false;
+        previewThumb.style.display = 'block';
+        if (previewThumb.getAttribute('src') !== (h.poster || '')){
+          previewThumb.setAttribute('src', h.poster || 'poster-2026-neon-horizon.png');
+        }
+      }
+      return;
+    }
+    if (previewThumb){ previewThumb.hidden = true; previewThumb.style.display = 'none'; }
+    if (!previewVideo) return;
+    previewVideo.style.display = 'block';
+    if (h.video && previewVideo.getAttribute('src') !== h.video){
+      previewVideo.setAttribute('src', h.video);
+      previewVideo.load();
+    }
+    if (forcePlay || canHoverPreview){
+      previewVideo.play().catch(function(){});
+    }
+  }
+
+  function showVideoPreview(h, pos, forcePlay){
+    showCasePreview(h, pos, forcePlay);
   }
 
   function pickHotspot(clientX, clientY){
@@ -1892,14 +2716,9 @@ function bootOrbitaGlobe(){
     pausedByHover = true;
     activeHotspot = h;
     var pos = projectHotspot(h);
-    showTip(h, pos);
-    if (h.type === 'video' && canHoverPreview) showVideoPreview(h, pos, false);
-    else if (h.type === 'video') showTip(h, pos);
-    else if (previewEl){
-      previewEl.classList.remove('is-on');
-      previewEl.hidden = true;
-      if (previewVideo) try { previewVideo.pause(); } catch(e){}
-    }
+    if (!pos) return;
+    if (canHoverPreview) showCasePreview(h, pos, h.type === 'video');
+    else showCasePreview(h, pos, false);
   }
 
   function onPointerDown(e){
@@ -2105,8 +2924,8 @@ function bootOrbitaGlobe(){
     setTimeout(function(){
       var pos = projectHotspot(h);
       if (!pos) return;
-      showTip(h, pos);
-      if (h.type === 'video' && opts.preview) showVideoPreview(h, pos, true);
+      if (opts.preview || h.type === 'afishi') showCasePreview(h, pos, h.type === 'video');
+      else showCasePreview(h, pos, false);
     }, 420);
     if (h.type === 'afishi' && opts.openGallery){
       setTimeout(function(){ openAfishi(); }, 500);
@@ -2122,20 +2941,20 @@ function bootOrbitaGlobe(){
       btn.type = 'button';
       btn.setAttribute('role', 'listitem');
       btn.setAttribute('data-idx', String(idx));
-      btn.textContent = h.label.replace(' · ', ' · ');
+      btn.textContent = (h.city && h.kind) ? (h.city + ' · ' + h.kind) : h.label;
       if (h.type === 'afishi') btn.className = 'is-afishi';
       btn.addEventListener('click', function(){
-        focusHotspot(h, { preview: true });
-        if (h.type === 'afishi') openAfishi();
-        else if (h.type === 'video'){
-          var pos = projectHotspot(h) || {x: stage.clientWidth/2, y: stage.clientHeight*0.35};
-          activeHotspot = h;
-          showTip(h, pos);
-          showVideoPreview(h, pos, true);
-        }
         try {
           document.getElementById('orbit').scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
         } catch (e) {}
+        focusHotspot(h, { preview: true, openGallery: h.type === 'afishi' });
+        if (h.type === 'afishi'){
+          setTimeout(function(){ openAfishi(); }, 520);
+        } else if (h.type === 'video'){
+          var pos = projectHotspot(h) || {x: stage.clientWidth/2, y: stage.clientHeight*0.35};
+          activeHotspot = h;
+          showCasePreview(h, pos, true);
+        }
       });
       chipRow.appendChild(btn);
     });
