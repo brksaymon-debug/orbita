@@ -30,3 +30,13 @@ Rollback:
   copy versions\dual-feed-cyan-checkpoint.html -> orbita-agency.html
   or: git show 7983c6a:orbita-agency.html
   orange alternate: versions\good-2b9e115-lightbox-checkpoint.html
+
+=== OVERNIGHT LOCK 20260912-014335 ===
+DO NOT overwrite these without user ask:
+- LOCKED-user-approved-cyan-dualfeed.html
+- LOCKED-overnight-baseline-20260912-014335.html
+Live at lock: accent #22e0ff, H1 dual-feed cyan, scramble+slow feed commit a4ceaca era.
+Rollback: copy LOCKED-user-approved-cyan-dualfeed.html -> orbita-agency.html
+
+OVERNIGHT-REPORT.txt — morning report 2026-09-12 (cyan dual-feed preserved).
+

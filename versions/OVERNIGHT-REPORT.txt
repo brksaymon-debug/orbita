@@ -1,0 +1,62 @@
+﻿ORBİTA OVERNIGHT REPORT
+Date: 2026-09-12 (Asia/Shanghai)
+Agent: overnight mission on cyan dual-feed baseline
+Live: https://brksaymon-debug.github.io/orbita/
+Repo: brksaymon-debug/orbita (main)
+
+SACRED BASELINE
+- Accent #22e0ff PRESERVED
+- H1 «Ролики, которые приносят заявки» PRESERVED
+- Dual-feed (works + prices) + sticky «Заказать» PRESERVED
+- Scramble + slow лента PRESERVED (now 80s / 92s)
+- LOCKED files NOT overwritten:
+  - versions/LOCKED-user-approved-cyan-dualfeed.html
+  - versions/LOCKED-overnight-baseline-20260912-014335.html
+  - versions/good-2b9e115-lightbox-checkpoint.html
+  - versions/dual-feed-cyan-checkpoint.html
+
+ROLLBACK (one copy):
+  copy versions\LOCKED-user-approved-cyan-dualfeed.html orbita-agency.html
+  (then bump index.html ?v= and push)
+
+COMMITS
+1) 1d085a9 overnight: remove fake phone, honest feed labels, cyan wall badges
+2) 2be1a50 overnight: wire real posters/stills/work-07/08, lightbox, craft polish
+3) (this) overnight: FAQ + process deliverables + case CSS fix + cache bust
+
+MEDIA WIRED (real files already in Orbita folder)
+- Videos: work-07.mp4, work-08.mp4 added to feed/wall/cases (work-04/06 slots swapped)
+- Posters: poster-2026-neon-horizon, fashion-ss26, zhara-live, final-sport, speed-light, exhibit
+- Stills: still-03,04,05,07 (+ existing)
+- Mocks: mock-story-fashion, mock-poster-cinema, mock-banner-web, mock-flyer-event
+- Lightbox: click static design assets (data-lb / wall-static / feed-still / case imgs)
+
+DEFECTS FOUND + FIXED
+- Fake phone +7 495 123-45-67 → hello@orbita.agency / Telegram
+- Dead footer VK/Behance href="#" → Email
+- Duplicate contact «Почта» row / duplicate footer email
+- Fake metrics (−64% CPV, ×5.6 охват, 4.8× конверсия, 2.1× VTR, ×3.2 ER) → honest craft labels
+- Orange leftovers on media-wall badges / svc hover → cyan #22e0ff family
+- Case-card CSS conflict (.case .media position:absolute overriding cards) → :not(.case-card) + !important relative
+- Empty process strip → deliverable chips «на выходе»
+- Missing FAQ despite CSS → honest 5-question FAQ
+- Missing cases heading → «Кейсы»
+- Index title said Алматы → aligned to «ролики под заявки»
+- Cache bust stamp updated on index + orbita-build meta
+- Nav email now visible on desktop; mobile menu includes email
+- Subtle grain + section separators + button/card hover craft (reduced-motion safe)
+
+STILL OPEN / RISKS
+- work-01..11 are large MP4s — 8GB RAM PCs: feed caps concurrent plays (MAX_FEED_PLAYING=2) but first visit still heavy; consider poster attributes on more feed videos later
+- Media-wall under «Ещё» details — easy to miss; could surface later without breaking dual-feed hero
+- Telegram @orbita_agency not verified overnight
+- Footer city «Москва» kept from baseline (not invented); confirm if brand is Almaty/online
+- No competitor assets stolen; no fake client logos; no «500 проектов»
+- Lightbox is additive — if undesired: remove #lbRoot block + Overnight lightbox JS
+- Gradient poster CSS classes (g-neon etc.) remain unused in feed — harmless dead CSS
+- Git had many untracked .bak files — left untracked on purpose
+
+SMOKE
+- Local file open recommended after Pages deploy
+- Verify: accent cyan, H1, dual columns, sticky Заказать, posters in «Ещё» wall, FAQ, form → hello@
+
