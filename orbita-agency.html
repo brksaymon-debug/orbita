@@ -965,6 +965,117 @@ body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:9998;
   .feed-tile:hover,.fast-card:hover,.packs-compact .price:hover{transform:none}
 }
 
+
+/* === CRAFT PUSH 2026-09-12: process / FAQ / contact / motion / mobile === */
+.step-get{display:block !important}
+.process-price-link{display:block !important;margin-top:16px;font-size:13px;color:var(--muted)}
+.process-price-link a{color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(34,224,255,.35)}
+.process-strip{gap:12px}
+.process-strip .step{
+  padding:16px 14px 14px;border-radius:14px;
+  background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.015));
+  border:1px solid rgba(255,255,255,.08);
+  min-height:100%;
+}
+.process-strip .step:hover{
+  border-color:rgba(34,224,255,.28);
+  box-shadow:0 12px 28px rgba(0,0,0,.25);
+  transform:translateY(-2px);
+}
+.process-strip .step-n{font-size:17px;letter-spacing:.04em}
+.process-strip h3{font-size:14.5px;letter-spacing:-.015em}
+.step-get{margin-top:12px;padding-top:12px}
+.step-get strong{font-size:10px;letter-spacing:.12em;color:rgba(156,163,175,.9)}
+.step-get li{
+  font-size:11.5px;padding:5px 9px;
+  background:rgba(34,224,255,.08);border-color:rgba(34,224,255,.18);color:#d7f7ff;
+}
+.faq{gap:8px;max-width:760px}
+.faq details{
+  border-radius:14px;padding:2px 16px;
+  border:1px solid rgba(255,255,255,.08);
+  background:linear-gradient(180deg,rgba(255,255,255,.03),rgba(14,14,20,.96));
+  transition:border-color .2s ease,box-shadow .2s ease;
+}
+.faq details:hover{border-color:rgba(34,224,255,.28)}
+.faq details[open]{
+  border-color:rgba(34,224,255,.35);
+  box-shadow:0 12px 32px rgba(0,0,0,.22),0 0 0 1px rgba(34,224,255,.08);
+}
+.faq summary{padding:15px 0;font-size:14.5px;letter-spacing:-.01em}
+.faq summary::after{content:"+";font-size:18px;opacity:.9;transition:transform .2s ease}
+.faq details[open] summary::after{content:"–"}
+.faq .ans{padding:0 0 16px;font-size:13.5px;line-height:1.55;color:rgba(209,213,219,.88)}
+.form{
+  gap:14px;padding:22px 20px;border-radius:18px;
+  border:1px solid rgba(255,255,255,.09);
+  background:linear-gradient(180deg,rgba(255,255,255,.035),rgba(12,12,18,.98));
+  box-shadow:0 16px 40px rgba(0,0,0,.28);
+}
+.form label{gap:7px;font-size:12.5px;letter-spacing:.02em}
+.form input,.form textarea,.form select{
+  border-radius:12px;border:1px solid rgba(255,255,255,.1);
+  background:#0a0a12;padding:12px 14px;font-size:14px;
+  transition:border-color .2s ease,box-shadow .2s ease,background .2s ease;
+}
+.form input:focus,.form textarea:focus,.form select:focus{
+  outline:none;
+  border-color:rgba(34,224,255,.55);
+  box-shadow:0 0 0 3px rgba(34,224,255,.16),0 0 24px rgba(34,224,255,.08);
+  background:#0c0c16;
+}
+.form .btn{width:100%;margin-top:4px}
+.trust-line{
+  display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;
+  justify-content:flex-start;
+}
+.trust-line span{
+  display:inline-flex;align-items:center;gap:6px;
+  font-size:11.5px;font-weight:600;letter-spacing:.04em;
+  color:rgba(207,239,255,.85);
+  padding:6px 10px;border-radius:999px;
+  border:1px solid rgba(34,224,255,.2);
+  background:rgba(34,224,255,.05);
+}
+.trust-line span::before{
+  content:"";width:6px;height:6px;border-radius:50%;
+  background:var(--accent);box-shadow:0 0 8px rgba(34,224,255,.6);
+}
+.contact-side .row{padding:12px 0}
+.contact-side .reply{
+  margin-top:14px;padding:10px 12px;border-radius:12px;
+  border:1px solid rgba(34,224,255,.22);background:rgba(34,224,255,.06);
+  color:var(--accent);font-size:13px;font-weight:600;
+}
+.cta-trust-row{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 0}
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1)}
+.reveal.in{opacity:1;transform:none}
+html{scroll-padding-bottom:96px}
+#contact{scroll-margin-bottom:100px}
+.section-order{padding-bottom:calc(clamp(40px,6vw,64px) + 8px)}
+.sticky-cta{
+  padding:8px;gap:8px;
+  border-radius:18px;
+  background:rgba(7,7,10,.88);
+  border:1px solid rgba(255,255,255,.1);
+  box-shadow:0 12px 40px rgba(0,0,0,.45);
+  backdrop-filter:blur(14px) saturate(1.2);
+}
+.sticky-cta.is-over-form{opacity:.35;pointer-events:none;transform:translateY(8px)}
+.sticky-cta{transition:opacity .25s ease, transform .25s ease}
+@media (max-width:900px){
+  .process-strip .step:hover{transform:none}
+  .feed-mobile{padding-bottom:4px}
+  body{padding-bottom:88px}
+  .section-order{padding-bottom:calc(36px + 72px)}
+  .sticky-cta{left:10px;right:10px;bottom:max(10px, env(safe-area-inset-bottom))}
+}
+@media (prefers-reduced-motion:reduce){
+  .reveal{opacity:1;transform:none;transition:none}
+  .process-strip .step:hover{transform:none}
+  .sticky-cta{transition:none}
+}
+
 </style>
 </head>
 <body>
@@ -2020,6 +2131,20 @@ body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:9998;
     root.addEventListener('click', function(e){ if(e.target === root) closeLb(); });
     document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeLb(); });
   })();
+
+</script>
+<script>
+
+/* craft: sticky CTA soft-hide over form */
+(function(){
+  const sticky = document.querySelector('.sticky-cta');
+  const form = document.getElementById('leadForm') || document.getElementById('contact');
+  if(!sticky || !form || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ sticky.classList.toggle('is-over-form', e.isIntersecting); });
+  }, {root:null, threshold:0.15, rootMargin:'0px 0px -10% 0px'});
+  io.observe(form);
+})();
 
 </script>
 </body>
