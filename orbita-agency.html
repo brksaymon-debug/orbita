@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta name="orbita-build" content="20260912121611">
+  <meta name="orbita-build" content="20260915101236">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ОРБИТА — ролики под заявки</title>
@@ -1076,6 +1076,204 @@ html{scroll-padding-bottom:96px}
   .sticky-cta{transition:none}
 }
 
+
+/* === PROFIT-VISUAL 2026 craft (Aiskra-adjacent, cyan dual-feed sacred) === */
+.btn-primary.btn-glow,
+.btn-primary{
+  box-shadow:0 0 0 1px rgba(34,224,255,.25), 0 8px 28px rgba(34,224,255,.28), 0 0 40px rgba(34,224,255,.12);
+}
+.btn-primary:hover{
+  transform:translateY(-2px);
+  box-shadow:0 0 0 1px rgba(34,224,255,.4), 0 14px 36px rgba(34,224,255,.35), 0 0 56px rgba(34,224,255,.18);
+}
+.btn-glow{
+  animation:btnGlowPulse 3.2s ease-in-out infinite;
+}
+@keyframes btnGlowPulse{
+  0%,100%{box-shadow:0 0 0 1px rgba(34,224,255,.22), 0 8px 28px rgba(34,224,255,.26), 0 0 36px rgba(34,224,255,.1)}
+  50%{box-shadow:0 0 0 1px rgba(34,224,255,.4), 0 10px 34px rgba(34,224,255,.38), 0 0 52px rgba(34,224,255,.2)}
+}
+@media (prefers-reduced-motion:reduce){
+  .btn-glow{animation:none}
+}
+
+.hero-trust{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
+.ht-chip{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:6px 12px;border-radius:999px;
+  font-size:11px;font-weight:600;letter-spacing:.04em;
+  color:rgba(243,244,246,.88);
+  border:1px solid rgba(255,255,255,.1);
+  background:rgba(255,255,255,.03);
+  backdrop-filter:blur(8px);
+}
+.ht-chip::before{
+  content:"";width:6px;height:6px;border-radius:50%;
+  background:var(--accent);box-shadow:0 0 8px rgba(34,224,255,.7);
+}
+
+/* Stronger cinematic contrast */
+.scrim{background:
+  linear-gradient(90deg,rgba(7,7,10,.94) 0%,rgba(7,7,10,.72) 22%,rgba(7,7,10,.28) 48%,rgba(7,7,10,.55) 70%,rgba(7,7,10,.9) 100%),
+  linear-gradient(180deg,rgba(7,7,10,.55) 0%,transparent 26%,transparent 52%,rgba(7,7,10,.95) 100%),
+  radial-gradient(ellipse 60% 50% at 18% 40%,rgba(34,224,255,.07),transparent 60%)}
+
+.hero-copy h1{
+  letter-spacing:-.035em;
+  text-shadow:0 2px 40px rgba(0,0,0,.45);
+}
+.hero-copy .lead{
+  font-size:clamp(1.02rem,1.5vw,1.2rem);
+  color:rgba(156,163,175,.95);
+  max-width:42ch;
+  line-height:1.55;
+}
+.hero-actions{margin:30px 0 14px;gap:14px}
+.hero-actions .btn-primary{min-width:148px;padding:15px 26px;font-size:15px;letter-spacing:.01em}
+.hero-actions .btn-ghost{padding:15px 22px;border-color:rgba(255,255,255,.16)}
+
+/* Denser, more premium dual-feed */
+.work-feed{height:min(82vh,720px)}
+.feed-dual{gap:10px}
+.feed-col-inner{gap:10px !important}
+.feed-tile{
+  border-radius:16px;
+  box-shadow:0 14px 40px rgba(0,0,0,.42), inset 0 0 0 1px rgba(255,255,255,.07);
+}
+.feed-tile:hover{
+  transform:translateY(-4px) scale(1.018);
+  box-shadow:0 22px 56px rgba(34,224,255,.22), 0 0 0 1px rgba(34,224,255,.32);
+}
+.feed-meta{
+  background:linear-gradient(180deg,transparent 0%,rgba(0,0,0,.55) 45%,rgba(0,0,0,.82) 100%);
+}
+.feed-meta .tag{
+  color:var(--accent);
+  letter-spacing:.08em;
+  font-size:10px;
+  font-weight:700;
+  text-transform:uppercase;
+}
+.feed-meta .title{font-size:14px;font-weight:700;letter-spacing:-.01em}
+.price-tile{
+  background:
+    radial-gradient(circle at 88% 12%,rgba(34,224,255,.28),transparent 40%),
+    radial-gradient(circle at 8% 88%,rgba(124,92,255,.2),transparent 42%),
+    linear-gradient(165deg,#14141e 0%,#0a0a12 58%,#10101a 100%);
+}
+.price-tile .pt-price{
+  font-size:clamp(1.35rem,2vw,1.65rem);
+  font-weight:800;
+  letter-spacing:-.03em;
+  color:#fff;
+}
+.price-tile .pt-price span{color:var(--accent);font-weight:700}
+.price-tile .pt-eyebrow{
+  color:var(--accent);
+  letter-spacing:.14em;
+  font-size:10px;
+  font-weight:700;
+  text-transform:uppercase;
+  opacity:.9;
+}
+.pt-eta{
+  margin-top:6px;font-size:11px;color:var(--dim);letter-spacing:.02em;
+}
+
+/* Section rhythm + type closer to Aiskra */
+.section{padding:88px 0}
+.section-h{margin-bottom:48px}
+.section-h h2{letter-spacing:-.03em}
+.section-sep{
+  border:0;height:1px;margin:0;
+  background:linear-gradient(90deg,transparent,rgba(34,224,255,.22),rgba(255,255,255,.08),transparent);
+}
+
+/* Price cards premium */
+.fast-card{
+  transition:transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+  background:linear-gradient(180deg,rgba(18,18,26,.98),rgba(12,12,18,.98));
+}
+.fast-card:hover{
+  transform:translateY(-4px);
+  border-color:rgba(34,224,255,.35);
+  box-shadow:0 18px 48px rgba(34,224,255,.12);
+}
+.fast-card.featured{
+  box-shadow:0 18px 52px rgba(34,224,255,.16), inset 0 0 0 1px rgba(34,224,255,.2);
+}
+.fast-price{font-size:1.55rem;font-weight:800;letter-spacing:-.02em}
+.fast-eta{font-size:12px;color:var(--dim);margin-top:2px}
+.fast-card .btn{margin-top:auto}
+
+.price{
+  transition:transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+}
+.price:hover{
+  transform:translateY(-3px);
+  border-color:rgba(34,224,255,.3);
+  box-shadow:0 16px 40px rgba(34,224,255,.1);
+}
+.price.popular{
+  box-shadow:0 18px 48px rgba(34,224,255,.14);
+}
+
+/* Form trust */
+.form-trust{
+  display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;
+}
+.form-trust .ht-chip{font-size:10px;padding:5px 10px}
+
+/* Subtle page grain (expensive feel, low noise) */
+body::before{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:9998;opacity:.035;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Sticky CTA glow */
+.sticky-cta .btn-primary{
+  box-shadow:0 0 0 1px rgba(34,224,255,.3), 0 8px 24px rgba(34,224,255,.3);
+}
+
+/* Process chips polish */
+.step-get{
+  margin-top:12px;padding:10px 12px;border-radius:12px;
+  background:rgba(34,224,255,.05);border:1px solid rgba(34,224,255,.12);
+}
+.step-get strong{
+  display:block;font-size:10px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:6px;font-weight:700;
+}
+.step:hover{
+  border-color:rgba(34,224,255,.28);
+  box-shadow:0 14px 36px rgba(34,224,255,.08);
+}
+
+/* FAQ polish */
+.faq details{
+  border:1px solid var(--line);
+  border-radius:14px;
+  background:rgba(18,18,26,.7);
+  margin-bottom:10px;
+  transition:border-color .2s ease, box-shadow .2s ease;
+}
+.faq details[open],
+.faq details:hover{
+  border-color:rgba(34,224,255,.28);
+  box-shadow:0 10px 28px rgba(0,0,0,.25);
+}
+.faq summary{
+  cursor:pointer;padding:16px 18px;font-weight:650;letter-spacing:-.01em;
+  list-style:none;
+}
+.faq summary::-webkit-details-marker{display:none}
+.faq .ans{padding:0 18px 16px;color:var(--muted);line-height:1.55}
+
+/* Nav CTA glow */
+.nav-cta .btn-primary{
+  box-shadow:0 0 0 1px rgba(34,224,255,.2), 0 6px 18px rgba(34,224,255,.22);
+}
+
 </style>
 </head>
 <body>
@@ -1118,8 +1316,13 @@ html{scroll-padding-bottom:96px}
         <h1>Ролики, которые<span class="scramble">приносят заявки</span></h1>
         <p class="lead">Ролики и афиши под заявки. Ответ за 24 часа — hello@orbita.agency</p>
         <div class="hero-actions">
-          <a class="btn btn-primary" href="#contact">Заказать</a>
+          <a class="btn btn-primary btn-glow" href="#contact">Заказать</a>
           <a class="btn btn-ghost" href="#prices-fast">Цены</a>
+        </div>
+        <div class="hero-trust" aria-label="Гарантии">
+          <span class="ht-chip">Договор</span>
+          <span class="ht-chip">NDA</span>
+          <span class="ht-chip">Ответ 24ч</span>
         </div>
       </div>
 
