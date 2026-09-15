@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
+  <meta name="orbita-build" content="20260915101243">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ОРБИТА — ролики под заявки</title>
@@ -55,7 +56,7 @@ h3{font-size:1.15rem;font-weight:700;margin-bottom:8px}
 .nav-links{display:flex;align-items:center;gap:22px;font-size:14px;color:var(--muted)}
 .nav-links a:hover{color:var(--text)}
 .nav-cta{display:flex;align-items:center;gap:10px}
-.nav-phone{font-size:13px;color:var(--muted);display:none}
+.nav-phone{font-size:13px;color:var(--muted);display:inline-flex;align-items:center;max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .burger{display:none;width:42px;height:42px;border-radius:12px;border:1px solid var(--line);background:transparent;color:var(--text);align-items:center;justify-content:center;cursor:pointer}
 .mobile-menu{display:none;position:fixed;inset:var(--nav) 0 auto;background:rgba(7,7,10,.96);border-bottom:1px solid var(--line);padding:18px 20px 24px;z-index:99}
 .mobile-menu.open{display:block}
@@ -117,8 +118,8 @@ h3{font-size:1.15rem;font-weight:700;margin-bottom:8px}
   gap:14px;
   will-change:transform;
 }
-.feed-col-up .feed-col-inner{animation:feedMarqueeUp 72s linear infinite}
-.feed-col-down .feed-col-inner{animation:feedMarqueeDown 84s linear infinite}
+.feed-col-up .feed-col-inner{animation:feedMarqueeUp 80s linear infinite}
+.feed-col-down .feed-col-inner{animation:feedMarqueeDown 92s linear infinite}
 .work-feed:hover .feed-col-inner{animation-play-state:paused}
 @keyframes feedMarqueeUp{0%{transform:translateY(0)}100%{transform:translateY(-50%)}}
 @keyframes feedMarqueeDown{0%{transform:translateY(-50%)}100%{transform:translateY(0)}}
@@ -319,8 +320,10 @@ h3{font-size:1.15rem;font-weight:700;margin-bottom:8px}
 .case-card{display:flex;flex-direction:column;min-height:0;background:var(--card)}
 .case-card .media{position:relative;inset:auto;aspect-ratio:16/9;height:auto;min-height:180px;background:#000}
 .case-card .media video,.case-card .media .poster,.case-card .media img{width:100%;height:100%;object-fit:cover;display:block}
-.case .media{position:absolute;inset:0}
-.case .media video,.case .media .poster{width:100%;height:100%;object-fit:cover}
+.case:not(.case-card) .media{position:absolute;inset:0}
+.case:not(.case-card) .media video,.case:not(.case-card) .media .poster{width:100%;height:100%;object-fit:cover}
+.case-card .media{position:relative !important;inset:auto !important}
+.case-card .case-body{position:relative !important;inset:auto !important}
 .case-card .case-body{position:relative;inset:auto;padding:18px 18px 20px;background:linear-gradient(180deg,rgba(12,12,18,.96),rgba(8,8,12,.98));z-index:1;flex:1;display:flex;flex-direction:column}
 .case-body{position:absolute;inset:auto 0 0;padding:18px;background:linear-gradient(transparent,rgba(0,0,0,.88));z-index:1}
 .case-kicker{font-size:12px;color:var(--accent);font-weight:600;margin-bottom:4px}
@@ -416,7 +419,7 @@ footer{padding:48px 0 28px;border-top:1px solid var(--line);margin-top:40px}
   .feed-mobile{display:block}
   .nav-links{display:none}
   .burger{display:inline-flex}
-  .nav-phone{display:none}
+  .nav-phone{display:none}/* mobile: email lives in menu/sticky */
   .contact-grid,.footer-grid{grid-template-columns:1fr 1fr}
   .sticky-cta{display:flex}
   .section{padding:72px 0}
@@ -566,24 +569,24 @@ footer{padding:48px 0 28px;border-top:1px solid var(--line);margin-top:40px}
 
 
 /* === Services wall (Aiskra-style) === */
-.btn-orange{background:linear-gradient(135deg,#ff7a2f,#ff3d6e);color:#1a0800;box-shadow:0 8px 28px rgba(255,106,42,.28);border-color:transparent}
+.btn-orange{background:linear-gradient(135deg,#ff7a2f,#ff3d6e);color:#1a0800;box-shadow:0 8px 28px rgba(34,224,255,.28);border-color:transparent}
 .btn-orange:hover{filter:brightness(1.06);transform:translateY(-1px)}
 .section-services{position:relative;overflow:hidden}
-.section-services::before{content:"";position:absolute;inset:-20% -10% auto auto;width:55%;height:70%;background:radial-gradient(ellipse at center,rgba(255,106,42,.12),transparent 65%);pointer-events:none;z-index:0}
+.section-services::before{content:"";position:absolute;inset:-20% -10% auto auto;width:55%;height:70%;background:radial-gradient(ellipse at center,rgba(34,224,255,.12),transparent 65%);pointer-events:none;z-index:0}
 .section-services .container{position:relative;z-index:1}
 .svc-wall{display:grid;grid-template-columns:minmax(280px,1fr) minmax(300px,1.05fr);gap:28px 36px;align-items:stretch;margin-top:8px}
 .svc-list{display:flex;flex-direction:column;gap:10px;min-width:0}
 .svc-item{display:grid;grid-template-columns:52px 1fr;gap:14px;padding:16px 18px;border-radius:16px;border:1px solid var(--line);background:linear-gradient(180deg,rgba(255,255,255,.035),rgba(255,255,255,.012));transition:.2s ease}
-.svc-item:hover{border-color:rgba(255,106,42,.35);background:linear-gradient(180deg,rgba(255,106,42,.07),rgba(255,255,255,.02));transform:translateX(2px)}
-.svc-num{font-family:var(--display);font-size:22px;font-weight:800;line-height:1.1;color:var(--orange,#ff6a2a);letter-spacing:.02em;padding-top:2px}
+.svc-item:hover{border-color:rgba(34,224,255,.35);background:linear-gradient(180deg,rgba(34,224,255,.07),rgba(255,255,255,.02));transform:translateX(2px)}
+.svc-num{font-family:var(--display);font-size:22px;font-weight:800;line-height:1.1;color:var(--accent);letter-spacing:.02em;padding-top:2px}
 .svc-body h3{margin:0 0 4px;font-size:17px;font-weight:700}
-.svc-for{margin:0 0 6px;font-size:12px;color:var(--orange,#ff6a2a);font-weight:600;letter-spacing:.02em}
+.svc-for{margin:0 0 6px;font-size:12px;color:var(--accent);font-weight:600;letter-spacing:.02em}
 .svc-desc{margin:0 0 10px;font-size:13.5px;color:var(--muted);line-height:1.45}
 .svc-tags{display:flex;flex-wrap:wrap;gap:6px}
-.svc-tags span{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:4px 9px;border-radius:999px;background:rgba(255,106,42,.1);border:1px solid rgba(255,106,42,.22);color:#ffc9a8}
+.svc-tags span{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:4px 9px;border-radius:999px;background:rgba(34,224,255,.1);border:1px solid rgba(34,224,255,.22);color:#ffc9a8}
 .svc-cta{display:flex;flex-wrap:wrap;align-items:center;gap:14px;margin-top:14px;padding-top:6px}
 .svc-cta-note{font-size:13px;color:var(--dim)}
-.media-wall{position:relative;min-height:560px;height:100%;border-radius:22px;border:1px solid var(--line);background:radial-gradient(120% 80% at 70% 20%,rgba(255,106,42,.14),transparent 50%),radial-gradient(90% 70% at 20% 90%,rgba(124,92,255,.16),transparent 55%),#0a0a10;overflow:hidden;isolation:isolate}
+.media-wall{position:relative;min-height:560px;height:100%;border-radius:22px;border:1px solid var(--line);background:radial-gradient(120% 80% at 70% 20%,rgba(34,224,255,.12),transparent 50%),radial-gradient(90% 70% at 20% 90%,rgba(124,92,255,.14),transparent 55%),#0a0a10;overflow:hidden;isolation:isolate}
 .media-wall::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:2;background:linear-gradient(180deg,#0a0a10 0%,transparent 12%,transparent 88%,#0a0a10 100%),linear-gradient(90deg,rgba(10,10,16,.35),transparent 18%,transparent 82%,rgba(10,10,16,.25))}
 .media-wall-viewport{position:absolute;inset:12px;overflow:hidden;border-radius:16px}
 .media-wall-track{display:grid;grid-template-columns:1fr 1fr;gap:12px;height:max-content;will-change:transform;animation:wallScroll 80s linear infinite}
@@ -596,8 +599,8 @@ footer{padding:48px 0 28px;border-top:1px solid var(--line);margin-top:40px}
 .wall-tile.mid{aspect-ratio:4/5}
 .wall-tile video,.wall-tile .wall-poster{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
 .wall-badge{position:absolute;top:10px;left:10px;z-index:2;font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:5px 9px;border-radius:999px;backdrop-filter:blur(8px)}
-.wall-badge.video{background:rgba(255,61,110,.88);color:#fff}
-.wall-badge.static{background:rgba(255,122,47,.92);color:#1a0800}
+.wall-badge.video{background:rgba(34,224,255,.92);color:#041018}
+.wall-badge.static{background:rgba(124,92,255,.9);color:#fff}
 .wall-tile figcaption{position:absolute;left:0;right:0;bottom:0;z-index:2;padding:28px 12px 10px;font-size:12px;font-weight:600;color:#fff;background:linear-gradient(transparent,rgba(0,0,0,.65))}
 .wall-poster{background-size:cover}
 .p-neon{background:radial-gradient(circle at 30% 25%,#fff76a 0%,transparent 28%),radial-gradient(circle at 75% 70%,#ff3d9a 0%,transparent 40%),linear-gradient(135deg,#1a0a3a,#5b2bff 45%,#22e0ff)}
@@ -734,6 +737,543 @@ body{padding-bottom:76px}
 @media (prefers-reduced-motion:reduce){
   .scramble.is-scrambling{color:var(--accent,#22e0ff)}
 }
+
+/* === OVERNIGHT CRAFT 2026-09-12 === */
+.feed-tile.feed-still img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.feed-tile.feed-still{cursor:zoom-in}
+.feed-tile:focus-within{outline:1px solid rgba(34,224,255,.45);outline-offset:2px}
+.feed-tile:hover .feed-meta{opacity:1;transform:translateY(0)}
+.feed-meta{transition:opacity .25s ease, transform .25s ease}
+.pt-chip{transition:background .2s ease, color .2s ease, transform .2s ease}
+.pt-chip:hover{transform:translateY(-1px)}
+.btn-primary{letter-spacing:.01em}
+.btn-primary:active{transform:translateY(0) scale(.98)}
+.btn-ghost:active{transform:scale(.98)}
+.section{position:relative}
+.section + .section{padding-top:clamp(48px,8vw,88px)}
+.section-h{margin-bottom:clamp(18px,3vw,28px)}
+.section-sep{height:1px;border:0;margin:0 auto;max-width:1120px;background:linear-gradient(90deg,transparent,rgba(34,224,255,.28),rgba(255,255,255,.08),transparent)}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:9998;opacity:.035;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");background-size:180px 180px}
+@media (prefers-reduced-motion:reduce){body::before{display:none}}
+.wall-tile{cursor:default}
+.wall-tile.wall-static,.wall-tile[data-lb],.case .media img{cursor:zoom-in}
+.case .media img{width:100%;height:100%;object-fit:cover;display:block;position:absolute;inset:0}
+.cases-grid-trust{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
+.fast-card{transition:border-color .2s ease, transform .2s ease, box-shadow .2s ease}
+.fast-card:hover{border-color:rgba(34,224,255,.35);transform:translateY(-2px);box-shadow:0 12px 32px rgba(0,0,0,.28)}
+.price-tile.featured{box-shadow:0 0 0 1px rgba(34,224,255,.35),0 12px 36px rgba(34,224,255,.12)}
+.hero-copy .lead{letter-spacing:.01em}
+.contact-side .row{padding:10px 0;border-bottom:1px solid rgba(255,255,255,.06)}
+.contact-side .row:last-of-type{border-bottom:0}
+.lb-root{position:fixed;inset:0;z-index:1200;display:none;align-items:center;justify-content:center;padding:24px;background:rgba(4,6,10,.88);backdrop-filter:blur(10px)}
+.lb-root.is-open{display:flex}
+.lb-root img{max-width:min(960px,94vw);max-height:86vh;border-radius:14px;border:1px solid rgba(34,224,255,.25);box-shadow:0 20px 60px rgba(0,0,0,.55);object-fit:contain;background:#0a0a10}
+.lb-close{position:absolute;top:16px;right:16px;width:44px;height:44px;border-radius:12px;border:1px solid rgba(255,255,255,.18);background:rgba(7,7,10,.85);color:#fff;font-size:22px;cursor:pointer}
+.lb-close:hover{border-color:rgba(34,224,255,.45);color:var(--accent)}
+@media (max-width:980px){body::before{opacity:.025}}
+
+
+/* === CRAFT PUSH 2026-09-12: type / space / hero === */
+:root{
+  --max:1120px;
+  --r:16px;
+  --section-y:clamp(52px,7vw,84px);
+}
+.container{width:min(100% - 36px,var(--max))}
+.hero{padding:calc(var(--nav) + 40px) 0 44px;min-height:min(100vh,860px)}
+.hero-grid{gap:32px;width:min(100% - 36px,var(--max))}
+.hero-bg video{opacity:.18;filter:saturate(1.12) contrast(1.12) brightness(.92)}
+.scrim{background:
+  linear-gradient(105deg,rgba(7,7,10,.94) 0%,rgba(7,7,10,.72) 26%,rgba(7,7,10,.28) 48%,rgba(7,7,10,.55) 70%,rgba(7,7,10,.9) 100%),
+  linear-gradient(180deg,rgba(7,7,10,.55) 0%,transparent 26%,transparent 52%,rgba(7,7,10,.95) 100%),
+  radial-gradient(ellipse 50% 40% at 18% 35%,rgba(34,224,255,.12),transparent 60%)}
+.hero-bg::after{background:
+  radial-gradient(ellipse 55% 45% at 18% 28%,rgba(34,224,255,.14),transparent 58%),
+  radial-gradient(ellipse 45% 38% at 82% 18%,rgba(124,92,255,.12),transparent 55%),
+  linear-gradient(180deg,rgba(7,7,10,.4),var(--bg) 94%)}
+.hero-copy h1{font-size:clamp(2.45rem,5.4vw,4.2rem);letter-spacing:-.038em;line-height:1.05;margin:0 0 .28em;max-width:12ch}
+.hero-copy .lead{
+  display:block;
+  font-size:clamp(1.02rem,1.35vw,1.125rem);
+  line-height:1.45;
+  max-width:34ch;
+  color:rgba(243,244,246,.82);
+  margin:10px 0 0;
+  letter-spacing:.005em;
+  font-weight:500;
+}
+.hero-actions{margin:22px 0 0;gap:10px}
+.hero-pills{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.hero-pills .pill{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:6px 11px;border-radius:999px;font-size:11px;font-weight:600;
+  letter-spacing:.04em;text-transform:uppercase;
+  color:rgba(207,239,255,.9);
+  border:1px solid rgba(34,224,255,.22);
+  background:rgba(34,224,255,.06);
+}
+.btn{padding:13px 20px;font-size:14.5px;letter-spacing:.01em}
+.btn-primary{
+  background:linear-gradient(135deg,#2ee8ff 0%,var(--accent) 42%,#3aa0ff 100%);
+  color:#031018;
+  box-shadow:0 0 0 1px rgba(34,224,255,.35),0 10px 32px rgba(34,224,255,.22),inset 0 1px 0 rgba(255,255,255,.35);
+}
+.btn-primary:hover{
+  transform:translateY(-2px);
+  box-shadow:0 0 0 1px rgba(34,224,255,.5),0 14px 40px rgba(34,224,255,.32),inset 0 1px 0 rgba(255,255,255,.4);
+}
+.btn-primary:active{transform:translateY(0) scale(.985);box-shadow:0 0 0 1px rgba(34,224,255,.4),0 6px 18px rgba(34,224,255,.2)}
+.btn-ghost{
+  border-color:rgba(255,255,255,.14);
+  background:rgba(255,255,255,.03);
+  backdrop-filter:blur(8px);
+}
+.btn-ghost:hover{
+  border-color:rgba(34,224,255,.4);
+  color:#fff;
+  background:rgba(34,224,255,.08);
+  box-shadow:0 0 24px rgba(34,224,255,.12);
+}
+.section{padding:var(--section-y) 0}
+.section-h{max-width:640px;margin-bottom:clamp(16px,2.5vw,26px)}
+.section-h h2{letter-spacing:-.03em;line-height:1.12}
+.section-prices{padding:clamp(40px,5vw,56px) 0 clamp(20px,3vw,28px)}
+.section-order{padding:clamp(28px,4vw,44px) 0 clamp(40px,6vw,64px)}
+.work-feed{height:min(76vh,680px)}
+.feed-dual{gap:12px}
+.feed-col-inner{gap:12px}
+@media (max-width:900px){
+  .hero{padding:calc(var(--nav) + 28px) 0 28px;min-height:auto}
+  .hero-copy h1{max-width:none}
+  .hero-copy .lead{max-width:40ch}
+}
+@media (prefers-reduced-motion:reduce){
+  .btn-primary:hover,.btn-ghost:hover{transform:none}
+}
+
+
+/* === CRAFT PUSH 2026-09-12: feed + price packs === */
+.feed-tile{
+  border-radius:14px;
+  background:#050508;
+  box-shadow:0 10px 28px rgba(0,0,0,.42), inset 0 0 0 1px rgba(255,255,255,.07);
+  transition:transform .3s cubic-bezier(.2,.7,.2,1), box-shadow .3s ease;
+}
+.feed-tile:hover{
+  transform:translateY(-4px) scale(1.02);
+  box-shadow:0 20px 48px rgba(0,0,0,.5), 0 0 0 1px rgba(34,224,255,.32), 0 0 36px rgba(34,224,255,.12);
+}
+.feed-tile video,
+.feed-tile img{
+  position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;object-position:center;
+  display:block;background:#000;
+}
+.feed-tile.landscape video,
+.feed-tile.landscape img{
+  object-fit:cover;object-position:center 40%;
+}
+.feed-tile.portrait video,
+.feed-tile.portrait img{
+  object-fit:cover;object-position:center top;
+}
+.feed-meta{
+  padding:18px 12px 11px;
+  background:linear-gradient(180deg,transparent 0%,rgba(0,0,0,.55) 38%,rgba(0,0,0,.88) 100%);
+}
+.feed-meta .tag{
+  font-size:9px;letter-spacing:.1em;opacity:.95;
+  color:var(--accent);margin-bottom:4px;
+}
+.feed-meta .title{
+  font-size:12.5px;font-weight:750;letter-spacing:-.01em;
+  text-shadow:0 1px 8px rgba(0,0,0,.6);
+}
+.feed-meta .sub{font-size:10.5px;color:rgba(255,255,255,.62);margin-top:2px}
+.feed-float-label{
+  top:8px;padding:5px 10px;border-radius:999px;
+  background:rgba(7,7,10,.55);border:1px solid rgba(34,224,255,.2);
+  backdrop-filter:blur(8px);letter-spacing:.18em;
+}
+.price-tile{
+  padding:16px 14px 14px;
+  background:
+    radial-gradient(circle at 90% 8%,rgba(34,224,255,.2),transparent 40%),
+    radial-gradient(circle at 8% 92%,rgba(124,92,255,.14),transparent 42%),
+    linear-gradient(165deg,#14141e 0%,#0a0a12 55%,#0e0e16 100%);
+  box-shadow:0 12px 32px rgba(0,0,0,.45), inset 0 0 0 1px rgba(255,255,255,.09);
+}
+.price-tile.pack,
+.price-tile.h260.pack{
+  background:
+    radial-gradient(circle at 85% 10%,rgba(34,224,255,.28),transparent 42%),
+    linear-gradient(160deg,#161622,#0b0b14 60%,#10101a);
+  box-shadow:0 14px 36px rgba(0,0,0,.48), inset 0 0 0 1px rgba(34,224,255,.22);
+}
+.price-tile.featured{
+  box-shadow:0 0 0 1px rgba(34,224,255,.42),0 16px 40px rgba(34,224,255,.16), inset 0 0 0 1px rgba(255,255,255,.06);
+}
+.price-tile .pt-eyebrow{letter-spacing:.18em;margin-bottom:6px;opacity:.9}
+.price-tile .pt-price{font-size:clamp(26px,3.8vw,36px);letter-spacing:-.03em}
+.price-tile .pt-label{margin-top:8px;font-size:13.5px;letter-spacing:-.01em}
+.price-tile .pt-sub{font-size:11.5px;color:rgba(255,255,255,.52)}
+.price-tile .pt-chip{
+  margin-top:12px;padding:6px 12px;font-size:10.5px;
+  box-shadow:0 6px 18px rgba(34,224,255,.22);
+}
+.fast-grid{gap:12px}
+.fast-card{
+  padding:18px 16px 16px;border-radius:16px;gap:6px;
+  background:linear-gradient(180deg,rgba(255,255,255,.035),rgba(18,18,26,.96));
+  border:1px solid rgba(255,255,255,.08);
+}
+.fast-card.featured{
+  border-color:rgba(34,224,255,.42);
+  background:linear-gradient(180deg,rgba(34,224,255,.12),rgba(14,14,22,.95));
+  box-shadow:0 18px 44px rgba(34,224,255,.12);
+}
+.fast-card:hover{
+  transform:translateY(-3px);
+  border-color:rgba(34,224,255,.38);
+  box-shadow:0 14px 36px rgba(0,0,0,.32),0 0 0 1px rgba(34,224,255,.15);
+}
+.fast-label{font-size:13px;font-weight:700;letter-spacing:-.01em;color:#f2f4ff}
+.fast-desc{font-size:12px;color:var(--dim)}
+.fast-price{font-size:clamp(1.35rem,2.2vw,1.7rem);margin:2px 0 8px;letter-spacing:-.03em}
+.fast-badge{
+  font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+  padding:5px 10px;border-radius:999px;
+  color:var(--accent);border:1px solid rgba(34,224,255,.28);background:rgba(34,224,255,.08);
+}
+.packs-compact .price{
+  border-radius:16px;
+  border:1px solid rgba(255,255,255,.09);
+  background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(12,12,18,.98));
+  transition:transform .25s ease,border-color .25s ease,box-shadow .25s ease;
+}
+.packs-compact .price:hover{
+  transform:translateY(-2px);
+  border-color:rgba(34,224,255,.32);
+  box-shadow:0 14px 36px rgba(0,0,0,.3);
+}
+.packs-compact .price.popular{
+  border-color:rgba(34,224,255,.45);
+  box-shadow:0 18px 48px rgba(34,224,255,.12);
+}
+.price .sum{letter-spacing:-.035em}
+@media (prefers-reduced-motion:reduce){
+  .feed-tile:hover,.fast-card:hover,.packs-compact .price:hover{transform:none}
+}
+
+
+/* === CRAFT PUSH 2026-09-12: process / FAQ / contact / motion / mobile === */
+.step-get{display:block !important}
+.process-price-link{display:block !important;margin-top:16px;font-size:13px;color:var(--muted)}
+.process-price-link a{color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(34,224,255,.35)}
+.process-strip{gap:12px}
+.process-strip .step{
+  padding:16px 14px 14px;border-radius:14px;
+  background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.015));
+  border:1px solid rgba(255,255,255,.08);
+  min-height:100%;
+}
+.process-strip .step:hover{
+  border-color:rgba(34,224,255,.28);
+  box-shadow:0 12px 28px rgba(0,0,0,.25);
+  transform:translateY(-2px);
+}
+.process-strip .step-n{font-size:17px;letter-spacing:.04em}
+.process-strip h3{font-size:14.5px;letter-spacing:-.015em}
+.step-get{margin-top:12px;padding-top:12px}
+.step-get strong{font-size:10px;letter-spacing:.12em;color:rgba(156,163,175,.9)}
+.step-get li{
+  font-size:11.5px;padding:5px 9px;
+  background:rgba(34,224,255,.08);border-color:rgba(34,224,255,.18);color:#d7f7ff;
+}
+.faq{gap:8px;max-width:760px}
+.faq details{
+  border-radius:14px;padding:2px 16px;
+  border:1px solid rgba(255,255,255,.08);
+  background:linear-gradient(180deg,rgba(255,255,255,.03),rgba(14,14,20,.96));
+  transition:border-color .2s ease,box-shadow .2s ease;
+}
+.faq details:hover{border-color:rgba(34,224,255,.28)}
+.faq details[open]{
+  border-color:rgba(34,224,255,.35);
+  box-shadow:0 12px 32px rgba(0,0,0,.22),0 0 0 1px rgba(34,224,255,.08);
+}
+.faq summary{padding:15px 0;font-size:14.5px;letter-spacing:-.01em}
+.faq summary::after{content:"+";font-size:18px;opacity:.9;transition:transform .2s ease}
+.faq details[open] summary::after{content:"–"}
+.faq .ans{padding:0 0 16px;font-size:13.5px;line-height:1.55;color:rgba(209,213,219,.88)}
+.form{
+  gap:14px;padding:22px 20px;border-radius:18px;
+  border:1px solid rgba(255,255,255,.09);
+  background:linear-gradient(180deg,rgba(255,255,255,.035),rgba(12,12,18,.98));
+  box-shadow:0 16px 40px rgba(0,0,0,.28);
+}
+.form label{gap:7px;font-size:12.5px;letter-spacing:.02em}
+.form input,.form textarea,.form select{
+  border-radius:12px;border:1px solid rgba(255,255,255,.1);
+  background:#0a0a12;padding:12px 14px;font-size:14px;
+  transition:border-color .2s ease,box-shadow .2s ease,background .2s ease;
+}
+.form input:focus,.form textarea:focus,.form select:focus{
+  outline:none;
+  border-color:rgba(34,224,255,.55);
+  box-shadow:0 0 0 3px rgba(34,224,255,.16),0 0 24px rgba(34,224,255,.08);
+  background:#0c0c16;
+}
+.form .btn{width:100%;margin-top:4px}
+.trust-line{
+  display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;
+  justify-content:flex-start;
+}
+.trust-line span{
+  display:inline-flex;align-items:center;gap:6px;
+  font-size:11.5px;font-weight:600;letter-spacing:.04em;
+  color:rgba(207,239,255,.85);
+  padding:6px 10px;border-radius:999px;
+  border:1px solid rgba(34,224,255,.2);
+  background:rgba(34,224,255,.05);
+}
+.trust-line span::before{
+  content:"";width:6px;height:6px;border-radius:50%;
+  background:var(--accent);box-shadow:0 0 8px rgba(34,224,255,.6);
+}
+.contact-side .row{padding:12px 0}
+.contact-side .reply{
+  margin-top:14px;padding:10px 12px;border-radius:12px;
+  border:1px solid rgba(34,224,255,.22);background:rgba(34,224,255,.06);
+  color:var(--accent);font-size:13px;font-weight:600;
+}
+.cta-trust-row{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 0}
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1)}
+.reveal.in{opacity:1;transform:none}
+html{scroll-padding-bottom:96px}
+#contact{scroll-margin-bottom:100px}
+.section-order{padding-bottom:calc(clamp(40px,6vw,64px) + 8px)}
+.sticky-cta{
+  padding:8px;gap:8px;
+  border-radius:18px;
+  background:rgba(7,7,10,.88);
+  border:1px solid rgba(255,255,255,.1);
+  box-shadow:0 12px 40px rgba(0,0,0,.45);
+  backdrop-filter:blur(14px) saturate(1.2);
+}
+.sticky-cta.is-over-form{opacity:.35;pointer-events:none;transform:translateY(8px)}
+.sticky-cta{transition:opacity .25s ease, transform .25s ease}
+@media (max-width:900px){
+  .process-strip .step:hover{transform:none}
+  .feed-mobile{padding-bottom:4px}
+  body{padding-bottom:88px}
+  .section-order{padding-bottom:calc(36px + 72px)}
+  .sticky-cta{left:10px;right:10px;bottom:max(10px, env(safe-area-inset-bottom))}
+}
+@media (prefers-reduced-motion:reduce){
+  .reveal{opacity:1;transform:none;transition:none}
+  .process-strip .step:hover{transform:none}
+  .sticky-cta{transition:none}
+}
+
+
+/* === PROFIT-VISUAL 2026 craft (Aiskra-adjacent, cyan dual-feed sacred) === */
+.btn-primary.btn-glow,
+.btn-primary{
+  box-shadow:0 0 0 1px rgba(34,224,255,.25), 0 8px 28px rgba(34,224,255,.28), 0 0 40px rgba(34,224,255,.12);
+}
+.btn-primary:hover{
+  transform:translateY(-2px);
+  box-shadow:0 0 0 1px rgba(34,224,255,.4), 0 14px 36px rgba(34,224,255,.35), 0 0 56px rgba(34,224,255,.18);
+}
+.btn-glow{
+  animation:btnGlowPulse 3.2s ease-in-out infinite;
+}
+@keyframes btnGlowPulse{
+  0%,100%{box-shadow:0 0 0 1px rgba(34,224,255,.22), 0 8px 28px rgba(34,224,255,.26), 0 0 36px rgba(34,224,255,.1)}
+  50%{box-shadow:0 0 0 1px rgba(34,224,255,.4), 0 10px 34px rgba(34,224,255,.38), 0 0 52px rgba(34,224,255,.2)}
+}
+@media (prefers-reduced-motion:reduce){
+  .btn-glow{animation:none}
+}
+
+.hero-trust{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
+.ht-chip{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:6px 12px;border-radius:999px;
+  font-size:11px;font-weight:600;letter-spacing:.04em;
+  color:rgba(243,244,246,.88);
+  border:1px solid rgba(255,255,255,.1);
+  background:rgba(255,255,255,.03);
+  backdrop-filter:blur(8px);
+}
+.ht-chip::before{
+  content:"";width:6px;height:6px;border-radius:50%;
+  background:var(--accent);box-shadow:0 0 8px rgba(34,224,255,.7);
+}
+
+/* Stronger cinematic contrast */
+.scrim{background:
+  linear-gradient(90deg,rgba(7,7,10,.94) 0%,rgba(7,7,10,.72) 22%,rgba(7,7,10,.28) 48%,rgba(7,7,10,.55) 70%,rgba(7,7,10,.9) 100%),
+  linear-gradient(180deg,rgba(7,7,10,.55) 0%,transparent 26%,transparent 52%,rgba(7,7,10,.95) 100%),
+  radial-gradient(ellipse 60% 50% at 18% 40%,rgba(34,224,255,.07),transparent 60%)}
+
+.hero-copy h1{
+  letter-spacing:-.035em;
+  text-shadow:0 2px 40px rgba(0,0,0,.45);
+}
+.hero-copy .lead{
+  font-size:clamp(1.02rem,1.5vw,1.2rem);
+  color:rgba(156,163,175,.95);
+  max-width:42ch;
+  line-height:1.55;
+}
+.hero-actions{margin:30px 0 14px;gap:14px}
+.hero-actions .btn-primary{min-width:148px;padding:15px 26px;font-size:15px;letter-spacing:.01em}
+.hero-actions .btn-ghost{padding:15px 22px;border-color:rgba(255,255,255,.16)}
+
+/* Denser, more premium dual-feed */
+.work-feed{height:min(82vh,720px)}
+.feed-dual{gap:10px}
+.feed-col-inner{gap:10px !important}
+.feed-tile{
+  border-radius:16px;
+  box-shadow:0 14px 40px rgba(0,0,0,.42), inset 0 0 0 1px rgba(255,255,255,.07);
+}
+.feed-tile:hover{
+  transform:translateY(-4px) scale(1.018);
+  box-shadow:0 22px 56px rgba(34,224,255,.22), 0 0 0 1px rgba(34,224,255,.32);
+}
+.feed-meta{
+  background:linear-gradient(180deg,transparent 0%,rgba(0,0,0,.55) 45%,rgba(0,0,0,.82) 100%);
+}
+.feed-meta .tag{
+  color:var(--accent);
+  letter-spacing:.08em;
+  font-size:10px;
+  font-weight:700;
+  text-transform:uppercase;
+}
+.feed-meta .title{font-size:14px;font-weight:700;letter-spacing:-.01em}
+.price-tile{
+  background:
+    radial-gradient(circle at 88% 12%,rgba(34,224,255,.28),transparent 40%),
+    radial-gradient(circle at 8% 88%,rgba(124,92,255,.2),transparent 42%),
+    linear-gradient(165deg,#14141e 0%,#0a0a12 58%,#10101a 100%);
+}
+.price-tile .pt-price{
+  font-size:clamp(1.35rem,2vw,1.65rem);
+  font-weight:800;
+  letter-spacing:-.03em;
+  color:#fff;
+}
+.price-tile .pt-price span{color:var(--accent);font-weight:700}
+.price-tile .pt-eyebrow{
+  color:var(--accent);
+  letter-spacing:.14em;
+  font-size:10px;
+  font-weight:700;
+  text-transform:uppercase;
+  opacity:.9;
+}
+.pt-eta{
+  margin-top:6px;font-size:11px;color:var(--dim);letter-spacing:.02em;
+}
+
+/* Section rhythm + type closer to Aiskra */
+.section{padding:88px 0}
+.section-h{margin-bottom:48px}
+.section-h h2{letter-spacing:-.03em}
+.section-sep{
+  border:0;height:1px;margin:0;
+  background:linear-gradient(90deg,transparent,rgba(34,224,255,.22),rgba(255,255,255,.08),transparent);
+}
+
+/* Price cards premium */
+.fast-card{
+  transition:transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+  background:linear-gradient(180deg,rgba(18,18,26,.98),rgba(12,12,18,.98));
+}
+.fast-card:hover{
+  transform:translateY(-4px);
+  border-color:rgba(34,224,255,.35);
+  box-shadow:0 18px 48px rgba(34,224,255,.12);
+}
+.fast-card.featured{
+  box-shadow:0 18px 52px rgba(34,224,255,.16), inset 0 0 0 1px rgba(34,224,255,.2);
+}
+.fast-price{font-size:1.55rem;font-weight:800;letter-spacing:-.02em}
+.fast-eta{font-size:12px;color:var(--dim);margin-top:2px}
+.fast-card .btn{margin-top:auto}
+
+.price{
+  transition:transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+}
+.price:hover{
+  transform:translateY(-3px);
+  border-color:rgba(34,224,255,.3);
+  box-shadow:0 16px 40px rgba(34,224,255,.1);
+}
+.price.popular{
+  box-shadow:0 18px 48px rgba(34,224,255,.14);
+}
+
+/* Form trust */
+.form-trust{
+  display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;
+}
+.form-trust .ht-chip{font-size:10px;padding:5px 10px}
+
+/* Subtle page grain (expensive feel, low noise) */
+body::before{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:9998;opacity:.035;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Sticky CTA glow */
+.sticky-cta .btn-primary{
+  box-shadow:0 0 0 1px rgba(34,224,255,.3), 0 8px 24px rgba(34,224,255,.3);
+}
+
+/* Process chips polish */
+.step-get{
+  margin-top:12px;padding:10px 12px;border-radius:12px;
+  background:rgba(34,224,255,.05);border:1px solid rgba(34,224,255,.12);
+}
+.step-get strong{
+  display:block;font-size:10px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:6px;font-weight:700;
+}
+.step:hover{
+  border-color:rgba(34,224,255,.28);
+  box-shadow:0 14px 36px rgba(34,224,255,.08);
+}
+
+/* FAQ polish */
+.faq details{
+  border:1px solid var(--line);
+  border-radius:14px;
+  background:rgba(18,18,26,.7);
+  margin-bottom:10px;
+  transition:border-color .2s ease, box-shadow .2s ease;
+}
+.faq details[open],
+.faq details:hover{
+  border-color:rgba(34,224,255,.28);
+  box-shadow:0 10px 28px rgba(0,0,0,.25);
+}
+.faq summary{
+  cursor:pointer;padding:16px 18px;font-weight:650;letter-spacing:-.01em;
+  list-style:none;
+}
+.faq summary::-webkit-details-marker{display:none}
+.faq .ans{padding:0 18px 16px;color:var(--muted);line-height:1.55}
+
+/* Nav CTA glow */
+.nav-cta .btn-primary{
+  box-shadow:0 0 0 1px rgba(34,224,255,.2), 0 6px 18px rgba(34,224,255,.22);
+}
+
 </style>
 </head>
 <body>
@@ -749,8 +1289,8 @@ body{padding-bottom:76px}
       <a href="#contact">Заказать</a>
     </nav>
     <div class="nav-cta">
-      <a class="nav-phone" href="tel:+74951234567">+7 495 123-45-67</a>
-      <a class="btn btn-primary btn-sm" href="#contact">Заказать</a>
+      <a class="nav-phone" href="mailto:hello@orbita.agency">hello@orbita.agency</a>
+      <a class="btn btn-primary btn-sm btn-glow" href="#contact">Заказать</a>
       <button class="burger" id="burger" aria-label="Меню" aria-expanded="false">☰</button>
     </div>
   </div>
@@ -759,6 +1299,7 @@ body{padding-bottom:76px}
   <a href="#works">Работы</a>
   <a href="#prices-fast">Цены</a>
   <a href="#contact">Заказать</a>
+  <a href="mailto:hello@orbita.agency">hello@orbita.agency</a>
   <a class="btn btn-primary" href="#contact">Заказать</a>
 </div>
 
@@ -773,10 +1314,15 @@ body{padding-bottom:76px}
     <div class="hero-grid">
             <div class="hero-copy">
         <h1>Ролики, которые<span class="scramble">приносят заявки</span></h1>
-        <p class="lead">Ответ за 24 часа</p>
+        <p class="lead">Киноязык под заявки: Reels, споты, афиши. Смета «от» прозрачна — ответ за 24 часа.</p>
         <div class="hero-actions">
-          <a class="btn btn-primary" href="#contact">Заказать</a>
+          <a class="btn btn-primary btn-glow" href="#contact">Заказать</a>
           <a class="btn btn-ghost" href="#prices-fast">Цены</a>
+        </div>
+        <div class="hero-trust" aria-label="Гарантии">
+          <span class="ht-chip">Договор</span>
+          <span class="ht-chip">NDA</span>
+          <span class="ht-chip">Ответ 24ч</span>
         </div>
       </div>
 
@@ -788,11 +1334,19 @@ body{padding-bottom:76px}
             <div class="feed-col-inner" data-feed-col="up">
               <article class="feed-tile h240">
                 <video data-feed src="work-kazakhstan.mp4" muted playsinline loop preload="metadata"></video>
-                <div class="feed-meta"><div class="tag">YouTube · 0:30</div><div class="title">Ритейл · перформанс</div><div class="sub">−64% CPV</div></div>
+                <div class="feed-meta"><div class="tag">YouTube · 0:30</div><div class="title">Ритейл · перформанс</div><div class="sub">OLV · performance</div></div>
+              </article>
+              <article class="feed-tile h200 feed-still" data-lb="poster-2026-fashion-ss26.png">
+                <img src="poster-2026-fashion-ss26.png" alt="Fashion SS26" loading="lazy" decoding="async">
+                <div class="feed-meta"><div class="tag">Афиша · SS26</div><div class="title">Fashion key</div><div class="sub">Print · digital</div></div>
+              </article>
+              <article class="feed-tile h220 feed-still" data-lb="still-04.jpg">
+                <img src="still-04.jpg" alt="" loading="lazy" decoding="async">
+                <div class="feed-meta"><div class="tag">Still · frame</div><div class="title">Studio · 04</div><div class="sub">Key still</div></div>
               </article>
               <article class="feed-tile landscape">
                 <video data-feed src="work-09.mp4" muted playsinline loop preload="metadata"></video>
-                <div class="feed-meta"><div class="tag">Brand · 16:9</div><div class="title">Фьючер · сити</div><div class="sub">AI brand film</div></div>
+                <div class="feed-meta"><div class="tag">Brand · 16:9</div><div class="title">Фьючер · сити</div><div class="sub">Brand film</div></div>
               </article>
               <article class="feed-tile h280 portrait">
                 <video data-feed src="work-02.mp4" muted playsinline loop preload="metadata"></video>
@@ -800,11 +1354,11 @@ body{padding-bottom:76px}
               </article>
               <article class="feed-tile h220">
                 <video data-feed src="work-03.mp4" muted playsinline loop preload="metadata"></video>
-                <div class="feed-meta"><div class="tag">TikTok · Reels</div><div class="title">Фарма · Reels</div><div class="sub">×5.6 охват</div></div>
+                <div class="feed-meta"><div class="tag">TikTok · Reels</div><div class="title">Фарма · Reels</div><div class="sub">Вертикаль · hook</div></div>
               </article>
               <article class="feed-tile h240">
                 <video data-feed src="work-01.mp4" muted playsinline loop preload="metadata"></video>
-                <div class="feed-meta"><div class="tag">Brand · 16:9</div><div class="title">Финтех · имидж</div><div class="sub">4.8× конверсия</div></div>
+                <div class="feed-meta"><div class="tag">Brand · 16:9</div><div class="title">Финтех · имидж</div><div class="sub">Имидж · кадр</div></div>
               </article>
               <article class="feed-tile h260 portrait">
                 <video data-feed src="work-10.mp4" muted playsinline loop preload="metadata"></video>
@@ -812,29 +1366,55 @@ body{padding-bottom:76px}
               </article>
               <article class="feed-tile h200">
                 <video data-feed src="work-05.mp4" muted playsinline loop preload="metadata"></video>
-                <div class="feed-meta"><div class="tag">OLV</div><div class="title">Авто · бренд</div><div class="sub">2.1× VTR</div></div>
+                <div class="feed-meta"><div class="tag">OLV</div><div class="title">Авто · бренд</div><div class="sub">VTR · cut</div></div>
               </article>
               <article class="feed-tile h240">
                 <video data-feed src="work-11.mp4" muted playsinline loop preload="metadata"></video>
                 <div class="feed-meta"><div class="tag">Cine · 9:16</div><div class="title">Samurai · storm</div><div class="sub">B/W motion</div></div>
               </article>
               <article class="feed-tile h220">
-                <video data-feed src="work-06.mp4" muted playsinline loop preload="metadata"></video>
-                <div class="feed-meta"><div class="tag">TikTok</div><div class="title">Lifestyle · cut</div><div class="sub">Hook 1.2s</div></div>
+                <video data-feed src="work-08.mp4" muted playsinline loop preload="metadata"></video>
+                <div class="feed-meta"><div class="tag">TikTok</div><div class="title">Lifestyle · cut</div><div class="sub">Hook · cut</div></div>
               </article>
               <article class="feed-tile h260 portrait">
-                <video data-feed src="work-04.mp4" muted playsinline loop preload="metadata"></video>
-                <div class="feed-meta"><div class="tag">Reels</div><div class="title">Beauty · серия</div><div class="sub">×3.2 ER</div></div>
+                <video data-feed src="work-07.mp4" muted playsinline loop preload="metadata"></video>
+                <div class="feed-meta"><div class="tag">Reels</div><div class="title">Beauty · серия</div><div class="sub">Beauty · series</div></div>
+              </article>
+
+
+              <article class="feed-tile h200 feed-still" data-lb="poster-2026-neon-horizon.png">
+                <img src="poster-2026-neon-horizon.png" alt="Neon Horizon" loading="lazy" decoding="async">
+                <div class="feed-meta"><div class="tag">Афиша · 2026</div><div class="title">Neon Horizon</div><div class="sub">Key visual</div></div>
+              </article>
+              <article class="feed-tile h220 feed-still" data-lb="poster-2026-speed-light.png">
+                <img src="poster-2026-speed-light.png" alt="Speed Light" loading="lazy" decoding="async">
+                <div class="feed-meta"><div class="tag">Афиша · sport</div><div class="title">Speed Light</div><div class="sub">Motion key</div></div>
+              </article>
+              <article class="feed-tile h200 feed-still" data-lb="still-09.jpg">
+                <img src="still-09.jpg" alt="" loading="lazy" decoding="async">
+                <div class="feed-meta"><div class="tag">Still · frame</div><div class="title">Studio · 09</div><div class="sub">Key still</div></div>
+              </article>
+              <article class="feed-tile h220 feed-still" data-lb="still-14.jpg">
+                <img src="still-14.jpg" alt="" loading="lazy" decoding="async">
+                <div class="feed-meta"><div class="tag">Still · frame</div><div class="title">Studio · 14</div><div class="sub">Key still</div></div>
               </article>
 
               <!-- duplicate for seamless loop -->
               <article class="feed-tile h240">
                 <video data-feed src="work-kazakhstan.mp4" muted playsinline loop preload="metadata"></video>
-                <div class="feed-meta"><div class="tag">YouTube · 0:30</div><div class="title">Ритейл · перформанс</div><div class="sub">−64% CPV</div></div>
+                <div class="feed-meta"><div class="tag">YouTube · 0:30</div><div class="title">Ритейл · перформанс</div><div class="sub">OLV · performance</div></div>
+              </article>
+              <article class="feed-tile h200 feed-still" data-lb="poster-2026-fashion-ss26.png">
+                <img src="poster-2026-fashion-ss26.png" alt="Fashion SS26" loading="lazy" decoding="async">
+                <div class="feed-meta"><div class="tag">Афиша · SS26</div><div class="title">Fashion key</div><div class="sub">Print · digital</div></div>
+              </article>
+              <article class="feed-tile h220 feed-still" data-lb="still-04.jpg">
+                <img src="still-04.jpg" alt="" loading="lazy" decoding="async">
+                <div class="feed-meta"><div class="tag">Still · frame</div><div class="title">Studio · 04</div><div class="sub">Key still</div></div>
               </article>
               <article class="feed-tile landscape">
                 <video data-feed src="work-09.mp4" muted playsinline loop preload="metadata"></video>
-                <div class="feed-meta"><div class="tag">Brand · 16:9</div><div class="title">Фьючер · сити</div><div class="sub">AI brand film</div></div>
+                <div class="feed-meta"><div class="tag">Brand · 16:9</div><div class="title">Фьючер · сити</div><div class="sub">Brand film</div></div>
               </article>
               <article class="feed-tile h280 portrait">
                 <video data-feed src="work-02.mp4" muted playsinline loop preload="metadata"></video>
@@ -842,11 +1422,11 @@ body{padding-bottom:76px}
               </article>
               <article class="feed-tile h220">
                 <video data-feed src="work-03.mp4" muted playsinline loop preload="metadata"></video>
-                <div class="feed-meta"><div class="tag">TikTok · Reels</div><div class="title">Фарма · Reels</div><div class="sub">×5.6 охват</div></div>
+                <div class="feed-meta"><div class="tag">TikTok · Reels</div><div class="title">Фарма · Reels</div><div class="sub">Вертикаль · hook</div></div>
               </article>
               <article class="feed-tile h240">
                 <video data-feed src="work-01.mp4" muted playsinline loop preload="metadata"></video>
-                <div class="feed-meta"><div class="tag">Brand · 16:9</div><div class="title">Финтех · имидж</div><div class="sub">4.8× конверсия</div></div>
+                <div class="feed-meta"><div class="tag">Brand · 16:9</div><div class="title">Финтех · имидж</div><div class="sub">Имидж · кадр</div></div>
               </article>
               <article class="feed-tile h260 portrait">
                 <video data-feed src="work-10.mp4" muted playsinline loop preload="metadata"></video>
@@ -854,20 +1434,38 @@ body{padding-bottom:76px}
               </article>
               <article class="feed-tile h200">
                 <video data-feed src="work-05.mp4" muted playsinline loop preload="metadata"></video>
-                <div class="feed-meta"><div class="tag">OLV</div><div class="title">Авто · бренд</div><div class="sub">2.1× VTR</div></div>
+                <div class="feed-meta"><div class="tag">OLV</div><div class="title">Авто · бренд</div><div class="sub">VTR · cut</div></div>
               </article>
               <article class="feed-tile h240">
                 <video data-feed src="work-11.mp4" muted playsinline loop preload="metadata"></video>
                 <div class="feed-meta"><div class="tag">Cine · 9:16</div><div class="title">Samurai · storm</div><div class="sub">B/W motion</div></div>
               </article>
               <article class="feed-tile h220">
-                <video data-feed src="work-06.mp4" muted playsinline loop preload="metadata"></video>
-                <div class="feed-meta"><div class="tag">TikTok</div><div class="title">Lifestyle · cut</div><div class="sub">Hook 1.2s</div></div>
+                <video data-feed src="work-08.mp4" muted playsinline loop preload="metadata"></video>
+                <div class="feed-meta"><div class="tag">TikTok</div><div class="title">Lifestyle · cut</div><div class="sub">Hook · cut</div></div>
               </article>
               <article class="feed-tile h260 portrait">
-                <video data-feed src="work-04.mp4" muted playsinline loop preload="metadata"></video>
-                <div class="feed-meta"><div class="tag">Reels</div><div class="title">Beauty · серия</div><div class="sub">×3.2 ER</div></div>
+                <video data-feed src="work-07.mp4" muted playsinline loop preload="metadata"></video>
+                <div class="feed-meta"><div class="tag">Reels</div><div class="title">Beauty · серия</div><div class="sub">Beauty · series</div></div>
               </article>
+
+              <article class="feed-tile h200 feed-still" data-lb="poster-2026-neon-horizon.png">
+                <img src="poster-2026-neon-horizon.png" alt="Neon Horizon" loading="lazy" decoding="async">
+                <div class="feed-meta"><div class="tag">Афиша · 2026</div><div class="title">Neon Horizon</div><div class="sub">Key visual</div></div>
+              </article>
+              <article class="feed-tile h220 feed-still" data-lb="poster-2026-speed-light.png">
+                <img src="poster-2026-speed-light.png" alt="Speed Light" loading="lazy" decoding="async">
+                <div class="feed-meta"><div class="tag">Афиша · sport</div><div class="title">Speed Light</div><div class="sub">Motion key</div></div>
+              </article>
+              <article class="feed-tile h200 feed-still" data-lb="still-09.jpg">
+                <img src="still-09.jpg" alt="" loading="lazy" decoding="async">
+                <div class="feed-meta"><div class="tag">Still · frame</div><div class="title">Studio · 09</div><div class="sub">Key still</div></div>
+              </article>
+              <article class="feed-tile h220 feed-still" data-lb="still-14.jpg">
+                <img src="still-14.jpg" alt="" loading="lazy" decoding="async">
+                <div class="feed-meta"><div class="tag">Still · frame</div><div class="title">Studio · 14</div><div class="sub">Key still</div></div>
+              </article>
+
             </div>
           </div>
           <div class="feed-col feed-col-down feed-col-prices" aria-label="Тарифы">
@@ -877,6 +1475,7 @@ body{padding-bottom:76px}
                 <div class="pt-price">от 12 000 <span>₽</span></div>
                 <div class="pt-label">Сторис / пост</div>
                 <div class="pt-sub">1 шт · статика / motion</div>
+                <div class="pt-eta">от 3–5 дн</div>
                 <a class="pt-chip" href="#contact" data-prefill="Заказ формата: Сторис / пост (1 шт), ориентир от 12 000 ₽">заказать</a>
               </article>
               <article class="feed-tile price-tile h240">
@@ -884,6 +1483,7 @@ body{padding-bottom:76px}
                 <div class="pt-price">от 35 000 <span>₽</span></div>
                 <div class="pt-label">5 сторис</div>
                 <div class="pt-sub">Серия · единый стиль</div>
+                <div class="pt-eta">от 5–7 дн</div>
                 <a class="pt-chip" href="#contact" data-prefill="Заказ формата: Пакет 5 сторис, ориентир от 35 000 ₽">заказать</a>
               </article>
               <article class="feed-tile price-tile h220">
@@ -891,6 +1491,7 @@ body{padding-bottom:76px}
                 <div class="pt-price">от 35 000 <span>₽</span></div>
                 <div class="pt-label">Reels / Shorts</div>
                 <div class="pt-sub">До 15 сек · 9:16</div>
+                <div class="pt-eta">от 7–10 дн</div>
                 <a class="pt-chip" href="#contact" data-prefill="Заказ формата: Reels / Shorts до 15 сек, ориентир от 35 000 ₽">заказать</a>
               </article>
               <article class="feed-tile price-tile h280 featured">
@@ -898,6 +1499,7 @@ body{padding-bottom:76px}
                 <div class="pt-price">от 80 000 <span>₽</span></div>
                 <div class="pt-label">Ролик 15–30 сек</div>
                 <div class="pt-sub">Сценарий + монтаж</div>
+                <div class="pt-eta">от 10–14 дн</div>
                 <a class="pt-chip" href="#contact" data-prefill="Заказ формата: Короткий рекламный ролик 15–30 сек, ориентир от 80 000 ₽">заказать</a>
               </article>
               <article class="feed-tile price-tile h200">
@@ -905,6 +1507,7 @@ body{padding-bottom:76px}
                 <div class="pt-price">от 12 000 <span>₽</span></div>
                 <div class="pt-label">Адаптация</div>
                 <div class="pt-sub">→ 9:16 / 1:1</div>
+                <div class="pt-eta">от 2–4 дн</div>
                 <a class="pt-chip" href="#contact" data-prefill="Заказ формата: Адаптация в 9:16 / 1:1, ориентир от 12 000 ₽">заказать</a>
               </article>
               <article class="feed-tile price-tile h260 pack">
@@ -912,6 +1515,7 @@ body{padding-bottom:76px}
                 <div class="pt-price">от 250k <span>₽</span></div>
                 <div class="pt-label">Старт</div>
                 <div class="pt-sub">1 ролик · локальный запуск</div>
+                <div class="pt-eta">от 14 дн</div>
                 <a class="pt-chip" href="#contact" data-prefill="Пакет Старт: от 250 000 ₽ — обсудить">заказать</a>
               </article>
 
@@ -921,6 +1525,7 @@ body{padding-bottom:76px}
                 <div class="pt-price">от 12 000 <span>₽</span></div>
                 <div class="pt-label">Сторис / пост</div>
                 <div class="pt-sub">1 шт · статика / motion</div>
+                <div class="pt-eta">от 3–5 дн</div>
                 <a class="pt-chip" href="#contact" data-prefill="Заказ формата: Сторис / пост (1 шт), ориентир от 12 000 ₽">заказать</a>
               </article>
               <article class="feed-tile price-tile h240">
@@ -928,6 +1533,7 @@ body{padding-bottom:76px}
                 <div class="pt-price">от 35 000 <span>₽</span></div>
                 <div class="pt-label">5 сторис</div>
                 <div class="pt-sub">Серия · единый стиль</div>
+                <div class="pt-eta">от 5–7 дн</div>
                 <a class="pt-chip" href="#contact" data-prefill="Заказ формата: Пакет 5 сторис, ориентир от 35 000 ₽">заказать</a>
               </article>
               <article class="feed-tile price-tile h220">
@@ -935,6 +1541,7 @@ body{padding-bottom:76px}
                 <div class="pt-price">от 35 000 <span>₽</span></div>
                 <div class="pt-label">Reels / Shorts</div>
                 <div class="pt-sub">До 15 сек · 9:16</div>
+                <div class="pt-eta">от 7–10 дн</div>
                 <a class="pt-chip" href="#contact" data-prefill="Заказ формата: Reels / Shorts до 15 сек, ориентир от 35 000 ₽">заказать</a>
               </article>
               <article class="feed-tile price-tile h280 featured">
@@ -942,6 +1549,7 @@ body{padding-bottom:76px}
                 <div class="pt-price">от 80 000 <span>₽</span></div>
                 <div class="pt-label">Ролик 15–30 сек</div>
                 <div class="pt-sub">Сценарий + монтаж</div>
+                <div class="pt-eta">от 10–14 дн</div>
                 <a class="pt-chip" href="#contact" data-prefill="Заказ формата: Короткий рекламный ролик 15–30 сек, ориентир от 80 000 ₽">заказать</a>
               </article>
               <article class="feed-tile price-tile h200">
@@ -949,6 +1557,7 @@ body{padding-bottom:76px}
                 <div class="pt-price">от 12 000 <span>₽</span></div>
                 <div class="pt-label">Адаптация</div>
                 <div class="pt-sub">→ 9:16 / 1:1</div>
+                <div class="pt-eta">от 2–4 дн</div>
                 <a class="pt-chip" href="#contact" data-prefill="Заказ формата: Адаптация в 9:16 / 1:1, ориентир от 12 000 ₽">заказать</a>
               </article>
               <article class="feed-tile price-tile h260 pack">
@@ -956,6 +1565,7 @@ body{padding-bottom:76px}
                 <div class="pt-price">от 250k <span>₽</span></div>
                 <div class="pt-label">Старт</div>
                 <div class="pt-sub">1 ролик · локальный запуск</div>
+                <div class="pt-eta">от 14 дн</div>
                 <a class="pt-chip" href="#contact" data-prefill="Пакет Старт: от 250 000 ₽ — обсудить">заказать</a>
               </article>
             </div>
@@ -971,7 +1581,24 @@ body{padding-bottom:76px}
         <div class="feed-mobile-track" data-mob-strip="videos">
           <article class="feed-tile">
             <video data-feed src="work-kazakhstan.mp4" muted playsinline loop preload="metadata"></video>
-            <div class="feed-meta"><div class="tag">YouTube</div><div class="title">Ритейл · перформанс</div><div class="sub">−64% CPV</div></div>
+            <div class="feed-meta"><div class="tag">YouTube</div><div class="title">Ритейл · перформанс</div><div class="sub">OLV · performance</div></div>
+          </article>
+          <article class="feed-tile feed-still" data-lb="poster-2026-zhara-live.png">
+            <img src="poster-2026-zhara-live.png" alt="Zhara Live" loading="lazy" decoding="async">
+            <div class="feed-meta"><div class="tag">Афиша</div><div class="title">Zhara Live</div><div class="sub">Event key</div></div>
+          </article>
+          <article class="feed-tile feed-still" data-lb="poster-2026-neon-horizon.png">
+            <img src="poster-2026-neon-horizon.png" alt="Neon Horizon" loading="lazy" decoding="async">
+            <div class="feed-meta"><div class="tag">Афиша</div><div class="title">Neon Horizon</div><div class="sub">Key visual</div></div>
+          </article>
+          <article class="feed-tile feed-still" data-lb="poster-2026-speed-light.png">
+            <img src="poster-2026-speed-light.png" alt="Speed Light" loading="lazy" decoding="async">
+            <div class="feed-meta"><div class="tag">Афиша</div><div class="title">Speed Light</div><div class="sub">Motion key</div></div>
+          </article>
+
+          <article class="feed-tile">
+            <video data-feed src="work-07.mp4" muted playsinline loop preload="metadata"></video>
+            <div class="feed-meta"><div class="tag">Cut</div><div class="title">Работа · 07</div><div class="sub">Showreel</div></div>
           </article>
           <article class="feed-tile">
             <video data-feed src="work-10.mp4" muted playsinline loop preload="metadata"></video>
@@ -979,23 +1606,23 @@ body{padding-bottom:76px}
           </article>
           <article class="feed-tile">
             <video data-feed src="work-09.mp4" muted playsinline loop preload="metadata"></video>
-            <div class="feed-meta"><div class="tag">Brand</div><div class="title">Фьючер · сити</div><div class="sub">AI brand film</div></div>
+            <div class="feed-meta"><div class="tag">Brand</div><div class="title">Фьючер · сити</div><div class="sub">Brand film</div></div>
           </article>
           <article class="feed-tile">
             <video data-feed src="work-03.mp4" muted playsinline loop preload="metadata"></video>
-            <div class="feed-meta"><div class="tag">Reels</div><div class="title">Фарма · Reels</div><div class="sub">×5.6 охват</div></div>
+            <div class="feed-meta"><div class="tag">Reels</div><div class="title">Фарма · Reels</div><div class="sub">Вертикаль · hook</div></div>
           </article>
           <article class="feed-tile">
             <video data-feed src="work-01.mp4" muted playsinline loop preload="metadata"></video>
-            <div class="feed-meta"><div class="tag">Brand</div><div class="title">Финтех · имидж</div><div class="sub">4.8× конверсия</div></div>
+            <div class="feed-meta"><div class="tag">Brand</div><div class="title">Финтех · имидж</div><div class="sub">Имидж · кадр</div></div>
           </article>
           <article class="feed-tile">
-            <video data-feed src="work-06.mp4" muted playsinline loop preload="metadata"></video>
-            <div class="feed-meta"><div class="tag">TikTok</div><div class="title">Lifestyle · cut</div><div class="sub">Hook 1.2s</div></div>
+            <video data-feed src="work-08.mp4" muted playsinline loop preload="metadata"></video>
+            <div class="feed-meta"><div class="tag">TikTok</div><div class="title">Lifestyle · cut</div><div class="sub">Hook · cut</div></div>
           </article>
           <article class="feed-tile">
-            <video data-feed src="work-04.mp4" muted playsinline loop preload="metadata"></video>
-            <div class="feed-meta"><div class="tag">Reels</div><div class="title">Beauty · серия</div><div class="sub">×3.2 ER</div></div>
+            <video data-feed src="work-07.mp4" muted playsinline loop preload="metadata"></video>
+            <div class="feed-meta"><div class="tag">Reels</div><div class="title">Beauty · серия</div><div class="sub">Beauty · series</div></div>
           </article>
           <article class="feed-tile">
             <video data-feed src="work-11.mp4" muted playsinline loop preload="metadata"></video>
@@ -1011,6 +1638,7 @@ body{padding-bottom:76px}
             <div class="pt-price">от 12 000 <span>₽</span></div>
             <div class="pt-label">Сторис / пост</div>
             <div class="pt-sub">1 шт · статика / motion</div>
+                <div class="pt-eta">от 3–5 дн</div>
             <a class="pt-chip" href="#contact" data-prefill="Заказ формата: Сторис / пост (1 шт), ориентир от 12 000 ₽">заказать</a>
           </article>
           <article class="feed-tile price-tile">
@@ -1018,6 +1646,7 @@ body{padding-bottom:76px}
             <div class="pt-price">от 35 000 <span>₽</span></div>
             <div class="pt-label">5 сторис</div>
             <div class="pt-sub">Серия · единый стиль</div>
+                <div class="pt-eta">от 5–7 дн</div>
             <a class="pt-chip" href="#contact" data-prefill="Заказ формата: Пакет 5 сторис, ориентир от 35 000 ₽">заказать</a>
           </article>
           <article class="feed-tile price-tile">
@@ -1025,6 +1654,7 @@ body{padding-bottom:76px}
             <div class="pt-price">от 35 000 <span>₽</span></div>
             <div class="pt-label">Reels / Shorts</div>
             <div class="pt-sub">До 15 сек · 9:16</div>
+                <div class="pt-eta">от 7–10 дн</div>
             <a class="pt-chip" href="#contact" data-prefill="Заказ формата: Reels / Shorts до 15 сек, ориентир от 35 000 ₽">заказать</a>
           </article>
           <article class="feed-tile price-tile featured">
@@ -1032,6 +1662,7 @@ body{padding-bottom:76px}
             <div class="pt-price">от 80 000 <span>₽</span></div>
             <div class="pt-label">Ролик 15–30 сек</div>
             <div class="pt-sub">Сценарий + монтаж</div>
+                <div class="pt-eta">от 10–14 дн</div>
             <a class="pt-chip" href="#contact" data-prefill="Заказ формата: Короткий рекламный ролик 15–30 сек, ориентир от 80 000 ₽">заказать</a>
           </article>
           <article class="feed-tile price-tile">
@@ -1039,6 +1670,7 @@ body{padding-bottom:76px}
             <div class="pt-price">от 12 000 <span>₽</span></div>
             <div class="pt-label">Адаптация</div>
             <div class="pt-sub">→ 9:16 / 1:1</div>
+                <div class="pt-eta">от 2–4 дн</div>
             <a class="pt-chip" href="#contact" data-prefill="Заказ формата: Адаптация в 9:16 / 1:1, ориентир от 12 000 ₽">заказать</a>
           </article>
           <article class="feed-tile price-tile pack">
@@ -1046,6 +1678,7 @@ body{padding-bottom:76px}
             <div class="pt-price">от 250k <span>₽</span></div>
             <div class="pt-label">Старт</div>
             <div class="pt-sub">1 ролик · локальный запуск</div>
+                <div class="pt-eta">от 14 дн</div>
             <a class="pt-chip" href="#contact" data-prefill="Пакет Старт: от 250 000 ₽ — обсудить">заказать</a>
           </article>
         </div>
@@ -1053,6 +1686,7 @@ body{padding-bottom:76px}
     </div>
   </section>
 
+    <hr class="section-sep" aria-hidden="true">
     <section class="section section-prices" id="pricing">
     <div class="container">
       <div class="price-panel" id="prices-fast" data-price-panel="fast">
@@ -1065,18 +1699,21 @@ body{padding-bottom:76px}
             <div class="fast-label">Сторис / пост</div>
             <div class="fast-desc">1 шт · статика / motion</div>
             <div class="fast-price">от 12 000 <span>₽</span></div>
+            <div class="fast-eta">от 3–5 дн</div>
             <a class="btn btn-primary btn-block" href="#contact" data-prefill="Заказ формата: Сторис / пост (1 шт), ориентир от 12 000 ₽">Заказать</a>
           </article>
           <article class="fast-card">
             <div class="fast-label">Пакет 5 сторис</div>
             <div class="fast-desc">Серия · единый стиль</div>
             <div class="fast-price">от 35 000 <span>₽</span></div>
+            <div class="fast-eta">от 5–7 дн</div>
             <a class="btn btn-primary btn-block" href="#contact" data-prefill="Заказ формата: Пакет 5 сторис, ориентир от 35 000 ₽">Заказать</a>
           </article>
           <article class="fast-card">
             <div class="fast-label">Reels / Shorts</div>
             <div class="fast-desc">До 15 сек · 9:16</div>
             <div class="fast-price">от 35 000 <span>₽</span></div>
+            <div class="fast-eta">от 7–10 дн</div>
             <a class="btn btn-primary btn-block" href="#contact" data-prefill="Заказ формата: Reels / Shorts до 15 сек, ориентир от 35 000 ₽">Заказать</a>
           </article>
           <article class="fast-card featured">
@@ -1084,12 +1721,14 @@ body{padding-bottom:76px}
             <div class="fast-label">Ролик 15–30 сек</div>
             <div class="fast-desc">Сценарий + монтаж</div>
             <div class="fast-price">от 80 000 <span>₽</span></div>
+            <div class="fast-eta">от 10–14 дн</div>
             <a class="btn btn-primary btn-block" href="#contact" data-prefill="Заказ формата: Короткий рекламный ролик 15–30 сек, ориентир от 80 000 ₽">Заказать</a>
           </article>
           <article class="fast-card">
             <div class="fast-label">Адаптация</div>
             <div class="fast-desc">→ 9:16 / 1:1</div>
             <div class="fast-price">от 12 000 <span>₽</span></div>
+            <div class="fast-eta">от 2–4 дн</div>
             <a class="btn btn-primary btn-block" href="#contact" data-prefill="Заказ формата: Адаптация в 9:16 / 1:1, ориентир от 12 000 ₽">Заказать</a>
           </article>
         </div>
@@ -1101,14 +1740,14 @@ body{padding-bottom:76px}
           <article class="price reveal">
             <div class="name">Старт</div>
             <div class="sum">от 250 000 <span>₽</span></div>
-            <div class="desc">1 ролик · локальный запуск</div>
+            <div class="desc">1 ролик · локальный запуск · ориентир · от 14 дн</div>
             <a class="btn btn-ghost btn-block" href="#contact" data-prefill="Пакет Старт: от 250 000 ₽ — обсудить">Заказать</a>
           </article>
           <article class="price popular reveal reveal-delay-1">
             <div class="badge-pop">Популярный</div>
             <div class="name">Рост</div>
             <div class="sum">от 650 000 <span>₽</span></div>
-            <div class="desc">Серия + запуск + A/B</div>
+            <div class="desc">Серия + запуск + A/B · ориентир · от 21 дн</div>
             <a class="btn btn-primary btn-block" href="#contact" data-prefill="Пакет Рост: от 650 000 ₽ — получить предложение">Заказать</a>
           </article>
           <article class="price reveal reveal-delay-2">
@@ -1129,6 +1768,23 @@ body{padding-bottom:76px}
     </div>
   </section>
 
+    
+    <hr class="section-sep" aria-hidden="true">
+    <section class="section" id="faq">
+      <div class="container">
+        <div class="section-h reveal"><h2><span class="scramble">Вопросы</span></h2></div>
+        <div class="faq reveal">
+          <details><summary>Сколько занимает ролик?</summary><div class="ans">Обычно от 10 дней от брифа до мастер-файла. Сторис/статика — быстрее. Срок фиксируем после брифа.</div></details>
+          <details><summary>Что нужно от нас на старте?</summary><div class="ans">Цель (заявки / охват / имидж), площадки, референсы, дедлайн и бюджетный коридор. Хватит письма на hello@orbita.agency.</div></details>
+          <details><summary>Цены «от» — это финал?</summary><div class="ans">Нет. «От» — честный ориентир. Финальная смета после брифа: объём, локации, актёры, правки.</div></details>
+          <details><summary>Сколько правок входит?</summary><div class="ans">В типовом цикле — 1–2 раунда правок по согласованному сценарию. Доп. раунды обсуждаем отдельно.</div></details>
+          <details><summary>Работаете удалённо?</summary><div class="ans">Да. Бриф и сдача онлайн. Съёмка — по задаче: студия, город или remote motion.</div></details>
+          <details><summary>Работаете по договору и NDA?</summary><div class="ans">Да. Договор и NDA — по запросу до старта. Закрывающие документы после сдачи.</div></details>
+          <details><summary>Можно уложиться в наш бюджет?</summary><div class="ans">Да, если коридор ясен. Подскажем формат «от» под задачу или урежем объём без потери хука.</div></details>
+        </div>
+      </div>
+    </section>
+
     <section class="section section-order" id="contact">
     <div class="container">
       <div class="section-h reveal">
@@ -1140,13 +1796,18 @@ body{padding-bottom:76px}
           <label>Email<input type="email" name="email" required placeholder="name@company.ru" autocomplete="email"></label>
           <label>Телефон<input type="tel" name="phone" placeholder="+7" autocomplete="tel"></label>
           <label>О проекте<textarea name="about" placeholder="Формат, площадки, срок"></textarea></label>
-          <button class="btn btn-primary" type="submit">Заказать</button>
+          <button class="btn btn-primary btn-glow" type="submit">Заказать</button>
+          <div class="form-trust" aria-label="Гарантии">
+            <span class="ht-chip">Договор</span>
+            <span class="ht-chip">NDA</span>
+            <span class="ht-chip">Ответ 24ч</span>
+          </div>
           <div class="form-ok" id="formOk">Заявка принята. Ответим в течение 24 часов.</div>
         </form>
         <aside class="contact-side">
           <div class="row"><strong>Почта</strong><a href="mailto:hello@orbita.agency">hello@orbita.agency</a></div>
-          <div class="row"><strong>Телефон</strong><a href="tel:+74951234567">+7 495 123-45-67</a></div>
-          <div class="row"><strong>Офис</strong>Москва</div>
+          <div class="row"><strong>Telegram</strong><a href="https://t.me/orbita_agency" target="_blank" rel="noopener">@orbita_agency</a></div>
+          <div class="row"><strong>Офис</strong>Москва · онлайн</div>
           <div class="reply">Ответ за 24 часа</div>
         </aside>
       </div>
@@ -1161,8 +1822,30 @@ body{padding-bottom:76px}
       <div class="media-wall reveal reveal-delay-1" aria-label="Примеры форматов">
           <div class="media-wall-viewport">
                         <div class="media-wall-track" data-wall-track>
-                            <div class="media-col" data-wall-col><figure class="wall-tile wall-video tall"><video muted playsinline loop preload="metadata" data-wall-vid src="work-kazakhstan.mp4"></video><span class="wall-badge video">ВИДЕО</span><figcaption>Reels / Shorts</figcaption></figure><figure class="wall-tile wall-static"><img src="still-13.jpg" alt="" loading="lazy" decoding="async"><span class="wall-badge static">СТАТИКА</span><figcaption>Cyber KV</figcaption></figure><figure class="wall-tile wall-static mid"><img src="still-14.jpg" alt="" loading="lazy" decoding="async"><span class="wall-badge static">СТАТИКА</span><figcaption>Action poster</figcaption></figure><figure class="wall-tile wall-video"><video muted playsinline loop preload="metadata" data-wall-vid src="work-09.mp4"></video><span class="wall-badge video">ВИДЕО</span><figcaption>Brand film</figcaption></figure><figure class="wall-tile wall-static"><img src="still-08.jpg" alt="" loading="lazy" decoding="async"><span class="wall-badge static">СТАТИКА</span><figcaption>Stories cover</figcaption></figure><figure class="wall-tile wall-static mid"><img src="still-16.jpg" alt="" loading="lazy" decoding="async"><span class="wall-badge static">СТАТИКА</span><figcaption>Lifestyle</figcaption></figure></div>
-              <div class="media-col media-col-b" data-wall-col><figure class="wall-tile wall-static mid"><img src="still-15.jpg" alt="" loading="lazy" decoding="async"><span class="wall-badge static">СТАТИКА</span><figcaption>Event sunset</figcaption></figure><figure class="wall-tile wall-video tall"><video muted playsinline loop preload="metadata" data-wall-vid src="work-10.mp4"></video><span class="wall-badge video">ВИДЕО</span><figcaption>Fashion cut</figcaption></figure><figure class="wall-tile wall-static"><img src="still-02.jpg" alt="" loading="lazy" decoding="async"><span class="wall-badge static">СТАТИКА</span><figcaption>Key visual</figcaption></figure><figure class="wall-tile wall-video"><video muted playsinline loop preload="metadata" data-wall-vid src="work-11.mp4"></video><span class="wall-badge video">ВИДЕО</span><figcaption>Cine storm</figcaption></figure><figure class="wall-tile wall-static mid"><img src="still-11.jpg" alt="" loading="lazy" decoding="async"><span class="wall-badge static">СТАТИКА</span><figcaption>Carousel frame</figcaption></figure><figure class="wall-tile wall-static"><img src="still-12.jpg" alt="" loading="lazy" decoding="async"><span class="wall-badge static">СТАТИКА</span><figcaption>Анонс запуска</figcaption></figure></div>
+                            <div class="media-col" data-wall-col>
+<figure class="wall-tile wall-video tall"><video muted playsinline loop preload="metadata" data-wall-vid src="work-kazakhstan.mp4"></video><span class="wall-badge video">ВИДЕО</span><figcaption>Reels / Shorts</figcaption></figure>
+<figure class="wall-tile wall-static" data-lb="poster-2026-neon-horizon.png"><img src="poster-2026-neon-horizon.png" alt="Neon Horizon poster" loading="lazy" decoding="async"><span class="wall-badge static">АФИША</span><figcaption>Neon Horizon</figcaption></figure>
+<figure class="wall-tile wall-static mid" data-lb="still-03.jpg"><img src="still-03.jpg" alt="" loading="lazy" decoding="async"><span class="wall-badge static">СТАТИКА</span><figcaption>Studio still</figcaption></figure>
+<figure class="wall-tile wall-video"><video muted playsinline loop preload="metadata" data-wall-vid src="work-07.mp4"></video><span class="wall-badge video">ВИДЕО</span><figcaption>Cut · 07</figcaption></figure>
+<figure class="wall-tile wall-static" data-lb="poster-2026-fashion-ss26.png"><img src="poster-2026-fashion-ss26.png" alt="Fashion SS26" loading="lazy" decoding="async"><span class="wall-badge static">АФИША</span><figcaption>Fashion SS26</figcaption></figure>
+<figure class="wall-tile wall-static mid" data-lb="mock-story-fashion.png"><img src="mock-story-fashion.png" alt="Stories fashion" loading="lazy" decoding="async"><span class="wall-badge static">STORIES</span><figcaption>Fashion story</figcaption></figure>
+<figure class="wall-tile wall-static"><img src="still-13.jpg" alt="" loading="lazy" decoding="async" data-lb="still-13.jpg"><span class="wall-badge static">СТАТИКА</span><figcaption>Cyber KV</figcaption></figure>
+<figure class="wall-tile wall-video"><video muted playsinline loop preload="metadata" data-wall-vid src="work-09.mp4"></video><span class="wall-badge video">ВИДЕО</span><figcaption>Brand film</figcaption></figure>
+</div>
+              <div class="media-col media-col-b" data-wall-col>
+<figure class="wall-tile wall-static mid" data-lb="poster-2026-zhara-live.png"><img src="poster-2026-zhara-live.png" alt="Zhara Live" loading="lazy" decoding="async"><span class="wall-badge static">АФИША</span><figcaption>Zhara Live</figcaption></figure>
+<figure class="wall-tile wall-video tall"><video muted playsinline loop preload="metadata" data-wall-vid src="work-08.mp4"></video><span class="wall-badge video">ВИДЕО</span><figcaption>Cut · 08</figcaption></figure>
+<figure class="wall-tile wall-static" data-lb="poster-2026-final-sport.png"><img src="poster-2026-final-sport.png" alt="Final Sport" loading="lazy" decoding="async"><span class="wall-badge static">АФИША</span><figcaption>Final Sport</figcaption></figure>
+<figure class="wall-tile wall-static mid" data-lb="mock-poster-cinema.png"><img src="mock-poster-cinema.png" alt="Cinema poster" loading="lazy" decoding="async"><span class="wall-badge static">ПОСТЕР</span><figcaption>Cinema key</figcaption></figure>
+<figure class="wall-tile wall-video"><video muted playsinline loop preload="metadata" data-wall-vid src="work-10.mp4"></video><span class="wall-badge video">ВИДЕО</span><figcaption>Fashion cut</figcaption></figure>
+<figure class="wall-tile wall-static" data-lb="still-05.jpg"><img src="still-05.jpg" alt="" loading="lazy" decoding="async"><span class="wall-badge static">СТАТИКА</span><figcaption>Frame 05</figcaption></figure>
+<figure class="wall-tile wall-static mid" data-lb="poster-2026-speed-light.png"><img src="poster-2026-speed-light.png" alt="Speed Light" loading="lazy" decoding="async"><span class="wall-badge static">АФИША</span><figcaption>Speed Light</figcaption></figure>
+<figure class="wall-tile wall-static" data-lb="mock-banner-web.png"><img src="mock-banner-web.png" alt="Web banner" loading="lazy" decoding="async"><span class="wall-badge static">BANNER</span><figcaption>Web banner</figcaption></figure>
+<figure class="wall-tile wall-static mid" data-lb="still-07.jpg"><img src="still-07.jpg" alt="" loading="lazy" decoding="async"><span class="wall-badge static">СТАТИКА</span><figcaption>Frame 07</figcaption></figure>
+<figure class="wall-tile wall-video"><video muted playsinline loop preload="metadata" data-wall-vid src="work-11.mp4"></video><span class="wall-badge video">ВИДЕО</span><figcaption>Cine storm</figcaption></figure>
+<figure class="wall-tile wall-static" data-lb="poster-2026-exhibit.png"><img src="poster-2026-exhibit.png" alt="Exhibit" loading="lazy" decoding="async"><span class="wall-badge static">АФИША</span><figcaption>Exhibit</figcaption></figure>
+<figure class="wall-tile wall-static mid" data-lb="mock-flyer-event.png"><img src="mock-flyer-event.png" alt="Event flyer" loading="lazy" decoding="async"><span class="wall-badge static">FLYER</span><figcaption>Event flyer</figcaption></figure>
+</div>
             </div>
           </div>
         </div>
@@ -1170,17 +1853,27 @@ body{padding-bottom:76px}
   </section>
       <section class="section section-process" id="process">
     <div class="container">
+      <div class="section-h reveal"><h2><span class="scramble">Как работаем</span></h2></div>
       <div class="process-list process-strip">
-        <article class="step reveal"><div class="step-n">01</div><h3><span class="scramble">Бриф</span></h3></article>
-        <article class="step reveal"><div class="step-n">02</div><h3><span class="scramble">Сценарий</span></h3></article>
-        <article class="step reveal"><div class="step-n">03</div><h3><span class="scramble">Продакшн</span></h3></article>
-        <article class="step reveal"><div class="step-n">04</div><h3><span class="scramble">Запуск</span></h3></article>
+        <article class="step reveal"><div class="step-n">01</div><h3><span class="scramble">Бриф</span></h3>
+          <div class="step-get"><strong>на выходе</strong><ul><li>цель</li><li>площадки</li><li>срок</li></ul></div>
+        </article>
+        <article class="step reveal"><div class="step-n">02</div><h3><span class="scramble">Сценарий</span></h3>
+          <div class="step-get"><strong>на выходе</strong><ul><li>хук</li><li>раскадровка</li><li>референсы</li></ul></div>
+        </article>
+        <article class="step reveal"><div class="step-n">03</div><h3><span class="scramble">Продакшн</span></h3>
+          <div class="step-get"><strong>на выходе</strong><ul><li>съёмка / motion</li><li>черновик</li><li>1–2 правки</li></ul></div>
+        </article>
+        <article class="step reveal"><div class="step-n">04</div><h3><span class="scramble">Запуск</span></h3>
+          <div class="step-get"><strong>на выходе</strong><ul><li>мастер-файл</li><li>нарезки</li><li>обложки</li></ul></div>
+        </article>
       </div>
+      <div class="process-price-link reveal"><p>Ориентиры по бюджету — в блоке <a href="#prices-fast">Цены</a>. Финал после брифа.</p></div>
     </div>
   </section>
       <section class="section" id="cases">
     <div class="container">
-      
+      <div class="section-h reveal"><h2><span class="scramble">Кейсы</span></h2></div>
       <div class="cases-grid cases-grid-trust" id="casesGrid">
         <article class="case case-card reveal" data-cat="spot">
           <div class="media">
@@ -1212,6 +1905,26 @@ body{padding-bottom:76px}
             <a class="case-cta" href="#contact" data-prefill="Кейс: пакет Reels/Shorts — хочу так же">Заказать так же</a>
           </div>
         </article>
+        <article class="case case-card reveal" data-cat="design">
+          <div class="media">
+            <img src="poster-2026-final-sport.png" alt="Final Sport" loading="lazy" decoding="async" data-lb="poster-2026-final-sport.png">
+          </div>
+          <div class="case-body">
+            <div class="case-kicker">Афиша · key visual</div>
+            <h3 class="case-title">Спортивный постер</h3>
+            <a class="case-cta" href="#contact" data-prefill="Кейс: афиша / key visual — хочу так же">Заказать так же</a>
+          </div>
+        </article>
+        <article class="case case-card reveal reveal-delay-1" data-cat="spot">
+          <div class="media">
+            <video data-case src="work-08.mp4" muted playsinline loop preload="metadata" poster="still-06.jpg"></video>
+          </div>
+          <div class="case-body">
+            <div class="case-kicker">Showreel · cut</div>
+            <h3 class="case-title">Динамичный монтаж</h3>
+            <a class="case-cta" href="#contact" data-prefill="Кейс: динамичный монтаж — хочу так же">Заказать так же</a>
+          </div>
+        </article>
       </div>
     </div>
   </section>
@@ -1234,13 +1947,12 @@ body{padding-bottom:76px}
       <div>
         <h4>Связь</h4>
         <a href="mailto:hello@orbita.agency">hello@orbita.agency</a>
-        <a href="tel:+74951234567">+7 495 123-45-67</a>
+        <a href="https://t.me/orbita_agency" target="_blank" rel="noopener">Telegram</a>
       </div>
       <div>
         <h4>Соцсети</h4>
         <a href="https://t.me/orbita_agency" target="_blank" rel="noopener">Telegram</a>
-        <a href="#" rel="noopener">VK</a>
-        <a href="#" rel="noopener">Behance</a>
+        <a href="mailto:hello@orbita.agency">Email</a>
       </div>
     </div>
     <div class="footer-bottom">
@@ -1250,10 +1962,16 @@ body{padding-bottom:76px}
   </div>
 </footer>
 
+
+<div class="lb-root" id="lbRoot" hidden aria-modal="true" role="dialog" aria-label="Просмотр">
+  <button type="button" class="lb-close" id="lbClose" aria-label="Закрыть">×</button>
+  <img id="lbImg" alt="">
+</div>
+
 <div class="sticky-cta" aria-label="Быстрые действия">
   <a class="link-ico" href="https://t.me/orbita_agency" target="_blank" rel="noopener" aria-label="Telegram" title="Telegram">✈</a>
   <a class="link-ico" href="mailto:hello@orbita.agency" aria-label="Email" title="Email">✉</a>
-  <a class="btn btn-primary btn-sm" href="#contact">Заказать</a>
+  <a class="btn btn-primary btn-sm btn-glow" href="#contact">Заказать</a>
 </div>
 
 <script>
@@ -1657,6 +2375,55 @@ body{padding-bottom:76px}
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', bind);
   else bind();
 })();
+
+  /* Overnight lightbox for design assets */
+  (function(){
+    const root = document.getElementById('lbRoot');
+    const img = document.getElementById('lbImg');
+    const closeBtn = document.getElementById('lbClose');
+    if(!root || !img) return;
+    function openLb(src, alt){
+      if(!src) return;
+      img.src = src;
+      img.alt = alt || '';
+      root.hidden = false;
+      root.classList.add('is-open');
+      document.documentElement.style.overflow = 'hidden';
+    }
+    function closeLb(){
+      root.classList.remove('is-open');
+      root.hidden = true;
+      img.removeAttribute('src');
+      document.documentElement.style.overflow = '';
+    }
+    document.addEventListener('click', function(e){
+      const t = e.target.closest('[data-lb], .wall-tile.wall-static img, .feed-still img, .case .media img');
+      if(!t) return;
+      const host = t.closest('[data-lb]') || t;
+      const src = host.getAttribute('data-lb') || t.getAttribute('src');
+      if(!src || /\.mp4($|\?)/i.test(src)) return;
+      e.preventDefault();
+      openLb(src, t.getAttribute('alt') || '');
+    });
+    closeBtn && closeBtn.addEventListener('click', closeLb);
+    root.addEventListener('click', function(e){ if(e.target === root) closeLb(); });
+    document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeLb(); });
+  })();
+
+</script>
+<script>
+
+/* craft: sticky CTA soft-hide over form */
+(function(){
+  const sticky = document.querySelector('.sticky-cta');
+  const form = document.getElementById('leadForm') || document.getElementById('contact');
+  if(!sticky || !form || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ sticky.classList.toggle('is-over-form', e.isIntersecting); });
+  }, {root:null, threshold:0.15, rootMargin:'0px 0px -10% 0px'});
+  io.observe(form);
+})();
+
 </script>
 </body>
 </html>
