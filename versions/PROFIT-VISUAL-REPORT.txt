@@ -1,0 +1,56 @@
+ORBİTA PROFIT-VISUAL REPORT
+Date: 2026-09-15 (Asia/Irkutsk UTC+8)
+Live file: orbita-agency.html
+Pages: https://brksaymon-debug.github.io/orbita/orbita-agency.html?v=20260915101243
+Local: file:///D:/Papa/Кибер%20ниндзя/Orbita/orbita-agency.html
+Cache: ?v=20260915101243 / meta orbita-build=20260915101243
+
+GOAL
+Visual #1 (Aiskra craft) + conversion clarity for 2026 RU market.
+User lock: визуал превыше всего. Dual-feed remains the sales weapon.
+
+SACRED PRESERVED
+- Accent #22e0ff
+- H1 «Ролики, которые / приносят заявки» (scramble span)
+- Dual-feed works+prices, sticky «Заказать», scramble, slow лента (80s/92s)
+- LOCKED-user-approved-cyan-dualfeed.html NOT overwritten
+
+CHECKPOINT
+- versions/before-profit-visual-20260915-100806.html
+
+WHAT CHANGED
+1) Visual craft
+   - Stronger cinematic scrim + button glow pulse
+   - Denser/premium feed tiles + price-tile gradients
+   - Section rhythm, card hover, FAQ/process polish, subtle grain
+   - Hero lead: «Киноязык под заявки…»
+2) Conversion furniture (secondary, present)
+   - Hero trust chips: Договор / NDA / Ответ 24ч
+   - Form trust chips near CTA
+   - Price «от» + сроки (3–5 / 5–7 / 7–10 / 10–14 / 2–4 дн; packs 14/21 дн)
+   - FAQ +2: договор/NDA, бюджет
+3) Media densify
+   - poster-2026-neon-horizon, speed-light + still-09/14 in dual-feed loop
+   - Mobile strip posters added
+   - Lightbox data-lb kept; offscreen pause baseline untouched
+
+COMMITS
+- 6f62549 profit-visual: cinematic craft + hero trust + button glow
+- 42aeb92 profit-visual: price timelines + form trust + FAQ + denser media
+- b76c0b9 profit-visual: nav/sticky glow + cache bust ?v=
+
+NO / AVOIDED
+- 3D Earth takeover, custom cursor spam, quiz spam, orange theme
+- Fake phone / metrics / client logos
+
+ROLLBACK
+  copy versions\before-profit-visual-20260915-100806.html orbita-agency.html
+  OR copy versions\LOCKED-user-approved-cyan-dualfeed.html orbita-agency.html
+  then bump index.html ?v= and push
+
+VERIFY AFTER DEPLOY
+- #22e0ff accent visible on buttons/chips
+- H1 scramble line intact
+- Dual columns scrolling slowly
+- Sticky Заказать on mobile
+- Hard refresh: ?v=20260915101243
