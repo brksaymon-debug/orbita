@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <!-- orbita-build:20260921192039 mobile-swipe-no-lightbox -->
-      <meta charset="UTF-8">
+  <!-- orbita-build:20260921192327 phone-frame-app -->
+        <meta charset="UTF-8">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
-  <meta name="orbita-build" content="20260921192039">
+  <meta name="orbita-build" content="20260921192327">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -1662,6 +1662,152 @@ h3{font-size:clamp(18px,2vw,22px)}
   }
   html.is-app-mobile .lb,
   html.is-app-mobile .lb.open{display:none!important}
+}
+
+
+/* Craft: mobile web-app in phone frame (TikTok inside device chrome) */
+@media (max-width:760px){
+  html.is-app-mobile, html.is-app-mobile body{
+    background:#07070a!important;
+    height:100%;
+    overflow:hidden;
+  }
+  html.is-app-mobile body{
+    padding:0!important;
+    height:100dvh;
+    max-height:100dvh;
+  }
+  html.is-app-mobile .nav,
+  html.is-app-mobile .hero,
+  html.is-app-mobile .trust,
+  html.is-app-mobile .feature-reel,
+  html.is-app-mobile .orbit-globe-section,
+  html.is-app-mobile #orbit,
+  html.is-app-mobile #process,
+  html.is-app-mobile #prices,
+  html.is-app-mobile #contact,
+  html.is-app-mobile .footer,
+  html.is-app-mobile .mobile-sticky,
+  html.is-app-mobile .mobile-menu,
+  html.is-app-mobile .svc-universe .svc-planets,
+  html.is-app-mobile .svc-planet-desc,
+  html.is-app-mobile #services .eyebrow,
+  html.is-app-mobile #services h2,
+  html.is-app-mobile #services .lead,
+  html.is-app-mobile .svc-frame-head,
+  html.is-app-mobile .svc-list,
+  html.is-app-mobile .mock-note,
+  html.is-app-mobile .svc-frame-hint,
+  html.is-app-mobile .svc-frame-hint-mob,
+  html.is-app-mobile .svc-tiktok-hint{display:none!important}
+
+  html.is-app-mobile #services{
+    padding:0!important;margin:0!important;
+    position:fixed;
+    inset:0 0 calc(58px + env(safe-area-inset-bottom,0px)) 0;
+    z-index:5;
+    background:radial-gradient(ellipse at 50% 20%, rgba(34,224,255,.08), transparent 50%), #07070a;
+    display:flex;align-items:center;justify-content:center;
+  }
+  html.is-app-mobile #services .wrap{
+    width:100%!important;max-width:none!important;margin:0!important;height:100%;
+    padding:10px 14px 8px!important;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+  }
+  html.is-app-mobile .svc-universe,
+  html.is-app-mobile .svc-frame,
+  html.is-app-mobile .svc-frame.is-orbit,
+  html.is-app-mobile .svc-orbit-stage{
+    width:100%;
+    max-width:400px;
+    height:100%!important;
+    min-height:0!important;
+    margin:0!important;padding:0!important;
+    border:0!important;background:transparent!important;clip-path:none!important;
+    display:flex!important;align-items:center;justify-content:center;
+    overflow:visible!important;
+  }
+  html.is-app-mobile .svc-orbit-ring,
+  html.is-app-mobile .svc-orbit-ring-2,
+  html.is-app-mobile .svc-orbit-core,
+  html.is-app-mobile .svc-orbit-stage .svc-nav,
+  html.is-app-mobile .svc-progress{display:none!important}
+
+  /* THE PHONE FRAME */
+  html.is-app-mobile .svc-phone{
+    display:block!important;
+    width:min(100%, 360px)!important;
+    height:min(100%, calc(100dvh - 90px - env(safe-area-inset-bottom,0px)))!important;
+    max-height:min(780px, calc(100dvh - 90px))!important;
+    aspect-ratio:auto!important;
+    margin:0 auto!important;
+    border-radius:36px!important;
+    border:3px solid #1a1d24!important;
+    box-shadow:
+      0 0 0 2px rgba(34,224,255,.35),
+      0 24px 60px rgba(0,0,0,.65),
+      inset 0 0 0 1px rgba(255,255,255,.08)!important;
+    background:#000!important;
+    overflow:hidden!important;
+    position:relative!important;
+  }
+  html.is-app-mobile .svc-phone::before{
+    content:""!important;
+    display:block!important;
+    position:absolute;top:10px;left:50%;transform:translateX(-50%);
+    width:96px;height:10px;border-radius:999px;
+    background:#0b0d12;border:1px solid rgba(255,255,255,.1);
+    z-index:8;pointer-events:none;
+  }
+  html.is-app-mobile .svc-phone::after{
+    content:"ОРБИТА";
+    position:absolute;top:12px;right:14px;
+    font:700 9px/1 Unbounded,system-ui;letter-spacing:.08em;color:rgba(34,224,255,.7);
+    z-index:8;pointer-events:none;
+  }
+
+  html.is-app-mobile .svc-frame.is-orbit #svcWall.svc-orbit-wall,
+  html.is-app-mobile .svc-frame.is-orbit .svc-orbit-wall.svc-wall{
+    position:relative!important;inset:auto!important;
+    width:100%!important;height:100%!important;
+    overflow-y:auto!important;overflow-x:hidden!important;
+    scroll-snap-type:y mandatory!important;
+    -webkit-overflow-scrolling:touch!important;
+    overscroll-behavior-y:contain;
+    touch-action:pan-y!important;
+    border:0!important;background:#000!important;
+  }
+  html.is-app-mobile .svc-frame.is-orbit .svc-orbit-wall .svc-cell{
+    position:relative!important;left:auto!important;top:auto!important;
+    transform:none!important;
+    width:100%!important;height:100%!important;min-height:100%!important;
+    border-radius:0!important;border:0!important;box-shadow:none!important;
+    margin:0!important;opacity:1!important;filter:none!important;
+    scroll-snap-align:start!important;scroll-snap-stop:always!important;
+    touch-action:pan-y!important;cursor:default!important;
+  }
+  html.is-app-mobile .svc-frame.is-orbit .svc-orbit-wall .svc-cell video,
+  html.is-app-mobile .svc-frame.is-orbit .svc-orbit-wall .svc-cell img{
+    width:100%!important;height:100%!important;object-fit:cover!important;
+    pointer-events:none!important;display:block!important;border-radius:0!important;
+  }
+  html.is-app-mobile .svc-frame.is-orbit .svc-orbit-wall .svc-cell .label{
+    left:14px!important;right:14px!important;bottom:20px!important;
+    transform:none!important;max-width:none!important;
+    font-size:13px!important;z-index:4!important;
+    background:rgba(0,0,0,.5)!important;backdrop-filter:blur(6px);
+  }
+  html.is-app-mobile .svc-frame.is-orbit .svc-orbit-wall .svc-cell .view-hint,
+  html.is-app-mobile .lb,
+  html.is-app-mobile .lb.open{display:none!important}
+
+  html.is-app-mobile .app-dock{
+    display:flex!important;
+    height:calc(58px + env(safe-area-inset-bottom,0px));
+    background:rgba(8,8,10,.94)!important;
+    border-top:1px solid rgba(255,255,255,.08);
+    z-index:90;
+  }
 }
 
 </style>
