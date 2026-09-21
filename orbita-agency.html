@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <!-- orbita-build:20260921171406 lighter-hero-bg -->
-        <meta charset="UTF-8">
+  <!-- orbita-build:20260921173152 feature-reel -->
+          <meta charset="UTF-8">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
-  <meta name="orbita-build" content="20260921171406">
+  <meta name="orbita-build" content="20260921173152">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ОРБИТА — Видео и дизайн, которые продают</title>
 <meta name="description" content="Креативная студия: видеореклама, Reels, монтаж, баннеры, флаеры, афиши и key visual. Договор, NDA, юрлицо. Цены от — финал после брифа.">
@@ -995,6 +995,31 @@ h3{font-size:clamp(18px,2vw,22px)}
   .hero{min-height:min(70vh,620px)}
 }
 
+
+/* Craft: feature reel between trust and services */
+.feature-reel{padding:28px 0 8px;position:relative;z-index:1}
+.feature-reel-frame{
+  position:relative;
+  border-radius:18px;
+  overflow:hidden;
+  border:1px solid rgba(34,224,255,.35);
+  background:#050508;
+  box-shadow:0 24px 80px rgba(0,0,0,.45), 0 0 40px rgba(34,224,255,.12);
+  aspect-ratio:1344 / 576;
+  max-height:min(52vh, 560px);
+}
+.feature-reel-video{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+  background:#000;
+}
+@media (max-width:760px){
+  .feature-reel{padding:18px 0 4px}
+  .feature-reel-frame{border-radius:14px;max-height:none}
+}
+
 </style>
 <script>
 (function(){
@@ -1069,7 +1094,26 @@ h3{font-size:clamp(18px,2vw,22px)}
     </div>
   </section>
 
-  <section class="section" id="services"><span id="works" hidden></span>
+  
+  <section class="feature-reel" id="feature-reel" aria-label="Шоурил">
+    <div class="wrap">
+      <div class="feature-reel-frame">
+        <video
+          class="feature-reel-video"
+          src="feature-reel.mp4"
+          muted
+          loop
+          playsinline
+          preload="metadata"
+          autoplay
+          controls
+          poster=""
+        ></video>
+      </div>
+    </div>
+  </section>
+
+<section class="section" id="services"><span id="works" hidden></span>
     <div class="wrap">
       <div class="eyebrow">Услуги</div>
       <h2>Полная креативная студия</h2>
@@ -3126,6 +3170,26 @@ function bootOrbitaGlobe(){
   window.activateSvc = function(item){ activate(item); };
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', bind);
   else bind();
+})();
+</script>
+
+
+<script>
+(function(){
+  var v = document.querySelector('.feature-reel-video');
+  if (!v) return;
+  var tryPlay = function(){ var p = v.play(); if (p && p.catch) p.catch(function(){}); };
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', tryPlay);
+  else tryPlay();
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (e.isIntersecting) tryPlay();
+        else { try { v.pause(); } catch(_){} }
+      });
+    }, {threshold:0.35});
+    io.observe(v);
+  }
 })();
 </script>
 
