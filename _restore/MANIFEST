@@ -1,0 +1,4 @@
+parts=5
+encoding=base64+gzip
+expected_bytes=244994
+expected_sha256=25c7f78cb5f21c1bb17d669cd3189080580f5b01b9695c1ba1766d41f517397e
