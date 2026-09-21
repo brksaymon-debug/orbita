@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <!-- orbita-build:20260921195856 tiktok-one-slide -->
-                    <meta charset="UTF-8">
+  <!-- orbita-build:20260921200405 ttapp-clean -->
+                      <meta charset="UTF-8">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
-  <meta name="orbita-build" content="20260921195856">
+  <meta name="orbita-build" content="20260921200405">
 
 <script>/* is-app-mobile-early */try{if(matchMedia('(max-width:760px)').matches)document.documentElement.classList.add('is-app-mobile')}catch(e){}</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1">
@@ -2010,6 +2010,80 @@ h3{font-size:clamp(18px,2vw,22px)}
     position:absolute!important;z-index:6!important;
     right:12px!important;bottom:70px!important;
   }
+}
+
+
+/* Craft: independent mobile TikTok app feed */
+.tt-app{display:none}
+@media (max-width:760px){
+  html.is-app-mobile .tt-app{
+    display:flex!important;
+    position:fixed; inset:0 0 calc(58px + env(safe-area-inset-bottom,0px)) 0;
+    z-index:40; align-items:center; justify-content:center;
+    background:#07070a;
+    padding:8px 12px;
+  }
+  /* hide old services orbit UI on mobile app */
+  html.is-app-mobile #services{visibility:hidden!important;pointer-events:none!important}
+  html.is-app-mobile .tt-phone{
+    position:relative;
+    width:min(100%,380px);
+    height:100%;
+    max-height:100%;
+    border-radius:34px;
+    border:3px solid #1a1d24;
+    box-shadow:0 0 0 2px rgba(34,224,255,.35), 0 20px 50px rgba(0,0,0,.6);
+    overflow:hidden;
+    background:#000;
+  }
+  html.is-app-mobile .tt-notch{
+    position:absolute; top:9px; left:50%; transform:translateX(-50%);
+    width:92px; height:9px; border-radius:999px; background:#0b0d12;
+    border:1px solid rgba(255,255,255,.1); z-index:5; pointer-events:none;
+  }
+  html.is-app-mobile .tt-brand{
+    position:absolute; top:10px; right:14px; z-index:5; pointer-events:none;
+    font:700 9px/1 Unbounded,system-ui; letter-spacing:.08em; color:rgba(34,224,255,.75);
+  }
+  html.is-app-mobile .tt-feed{
+    position:absolute; inset:0;
+    overflow-x:hidden; overflow-y:auto;
+    scroll-snap-type:y mandatory;
+    -webkit-overflow-scrolling:touch;
+    overscroll-behavior-y:contain;
+    touch-action:pan-y;
+  }
+  html.is-app-mobile .tt-slide{
+    position:relative;
+    width:100%;
+    height:100%;
+    scroll-snap-align:start;
+    scroll-snap-stop:always;
+    overflow:hidden;
+    background:#000;
+    flex:none;
+  }
+  html.is-app-mobile .tt-slide video{
+    position:absolute; inset:0;
+    width:100%; height:100%;
+    object-fit:cover; display:block; background:#000;
+    pointer-events:none;
+  }
+  html.is-app-mobile .tt-slide .tt-cap{
+    position:absolute; left:14px; right:64px; bottom:22px; z-index:3;
+    padding:8px 12px; border-radius:999px;
+    background:rgba(0,0,0,.5); color:#fff; font:600 13px/1.2 Inter,system-ui;
+    backdrop-filter:blur(6px);
+  }
+  html.is-app-mobile .tt-slide .tt-sound{
+    position:absolute; right:12px; bottom:70px; z-index:4;
+    width:44px; height:44px; border-radius:50%;
+    border:1px solid rgba(255,255,255,.25);
+    background:rgba(0,0,0,.45); color:#fff; font-size:18px;
+  }
+}
+@media (min-width:761px){
+  .tt-app{display:none!important}
 }
 
 </style>
@@ -4076,9 +4150,9 @@ function bootOrbitaGlobe(){
 /* Resilient ORBITAL services showcase */
 (function(){
   'use strict';
-  var ASSETS = [[{"t": "video", "s": "work-16.mp4", "l": "Reels", "title": "Кино · розы и свет"}, {"t": "video", "s": "work-15.mp4", "l": "Reels", "title": "Авто · дождь на кузове"}, {"t": "video", "s": "work-14.mp4", "l": "Reels", "title": "Фуд-порн · идеальный бургер на гриле"}, {"t": "video", "s": "work-02.mp4", "l": "Reels", "title": "Видеореклама / Reels"}, {"t": "video", "s": "work-12.mp4", "l": "Reels", "title": "Новый ролик"}, {"t": "video", "s": "work-kazakhstan.mp4", "l": "Reels", "title": "Lifestyle cut"}, {"t": "video", "s": "work-05.mp4", "l": "Reels", "title": "Дизайн в движении"}], [{"t": "img", "s": "portfolio/banners/banners-01.jpg", "l": "Баннер · Orbita", "title": "БЫСТРОЕДА · Доставка 25 мин"}, {"t": "img", "s": "portfolio/banners/banners-02.jpg", "l": "Баннер · Orbita", "title": "ЧИСТОПРО · Уборка офисов"}, {"t": "img", "s": "portfolio/banners/banners-03.jpg", "l": "Баннер · Orbita", "title": "FIT24 · Безлимит"}, {"t": "img", "s": "portfolio/banners/banners-04.jpg", "l": "Баннер · Orbita", "title": "АПТЕКА+ · Витамины −40%"}, {"t": "img", "s": "portfolio/banners/banners-05.jpg", "l": "Баннер · Orbita", "title": "ДОМЛЕС · Не строим как все"}, {"t": "img", "s": "portfolio/banners/banners-06.jpg", "l": "Баннер · Orbita", "title": "ЗЕРНО · Утренний кофе"}, {"t": "img", "s": "portfolio/banners/banners-07.jpg", "l": "Баннер · Orbita", "title": "ДЕНТА ЛАЙН · Отбеливание"}, {"t": "img", "s": "portfolio/banners/banners-08.jpg", "l": "Баннер · Orbita", "title": "КРОНА · Nightclub"}, {"t": "img", "s": "portfolio/banners/banners-09.jpg", "l": "Баннер · Orbita", "title": "АВТОПРО · ТО за 2 часа"}, {"t": "img", "s": "portfolio/banners/banners-10.jpg", "l": "Баннер · Orbita", "title": "NEON BEAUTY · Маникюр"}, {"t": "img", "s": "portfolio/banners/banners-11.jpg", "l": "Баннер · Orbita", "title": "ЛАПА ВЕТ · 24/7"}, {"t": "img", "s": "portfolio/banners/banners-12.jpg", "l": "Баннер · Orbita", "title": "БАРБЕР НОЛЬ · Стрижка"}, {"t": "img", "s": "portfolio/banners/banners-13.jpg", "l": "Баннер · Orbita", "title": "САКУРА · Сет для двоих"}, {"t": "img", "s": "portfolio/banners/banners-14.jpg", "l": "Баннер · Orbita", "title": "КРОШКА · День открытых дверей"}, {"t": "img", "s": "portfolio/banners/banners-15.jpg", "l": "Баннер · Orbita", "title": "БУТОН · Букет за 90 мин"}, {"t": "img", "s": "portfolio/banners/banners-16.jpg", "l": "Баннер · Orbita", "title": "ПРАВО КОНСУЛ · Юрист"}, {"t": "img", "s": "portfolio/banners/banners-17.jpg", "l": "Баннер · Orbita", "title": "ШКОЛА КОД · Программирование"}, {"t": "img", "s": "portfolio/banners/banners-18.jpg", "l": "Баннер · Orbita", "title": "ЙОГА СИТИ · Первый урок free"}, {"t": "img", "s": "portfolio/banners/banners-19.jpg", "l": "Баннер · Orbita", "title": "СУШИ ОРБИТА · Ночной сет"}, {"t": "img", "s": "portfolio/banners/banners-20.jpg", "l": "Баннер · Orbita", "title": "КЛИН ХАУС · Химчистка"}, {"t": "img", "s": "portfolio/banners/banners-21.jpg", "l": "Баннер · Orbita", "title": "МОТО ЛАЙН · Сезон открыт"}, {"t": "img", "s": "portfolio/banners/banners-22.jpg", "l": "Баннер · Orbita", "title": "КИНОКУПОЛ · Премьера"}, {"t": "img", "s": "portfolio/banners/banners-23.jpg", "l": "Баннер · Orbita", "title": "ФЛОРА ПЛЮС · Доставка цветов"}, {"t": "img", "s": "portfolio/banners/banners-24.jpg", "l": "Баннер · Orbita", "title": "СТРОЙ МАРКЕТ · −25% на инструмент"}, {"t": "img", "s": "portfolio/banners/banners-25.jpg", "l": "Баннер · Orbita", "title": "PET CARE · Груминг"}, {"t": "img", "s": "portfolio/banners/banners-26.jpg", "l": "Баннер · Orbita", "title": "CLOUD PAY · Кэшбэк 10%"}, {"t": "img", "s": "portfolio/banners/banners-27.jpg", "l": "Баннер · Orbita", "title": "SPORT WAVE · Марафон города"}, {"t": "img", "s": "portfolio/banners/banners-28.jpg", "l": "Баннер · Orbita", "title": "BEAUTY LAB · Пилинги"}, {"t": "img", "s": "portfolio/banners/banners-29.jpg", "l": "Баннер · Orbita", "title": "НОТА КЛУБ · Live Friday"}, {"t": "img", "s": "portfolio/banners/banners-30.jpg", "l": "Баннер · Orbita", "title": "ТЕХНО ХАБ · Гаджеты"}], [{"t": "img", "s": "portfolio/flyers/flyers-01.jpg", "l": "Флаер · Orbita", "title": "ЗЕРНО · Утренний кофе"}, {"t": "img", "s": "portfolio/flyers/flyers-02.jpg", "l": "Флаер · Orbita", "title": "АПТЕКА+ · Витамины"}, {"t": "img", "s": "portfolio/flyers/flyers-03.jpg", "l": "Флаер · Orbita", "title": "ДЕНТА ЛАЙН · Отбеливание"}, {"t": "img", "s": "portfolio/flyers/flyers-04.jpg", "l": "Флаер · Orbita", "title": "КРОНА · Volt Rider"}, {"t": "img", "s": "portfolio/flyers/flyers-05.jpg", "l": "Флаер · Orbita", "title": "ДОМЛЕС · Не строим как все"}, {"t": "img", "s": "portfolio/flyers/flyers-06.jpg", "l": "Флаер · Orbita", "title": "САКУРА · Сет для двоих"}, {"t": "img", "s": "portfolio/flyers/flyers-07.jpg", "l": "Флаер · Orbita", "title": "NEON BEAUTY · Маникюр"}, {"t": "img", "s": "portfolio/flyers/flyers-08.jpg", "l": "Флаер · Orbita", "title": "FIT24 · Безлимит"}, {"t": "img", "s": "portfolio/flyers/flyers-09.jpg", "l": "Флаер · Orbita", "title": "АВТОПРО · ТО за 2 часа"}, {"t": "img", "s": "portfolio/flyers/flyers-10.jpg", "l": "Флаер · Orbita", "title": "КРОШКА · День открытых дверей"}, {"t": "img", "s": "portfolio/flyers/flyers-11.jpg", "l": "Флаер · Orbita", "title": "ЛАПА ВЕТ · 24/7"}, {"t": "img", "s": "portfolio/flyers/flyers-12.jpg", "l": "Флаер · Orbita", "title": "БАРБЕР НОЛЬ · Стрижка"}, {"t": "img", "s": "portfolio/flyers/flyers-13.jpg", "l": "Флаер · Orbita", "title": "БУТОН · Букет за 90 мин"}, {"t": "img", "s": "portfolio/flyers/flyers-14.jpg", "l": "Флаер · Orbita", "title": "ПРАВО КОНСУЛ · Юрист"}, {"t": "img", "s": "portfolio/flyers/flyers-15.jpg", "l": "Флаер · Orbita", "title": "ШКОЛА КОД · Программирование"}, {"t": "img", "s": "portfolio/flyers/flyers-16.jpg", "l": "Флаер · Orbita", "title": "АУРА СПА · Релакс день"}, {"t": "img", "s": "portfolio/flyers/flyers-17.jpg", "l": "Флаер · Orbita", "title": "ДОМ КЛЮЧ · Квартиры"}, {"t": "img", "s": "portfolio/flyers/flyers-18.jpg", "l": "Флаер · Orbita", "title": "ОКУЛЯР+ · −30% оправы"}, {"t": "img", "s": "portfolio/flyers/flyers-19.jpg", "l": "Флаер · Orbita", "title": "ПЕКАРНЯ УТРО · Выпечка"}, {"t": "img", "s": "portfolio/flyers/flyers-20.jpg", "l": "Флаер · Orbita", "title": "ОТЕЛЬ СЕВЕР · −20%"}, {"t": "img", "s": "portfolio/flyers/flyers-21.jpg", "l": "Флаер · Orbita", "title": "ЧИСТОПРО · Уборка"}, {"t": "img", "s": "portfolio/flyers/flyers-22.jpg", "l": "Флаер · Orbita", "title": "ДВА СЕРДЦА · Свадьба"}, {"t": "img", "s": "portfolio/flyers/flyers-23.jpg", "l": "Флаер · Orbita", "title": "ТЕХНО ХАБ · Гаджеты"}, {"t": "img", "s": "portfolio/flyers/flyers-24.jpg", "l": "Флаер · Orbita", "title": "МОЛНИЯ · Доставка за час"}, {"t": "img", "s": "portfolio/flyers/flyers-25.jpg", "l": "Флаер · Orbita", "title": "ДЫХАНИЕ · Йога"}, {"t": "img", "s": "portfolio/flyers/flyers-26.jpg", "l": "Флаер · Orbita", "title": "КАРТА ПЛЮС · Кэшбэк 10%"}, {"t": "img", "s": "portfolio/flyers/flyers-27.jpg", "l": "Флаер · Orbita", "title": "БЛЕСК АВТО · Мойка"}, {"t": "img", "s": "portfolio/flyers/flyers-28.jpg", "l": "Флаер · Orbita", "title": "ЛИНГВА · Английский"}, {"t": "img", "s": "portfolio/flyers/flyers-29.jpg", "l": "Флаер · Orbita", "title": "ОГОНЬ ПИЦЦА · 30 мин"}, {"t": "img", "s": "portfolio/flyers/flyers-30.jpg", "l": "Флаер · Orbita", "title": "ЛАК СТУДИО · Гель-лак"}], [{"t": "img", "s": "portfolio/posters/posters-01.jpg", "l": "Афиша · Orbita", "title": "ЭХО HALL · Live Night"}, {"t": "img", "s": "portfolio/posters/posters-02.jpg", "l": "Афиша · Orbita", "title": "АРЕНА 26 · Финал"}, {"t": "img", "s": "portfolio/posters/posters-03.jpg", "l": "Афиша · Orbita", "title": "ОРБИТА FILM · Премьера"}, {"t": "img", "s": "portfolio/posters/posters-04.jpg", "l": "Афиша · Orbita", "title": "SS26 · Показ"}, {"t": "img", "s": "portfolio/posters/posters-05.jpg", "l": "Афиша · Orbita", "title": "VOLT FEST · Open Air"}, {"t": "img", "s": "portfolio/posters/posters-06.jpg", "l": "Афиша · Orbita", "title": "BLACK STAGE · Afterparty"}, {"t": "img", "s": "portfolio/posters/posters-07.jpg", "l": "Афиша · Orbita", "title": "RIVER JAZZ · Live"}, {"t": "img", "s": "portfolio/posters/posters-08.jpg", "l": "Афиша · Orbita", "title": "СМЕХ HALL · Стендап"}, {"t": "img", "s": "portfolio/posters/posters-09.jpg", "l": "Афиша · Orbita", "title": "ГОРОД OPERA · Премьера"}, {"t": "img", "s": "portfolio/posters/posters-10.jpg", "l": "Афиша · Orbita", "title": "GAME ON · Турнир"}, {"t": "img", "s": "portfolio/posters/posters-11.jpg", "l": "Афиша · Orbita", "title": "STREET EATS · Фуд маркет"}, {"t": "img", "s": "portfolio/posters/posters-12.jpg", "l": "Афиша · Orbita", "title": "ЗЕРНО · Утренний кофе · афиша"}, {"t": "img", "s": "portfolio/posters/posters-13.jpg", "l": "Афиша · Orbita", "title": "АПТЕКА+ · Витамины · афиша"}, {"t": "img", "s": "portfolio/posters/posters-14.jpg", "l": "Афиша · Orbita", "title": "ДЕНТА ЛАЙН · Отбеливание · афиша"}, {"t": "img", "s": "portfolio/posters/posters-15.jpg", "l": "Афиша · Orbita", "title": "КРОНА · Volt Rider · афиша"}, {"t": "img", "s": "portfolio/posters/posters-16.jpg", "l": "Афиша · Orbita", "title": "ДОМЛЕС · Не строим как все · афиша"}, {"t": "img", "s": "portfolio/posters/posters-17.jpg", "l": "Афиша · Orbita", "title": "САКУРА · Сет для двоих · афиша"}, {"t": "img", "s": "portfolio/posters/posters-18.jpg", "l": "Афиша · Orbita", "title": "NEON BEAUTY · Маникюр · афиша"}, {"t": "img", "s": "portfolio/posters/posters-19.jpg", "l": "Афиша · Orbita", "title": "FIT24 · Безлимит · афиша"}, {"t": "img", "s": "portfolio/posters/posters-20.jpg", "l": "Афиша · Orbita", "title": "АВТОПРО · ТО за 2 часа · афиша"}, {"t": "img", "s": "portfolio/posters/posters-21.jpg", "l": "Афиша · Orbita", "title": "КРОШКА · День открытых дверей · афиша"}, {"t": "img", "s": "portfolio/posters/posters-22.jpg", "l": "Афиша · Orbita", "title": "ЛАПА ВЕТ · 24/7 · афиша"}, {"t": "img", "s": "portfolio/posters/posters-23.jpg", "l": "Афиша · Orbita", "title": "БАРБЕР НОЛЬ · Стрижка · афиша"}, {"t": "img", "s": "portfolio/posters/posters-24.jpg", "l": "Афиша · Orbita", "title": "БУТОН · Букет за 90 мин · афиша"}, {"t": "img", "s": "portfolio/posters/posters-25.jpg", "l": "Афиша · Orbita", "title": "ПРАВО КОНСУЛ · Юрист · афиша"}, {"t": "img", "s": "portfolio/posters/posters-26.jpg", "l": "Афиша · Orbita", "title": "ШКОЛА КОД · Программирование · афиша"}, {"t": "img", "s": "portfolio/posters/posters-27.jpg", "l": "Афиша · Orbita", "title": "АУРА СПА · Релакс день · афиша"}, {"t": "img", "s": "portfolio/posters/posters-28.jpg", "l": "Афиша · Orbita", "title": "ДОМ КЛЮЧ · Квартиры · афиша"}, {"t": "img", "s": "portfolio/posters/posters-29.jpg", "l": "Афиша · Orbita", "title": "ОКУЛЯР+ · −30% оправы · афиша"}, {"t": "img", "s": "portfolio/posters/posters-30.jpg", "l": "Афиша · Orbita", "title": "ПЕКАРНЯ УТРО · Выпечка · афиша"}], [{"t": "img", "s": "portfolio/stories/stories-01.jpg", "l": "KV / Stories · Orbita", "title": "ЗЕРНО · Утренний кофе · Stories"}, {"t": "img", "s": "portfolio/stories/stories-02.jpg", "l": "KV / Stories · Orbita", "title": "АПТЕКА+ · Витамины · Stories"}, {"t": "img", "s": "portfolio/stories/stories-03.jpg", "l": "KV / Stories · Orbita", "title": "ДЕНТА ЛАЙН · Отбеливание · Stories"}, {"t": "img", "s": "portfolio/stories/stories-04.jpg", "l": "KV / Stories · Orbita", "title": "КРОНА · Volt Rider · Stories"}, {"t": "img", "s": "portfolio/stories/stories-05.jpg", "l": "KV / Stories · Orbita", "title": "ДОМЛЕС · Не строим как все · Stories"}, {"t": "img", "s": "portfolio/stories/stories-06.jpg", "l": "KV / Stories · Orbita", "title": "САКУРА · Сет для двоих · Stories"}, {"t": "img", "s": "portfolio/stories/stories-07.jpg", "l": "KV / Stories · Orbita", "title": "NEON BEAUTY · Маникюр · Stories"}, {"t": "img", "s": "portfolio/stories/stories-08.jpg", "l": "KV / Stories · Orbita", "title": "FIT24 · Безлимит · Stories"}, {"t": "img", "s": "portfolio/stories/stories-09.jpg", "l": "KV / Stories · Orbita", "title": "АВТОПРО · ТО за 2 часа · Stories"}, {"t": "img", "s": "portfolio/stories/stories-10.jpg", "l": "KV / Stories · Orbita", "title": "КРОШКА · День открытых дверей · Stories"}, {"t": "img", "s": "portfolio/stories/stories-11.jpg", "l": "KV / Stories · Orbita", "title": "ЛАПА ВЕТ · 24/7 · Stories"}, {"t": "img", "s": "portfolio/stories/stories-12.jpg", "l": "KV / Stories · Orbita", "title": "БАРБЕР НОЛЬ · Стрижка · Stories"}, {"t": "img", "s": "portfolio/stories/stories-13.jpg", "l": "KV / Stories · Orbita", "title": "БУТОН · Букет за 90 мин · Stories"}, {"t": "img", "s": "portfolio/stories/stories-14.jpg", "l": "KV / Stories · Orbita", "title": "ПРАВО КОНСУЛ · Юрист · Stories"}, {"t": "img", "s": "portfolio/stories/stories-15.jpg", "l": "KV / Stories · Orbita", "title": "ШКОЛА КОД · Программирование · Stories"}, {"t": "img", "s": "portfolio/stories/stories-16.jpg", "l": "KV / Stories · Orbita", "title": "АУРА СПА · Релакс день · Stories"}, {"t": "img", "s": "portfolio/stories/stories-17.jpg", "l": "KV / Stories · Orbita", "title": "ДОМ КЛЮЧ · Квартиры · Stories"}, {"t": "img", "s": "portfolio/stories/stories-18.jpg", "l": "KV / Stories · Orbita", "title": "ОКУЛЯР+ · −30% оправы · Stories"}, {"t": "img", "s": "portfolio/stories/stories-19.jpg", "l": "KV / Stories · Orbita", "title": "ПЕКАРНЯ УТРО · Выпечка · Stories"}, {"t": "img", "s": "portfolio/stories/stories-20.jpg", "l": "KV / Stories · Orbita", "title": "ОТЕЛЬ СЕВЕР · −20% · Stories"}, {"t": "img", "s": "portfolio/stories/stories-21.jpg", "l": "KV / Stories · Orbita", "title": "ЧИСТОПРО · Уборка · Stories"}, {"t": "img", "s": "portfolio/stories/stories-22.jpg", "l": "KV / Stories · Orbita", "title": "ДВА СЕРДЦА · Свадьба · Stories"}, {"t": "img", "s": "portfolio/stories/stories-23.jpg", "l": "KV / Stories · Orbita", "title": "ТЕХНО ХАБ · Гаджеты · Stories"}, {"t": "img", "s": "portfolio/stories/stories-24.jpg", "l": "KV / Stories · Orbita", "title": "МОЛНИЯ · Доставка за час · Stories"}, {"t": "img", "s": "portfolio/stories/stories-25.jpg", "l": "KV / Stories · Orbita", "title": "ДЫХАНИЕ · Йога · Stories"}, {"t": "img", "s": "portfolio/stories/stories-26.jpg", "l": "KV / Stories · Orbita", "title": "КАРТА ПЛЮС · Кэшбэк 10% · Stories"}, {"t": "img", "s": "portfolio/stories/stories-27.jpg", "l": "KV / Stories · Orbita", "title": "БЛЕСК АВТО · Мойка · Stories"}, {"t": "img", "s": "portfolio/stories/stories-28.jpg", "l": "KV / Stories · Orbita", "title": "ЛИНГВА · Английский · Stories"}, {"t": "img", "s": "portfolio/stories/stories-29.jpg", "l": "KV / Stories · Orbita", "title": "ОГОНЬ ПИЦЦА · 30 мин · Stories"}, {"t": "img", "s": "portfolio/stories/stories-30.jpg", "l": "KV / Stories · Orbita", "title": "ЛАК СТУДИО · Гель-лак · Stories"}], [{"t": "video", "s": "work-16.mp4", "l": "Motion", "title": "Кино · розы и орбита"}, {"t": "video", "s": "work-15.mp4", "l": "Motion", "title": "Авто · ночной GT"}, {"t": "video", "s": "work-03.mp4", "l": "Motion", "title": "Вертикаль motion"}, {"t": "video", "s": "work-06.mp4", "l": "Motion", "title": "Динамика кадра"}, {"t": "video", "s": "work-07.mp4", "l": "Motion", "title": "Ритм и графика"}, {"t": "video", "s": "work-08.mp4", "l": "Motion", "title": "Серия motion"}, {"t": "video", "s": "work-10.mp4", "l": "Motion", "title": "Короткий motion"}]];
+  var ASSETS = window.ORBITA_ASSETS = [[{"t": "video", "s": "work-16.mp4", "l": "Reels", "title": "Кино · розы и свет"}, {"t": "video", "s": "work-15.mp4", "l": "Reels", "title": "Авто · дождь на кузове"}, {"t": "video", "s": "work-14.mp4", "l": "Reels", "title": "Фуд-порн · идеальный бургер на гриле"}, {"t": "video", "s": "work-02.mp4", "l": "Reels", "title": "Видеореклама / Reels"}, {"t": "video", "s": "work-12.mp4", "l": "Reels", "title": "Новый ролик"}, {"t": "video", "s": "work-kazakhstan.mp4", "l": "Reels", "title": "Lifestyle cut"}, {"t": "video", "s": "work-05.mp4", "l": "Reels", "title": "Дизайн в движении"}], [{"t": "img", "s": "portfolio/banners/banners-01.jpg", "l": "Баннер · Orbita", "title": "БЫСТРОЕДА · Доставка 25 мин"}, {"t": "img", "s": "portfolio/banners/banners-02.jpg", "l": "Баннер · Orbita", "title": "ЧИСТОПРО · Уборка офисов"}, {"t": "img", "s": "portfolio/banners/banners-03.jpg", "l": "Баннер · Orbita", "title": "FIT24 · Безлимит"}, {"t": "img", "s": "portfolio/banners/banners-04.jpg", "l": "Баннер · Orbita", "title": "АПТЕКА+ · Витамины −40%"}, {"t": "img", "s": "portfolio/banners/banners-05.jpg", "l": "Баннер · Orbita", "title": "ДОМЛЕС · Не строим как все"}, {"t": "img", "s": "portfolio/banners/banners-06.jpg", "l": "Баннер · Orbita", "title": "ЗЕРНО · Утренний кофе"}, {"t": "img", "s": "portfolio/banners/banners-07.jpg", "l": "Баннер · Orbita", "title": "ДЕНТА ЛАЙН · Отбеливание"}, {"t": "img", "s": "portfolio/banners/banners-08.jpg", "l": "Баннер · Orbita", "title": "КРОНА · Nightclub"}, {"t": "img", "s": "portfolio/banners/banners-09.jpg", "l": "Баннер · Orbita", "title": "АВТОПРО · ТО за 2 часа"}, {"t": "img", "s": "portfolio/banners/banners-10.jpg", "l": "Баннер · Orbita", "title": "NEON BEAUTY · Маникюр"}, {"t": "img", "s": "portfolio/banners/banners-11.jpg", "l": "Баннер · Orbita", "title": "ЛАПА ВЕТ · 24/7"}, {"t": "img", "s": "portfolio/banners/banners-12.jpg", "l": "Баннер · Orbita", "title": "БАРБЕР НОЛЬ · Стрижка"}, {"t": "img", "s": "portfolio/banners/banners-13.jpg", "l": "Баннер · Orbita", "title": "САКУРА · Сет для двоих"}, {"t": "img", "s": "portfolio/banners/banners-14.jpg", "l": "Баннер · Orbita", "title": "КРОШКА · День открытых дверей"}, {"t": "img", "s": "portfolio/banners/banners-15.jpg", "l": "Баннер · Orbita", "title": "БУТОН · Букет за 90 мин"}, {"t": "img", "s": "portfolio/banners/banners-16.jpg", "l": "Баннер · Orbita", "title": "ПРАВО КОНСУЛ · Юрист"}, {"t": "img", "s": "portfolio/banners/banners-17.jpg", "l": "Баннер · Orbita", "title": "ШКОЛА КОД · Программирование"}, {"t": "img", "s": "portfolio/banners/banners-18.jpg", "l": "Баннер · Orbita", "title": "ЙОГА СИТИ · Первый урок free"}, {"t": "img", "s": "portfolio/banners/banners-19.jpg", "l": "Баннер · Orbita", "title": "СУШИ ОРБИТА · Ночной сет"}, {"t": "img", "s": "portfolio/banners/banners-20.jpg", "l": "Баннер · Orbita", "title": "КЛИН ХАУС · Химчистка"}, {"t": "img", "s": "portfolio/banners/banners-21.jpg", "l": "Баннер · Orbita", "title": "МОТО ЛАЙН · Сезон открыт"}, {"t": "img", "s": "portfolio/banners/banners-22.jpg", "l": "Баннер · Orbita", "title": "КИНОКУПОЛ · Премьера"}, {"t": "img", "s": "portfolio/banners/banners-23.jpg", "l": "Баннер · Orbita", "title": "ФЛОРА ПЛЮС · Доставка цветов"}, {"t": "img", "s": "portfolio/banners/banners-24.jpg", "l": "Баннер · Orbita", "title": "СТРОЙ МАРКЕТ · −25% на инструмент"}, {"t": "img", "s": "portfolio/banners/banners-25.jpg", "l": "Баннер · Orbita", "title": "PET CARE · Груминг"}, {"t": "img", "s": "portfolio/banners/banners-26.jpg", "l": "Баннер · Orbita", "title": "CLOUD PAY · Кэшбэк 10%"}, {"t": "img", "s": "portfolio/banners/banners-27.jpg", "l": "Баннер · Orbita", "title": "SPORT WAVE · Марафон города"}, {"t": "img", "s": "portfolio/banners/banners-28.jpg", "l": "Баннер · Orbita", "title": "BEAUTY LAB · Пилинги"}, {"t": "img", "s": "portfolio/banners/banners-29.jpg", "l": "Баннер · Orbita", "title": "НОТА КЛУБ · Live Friday"}, {"t": "img", "s": "portfolio/banners/banners-30.jpg", "l": "Баннер · Orbita", "title": "ТЕХНО ХАБ · Гаджеты"}], [{"t": "img", "s": "portfolio/flyers/flyers-01.jpg", "l": "Флаер · Orbita", "title": "ЗЕРНО · Утренний кофе"}, {"t": "img", "s": "portfolio/flyers/flyers-02.jpg", "l": "Флаер · Orbita", "title": "АПТЕКА+ · Витамины"}, {"t": "img", "s": "portfolio/flyers/flyers-03.jpg", "l": "Флаер · Orbita", "title": "ДЕНТА ЛАЙН · Отбеливание"}, {"t": "img", "s": "portfolio/flyers/flyers-04.jpg", "l": "Флаер · Orbita", "title": "КРОНА · Volt Rider"}, {"t": "img", "s": "portfolio/flyers/flyers-05.jpg", "l": "Флаер · Orbita", "title": "ДОМЛЕС · Не строим как все"}, {"t": "img", "s": "portfolio/flyers/flyers-06.jpg", "l": "Флаер · Orbita", "title": "САКУРА · Сет для двоих"}, {"t": "img", "s": "portfolio/flyers/flyers-07.jpg", "l": "Флаер · Orbita", "title": "NEON BEAUTY · Маникюр"}, {"t": "img", "s": "portfolio/flyers/flyers-08.jpg", "l": "Флаер · Orbita", "title": "FIT24 · Безлимит"}, {"t": "img", "s": "portfolio/flyers/flyers-09.jpg", "l": "Флаер · Orbita", "title": "АВТОПРО · ТО за 2 часа"}, {"t": "img", "s": "portfolio/flyers/flyers-10.jpg", "l": "Флаер · Orbita", "title": "КРОШКА · День открытых дверей"}, {"t": "img", "s": "portfolio/flyers/flyers-11.jpg", "l": "Флаер · Orbita", "title": "ЛАПА ВЕТ · 24/7"}, {"t": "img", "s": "portfolio/flyers/flyers-12.jpg", "l": "Флаер · Orbita", "title": "БАРБЕР НОЛЬ · Стрижка"}, {"t": "img", "s": "portfolio/flyers/flyers-13.jpg", "l": "Флаер · Orbita", "title": "БУТОН · Букет за 90 мин"}, {"t": "img", "s": "portfolio/flyers/flyers-14.jpg", "l": "Флаер · Orbita", "title": "ПРАВО КОНСУЛ · Юрист"}, {"t": "img", "s": "portfolio/flyers/flyers-15.jpg", "l": "Флаер · Orbita", "title": "ШКОЛА КОД · Программирование"}, {"t": "img", "s": "portfolio/flyers/flyers-16.jpg", "l": "Флаер · Orbita", "title": "АУРА СПА · Релакс день"}, {"t": "img", "s": "portfolio/flyers/flyers-17.jpg", "l": "Флаер · Orbita", "title": "ДОМ КЛЮЧ · Квартиры"}, {"t": "img", "s": "portfolio/flyers/flyers-18.jpg", "l": "Флаер · Orbita", "title": "ОКУЛЯР+ · −30% оправы"}, {"t": "img", "s": "portfolio/flyers/flyers-19.jpg", "l": "Флаер · Orbita", "title": "ПЕКАРНЯ УТРО · Выпечка"}, {"t": "img", "s": "portfolio/flyers/flyers-20.jpg", "l": "Флаер · Orbita", "title": "ОТЕЛЬ СЕВЕР · −20%"}, {"t": "img", "s": "portfolio/flyers/flyers-21.jpg", "l": "Флаер · Orbita", "title": "ЧИСТОПРО · Уборка"}, {"t": "img", "s": "portfolio/flyers/flyers-22.jpg", "l": "Флаер · Orbita", "title": "ДВА СЕРДЦА · Свадьба"}, {"t": "img", "s": "portfolio/flyers/flyers-23.jpg", "l": "Флаер · Orbita", "title": "ТЕХНО ХАБ · Гаджеты"}, {"t": "img", "s": "portfolio/flyers/flyers-24.jpg", "l": "Флаер · Orbita", "title": "МОЛНИЯ · Доставка за час"}, {"t": "img", "s": "portfolio/flyers/flyers-25.jpg", "l": "Флаер · Orbita", "title": "ДЫХАНИЕ · Йога"}, {"t": "img", "s": "portfolio/flyers/flyers-26.jpg", "l": "Флаер · Orbita", "title": "КАРТА ПЛЮС · Кэшбэк 10%"}, {"t": "img", "s": "portfolio/flyers/flyers-27.jpg", "l": "Флаер · Orbita", "title": "БЛЕСК АВТО · Мойка"}, {"t": "img", "s": "portfolio/flyers/flyers-28.jpg", "l": "Флаер · Orbita", "title": "ЛИНГВА · Английский"}, {"t": "img", "s": "portfolio/flyers/flyers-29.jpg", "l": "Флаер · Orbita", "title": "ОГОНЬ ПИЦЦА · 30 мин"}, {"t": "img", "s": "portfolio/flyers/flyers-30.jpg", "l": "Флаер · Orbita", "title": "ЛАК СТУДИО · Гель-лак"}], [{"t": "img", "s": "portfolio/posters/posters-01.jpg", "l": "Афиша · Orbita", "title": "ЭХО HALL · Live Night"}, {"t": "img", "s": "portfolio/posters/posters-02.jpg", "l": "Афиша · Orbita", "title": "АРЕНА 26 · Финал"}, {"t": "img", "s": "portfolio/posters/posters-03.jpg", "l": "Афиша · Orbita", "title": "ОРБИТА FILM · Премьера"}, {"t": "img", "s": "portfolio/posters/posters-04.jpg", "l": "Афиша · Orbita", "title": "SS26 · Показ"}, {"t": "img", "s": "portfolio/posters/posters-05.jpg", "l": "Афиша · Orbita", "title": "VOLT FEST · Open Air"}, {"t": "img", "s": "portfolio/posters/posters-06.jpg", "l": "Афиша · Orbita", "title": "BLACK STAGE · Afterparty"}, {"t": "img", "s": "portfolio/posters/posters-07.jpg", "l": "Афиша · Orbita", "title": "RIVER JAZZ · Live"}, {"t": "img", "s": "portfolio/posters/posters-08.jpg", "l": "Афиша · Orbita", "title": "СМЕХ HALL · Стендап"}, {"t": "img", "s": "portfolio/posters/posters-09.jpg", "l": "Афиша · Orbita", "title": "ГОРОД OPERA · Премьера"}, {"t": "img", "s": "portfolio/posters/posters-10.jpg", "l": "Афиша · Orbita", "title": "GAME ON · Турнир"}, {"t": "img", "s": "portfolio/posters/posters-11.jpg", "l": "Афиша · Orbita", "title": "STREET EATS · Фуд маркет"}, {"t": "img", "s": "portfolio/posters/posters-12.jpg", "l": "Афиша · Orbita", "title": "ЗЕРНО · Утренний кофе · афиша"}, {"t": "img", "s": "portfolio/posters/posters-13.jpg", "l": "Афиша · Orbita", "title": "АПТЕКА+ · Витамины · афиша"}, {"t": "img", "s": "portfolio/posters/posters-14.jpg", "l": "Афиша · Orbita", "title": "ДЕНТА ЛАЙН · Отбеливание · афиша"}, {"t": "img", "s": "portfolio/posters/posters-15.jpg", "l": "Афиша · Orbita", "title": "КРОНА · Volt Rider · афиша"}, {"t": "img", "s": "portfolio/posters/posters-16.jpg", "l": "Афиша · Orbita", "title": "ДОМЛЕС · Не строим как все · афиша"}, {"t": "img", "s": "portfolio/posters/posters-17.jpg", "l": "Афиша · Orbita", "title": "САКУРА · Сет для двоих · афиша"}, {"t": "img", "s": "portfolio/posters/posters-18.jpg", "l": "Афиша · Orbita", "title": "NEON BEAUTY · Маникюр · афиша"}, {"t": "img", "s": "portfolio/posters/posters-19.jpg", "l": "Афиша · Orbita", "title": "FIT24 · Безлимит · афиша"}, {"t": "img", "s": "portfolio/posters/posters-20.jpg", "l": "Афиша · Orbita", "title": "АВТОПРО · ТО за 2 часа · афиша"}, {"t": "img", "s": "portfolio/posters/posters-21.jpg", "l": "Афиша · Orbita", "title": "КРОШКА · День открытых дверей · афиша"}, {"t": "img", "s": "portfolio/posters/posters-22.jpg", "l": "Афиша · Orbita", "title": "ЛАПА ВЕТ · 24/7 · афиша"}, {"t": "img", "s": "portfolio/posters/posters-23.jpg", "l": "Афиша · Orbita", "title": "БАРБЕР НОЛЬ · Стрижка · афиша"}, {"t": "img", "s": "portfolio/posters/posters-24.jpg", "l": "Афиша · Orbita", "title": "БУТОН · Букет за 90 мин · афиша"}, {"t": "img", "s": "portfolio/posters/posters-25.jpg", "l": "Афиша · Orbita", "title": "ПРАВО КОНСУЛ · Юрист · афиша"}, {"t": "img", "s": "portfolio/posters/posters-26.jpg", "l": "Афиша · Orbita", "title": "ШКОЛА КОД · Программирование · афиша"}, {"t": "img", "s": "portfolio/posters/posters-27.jpg", "l": "Афиша · Orbita", "title": "АУРА СПА · Релакс день · афиша"}, {"t": "img", "s": "portfolio/posters/posters-28.jpg", "l": "Афиша · Orbita", "title": "ДОМ КЛЮЧ · Квартиры · афиша"}, {"t": "img", "s": "portfolio/posters/posters-29.jpg", "l": "Афиша · Orbita", "title": "ОКУЛЯР+ · −30% оправы · афиша"}, {"t": "img", "s": "portfolio/posters/posters-30.jpg", "l": "Афиша · Orbita", "title": "ПЕКАРНЯ УТРО · Выпечка · афиша"}], [{"t": "img", "s": "portfolio/stories/stories-01.jpg", "l": "KV / Stories · Orbita", "title": "ЗЕРНО · Утренний кофе · Stories"}, {"t": "img", "s": "portfolio/stories/stories-02.jpg", "l": "KV / Stories · Orbita", "title": "АПТЕКА+ · Витамины · Stories"}, {"t": "img", "s": "portfolio/stories/stories-03.jpg", "l": "KV / Stories · Orbita", "title": "ДЕНТА ЛАЙН · Отбеливание · Stories"}, {"t": "img", "s": "portfolio/stories/stories-04.jpg", "l": "KV / Stories · Orbita", "title": "КРОНА · Volt Rider · Stories"}, {"t": "img", "s": "portfolio/stories/stories-05.jpg", "l": "KV / Stories · Orbita", "title": "ДОМЛЕС · Не строим как все · Stories"}, {"t": "img", "s": "portfolio/stories/stories-06.jpg", "l": "KV / Stories · Orbita", "title": "САКУРА · Сет для двоих · Stories"}, {"t": "img", "s": "portfolio/stories/stories-07.jpg", "l": "KV / Stories · Orbita", "title": "NEON BEAUTY · Маникюр · Stories"}, {"t": "img", "s": "portfolio/stories/stories-08.jpg", "l": "KV / Stories · Orbita", "title": "FIT24 · Безлимит · Stories"}, {"t": "img", "s": "portfolio/stories/stories-09.jpg", "l": "KV / Stories · Orbita", "title": "АВТОПРО · ТО за 2 часа · Stories"}, {"t": "img", "s": "portfolio/stories/stories-10.jpg", "l": "KV / Stories · Orbita", "title": "КРОШКА · День открытых дверей · Stories"}, {"t": "img", "s": "portfolio/stories/stories-11.jpg", "l": "KV / Stories · Orbita", "title": "ЛАПА ВЕТ · 24/7 · Stories"}, {"t": "img", "s": "portfolio/stories/stories-12.jpg", "l": "KV / Stories · Orbita", "title": "БАРБЕР НОЛЬ · Стрижка · Stories"}, {"t": "img", "s": "portfolio/stories/stories-13.jpg", "l": "KV / Stories · Orbita", "title": "БУТОН · Букет за 90 мин · Stories"}, {"t": "img", "s": "portfolio/stories/stories-14.jpg", "l": "KV / Stories · Orbita", "title": "ПРАВО КОНСУЛ · Юрист · Stories"}, {"t": "img", "s": "portfolio/stories/stories-15.jpg", "l": "KV / Stories · Orbita", "title": "ШКОЛА КОД · Программирование · Stories"}, {"t": "img", "s": "portfolio/stories/stories-16.jpg", "l": "KV / Stories · Orbita", "title": "АУРА СПА · Релакс день · Stories"}, {"t": "img", "s": "portfolio/stories/stories-17.jpg", "l": "KV / Stories · Orbita", "title": "ДОМ КЛЮЧ · Квартиры · Stories"}, {"t": "img", "s": "portfolio/stories/stories-18.jpg", "l": "KV / Stories · Orbita", "title": "ОКУЛЯР+ · −30% оправы · Stories"}, {"t": "img", "s": "portfolio/stories/stories-19.jpg", "l": "KV / Stories · Orbita", "title": "ПЕКАРНЯ УТРО · Выпечка · Stories"}, {"t": "img", "s": "portfolio/stories/stories-20.jpg", "l": "KV / Stories · Orbita", "title": "ОТЕЛЬ СЕВЕР · −20% · Stories"}, {"t": "img", "s": "portfolio/stories/stories-21.jpg", "l": "KV / Stories · Orbita", "title": "ЧИСТОПРО · Уборка · Stories"}, {"t": "img", "s": "portfolio/stories/stories-22.jpg", "l": "KV / Stories · Orbita", "title": "ДВА СЕРДЦА · Свадьба · Stories"}, {"t": "img", "s": "portfolio/stories/stories-23.jpg", "l": "KV / Stories · Orbita", "title": "ТЕХНО ХАБ · Гаджеты · Stories"}, {"t": "img", "s": "portfolio/stories/stories-24.jpg", "l": "KV / Stories · Orbita", "title": "МОЛНИЯ · Доставка за час · Stories"}, {"t": "img", "s": "portfolio/stories/stories-25.jpg", "l": "KV / Stories · Orbita", "title": "ДЫХАНИЕ · Йога · Stories"}, {"t": "img", "s": "portfolio/stories/stories-26.jpg", "l": "KV / Stories · Orbita", "title": "КАРТА ПЛЮС · Кэшбэк 10% · Stories"}, {"t": "img", "s": "portfolio/stories/stories-27.jpg", "l": "KV / Stories · Orbita", "title": "БЛЕСК АВТО · Мойка · Stories"}, {"t": "img", "s": "portfolio/stories/stories-28.jpg", "l": "KV / Stories · Orbita", "title": "ЛИНГВА · Английский · Stories"}, {"t": "img", "s": "portfolio/stories/stories-29.jpg", "l": "KV / Stories · Orbita", "title": "ОГОНЬ ПИЦЦА · 30 мин · Stories"}, {"t": "img", "s": "portfolio/stories/stories-30.jpg", "l": "KV / Stories · Orbita", "title": "ЛАК СТУДИО · Гель-лак · Stories"}], [{"t": "video", "s": "work-16.mp4", "l": "Motion", "title": "Кино · розы и орбита"}, {"t": "video", "s": "work-15.mp4", "l": "Motion", "title": "Авто · ночной GT"}, {"t": "video", "s": "work-03.mp4", "l": "Motion", "title": "Вертикаль motion"}, {"t": "video", "s": "work-06.mp4", "l": "Motion", "title": "Динамика кадра"}, {"t": "video", "s": "work-07.mp4", "l": "Motion", "title": "Ритм и графика"}, {"t": "video", "s": "work-08.mp4", "l": "Motion", "title": "Серия motion"}, {"t": "video", "s": "work-10.mp4", "l": "Motion", "title": "Короткий motion"}]];
   var DESCS = ["Видеореклама / Reels / монтаж — ролики, которые держат внимание и ведут к заявке.", "Баннеры — digital и наружка в едином визуальном языке.", "Флаеры / листовки — печать и PDF с сильным оффером и CTA.", "Афиши — киношная подача под фильмы, концерты и ивенты.", "Key visual / Stories — обложки, сетки и посты, которые держат бренд.", "Motion и адаптации — титры, графика, 16:9 / 9:16 / 1:1."];
-  var TITLES = ["Видеореклама / Reels", "Баннеры", "Флаеры", "Афиши", "KV / Stories", "Motion"];
+  var TITLES = window.ORBITA_TITLES = ["Видеореклама / Reels", "Баннеры", "Флаеры", "Афиши", "KV / Stories", "Motion"];
   var angle = 0;
   var auto = true;
   var raf = 0;
@@ -4131,10 +4205,8 @@ function bootOrbitaGlobe(){
     wall.setAttribute('aria-hidden','false');
     angle = 0;
     if (mobile()) {
+      /* independent #ttApp feed handles mobile playback */
       wall.scrollTop = 0;
-      if (wall._ttClean) { try { wall._ttClean(); } catch(_){} }
-      delete wall.dataset.ttBound;
-      bindTikTokFeed(wall);
       var titleEl2 = document.getElementById('svcFrameTitle');
       if (titleEl2 && titleEl2.textContent.indexOf('Примеры работ') < 0) {
         /* title already set above with count */
@@ -4403,6 +4475,16 @@ function bootOrbitaGlobe(){
 </script>
 
 
+
+<!-- MOBILE TIKTOK APP (independent of orbit CSS) -->
+<div id="ttApp" class="tt-app" hidden>
+  <div class="tt-phone" id="ttPhone">
+    <div class="tt-notch" aria-hidden="true"></div>
+    <div class="tt-brand" aria-hidden="true">ОРБИТА</div>
+    <div class="tt-feed" id="ttFeed" aria-label="Лента примеров"></div>
+  </div>
+</div>
+
 <nav class="app-dock" id="appDock" aria-label="Меню приложения">
   <a class="app-dock-item is-on" href="#services" data-dock="feed"><i></i><span>Лента</span></a>
   <a class="app-dock-item" href="#services" data-dock="svc" id="dockSvc"><i></i><span>Услуги</span></a>
@@ -4536,6 +4618,158 @@ function bootOrbitaGlobe(){
 })();
 </script>
 
+
+
+<script>
+(function(){
+  var mob = false;
+  try { mob = !!(window.matchMedia && window.matchMedia('(max-width:760px)').matches); } catch(e){}
+  if (!mob) return;
+  document.documentElement.classList.add('is-app-mobile');
+
+  var app = document.getElementById('ttApp');
+  var feed = document.getElementById('ttFeed');
+  var phone = document.getElementById('ttPhone');
+  if (!app || !feed || !phone) return;
+  app.hidden = false;
+
+  var soundOn = false;
+  var cat = 0;
+  var slides = [];
+
+  function assets(){
+    return (window.ORBITA_ASSETS && window.ORBITA_ASSETS[cat]) || [];
+  }
+  function stillFor(src){
+    if (!src || src.indexOf('work-') !== 0) return 'still-01.jpg';
+    var num = src.replace('work-','').replace('.mp4','');
+    if (/^\d+$/.test(num)) return 'still-' + (num.length===1 ? '0'+num : num) + '.jpg';
+    if (src.indexOf('kazakhstan') >= 0) return 'still-02.jpg';
+    return 'still-01.jpg';
+  }
+  function slideH(){
+    return Math.max(240, Math.round(phone.getBoundingClientRect().height || (window.innerHeight - 70)));
+  }
+  function layout(){
+    var H = slideH();
+    feed.style.height = H + 'px';
+    slides.forEach(function(s){ s.style.height = H + 'px'; s.style.minHeight = H + 'px'; });
+    return H;
+  }
+  function stopAll(except){
+    feed.querySelectorAll('video').forEach(function(v){
+      if (v === except) return;
+      try { v.pause(); } catch(e){}
+    });
+  }
+  function idx(){
+    var H = slideH() || 1;
+    return Math.max(0, Math.min(slides.length - 1, Math.round(feed.scrollTop / H)));
+  }
+  function playAt(i, withSound){
+    layout();
+    var s = slides[i];
+    if (!s) return;
+    var v = s.querySelector('video');
+    if (!v) return;
+    stopAll(v);
+    try { v.currentTime = 0; } catch(e){}
+    v.muted = !withSound;
+    var go = function(){
+      var p = v.play();
+      if (p && p.catch) {
+        p.catch(function(){
+          v.muted = true;
+          return v.play().then(function(){
+            if (withSound) { v.muted = false; return v.play(); }
+          });
+        }).catch(function(){});
+      }
+    };
+    if (v.readyState >= 2) go();
+    else {
+      var on = function(){ v.removeEventListener('canplay', on); go(); };
+      v.addEventListener('canplay', on);
+      try { v.load(); } catch(e){}
+      go();
+    }
+  }
+  function playCurrent(withSound){ playAt(idx(), !!withSound); }
+
+  function build(){
+    var list = assets().filter(function(a){ return a && (a.t === 'video' || /\.mp4$/i.test(a.s||'')); });
+    if (!list.length) list = assets();
+    feed.innerHTML = '';
+    slides = [];
+    list.forEach(function(a, i){
+      var src = a.s || a.src || '';
+      var title = a.title || a.l || a.badge || ('Пример ' + (i+1));
+      var el = document.createElement('div');
+      el.className = 'tt-slide';
+      el.innerHTML = '<video playsinline webkit-playsinline loop preload="auto" poster="'+stillFor(src)+'" src="'+src+'" muted></video>'+
+        '<div class="tt-cap">Пример · '+String(title).replace(/</g,'&lt;')+'</div>'+
+        '<button type="button" class="tt-sound" aria-label="Звук">🔊</button>';
+      feed.appendChild(el);
+      slides.push(el);
+    });
+    layout();
+    feed.scrollTop = 0;
+    setTimeout(function(){ playCurrent(false); }, 80);
+  }
+
+  // gestures
+  var sy=0, moved=false;
+  feed.addEventListener('touchstart', function(e){
+    soundOn = true;
+    if (e.touches && e.touches[0]) { sy = e.touches[0].clientY; moved=false; }
+  }, {passive:true});
+  feed.addEventListener('touchmove', function(e){
+    if (e.touches && e.touches[0] && Math.abs(e.touches[0].clientY - sy) > 10) moved = true;
+  }, {passive:true});
+  feed.addEventListener('touchend', function(e){
+    soundOn = true;
+    var ey = (e.changedTouches && e.changedTouches[0]) ? e.changedTouches[0].clientY : sy;
+    var dy = ey - sy;
+    var H = layout();
+    if (moved && Math.abs(dy) > 30) {
+      var i = Math.round(feed.scrollTop / H) + (dy < 0 ? 1 : -1);
+      i = Math.max(0, Math.min(i, slides.length - 1));
+      feed.scrollTo({ top: i * H, behavior: 'smooth' });
+      setTimeout(function(){ playAt(i, true); }, 280);
+    } else {
+      playCurrent(true);
+    }
+  }, {passive:true});
+  feed.addEventListener('scroll', function(){
+    clearTimeout(feed._t);
+    feed._t = setTimeout(function(){ playCurrent(soundOn); }, 70);
+  }, {passive:true});
+  feed.addEventListener('click', function(e){
+    if (e.target.closest && e.target.closest('.tt-sound')) {
+      soundOn = true; playCurrent(true);
+    }
+  });
+  window.addEventListener('resize', function(){ layout(); playCurrent(soundOn); }, {passive:true});
+
+  // hook services sheet options to rebuild feed category
+  document.querySelectorAll('.app-svc-opt').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      cat = parseInt(btn.getAttribute('data-svc'), 10) || 0;
+      build();
+    });
+  });
+
+  // wait for ASSETS from boot script
+  function bootWhenReady(){
+    if (window.ORBITA_ASSETS) { build(); return; }
+    setTimeout(bootWhenReady, 50);
+  }
+  bootWhenReady();
+
+  // land on feed
+  try { history.replaceState(null, '', location.pathname + location.search + '#services'); } catch(e){}
+})();
+</script>
 
 </body>
 </html>
