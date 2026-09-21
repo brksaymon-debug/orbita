@@ -20,6 +20,27 @@ jobs:
           EXPECTED_BYTES=244994
           EXPECTED_SHA=25c7f78cb5f21c1bb17d669cd3189080580f5b01b9695c1ba1766d41f517397e
           cat _restore/agency.b64.00 _restore/agency.b64.01 _restore/agency.b64.02 _restore/agency.b64.03 _restore/agency.b64.04 > /tmp/agency.gz.b64
+          python3 - <<'PY'
+          from pathlib import Path
+          p = Path('/tmp/agency.gz.b64')
+          t = p.read_text()
+          fixes = [
+            ('VUzTACA/M4D', 'VUzT013/M4D'),
+            ('Z4cbBhU2U', 'Z4cbDhU2U'),
+            ('2rkXrx5jD', '2rkXvx5jD'),
+            ('bpi5baVzc', 'bpi5faVzc'),
+            ('EJ8bT1cj8', 'EJ8bR1cj8'),
+            ('FaiE6UkQh', 'FaiE8VkQh'),
+          ]
+          for bad, good in fixes:
+            n = t.count(bad)
+            print(f'fix {bad!r} -> {good!r} count={n}')
+            if n != 1:
+              raise SystemExit(f'expected exactly 1 occurrence of {bad!r}, got {n}')
+            t = t.replace(bad, good, 1)
+          p.write_text(t)
+          print('patched b64 length', len(t))
+          PY
           base64 -d /tmp/agency.gz.b64 > /tmp/agency.html.gz
           gzip -dc /tmp/agency.html.gz > orbita-agency.html
           BYTES=$(wc -c < orbita-agency.html)
