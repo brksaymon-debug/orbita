@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <!-- orbita-build:20260921185334 slower-orbit-3 -->
-                \n                          <meta charset="UTF-8">
+  <!-- orbita-build:20260921190536 mobile-orbit-spacing -->
+                  \n                          <meta charset="UTF-8">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
-  <meta name="orbita-build" content="20260921185334">
+  <meta name="orbita-build" content="20260921190536">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ОРБИТА — Видео и дизайн, которые продают</title>
 <meta name="description" content="Креативная студия: видеореклама, Reels, монтаж, баннеры, флаеры, афиши и key visual. Договор, NDA, юрлицо. Цены от — финал после брифа.">
@@ -1244,6 +1244,49 @@ h3{font-size:clamp(18px,2vw,22px)}
   .svc-universe .svc-planet{width:68px!important;height:68px!important}
   .svc-universe .svc-planet:nth-child(n){--r: -102px}
   .svc-universe .svc-planets::before{width:54px;height:54px;font-size:8px}
+}
+
+
+/* FIX: mobile orbit — no pile-up */
+@media (max-width:760px){
+  .svc-frame.is-orbit .svc-orbit-stage{
+    height:min(48vh,360px)!important;
+    min-height:300px!important;
+  }
+  .svc-frame.is-orbit .svc-orbit-wall .svc-cell{
+    width:86px!important;
+    height:86px!important;
+  }
+  .svc-frame.is-orbit .svc-orbit-wall .svc-cell.is-wide{
+    width:96px!important;
+    height:96px!important;
+  }
+  .svc-frame.is-orbit .svc-orbit-wall .svc-cell.is-front{
+    width:112px!important;
+    height:112px!important;
+  }
+  .svc-frame.is-orbit .svc-orbit-wall .svc-cell.is-front.is-wide{
+    width:120px!important;
+    height:120px!important;
+  }
+  .svc-frame.is-orbit .svc-orbit-wall .svc-cell.is-back{
+    opacity:.32!important;
+    filter:saturate(.6) brightness(.65)!important;
+  }
+  .svc-frame.is-orbit .svc-orbit-wall .svc-cell.is-back .label,
+  .svc-frame.is-orbit .svc-orbit-wall .svc-cell.is-back .view-hint{
+    display:none!important;
+  }
+  .svc-frame.is-orbit .svc-orbit-wall .svc-cell:not(.is-front) .view-hint{
+    display:none!important;
+  }
+  .svc-frame.is-orbit .svc-orbit-wall .svc-cell .label{
+    font-size:9px!important;
+    padding:3px 6px!important;
+    bottom:6px!important;
+  }
+  .svc-orbit-core{width:48px!important;height:48px!important}
+  .svc-orbit-core span{font-size:7px!important}
 }
 
 </style>
@@ -3185,7 +3228,7 @@ function bootOrbitaGlobe(){
     activeIdx = parseInt(idx, 10) || 0;
     var full = ASSETS[activeIdx] || ASSETS[0] || [];
     // orbit shows up to 10 planets for clarity; full set still in lightbox
-    var set = full.slice(0, mobile() ? 8 : 10);
+    var set = full.slice(0, mobile() ? 5 : 10);
     if (titleEl) titleEl.textContent = (TITLES[activeIdx] || 'Примеры') + ' · ' + full.length;
     wall.innerHTML = set.map(function(a, i){
       var wide = (activeIdx === 1 || activeIdx === 5) ? ' is-wide' : '';
@@ -3216,8 +3259,12 @@ function bootOrbitaGlobe(){
     if (!n) return;
     var w = stage.clientWidth;
     var h = stage.clientHeight;
-    var rx = Math.min(w * 0.38, 320);
-    var ry = Math.min(h * 0.28, 120);
+    var mob = false;
+    try { mob = window.matchMedia && window.matchMedia('(max-width:760px)').matches; } catch(_){}
+    var rx = mob ? Math.min(w * 0.42, 160) : Math.min(w * 0.38, 320);
+    var ry = mob ? Math.min(h * 0.34, 110) : Math.min(h * 0.28, 120);
+    // mobile: slightly flatter + wider so round cards don't stack
+    if (mob) { rx = Math.max(rx, w * 0.40); ry = Math.max(ry, h * 0.30); }
     var front = 0;
     var best = 1e9;
     for (var i=0;i<n;i++){
