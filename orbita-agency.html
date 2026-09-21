@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <!-- orbita-build:20260921191711 tiktok-full-app -->
-    <meta charset="UTF-8">
+  <!-- orbita-build:20260921192039 mobile-swipe-no-lightbox -->
+      <meta charset="UTF-8">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
-  <meta name="orbita-build" content="20260921191711">
+  <meta name="orbita-build" content="20260921192039">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -1643,6 +1643,25 @@ h3{font-size:clamp(18px,2vw,22px)}
 }
 @media (min-width:761px){
   .app-dock,.app-svc-sheet{display:none!important}
+}
+
+
+/* FIX: mobile feed swipe must not open system/lightbox player */
+@media (max-width:760px){
+  html.is-app-mobile .svc-frame.is-orbit .svc-orbit-wall .svc-cell{
+    touch-action: pan-y!important;
+    cursor:default!important;
+  }
+  html.is-app-mobile .svc-frame.is-orbit .svc-orbit-wall .svc-cell video{
+    pointer-events:none!important;
+    -webkit-touch-callout:none;
+  }
+  html.is-app-mobile #svcWall{
+    touch-action: pan-y!important;
+    overscroll-behavior-y: contain;
+  }
+  html.is-app-mobile .lb,
+  html.is-app-mobile .lb.open{display:none!important}
 }
 
 </style>
@@ -3614,7 +3633,7 @@ function bootOrbitaGlobe(){
       var safeTitle = String(title).replace(/"/g,'&quot;');
       var media;
       if (mobile() && a.t === 'video') {
-        media = '<video src="'+a.s+'" poster="'+stillFor(a.s)+'" muted loop playsinline preload="metadata"></video>';
+        media = '<video src="'+a.s+'" poster="'+stillFor(a.s)+'" muted loop playsinline webkit-playsinline preload="metadata" controlslist="nodownload nofullscreen noremoteplayback" disablepictureinpicture></video>';
       } else if (a.t === 'video') {
         media = '<img src="'+stillFor(a.s)+'" alt="" loading="lazy" decoding="async">';
         label = '▶ ' + label;
@@ -3739,6 +3758,7 @@ function bootOrbitaGlobe(){
   }
   function openCell(cell){
     if (!cell) return;
+    if (mobile()) return; // TikTok feed plays inline — no lightbox
     var set = currentSet();
     var i = parseInt(cell.getAttribute('data-orbit-i'), 10);
     if (isNaN(i)) i = 0;
@@ -3795,6 +3815,7 @@ function bootOrbitaGlobe(){
     if (wall && !wall.dataset.orbitaBound) {
       wall.dataset.orbitaBound = '1';
       wall.addEventListener('click', function(e){
+        if (mobile()) return;
         if (dragging) return;
         var cell = e.target.closest && e.target.closest('.svc-cell');
         if (!cell || !wall.contains(cell)) return;
@@ -3803,7 +3824,7 @@ function bootOrbitaGlobe(){
     }
     if (prev) prev.onclick = function(e){ e.preventDefault(); scrollRail(-1); };
     if (next) next.onclick = function(e){ e.preventDefault(); scrollRail(1); };
-    if (stage && !stage.dataset.dragBound) {
+    if (stage && !mobile() && !stage.dataset.dragBound) {
       stage.dataset.dragBound = '1';
       stage.addEventListener('pointerdown', function(e){
         if (e.target.closest && e.target.closest('.svc-nav')) return;
@@ -3843,8 +3864,8 @@ function bootOrbitaGlobe(){
         if (wasDrag) {
           setTimeout(function(){ auto = true; }, 2400);
         } else {
-          // tap = open
-          if (cell) {
+          // tap = open (desktop only; mobile = inline TikTok swipe)
+          if (cell && !mobile()) {
             try { openCell(cell); } catch (err) { console.warn('openCell', err); }
           }
           setTimeout(function(){ auto = true; }, 2400);
