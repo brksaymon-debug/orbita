@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <!-- orbita-build:20260921201713 tt-tap-pause -->
-                          <meta charset="UTF-8">
+  <!-- orbita-build:20260921210300 tt-intro-slide -->
+                            <meta charset="UTF-8">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
-  <meta name="orbita-build" content="20260921201713">
+  <meta name="orbita-build" content="20260921210300">
 
 <script>/* is-app-mobile-early */try{if(matchMedia('(max-width:760px)').matches)document.documentElement.classList.add('is-app-mobile')}catch(e){}</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1">
@@ -2097,6 +2097,55 @@ h3{font-size:clamp(18px,2vw,22px)}
     pointer-events:none; opacity:0; transition:opacity .15s;
   }
   html.is-app-mobile .tt-slide.is-paused .tt-pause{opacity:1}
+}
+
+
+/* Craft: mobile phone intro — immerse into Orbita */
+@media (max-width:760px){
+  html.is-app-mobile .tt-slide.tt-intro{
+    background:
+      radial-gradient(ellipse 80% 55% at 50% 20%, rgba(34,224,255,.22), transparent 55%),
+      radial-gradient(ellipse 70% 50% at 50% 100%, rgba(124,92,255,.14), transparent 50%),
+      linear-gradient(180deg, #0a1018 0%, #05070b 55%, #000 100%);
+    display:flex; flex-direction:column; justify-content:flex-end;
+    padding:0 18px 28px;
+    box-sizing:border-box;
+  }
+  html.is-app-mobile .tt-intro-inner{position:relative; z-index:2; padding-bottom:8px}
+  html.is-app-mobile .tt-intro-eyebrow{
+    font:700 11px/1.2 Unbounded,system-ui; letter-spacing:.14em; text-transform:uppercase;
+    color:#22e0ff; margin:0 0 10px;
+  }
+  html.is-app-mobile .tt-intro-title{
+    font:700 clamp(22px,6.2vw,28px)/1.15 Unbounded,system-ui; color:#fff; margin:0 0 10px;
+  }
+  html.is-app-mobile .tt-intro-lead{
+    font:500 13px/1.45 Inter,system-ui; color:rgba(242,242,244,.82); margin:0 0 14px; max-width:32ch;
+  }
+  html.is-app-mobile .tt-intro-tags{display:flex; flex-wrap:wrap; gap:6px; margin:0 0 18px}
+  html.is-app-mobile .tt-intro-tags span{
+    font:600 11px/1 Inter,system-ui; color:#e8eef8;
+    border:1px solid rgba(34,224,255,.35); background:rgba(34,224,255,.08);
+    border-radius:999px; padding:7px 10px;
+  }
+  html.is-app-mobile .tt-intro-swipe{
+    display:flex; flex-direction:column; align-items:center; gap:6px;
+    color:rgba(255,255,255,.7); font:600 12px/1.2 Inter,system-ui;
+    animation:ttSwipeHint 1.6s ease-in-out infinite;
+  }
+  html.is-app-mobile .tt-intro-swipe b{font-size:18px; color:#22e0ff}
+  @keyframes ttSwipeHint{
+    0%,100%{ transform:translateY(0); opacity:.55 }
+    50%{ transform:translateY(-6px); opacity:1 }
+  }
+  html.is-app-mobile .tt-intro-orbit{
+    position:absolute; inset:-10% -20% auto -20%; height:55%;
+    border:1px solid rgba(34,224,255,.18); border-radius:50%;
+    pointer-events:none; opacity:.7;
+  }
+  html.is-app-mobile .tt-intro-orbit:nth-child(2){
+    inset:5% 5% auto 5%; height:40%; opacity:.35;
+  }
 }
 
 </style>
@@ -4688,6 +4737,7 @@ function bootOrbitaGlobe(){
     layout();
     var s = slides[i];
     if (!s) return;
+    if (s.dataset.intro === '1') { stopAll(null); activeVideo = null; return; }
     var v = s.querySelector('video');
     if (!v) return;
     // already playing this clip — only unmute if needed, don't restart
@@ -4729,6 +4779,26 @@ function bootOrbitaGlobe(){
     if (!list.length) list = assets();
     feed.innerHTML = '';
     slides = [];
+
+    // Intro: what Orbita does — atmosphere before examples
+    var intro = document.createElement('div');
+    intro.className = 'tt-slide tt-intro';
+    intro.dataset.intro = '1';
+    intro.innerHTML =
+      '<div class="tt-intro-orbit" aria-hidden="true"></div>'+
+      '<div class="tt-intro-orbit" aria-hidden="true"></div>'+
+      '<div class="tt-intro-inner">'+
+        '<div class="tt-intro-eyebrow">Креативная студия</div>'+
+        '<h2 class="tt-intro-title">Ролики и дизайн,<br>которые продают</h2>'+
+        '<p class="tt-intro-lead">Видеореклама, Reels, баннеры и афиши под ключ — от брифа до мастера. Листайте примеры ниже.</p>'+
+        '<div class="tt-intro-tags">'+
+          '<span>Reels</span><span>Motion</span><span>Баннеры</span><span>Афиши</span><span>Stories</span>'+
+        '</div>'+
+        '<div class="tt-intro-swipe"><b>↑</b><span>свайп вверх — примеры работ</span></div>'+
+      '</div>';
+    feed.appendChild(intro);
+    slides.push(intro);
+
     list.forEach(function(a, i){
       var src = a.s || a.src || '';
       var title = a.title || a.l || a.badge || ('Пример ' + (i+1));
@@ -4787,6 +4857,14 @@ function bootOrbitaGlobe(){
     // TikTok-style tap to pause / resume
     var slide = e.target.closest && e.target.closest('.tt-slide');
     if (!slide || !feed.contains(slide)) return;
+    if (slide.dataset.intro === '1') {
+      // tap intro -> go to first example
+      var H = layout();
+      feed.scrollTo({ top: H, behavior: 'smooth' });
+      if (slides[1]) { slides[1].dataset.userPaused=''; slides[1].classList.remove('is-paused'); }
+      setTimeout(function(){ playAt(1, true); }, 280);
+      return;
+    }
     var v = slide.querySelector('video');
     if (!v) return;
     soundOn = true;
