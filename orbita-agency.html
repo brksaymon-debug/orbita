@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <!-- orbita-build:20260921190831 mobile-tiktok-feed -->
-                    \n                          <meta charset="UTF-8">
+  <!-- orbita-build:20260921191233 mobile-app-tiktok -->
+                      \n                          <meta charset="UTF-8">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
-  <meta name="orbita-build" content="20260921190831">
+  <meta name="orbita-build" content="20260921191233">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ОРБИТА — Видео и дизайн, которые продают</title>
 <meta name="description" content="Креативная студия: видеореклама, Reels, монтаж, баннеры, флаеры, афиши и key visual. Договор, NDA, юрлицо. Цены от — финал после брифа.">
@@ -1315,6 +1315,109 @@ h3{font-size:clamp(18px,2vw,22px)}
   .svc-frame-hint-mob,.svc-tiktok-hint{display:none!important}
 }
 
+
+/* Craft: mobile app-like TikTok feed — big phone, no frames */
+@media (max-width:760px){
+  #services .wrap{width:min(100% - 16px, var(--max));}
+  #services .eyebrow,
+  #services > .wrap > h2,
+  #services > .wrap > .lead{text-align:center}
+  #services .lead{font-size:14px;margin-bottom:10px}
+  .svc-universe{gap:10px!important;margin-top:10px!important}
+  /* service planets stay, but compact */
+  .svc-universe .svc-planets{width:min(260px,84vw)!important;height:min(260px,84vw)!important;margin:0 auto 8px!important}
+  .svc-universe .svc-planet{width:62px!important;height:62px!important}
+  .svc-universe .svc-planet:nth-child(n){--r:-92px}
+  .svc-universe .svc-planets::before{width:48px;height:48px;font-size:7px}
+  .svc-planet-desc{min-height:0!important;font-size:12px!important;margin:0 0 8px!important}
+
+  .svc-frame.is-orbit,
+  .svc-frame{
+    border:0!important;
+    background:transparent!important;
+    clip-path:none!important;
+    padding:0!important;
+    box-shadow:none!important;
+  }
+  .svc-frame::before,.svc-frame::after{display:none!important}
+  .svc-frame-head{margin:0 0 8px!important;padding:0 4px!important;justify-content:center}
+  .svc-frame-title{font-size:12px!important;letter-spacing:.08em}
+  .svc-frame-hint,
+  .svc-frame-hint-mob,
+  .svc-tiktok-hint,
+  .svc-progress,
+  .mock-note{display:none!important}
+
+  .svc-orbit-stage{
+    height:auto!important;min-height:0!important;overflow:visible!important;
+    cursor:default!important;touch-action:pan-y!important;
+    display:flex!important;justify-content:center!important;
+    background:transparent!important;border:0!important;
+  }
+  .svc-orbit-ring,.svc-orbit-ring-2,.svc-orbit-core,.svc-orbit-stage .svc-nav{display:none!important}
+
+  .svc-phone{
+    display:block!important;
+    width:min(100%,420px)!important;
+    aspect-ratio:9/16;
+    max-height:min(78vh,720px)!important;
+    margin:0 auto!important;
+    border-radius:26px!important;
+    border:1px solid rgba(255,255,255,.12)!important;
+    box-shadow:0 20px 60px rgba(0,0,0,.55)!important;
+    background:#000!important;
+    overflow:hidden!important;
+    position:relative!important;
+  }
+  .svc-phone::before{
+    content:"";position:absolute;top:10px;left:50%;transform:translateX(-50%);
+    width:84px;height:6px;border-radius:999px;background:rgba(255,255,255,.16);
+    z-index:6;pointer-events:none;
+  }
+
+  .svc-frame.is-orbit .svc-orbit-wall.svc-wall,
+  .svc-frame.is-orbit #svcWall.svc-orbit-wall{
+    position:relative!important;inset:auto!important;
+    width:100%!important;height:100%!important;
+    display:block!important;
+    overflow-y:auto!important;overflow-x:hidden!important;
+    scroll-snap-type:y mandatory!important;
+    -webkit-overflow-scrolling:touch!important;
+    overscroll-behavior-y:contain;
+    border:0!important;background:transparent!important;
+    mask-image:none!important;-webkit-mask-image:none!important;
+  }
+  .svc-frame.is-orbit .svc-orbit-wall .svc-cell,
+  .svc-frame.is-orbit .svc-orbit-wall .svc-cell.is-wide,
+  .svc-frame.is-orbit .svc-orbit-wall .svc-cell.is-front,
+  .svc-frame.is-orbit .svc-orbit-wall .svc-cell.is-back{
+    position:relative!important;left:auto!important;top:auto!important;
+    transform:none!important;
+    width:100%!important;height:100%!important;min-height:100%!important;
+    border-radius:0!important;border:0!important;box-shadow:none!important;
+    margin:0!important;opacity:1!important;filter:none!important;
+    scroll-snap-align:start!important;scroll-snap-stop:always!important;
+  }
+  .svc-frame.is-orbit .svc-orbit-wall .svc-cell::before,
+  .svc-frame.is-orbit .svc-orbit-wall .svc-cell::after{display:none!important}
+  .svc-frame.is-orbit .svc-orbit-wall .svc-cell img,
+  .svc-frame.is-orbit .svc-orbit-wall .svc-cell video{
+    width:100%!important;height:100%!important;object-fit:cover!important;
+    border-radius:0!important;pointer-events:none!important;display:block!important;
+  }
+  .svc-frame.is-orbit .svc-orbit-wall .svc-cell .label{
+    left:14px!important;right:14px!important;bottom:48px!important;
+    transform:none!important;max-width:none!important;
+    font-size:13px!important;padding:8px 12px!important;z-index:4!important;
+    background:rgba(0,0,0,.5)!important;backdrop-filter:blur(6px);
+  }
+  .svc-frame.is-orbit .svc-orbit-wall .svc-cell .view-hint{display:none!important}
+}
+@media (min-width:761px){
+  .svc-phone{display:contents}
+  .svc-frame-hint-mob,.svc-tiktok-hint{display:none!important}
+}
+
 </style>
 <script>
 (function(){
@@ -1443,9 +1546,9 @@ h3{font-size:clamp(18px,2vw,22px)}
             <div class="svc-orbit-ring" aria-hidden="true"></div>
             <div class="svc-orbit-ring svc-orbit-ring-2" aria-hidden="true"></div>
             <div class="svc-orbit-core" aria-hidden="true"><span>ORBITA</span></div>
-            <p class="svc-frame-hint-mob" id="svcFrameHintMob">Примеры работ · свайп вверх как в TikTok</p>
+            <p class="svc-frame-hint-mob" id="svcFrameHintMob" hidden></p>
             <div class="svc-phone" id="svcPhone"><div class="svc-wall svc-orbit-wall" id="svcWall" aria-label="Примеры работ" aria-hidden="false"></div></div>
-            <p class="svc-tiktok-hint">Это примеры работ · листай вверх</p>
+            <p class="svc-tiktok-hint" hidden></p>
             <button type="button" class="svc-nav svc-nav-prev" id="svcNavPrev" aria-label="Назад">‹</button>
             <button type="button" class="svc-nav svc-nav-next" id="svcNavNext" aria-label="Вперёд">›</button>
           </div>
