@@ -578,6 +578,72 @@ h3{font-size:clamp(18px,2vw,22px)}
 }
 
 
+
+/* Craft: service examples = horizontal swipe frame (menu) */
+.services-grid{
+  display:flex;flex-direction:column;gap:18px;
+}
+.svc-frame{
+  position:relative;
+  border:1px solid rgba(46,230,255,.4);
+  background:rgba(8,10,14,.85);
+  clip-path:polygon(16px 0,100% 0,100% calc(100% - 16px),calc(100% - 16px) 100%,0 100%,0 16px);
+  box-shadow:0 0 0 1px rgba(46,230,255,.08),0 0 28px rgba(46,230,255,.08);
+  padding:12px 12px 14px;
+}
+.svc-frame::before,.svc-frame::after{
+  content:"";position:absolute;width:11px;height:11px;border:1px solid var(--cyan);pointer-events:none;z-index:3;
+}
+.svc-frame::before{left:-1px;top:-1px;border-right:none;border-bottom:none}
+.svc-frame::after{right:-1px;bottom:-1px;border-left:none;border-top:none}
+.svc-frame-head{
+  display:flex;align-items:baseline;justify-content:space-between;gap:12px;
+  margin:0 4px 10px;padding:0 2px;
+}
+.svc-frame-title{font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--accent)}
+.svc-frame-hint{font-size:12px;color:var(--muted);white-space:nowrap}
+.svc-wall{
+  display:flex !important;
+  flex-direction:row !important;
+  flex-wrap:nowrap !important;
+  gap:10px !important;
+  padding:4px 2px 8px !important;
+  min-height:0 !important;
+  max-height:none !important;
+  height:auto !important;
+  overflow-x:auto !important;
+  overflow-y:hidden !important;
+  scroll-snap-type:x mandatory;
+  -webkit-overflow-scrolling:touch;
+  scrollbar-width:thin;
+  grid-template-columns:none !important;
+  grid-template-rows:none !important;
+  background:transparent !important;
+  border:none !important;
+  box-shadow:none !important;
+  clip-path:none !important;
+}
+.svc-wall::-webkit-scrollbar{height:6px}
+.svc-wall::-webkit-scrollbar-thumb{background:rgba(34,224,255,.35);border-radius:999px}
+.svc-wall.is-many{max-height:none !important;grid-template-columns:none !important}
+.svc-cell{
+  flex:0 0 auto !important;
+  width:min(72vw,220px) !important;
+  height:300px !important;
+  scroll-snap-align:start;
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:12px;
+}
+.svc-cell.is-design{width:min(58vw,180px) !important;height:300px !important}
+.svc-cell.is-wide{width:min(88vw,320px) !important;height:200px !important}
+.svc-cell:first-child{grid-row:auto !important}
+.svc-wall-debug{display:none !important}
+@media (min-width:900px){
+  .svc-cell{width:240px !important;height:320px !important}
+  .svc-cell.is-design{width:200px !important}
+  .svc-cell.is-wide{width:360px !important;height:220px !important}
+}
+
 /* Craft: mobile sticky CTA + cases snap */
 .cases-grid{scroll-snap-type:none}
 .mobile-sticky-bar{
@@ -729,7 +795,13 @@ h3{font-size:clamp(18px,2vw,22px)}
             </div>
           </button>
         </div>
-        <div class="svc-wall" id="svcWall" aria-hidden="true"></div>
+        <div class="svc-frame" id="svcFrame">
+          <div class="svc-frame-head">
+            <span class="svc-frame-title" id="svcFrameTitle">Примеры</span>
+            <span class="svc-frame-hint">листай вбок →</span>
+          </div>
+          <div class="svc-wall" id="svcWall" aria-label="Примеры выбранной услуги" aria-hidden="false"></div>
+        </div>
         <p class="svc-wall-debug" id="svcWallDebug" aria-live="polite"></p>
       </div>
       <p class="mock-note">Примеры работ Orbita · ~30 в каждом блоке · разные ниши · выдуманные бренды · без чужих контактов</p>
@@ -1528,29 +1600,26 @@ h3{font-size:clamp(18px,2vw,22px)}
   ];
   const svcWall = document.getElementById('svcWall');
   let activeSvc = 0;
+  var svcTitles = ['Reels / видео','Баннеры','Флаеры','Афиши','KV / Stories','Motion'];
   function renderSvcWall(idx){
     if (!svcWall) return;
     activeSvc = idx;
     const set = svcAssets[idx] || svcAssets[0];
+    var titleEl = document.getElementById('svcFrameTitle');
+    if (titleEl) titleEl.textContent = (svcTitles[idx] || 'Примеры') + ' · ' + set.length;
     svcWall.innerHTML = set.map(function(a){
-      const designClass = a.t === 'img' ? ' is-design' : '';
+      var wide = (idx === 1 || idx === 5) ? ' is-wide' : '';
+      var designClass = (a.t === 'img' && !wide) ? ' is-design' : '';
       if (a.t === 'video'){
-        return '<div class="svc-cell" role="button" tabindex="0" data-src="'+a.s+'" data-type="video" data-badge="'+a.l+'" data-title="'+(a.title||a.l)+'" aria-label="'+(a.l||'')+' — Смотреть"><video src="'+a.s+'" muted loop playsinline preload="metadata" data-svc-video></video><span class="label">'+a.l+'</span><span class="view-hint">Смотреть</span></div>';
+        return '<div class="svc-cell'+wide+'" role="button" tabindex="0" data-src="'+a.s+'" data-type="video" data-badge="'+a.l+'" data-title="'+(a.title||a.l)+'" aria-label="'+(a.l||'')+' — Смотреть"><video src="'+a.s+'" muted loop playsinline preload="metadata" data-svc-video></video><span class="label">'+a.l+'</span><span class="view-hint">Смотреть</span></div>';
       }
-      return '<div class="svc-cell'+designClass+'" role="button" tabindex="0" data-src="'+a.s+'" data-type="img" data-badge="'+a.l+'" data-title="'+(a.title||a.l)+'" aria-label="'+(a.l||'')+' — Смотреть"><img src="'+a.s+'" alt="'+(a.title||a.l)+'" loading="lazy" decoding="async"><span class="label">'+a.l+'</span><span class="view-hint">Смотреть</span></div>';
+      return '<div class="svc-cell'+designClass+wide+'" role="button" tabindex="0" data-src="'+a.s+'" data-type="img" data-badge="'+a.l+'" data-title="'+(a.title||a.l)+'" aria-label="'+(a.l||'')+' — Смотреть"><img src="'+a.s+'" alt="'+(a.title||a.l)+'" loading="lazy" decoding="async"><span class="label">'+a.l+'</span><span class="view-hint">Смотреть</span></div>';
     }).join('');
     svcWall.setAttribute('aria-hidden', 'false');
     svcWall.classList.toggle('is-many', set.length > 4);
+    svcWall.scrollLeft = 0;
     var dbg = document.getElementById('svcWallDebug');
-    if (dbg){
-      if (idx === 3){
-        dbg.textContent = 'Афиши 2026 — 6 примеров';
-        dbg.classList.add('is-on');
-      } else {
-        dbg.textContent = '';
-        dbg.classList.remove('is-on');
-      }
-    }
+    if (dbg){ dbg.textContent = ''; dbg.classList.remove('is-on'); }
     try { observeVideos(); } catch (err) { console.warn('observeVideos', err); }
   }
   function openSvcGallery(idx){
@@ -1611,7 +1680,7 @@ h3{font-size:clamp(18px,2vw,22px)}
     if (e.type === 'keydown' && e.key !== 'Enter' && e.key !== ' ') return;
     if (e.type === 'keydown') e.preventDefault();
     // Click / Enter: filter wall to this service AND open examples lightbox immediately
-    activateSvc(item, {openGallery: true});
+    activateSvc(item, {openGallery: false});
   }
   if (svcList){
     svcList.addEventListener('click', onSvcItemActivate);
