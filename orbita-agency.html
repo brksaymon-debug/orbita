@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <!-- orbita-build:20260921164614 fix-watch-click -->
-    <meta charset="UTF-8">
+  <!-- orbita-build:20260921164749 video-sound -->
+      <meta charset="UTF-8">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta name="orbita-build" content="20260911235922">
@@ -1543,8 +1543,18 @@ h3{font-size:clamp(18px,2vw,22px)}
     lbOrder.setAttribute('data-prefill', orderPrefill(item));
     if (item.type === 'video'){
       lbVideo.hidden = false;
+      lbVideo.muted = false;
+      lbVideo.defaultMuted = false;
+      lbVideo.volume = 1;
+      lbVideo.removeAttribute('muted');
       lbVideo.src = item.src;
-      lbVideo.play().catch(function(){});
+      lbVideo.play().then(function(){
+        lbVideo.muted = false;
+        lbVideo.volume = 1;
+      }).catch(function(){
+        // autoplay with sound may fail until gesture — user already clicked open
+        try { lbVideo.muted = false; lbVideo.volume = 1; lbVideo.play(); } catch(_){}
+      });
     } else {
       lbImg.hidden = false;
       lbImg.src = item.src;
@@ -2014,6 +2024,32 @@ h3{font-size:clamp(18px,2vw,22px)}
   // initial
   setTimeout(managePlayback, 400);
   setInterval(managePlayback, (window.matchMedia && window.matchMedia('(max-width:760px)').matches) ? 5000 : 2500);
+
+  
+  /* Hover / focus: original audio on intentional preview */
+  function bindVideoSoundHover(){
+    document.addEventListener('pointerenter', function(e){
+      var v = e.target && e.target.closest && e.target.closest('video[data-wall-video], video[data-svc-video], video[data-case-video]');
+      if (!v) return;
+      try {
+        v.muted = false;
+        v.volume = 1;
+        v.removeAttribute('muted');
+        if (v.paused) v.play().catch(function(){});
+      } catch(_){}
+    }, true);
+    document.addEventListener('pointerleave', function(e){
+      var v = e.target && e.target.closest && e.target.closest('video[data-wall-video], video[data-svc-video], video[data-case-video]');
+      if (!v) return;
+      // return to muted loop so multiple wall clips don't scream
+      try {
+        if (!document.getElementById('lb') || !document.getElementById('lb').classList.contains('open')) {
+          v.muted = true;
+        }
+      } catch(_){}
+    }, true);
+  }
+  try { bindVideoSoundHover(); } catch (err) { console.warn('sound hover', err); }
 
   try {
     window.openSvcGallery = openSvcGallery;
@@ -2958,6 +2994,7 @@ function bootOrbitaGlobe(){
     document.body.appendChild(ov);
     var body = document.getElementById('orbitaMiniLbBody');
     if (type==='video') body.innerHTML = '<video src="'+src+'" controls autoplay playsinline style="max-width:100%;max-height:78vh;border-radius:12px"></video>';
+    var mv = body.querySelector('video'); if (mv){ mv.muted=false; mv.volume=1; mv.removeAttribute('muted'); mv.play().catch(function(){}); }
     else body.innerHTML = '<img src="'+src+'" alt="" style="max-width:100%;max-height:78vh;object-fit:contain;border-radius:12px">';
     function close(){ try { ov.remove(); } catch(_){} }
     ov.addEventListener('click', function(e){ if (e.target===ov || e.target.id==='orbitaMiniLbX') close(); });
