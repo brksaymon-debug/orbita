@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <!-- orbita-build:20260921190536 mobile-orbit-spacing -->
-                  \n                          <meta charset="UTF-8">
+  <!-- orbita-build:20260921190831 mobile-tiktok-feed -->
+                    \n                          <meta charset="UTF-8">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
-  <meta name="orbita-build" content="20260921190536">
+  <meta name="orbita-build" content="20260921190831">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ОРБИТА — Видео и дизайн, которые продают</title>
 <meta name="description" content="Креативная студия: видеореклама, Reels, монтаж, баннеры, флаеры, афиши и key visual. Договор, NDA, юрлицо. Цены от — финал после брифа.">
@@ -1289,6 +1289,32 @@ h3{font-size:clamp(18px,2vw,22px)}
   .svc-orbit-core span{font-size:7px!important}
 }
 
+
+/* Craft: mobile TikTok phone feed for examples (desktop orbit unchanged) */
+@media (max-width:760px){
+  .svc-frame.is-orbit{padding:10px 10px 12px!important;background:rgba(6,8,12,.92)!important}
+  .svc-frame-hint{display:none!important}
+  .svc-frame-hint-mob{display:block!important;font-size:12px;color:var(--muted);text-align:center;margin:0 0 8px}
+  .svc-orbit-stage{height:auto!important;min-height:0!important;overflow:visible!important;cursor:default!important;touch-action:pan-y!important;display:flex!important;justify-content:center!important;background:transparent!important}
+  .svc-orbit-ring,.svc-orbit-ring-2,.svc-orbit-core,.svc-orbit-stage .svc-nav,.svc-progress{display:none!important}
+  .svc-phone{display:block!important;width:min(300px,86vw);aspect-ratio:9/16;max-height:min(72vh,620px);margin:0 auto;border-radius:28px;border:2px solid rgba(34,224,255,.4);box-shadow:0 18px 50px rgba(0,0,0,.55),0 0 28px rgba(34,224,255,.18);background:#000;overflow:hidden;position:relative}
+  .svc-phone::before{content:"";position:absolute;top:8px;left:50%;transform:translateX(-50%);width:72px;height:8px;border-radius:999px;background:rgba(255,255,255,.14);z-index:5;pointer-events:none}
+  .svc-frame.is-orbit .svc-orbit-wall.svc-wall,.svc-frame.is-orbit #svcWall.svc-orbit-wall{position:relative!important;inset:auto!important;width:100%!important;height:100%!important;display:block!important;overflow-y:auto!important;overflow-x:hidden!important;scroll-snap-type:y mandatory!important;-webkit-overflow-scrolling:touch!important;overscroll-behavior-y:contain}
+  .svc-frame.is-orbit .svc-orbit-wall .svc-cell,.svc-frame.is-orbit .svc-orbit-wall .svc-cell.is-wide,.svc-frame.is-orbit .svc-orbit-wall .svc-cell.is-front{position:relative!important;left:auto!important;top:auto!important;transform:none!important;width:100%!important;height:100%!important;min-height:100%!important;border-radius:0!important;border:0!important;box-shadow:none!important;margin:0!important;flex:none!important;scroll-snap-align:start!important;scroll-snap-stop:always!important;opacity:1!important;filter:none!important}
+  .svc-frame.is-orbit .svc-orbit-wall .svc-cell::after,.svc-frame.is-orbit .svc-orbit-wall .svc-cell::before{display:none!important}
+  .svc-frame.is-orbit .svc-orbit-wall .svc-cell img,.svc-frame.is-orbit .svc-orbit-wall .svc-cell video{width:100%!important;height:100%!important;object-fit:cover!important;border-radius:0!important;pointer-events:none!important}
+  .svc-frame.is-orbit .svc-orbit-wall .svc-cell .label{left:12px!important;right:auto!important;bottom:56px!important;transform:none!important;max-width:80%!important;font-size:12px!important;z-index:3!important}
+  .svc-frame.is-orbit .svc-orbit-wall .svc-cell .view-hint{display:none!important}
+  .svc-tiktok-hint{display:block!important;text-align:center;color:var(--muted);font-size:13px;margin:10px 4px 0}
+  .mock-note{display:none!important}
+  /* kill mobile pile-up orbit overrides inside phone */
+  .svc-frame.is-orbit .svc-orbit-stage{height:auto!important;min-height:0!important}
+}
+@media (min-width:761px){
+  .svc-phone{display:contents}
+  .svc-frame-hint-mob,.svc-tiktok-hint{display:none!important}
+}
+
 </style>
 <script>
 (function(){
@@ -1417,7 +1443,9 @@ h3{font-size:clamp(18px,2vw,22px)}
             <div class="svc-orbit-ring" aria-hidden="true"></div>
             <div class="svc-orbit-ring svc-orbit-ring-2" aria-hidden="true"></div>
             <div class="svc-orbit-core" aria-hidden="true"><span>ORBITA</span></div>
-            <div class="svc-wall svc-orbit-wall" id="svcWall" aria-label="Примеры на орбите" aria-hidden="false"></div>
+            <p class="svc-frame-hint-mob" id="svcFrameHintMob">Примеры работ · свайп вверх как в TikTok</p>
+            <div class="svc-phone" id="svcPhone"><div class="svc-wall svc-orbit-wall" id="svcWall" aria-label="Примеры работ" aria-hidden="false"></div></div>
+            <p class="svc-tiktok-hint">Это примеры работ · листай вверх</p>
             <button type="button" class="svc-nav svc-nav-prev" id="svcNavPrev" aria-label="Назад">‹</button>
             <button type="button" class="svc-nav svc-nav-next" id="svcNavNext" aria-label="Вперёд">›</button>
           </div>
@@ -3171,7 +3199,25 @@ function bootOrbitaGlobe(){
       if (original != null) el.textContent = original;
       el.classList.remove('is-scrambling');
     }
-    function bind(){
+  
+  function bindTikTokFeed(wall){
+    if (!wall) return;
+    var vids = wall.querySelectorAll('video');
+    vids.forEach(function(v){ try { v.pause(); } catch(_){ } });
+    if (wall._tikIo) { try { wall._tikIo.disconnect(); } catch(_){ } }
+    if (!('IntersectionObserver' in window)) { if (vids[0]) vids[0].play().catch(function(){}); return; }
+    wall._tikIo = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        var v = en.target;
+        if (en.isIntersecting && en.intersectionRatio > 0.55) {
+          v.muted = true;
+          var p = v.play(); if (p && p.catch) p.catch(function(){});
+        } else { try { v.pause(); } catch(_){ } }
+      });
+    }, { root: wall, threshold: [0.55, 0.9] });
+    vids.forEach(function(v){ wall._tikIo.observe(v); });
+  }
+  function bind(){
       document.querySelectorAll('.scramble').forEach(function(el){
         if (el._scrambleBound) return;
         el._scrambleBound = true;
@@ -3228,8 +3274,8 @@ function bootOrbitaGlobe(){
     activeIdx = parseInt(idx, 10) || 0;
     var full = ASSETS[activeIdx] || ASSETS[0] || [];
     // orbit shows up to 10 planets for clarity; full set still in lightbox
-    var set = full.slice(0, mobile() ? 5 : 10);
-    if (titleEl) titleEl.textContent = (TITLES[activeIdx] || 'Примеры') + ' · ' + full.length;
+    var set = full.slice(0, mobile() ? Math.min(full.length, 12) : 10);
+    if (titleEl) titleEl.textContent = (mobile() ? 'Примеры работ' : (TITLES[activeIdx] || 'Примеры')) + ' · ' + full.length;
     wall.innerHTML = set.map(function(a, i){
       var wide = (activeIdx === 1 || activeIdx === 5) ? ' is-wide' : '';
       var design = (a.t === 'img' && !wide) ? ' is-design' : '';
@@ -3237,20 +3283,34 @@ function bootOrbitaGlobe(){
       var title = a.title || label;
       var safeTitle = String(title).replace(/"/g,'&quot;');
       var media;
-      if (a.t === 'video') {
+      if (mobile() && a.t === 'video') {
+        media = '<video src="'+a.s+'" poster="'+stillFor(a.s)+'" muted loop playsinline preload="metadata"></video>';
+      } else if (a.t === 'video') {
         media = '<img src="'+stillFor(a.s)+'" alt="" loading="lazy" decoding="async">';
         label = '▶ ' + label;
       } else {
         media = '<img src="'+a.s+'" alt="'+safeTitle+'" loading="lazy" decoding="async">';
       }
-      return '<div class="svc-cell'+design+wide+'" data-orbit-i="'+i+'" role="button" tabindex="0" data-src="'+a.s+'" data-type="'+(a.t==='video'?'video':'img')+'" data-badge="'+label+'" data-title="'+safeTitle+'">'+media+'<span class="label">'+label+'</span><span class="view-hint">Смотреть</span></div>';
+      var lab = mobile() ? ('Пример · ' + (title || label)) : label;
+      var hintBtn = mobile() ? '' : '<span class="view-hint">Смотреть</span>';
+      return '<div class="svc-cell'+design+wide+'" data-orbit-i="'+i+'" role="button" tabindex="0" data-src="'+a.s+'" data-type="'+(a.t==='video'?'video':'img')+'" data-badge="'+label+'" data-title="'+safeTitle+'">'+media+'<span class="label">'+lab+'</span>'+hintBtn+'</div>';
     }).join('');
     wall.setAttribute('aria-hidden','false');
     angle = 0;
-    layoutOrbit();
-    updateProgress();
+    if (mobile()) {
+      wall.scrollTop = 0;
+      bindTikTokFeed(wall);
+      var titleEl2 = document.getElementById('svcFrameTitle');
+      if (titleEl2 && titleEl2.textContent.indexOf('Примеры работ') < 0) {
+        /* title already set above with count */
+      }
+    } else {
+      layoutOrbit();
+      updateProgress();
+    }
   }
   function layoutOrbit(){
+    if (mobile()) return;
     var wall = document.getElementById('svcWall');
     var stage = document.getElementById('svcOrbitStage');
     if (!wall || !stage) return;
@@ -3310,7 +3370,7 @@ function bootOrbitaGlobe(){
     }
   }
   function tick(){
-    if (auto && !dragging && !document.hidden){
+    if (auto && !dragging && !document.hidden && !mobile()){
       angle += 0.00035;
       layoutOrbit();
       updateProgress();
