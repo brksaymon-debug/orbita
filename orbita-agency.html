@@ -580,14 +580,26 @@ h3{font-size:clamp(18px,2vw,22px)}
 
 /* Craft: mobile sticky CTA + cases snap */
 .cases-grid{scroll-snap-type:none}
-.mobile-sticky-cta{
+.mobile-sticky-bar{
   display:none;position:fixed;left:12px;right:12px;bottom:12px;z-index:80;
-  padding:14px 18px;border-radius:999px;text-align:center;font-weight:700;
+  gap:8px;padding:0;
+}
+.mobile-sticky-bar a{
+  flex:1;padding:14px 12px;border-radius:999px;text-align:center;font-weight:700;
+  text-decoration:none;font-size:14px;
+}
+.msb-primary{
   background:linear-gradient(135deg,var(--accent),#3aa0ff);color:#041018;
-  box-shadow:0 12px 40px rgba(34,224,255,.35);text-decoration:none;
+  box-shadow:0 12px 40px rgba(34,224,255,.35);
+}
+.msb-ghost{
+  background:rgba(10,14,20,.92);color:#fff;border:1px solid rgba(34,224,255,.45);
+  backdrop-filter:blur(10px);
 }
 @media (max-width:640px){
-  .mobile-sticky-cta{display:block}
+  .mobile-sticky-bar{display:flex}
+  .hero-actions{gap:8px}
+  .hero-actions .btn{padding:12px 14px;font-size:14px}
   body{padding-bottom:76px}
   .cases-grid{
     display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;
@@ -607,7 +619,7 @@ h3{font-size:clamp(18px,2vw,22px)}
       <a href="#services">Услуги</a>
       <a href="#orbit">Орбита</a>
       <a href="#process">Процесс</a>
-      <a href="#prices">Цены</a>
+      <a href="#prices">Прайс-лист</a>
       <a href="#contact">Контакт</a>
     </nav>
     <div class="nav-cta">
@@ -620,7 +632,7 @@ h3{font-size:clamp(18px,2vw,22px)}
     <a href="#services">Услуги</a>
     <a href="#orbit">Орбита</a>
     <a href="#process">Процесс</a>
-    <a href="#prices">Цены</a>
+    <a href="#prices">Прайс-лист</a>
     <a href="#contact">Контакт</a>
     <a href="#contact">Получить смету</a>
   </div>
@@ -639,6 +651,7 @@ h3{font-size:clamp(18px,2vw,22px)}
         <div class="hero-actions">
           <a class="btn btn-primary" href="#contact">Заказать рекламу</a>
           <a class="btn btn-ghost" href="#works">Смотреть работы</a>
+          <a class="btn btn-ghost" href="#prices">Прайс-лист</a>
         </div>
         <p class="hero-note">hello@orbita.agency · договор · NDA</p>
       </div>
@@ -834,9 +847,9 @@ h3{font-size:clamp(18px,2vw,22px)}
 
   <section class="section" id="prices">
     <div class="wrap">
-      <div class="eyebrow">Цены</div>
+      <div class="eyebrow">Прайс-лист</div>
       <h2>Прозрачные ориентиры</h2>
-      <p class="lead">Видео и дизайн: разовые задачи и пакеты. Все суммы — <strong>от</strong>; финал после брифа.</p>
+      <p class="lead">Прайс-лист Orbita: видео и дизайн — разовые задачи и пакеты. Все суммы — <strong>от</strong>; финал после брифа.</p>
       <div class="price-layers">
         <div>
           <div class="layer-title">Видео — разовые</div>
@@ -1066,7 +1079,7 @@ h3{font-size:clamp(18px,2vw,22px)}
   /* Assets */
   const videos = [
     'work-kazakhstan.mp4','work-12.mp4','work-01.mp4','work-02.mp4','work-03.mp4','work-04.mp4',
-    'work-05.mp4','work-06.mp4','work-09.mp4','work-10.mp4','work-11.mp4'
+    'work-05.mp4','work-06.mp4','work-10.mp4','work-11.mp4'
   ];
   const stills = [
     'still-01.jpg','still-02.jpg','still-03.jpg','still-04.jpg','still-05.jpg','still-06.jpg',
@@ -1080,7 +1093,6 @@ h3{font-size:clamp(18px,2vw,22px)}
     {src:'work-01.mp4', poster:'still-01.jpg', tag:'Reels', title:'Короткий формат', task:'Удержать внимание в первые 1–2 секунды', result:'Плотная нарезка под Reels / Shorts'},
     {src:'work-03.mp4', poster:'still-03.jpg', tag:'Имидж', title:'Визуальный язык', task:'Показать атмосферу и продукт без лишнего текста', result:'Имиджевый ряд с акцентом на кадр'},
     {src:'work-05.mp4', poster:'still-05.jpg', tag:'Реклама', title:'Продуктовый акцент', task:'Сделать акцент на продукте и пользе', result:'Ролик для размещения и соцсетей'},
-    {src:'work-09.mp4', poster:'still-09.jpg', tag:'Motion', title:'Графика в кадре', task:'Усилить смысл титрами и ритмом', result:'Монтаж с motion-слоем'},
     {src:'work-11.mp4', poster:'still-11.jpg', tag:'Кампания', title:'Серийный стиль', task:'Единый стиль для серии материалов', result:'База под адаптации 9:16 / 16:9'}
   ];
 
@@ -1502,7 +1514,6 @@ h3{font-size:clamp(18px,2vw,22px)}
       {t:'img',s:'portfolio/motion/motion-28.jpg',l:'Motion · Orbita',title:'BEAUTY LAB · Пилинги · Motion'},
       {t:'img',s:'portfolio/motion/motion-29.jpg',l:'Motion · Orbita',title:'НОТА КЛУБ · Live Friday · Motion'},
       {t:'img',s:'portfolio/motion/motion-30.jpg',l:'Motion · Orbita',title:'ТЕХНО ХАБ · Гаджеты · Motion'},
-      {t:'video',s:'work-09.mp4',l:'Motion',title:'Motion / графика'},
       {t:'video',s:'work-11.mp4',l:'Motion',title:'Серия в движении'},
       {t:'video',s:'work-03.mp4',l:'Motion',title:'Вертикаль motion'}
     ]
@@ -1773,7 +1784,7 @@ function bootOrbitaGlobe(){
     { lat: 43.24, lon: 76.91, type: 'video', label: 'Алматы · Ролик', video: 'work-kazakhstan.mp4', portrait: true },
     { lat: 55.75, lon: 37.62, type: 'video', label: 'Москва · Ролик', video: 'work-02.mp4', portrait: true },
     { lat: 41.31, lon: 69.24, type: 'video', label: 'Ташкент · Ролик', video: 'work-04.mp4', portrait: true },
-    { lat: 25.20, lon: 55.27, type: 'video', label: 'Дубай · Motion', video: 'work-09.mp4', portrait: false },
+    { lat: 25.20, lon: 55.27, type: 'video', label: 'Дубай · Motion', video:  portrait: false },
     { lat: 40.71, lon: -74.01, type: 'video', label: 'Нью-Йорк · Reels', video: 'work-05.mp4', portrait: true },
     { lat: 48.86, lon: 2.35, type: 'video', label: 'Париж · Ролик', video: 'work-01.mp4', portrait: false },
     { lat: 51.13, lon: 71.43, type: 'afishi', label: 'Афиши', svcIndex: 3 }
@@ -2416,6 +2427,9 @@ function bootOrbitaGlobe(){
     else bind();
   })();
 </script>
-<a class="mobile-sticky-cta" href="#contact">Заказать рекламу</a>
+<div class="mobile-sticky-bar" aria-label="Быстрые действия">
+  <a class="msb-ghost" href="#prices">Прайс-лист</a>
+  <a class="msb-primary" href="#contact">Заказать</a>
+</div>
 </body>
 </html>
