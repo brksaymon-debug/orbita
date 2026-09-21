@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <!-- orbita-build:20260921165309 fix-orbit-css -->
-          <meta charset="UTF-8">
+  <!-- orbita-build:20260921165654 no-hero-wall -->
+            <meta charset="UTF-8">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta name="orbita-build" content="20260911235922">
@@ -992,6 +992,14 @@ h3{font-size:clamp(18px,2vw,22px)}
 }
 .svc-orbit-core{z-index:2 !important; pointer-events:none !important}
 
+
+/* Craft: hero without media-wall collage */
+.hero-grid{grid-template-columns:1fr!important;max-width:720px}
+.hero .media-wall,.media-wall{display:none!important}
+@media (max-width:900px){
+  .hero-grid{grid-template-columns:1fr!important}
+}
+
 </style>
 <script>
 (function(){
@@ -1012,7 +1020,7 @@ h3{font-size:clamp(18px,2vw,22px)}
   <div class="wrap nav-inner">
     <a class="logo" href="#top">ОРБИТА<span>.</span></a>
     <nav class="nav-links" aria-label="Основная навигация">
-      <a href="#works">Работы</a>
+      <a href="#services">Работы</a>
       <a href="#services">Услуги</a>
       <a href="#orbit">Орбита</a>
       <a href="#process">Процесс</a>
@@ -1025,7 +1033,7 @@ h3{font-size:clamp(18px,2vw,22px)}
     </div>
   </div>
   <div class="wrap mobile-menu" id="mobileMenu">
-    <a href="#works">Работы</a>
+    <a href="#services">Работы</a>
     <a href="#services">Услуги</a>
     <a href="#orbit">Орбита</a>
     <a href="#process">Процесс</a>
@@ -1047,14 +1055,10 @@ h3{font-size:clamp(18px,2vw,22px)}
         <p class="lead">Видеореклама, Reels, баннеры и афиши под ключ — от брифа до мастера. Ответ за 24 часа.</p>
         <div class="hero-actions">
           <a class="btn btn-primary" href="#contact">Заказать рекламу</a>
-          <a class="btn btn-ghost" href="#works">Смотреть работы</a>
+          <a class="btn btn-ghost" href="#services">Смотреть работы</a>
           <a class="btn btn-ghost" href="#prices">Прайс-лист</a>
         </div>
         <p class="hero-note">hello@orbita.agency · договор · NDA</p>
-      </div>
-      <div class="media-wall" id="works" aria-label="Витрина работ">
-        <div class="wall-col" id="wallA"></div>
-        <div class="wall-col reverse" id="wallB"></div>
       </div>
     </div>
   </section>
@@ -1070,7 +1074,7 @@ h3{font-size:clamp(18px,2vw,22px)}
     </div>
   </section>
 
-  <section class="section" id="services">
+  <section class="section" id="services"><span id="works" hidden></span>
     <div class="wrap">
       <div class="eyebrow">Услуги</div>
       <h2>Полная креативная студия</h2>
@@ -1723,8 +1727,9 @@ lbImg.hidden = false;
 
   /* Media wall fill + event delegation */
   try {
-  fillWall(document.getElementById('wallA'), colA);
-  fillWall(document.getElementById('wallB'), colB);
+  var _wa=document.getElementById('wallA'), _wb=document.getElementById('wallB');
+  if (_wa) fillWall(_wa, colA);
+  if (_wb) fillWall(_wb, colB);
   } catch (err) { console.warn('fillWall', err); }
 
   const worksWall = document.getElementById('works');
