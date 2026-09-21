@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <!-- orbita-build:20260921193303 tiktok-play-fix-2 -->
-                  <meta charset="UTF-8">
+  <!-- orbita-build:20260921195856 tiktok-one-slide -->
+                    <meta charset="UTF-8">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
-  <meta name="orbita-build" content="20260921193303">
+  <meta name="orbita-build" content="20260921195856">
 
 <script>/* is-app-mobile-early */try{if(matchMedia('(max-width:760px)').matches)document.documentElement.classList.add('is-app-mobile')}catch(e){}</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1">
@@ -1936,6 +1936,82 @@ h3{font-size:clamp(18px,2vw,22px)}
   }
 }
 
+
+/* FIX: one TikTok slide = full phone screen */
+@media (max-width:760px){
+  html.is-app-mobile #services{
+    display:flex!important;align-items:stretch!important;justify-content:center!important;
+  }
+  html.is-app-mobile #services .wrap,
+  html.is-app-mobile .svc-universe,
+  html.is-app-mobile .svc-frame,
+  html.is-app-mobile .svc-frame.is-orbit,
+  html.is-app-mobile .svc-orbit-stage{
+    display:flex!important;flex-direction:column!important;
+    width:100%!important;height:100%!important;min-height:0!important;
+    align-items:center!important;justify-content:center!important;
+  }
+  html.is-app-mobile .svc-phone{
+    width:min(100%,380px)!important;
+    height:calc(100dvh - 70px - env(safe-area-inset-bottom,0px))!important;
+    max-height:calc(100dvh - 70px - env(safe-area-inset-bottom,0px))!important;
+    display:flex!important;flex-direction:column!important;
+    overflow:hidden!important;
+  }
+  html.is-app-mobile #svcWall,
+  html.is-app-mobile .svc-frame.is-orbit #svcWall.svc-orbit-wall{
+    flex:1 1 auto!important;
+    width:100%!important;
+    height:100%!important;
+    max-height:100%!important;
+    min-height:0!important;
+    overflow-x:hidden!important;
+    overflow-y:auto!important;
+    scroll-snap-type:y mandatory!important;
+    -webkit-overflow-scrolling:touch!important;
+    display:block!important;
+  }
+  html.is-app-mobile #svcWall .svc-cell,
+  html.is-app-mobile .svc-frame.is-orbit .svc-orbit-wall .svc-cell,
+  html.is-app-mobile .svc-frame.is-orbit .svc-orbit-wall .svc-cell.is-wide,
+  html.is-app-mobile .svc-frame.is-orbit .svc-orbit-wall .svc-cell.is-front,
+  html.is-app-mobile .svc-frame.is-orbit .svc-orbit-wall .svc-cell.is-back{
+    display:block!important;
+    position:relative!important;
+    left:auto!important;top:auto!important;
+    transform:none!important;
+    width:100%!important;
+    height:100%!important;
+    min-height:100%!important;
+    max-height:100%!important;
+    margin:0!important;padding:0!important;
+    border:0!important;border-radius:0!important;box-shadow:none!important;
+    overflow:hidden!important;
+    scroll-snap-align:start!important;
+    scroll-snap-stop:always!important;
+    flex:none!important;
+    opacity:1!important;filter:none!important;
+  }
+  html.is-app-mobile #svcWall .svc-cell video[data-tt-video],
+  html.is-app-mobile #svcWall .svc-cell video{
+    position:absolute!important;
+    inset:0!important;
+    width:100%!important;height:100%!important;
+    object-fit:cover!important;
+    display:block!important;visibility:visible!important;opacity:1!important;
+    margin:0!important;max-height:none!important;
+    pointer-events:none!important;z-index:1!important;
+  }
+  html.is-app-mobile #svcWall .svc-cell .label{
+    position:absolute!important;z-index:5!important;
+    left:14px!important;right:70px!important;bottom:22px!important;
+  }
+  html.is-app-mobile #svcWall .svc-cell .tt-sound{
+    position:absolute!important;z-index:6!important;
+    right:12px!important;bottom:70px!important;
+  }
+}
+
 </style>
 <script>
 (function(){
@@ -3828,127 +3904,148 @@ function bootOrbitaGlobe(){
     if (!wall || !mobile()) return;
     var phone = document.getElementById('svcPhone') || wall.parentElement;
 
-    function h(){
-      var x = (phone && phone.clientHeight) || 0;
-      if (x < 180) x = Math.round((window.visualViewport ? visualViewport.height : innerHeight) * 0.78);
-      return x;
+    function slideH(){
+      var rect = phone ? phone.getBoundingClientRect() : null;
+      var H = rect && rect.height ? Math.round(rect.height) : 0;
+      if (H < 200) {
+        var vh = (window.visualViewport && visualViewport.height) || window.innerHeight || 700;
+        H = Math.round(vh - 70);
+      }
+      return H;
     }
     function layout(){
-      var H = h();
-      wall.style.cssText = 'height:'+H+'px;max-height:'+H+'px;overflow-y:scroll;scroll-snap-type:y mandatory;-webkit-overflow-scrolling:touch;touch-action:pan-y;';
+      var H = slideH();
+      wall.style.setProperty('height', H + 'px', 'important');
+      wall.style.setProperty('max-height', H + 'px', 'important');
+      wall.style.setProperty('overflow-y', 'auto', 'important');
+      wall.style.setProperty('scroll-snap-type', 'y mandatory', 'important');
       wall.querySelectorAll('.svc-cell').forEach(function(c){
-        c.style.cssText = 'height:'+H+'px;min-height:'+H+'px;scroll-snap-align:start;scroll-snap-stop:always;position:relative;';
-        var v = c.querySelector('video[data-tt-video]');
+        c.style.setProperty('height', H + 'px', 'important');
+        c.style.setProperty('min-height', H + 'px', 'important');
+        c.style.setProperty('max-height', H + 'px', 'important');
+        c.style.setProperty('scroll-snap-align', 'start', 'important');
+        c.style.setProperty('scroll-snap-stop', 'always', 'important');
+        c.style.setProperty('position', 'relative', 'important');
+        c.style.setProperty('overflow', 'hidden', 'important');
+        var v = c.querySelector('video');
         if (v) {
-          v.style.cssText = 'display:block!important;width:100%;height:100%;object-fit:cover;pointer-events:none;background:#000;';
-          v.setAttribute('playsinline','');
-          v.setAttribute('webkit-playsinline','');
-          v.muted = true;
+          v.setAttribute('data-tt-video','');
+          v.style.setProperty('position', 'absolute', 'important');
+          v.style.setProperty('inset', '0', 'important');
+          v.style.setProperty('width', '100%', 'important');
+          v.style.setProperty('height', '100%', 'important');
+          v.style.setProperty('object-fit', 'cover', 'important');
+          v.style.setProperty('display', 'block', 'important');
+          v.playsInline = true;
           v.loop = true;
+          v.removeAttribute('controls');
         }
       });
+      return H;
     }
     layout();
 
-    function page(){
-      var H = h() || 1;
-      return Math.max(0, Math.min(wall.querySelectorAll('.svc-cell').length-1, Math.round(wall.scrollTop / H)));
+    function idx(){
+      var H = slideH() || 1;
+      return Math.max(0, Math.min(wall.querySelectorAll('.svc-cell').length - 1, Math.round(wall.scrollTop / H)));
     }
-    function stopOthers(except){
-      wall.querySelectorAll('video[data-tt-video]').forEach(function(v){
-        if (v === except) return;
+    function stopAll(except){
+      wall.querySelectorAll('video').forEach(function(v){
+        if (except && v === except) return;
         try { v.pause(); } catch(_){}
       });
     }
     function playAt(i, withSound){
-      layout();
+      var H = layout();
       var cells = wall.querySelectorAll('.svc-cell');
       var cell = cells[i];
       if (!cell) return;
-      var v = cell.querySelector('video[data-tt-video]');
+      var v = cell.querySelector('video');
       if (!v) return;
-      stopOthers(v);
+      stopAll(v);
+      try { if (v.currentTime > 0.2) v.currentTime = 0; } catch(_){}
       v.muted = !withSound;
-      var run = function(){
+      var go = function(){
         var p = v.play();
         if (p && p.catch) {
           p.catch(function(){
-            // last resort: muted play then unmute
             v.muted = true;
             return v.play().then(function(){
-              if (withSound) {
-                v.muted = false;
-                return v.play();
-              }
+              if (withSound) { v.muted = false; return v.play(); }
             });
           }).catch(function(){});
         }
       };
-      if (v.readyState >= 2) run();
+      if (v.readyState >= 2) go();
       else {
-        var once = function(){ v.removeEventListener('canplay', once); run(); };
-        v.addEventListener('canplay', once);
+        var on = function(){ v.removeEventListener('canplay', on); go(); };
+        v.addEventListener('canplay', on);
         try { v.load(); } catch(_){}
-        run();
+        go();
       }
     }
-    function playCurrent(withSound){ playAt(page(), !!withSound); }
+    function playCurrent(withSound){ playAt(idx(), !!withSound); }
 
-    // always rebind swipe (clear old flag to refresh)
-    wall.dataset.ttBound = '1';
-    if (wall._ttClean) { try { wall._ttClean(); } catch(_){ } }
-    var sy=0, moved=false, soundOn=false;
+    if (wall._ttClean) { try { wall._ttClean(); } catch(_){} }
+    var sy = 0, moved = false, soundOn = false;
     function onStart(e){
       soundOn = true;
-      if (e.touches && e.touches[0]) { sy=e.touches[0].clientY; moved=false; }
+      if (e.touches && e.touches[0]) { sy = e.touches[0].clientY; moved = false; }
+      layout();
     }
     function onMove(e){
-      if (e.touches && e.touches[0] && Math.abs(e.touches[0].clientY-sy)>10) moved=true;
+      if (e.touches && e.touches[0] && Math.abs(e.touches[0].clientY - sy) > 8) moved = true;
     }
     function onEnd(e){
       soundOn = true;
-      var ey=(e.changedTouches&&e.changedTouches[0])?e.changedTouches[0].clientY:sy;
-      var dy=ey-sy;
-      var H=h();
-      if (moved && Math.abs(dy)>36){
-        var i=Math.round(wall.scrollTop/H);
-        i += (dy<0?1:-1);
-        i=Math.max(0, Math.min(i, wall.querySelectorAll('.svc-cell').length-1));
-        wall.scrollTo({top:i*H, behavior:'smooth'});
-        setTimeout(function(){ playAt(i, true); }, 300);
+      var ey = (e.changedTouches && e.changedTouches[0]) ? e.changedTouches[0].clientY : sy;
+      var dy = ey - sy;
+      var H = layout();
+      if (moved && Math.abs(dy) > 28) {
+        var i = Math.round(wall.scrollTop / H);
+        i += (dy < 0 ? 1 : -1);
+        i = Math.max(0, Math.min(i, wall.querySelectorAll('.svc-cell').length - 1));
+        wall.scrollTo({ top: i * H, behavior: 'smooth' });
+        setTimeout(function(){ playAt(i, true); }, 280);
       } else {
         playCurrent(true);
       }
     }
     function onScroll(){
-      clearTimeout(wall._ttScrollT);
-      wall._ttScrollT=setTimeout(function(){ playCurrent(soundOn); }, 90);
+      clearTimeout(wall._ttT);
+      wall._ttT = setTimeout(function(){ playCurrent(soundOn); }, 60);
     }
-    function onSoundBtn(e){
-      var btn = e.target.closest && e.target.closest('.tt-sound');
-      if (!btn || !wall.contains(btn)) return;
+    function onBtn(e){
+      var b = e.target.closest && e.target.closest('.tt-sound');
+      if (!b || !wall.contains(b)) return;
       e.preventDefault(); e.stopPropagation();
-      soundOn = true;
-      playCurrent(true);
+      soundOn = true; playCurrent(true);
     }
     wall.addEventListener('touchstart', onStart, {passive:true});
     wall.addEventListener('touchmove', onMove, {passive:true});
     wall.addEventListener('touchend', onEnd, {passive:true});
     wall.addEventListener('scroll', onScroll, {passive:true});
-    wall.addEventListener('click', onSoundBtn, true);
+    wall.addEventListener('click', onBtn, true);
+    var ro = null;
+    if (window.ResizeObserver && phone) {
+      ro = new ResizeObserver(function(){ layout(); playCurrent(soundOn); });
+      ro.observe(phone);
+    }
     wall._ttClean = function(){
       wall.removeEventListener('touchstart', onStart);
       wall.removeEventListener('touchmove', onMove);
       wall.removeEventListener('touchend', onEnd);
       wall.removeEventListener('scroll', onScroll);
-      wall.removeEventListener('click', onSoundBtn, true);
+      wall.removeEventListener('click', onBtn, true);
+      if (ro) ro.disconnect();
     };
 
     wall.scrollTop = 0;
-    // start muted immediately so something visibly plays, unmute on first gesture
-    setTimeout(function(){ playCurrent(false); }, 50);
-    setTimeout(function(){ playCurrent(soundOn); }, 400);
+    // first clip: start muted so it visibly plays, then sound after gesture
+    setTimeout(function(){ playCurrent(false); }, 30);
+    setTimeout(function(){ layout(); playCurrent(soundOn); }, 300);
   }
+  function 
   function 
   function 
   function 
@@ -4035,6 +4132,8 @@ function bootOrbitaGlobe(){
     angle = 0;
     if (mobile()) {
       wall.scrollTop = 0;
+      if (wall._ttClean) { try { wall._ttClean(); } catch(_){} }
+      delete wall.dataset.ttBound;
       bindTikTokFeed(wall);
       var titleEl2 = document.getElementById('svcFrameTitle');
       if (titleEl2 && titleEl2.textContent.indexOf('Примеры работ') < 0) {
