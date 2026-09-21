@@ -1,32 +1,248 @@
 [
   {
+    "folder": "posters",
+    "file": "posters-01.jpg",
+    "title": "КРОНА · Volt Rider",
+    "label": "posters"
+  },
+  {
+    "folder": "posters",
+    "file": "posters-02.jpg",
+    "title": "КРОНА · Door Night",
+    "label": "posters"
+  },
+  {
     "folder": "flyers",
     "file": "flyers-01.jpg",
-    "title": "КРОНА · Volt Rider"
+    "title": "ДОМЛЕС · Не строим как все",
+    "label": "flyers"
   },
   {
     "folder": "flyers",
     "file": "flyers-02.jpg",
-    "title": "КРОНА · Door Night"
+    "title": "ДОМЛЕС · Построить может каждый",
+    "label": "flyers"
   },
   {
     "folder": "flyers",
     "file": "flyers-03.jpg",
-    "title": "ДОМЛЕС · Не строим как все"
-  },
-  {
-    "folder": "flyers",
-    "file": "flyers-04.jpg",
-    "title": "ДОМЛЕС · Построить может каждый"
-  },
-  {
-    "folder": "flyers",
-    "file": "flyers-05.jpg",
-    "title": "ДОМЛЕС · Современные дома"
+    "title": "ДОМЛЕС · Современные дома",
+    "label": "flyers"
   },
   {
     "folder": "banners",
     "file": "banners-01.jpg",
-    "title": "ЧИСТОПРО · Уборка"
+    "title": "ЧИСТОПРО · Уборка",
+    "label": "banners"
+  },
+  {
+    "folder": "flyers",
+    "file": "flyers-04.jpg",
+    "title": "ЗЕРНО · Утренний кофе",
+    "label": "flyers"
+  },
+  {
+    "folder": "flyers",
+    "file": "flyers-05.jpg",
+    "title": "САКУРА · Сет для двоих",
+    "label": "flyers"
+  },
+  {
+    "folder": "flyers",
+    "file": "flyers-06.jpg",
+    "title": "АПТЕКА+ · −40% витамины",
+    "label": "flyers"
+  },
+  {
+    "folder": "flyers",
+    "file": "flyers-07.jpg",
+    "title": "ДЕНТА ЛАЙН · Отбеливание",
+    "label": "flyers"
+  },
+  {
+    "folder": "flyers",
+    "file": "flyers-08.jpg",
+    "title": "FIT24 · Безлимит",
+    "label": "flyers"
+  },
+  {
+    "folder": "flyers",
+    "file": "flyers-09.jpg",
+    "title": "АВТОПРО · ТО за 2 часа",
+    "label": "flyers"
+  },
+  {
+    "folder": "flyers",
+    "file": "flyers-10.jpg",
+    "title": "КРОШКА · День открытых дверей",
+    "label": "flyers"
+  },
+  {
+    "folder": "flyers",
+    "file": "flyers-11.jpg",
+    "title": "ЛАПА ВЕТ · 24/7",
+    "label": "flyers"
+  },
+  {
+    "folder": "flyers",
+    "file": "flyers-12.jpg",
+    "title": "БАРБЕР НОЛЬ · Стрижка",
+    "label": "flyers"
+  },
+  {
+    "folder": "banners",
+    "file": "banners-02.jpg",
+    "title": "БЫСТРОЕДА · Доставка 25 мин",
+    "label": "banners"
+  },
+  {
+    "folder": "banners",
+    "file": "banners-03.jpg",
+    "title": "ДЫХАНИЕ · Йога",
+    "label": "banners"
+  },
+  {
+    "folder": "stories",
+    "file": "stories-01.jpg",
+    "title": "ДОМЛЕС · Не строим как все · Stories",
+    "label": "stories"
+  },
+  {
+    "folder": "stories",
+    "file": "stories-02.jpg",
+    "title": "ДОМЛЕС · Построить может каждый · Stories",
+    "label": "stories"
+  },
+  {
+    "folder": "stories",
+    "file": "stories-03.jpg",
+    "title": "ДОМЛЕС · Современные дома · Stories",
+    "label": "stories"
+  },
+  {
+    "folder": "stories",
+    "file": "stories-04.jpg",
+    "title": "ЗЕРНО · Утренний кофе · Stories",
+    "label": "stories"
+  },
+  {
+    "folder": "stories",
+    "file": "stories-05.jpg",
+    "title": "САКУРА · Сет для двоих · Stories",
+    "label": "stories"
+  },
+  {
+    "folder": "stories",
+    "file": "stories-06.jpg",
+    "title": "АПТЕКА+ · −40% витамины · Stories",
+    "label": "stories"
+  },
+  {
+    "folder": "stories",
+    "file": "stories-07.jpg",
+    "title": "ДЕНТА ЛАЙН · Отбеливание · Stories",
+    "label": "stories"
+  },
+  {
+    "folder": "stories",
+    "file": "stories-08.jpg",
+    "title": "FIT24 · Безлимит · Stories",
+    "label": "stories"
+  },
+  {
+    "folder": "stories",
+    "file": "stories-09.jpg",
+    "title": "АВТОПРО · ТО за 2 часа · Stories",
+    "label": "stories"
+  },
+  {
+    "folder": "stories",
+    "file": "stories-10.jpg",
+    "title": "КРОШКА · День открытых дверей · Stories",
+    "label": "stories"
+  },
+  {
+    "folder": "reels",
+    "file": "reels-01.jpg",
+    "title": "ДОМЛЕС · Не строим как все · Reels cover",
+    "label": "reels"
+  },
+  {
+    "folder": "reels",
+    "file": "reels-02.jpg",
+    "title": "ДОМЛЕС · Построить может каждый · Reels cover",
+    "label": "reels"
+  },
+  {
+    "folder": "reels",
+    "file": "reels-03.jpg",
+    "title": "ДОМЛЕС · Современные дома · Reels cover",
+    "label": "reels"
+  },
+  {
+    "folder": "reels",
+    "file": "reels-04.jpg",
+    "title": "ЗЕРНО · Утренний кофе · Reels cover",
+    "label": "reels"
+  },
+  {
+    "folder": "reels",
+    "file": "reels-05.jpg",
+    "title": "САКУРА · Сет для двоих · Reels cover",
+    "label": "reels"
+  },
+  {
+    "folder": "reels",
+    "file": "reels-06.jpg",
+    "title": "АПТЕКА+ · −40% витамины · Reels cover",
+    "label": "reels"
+  },
+  {
+    "folder": "reels",
+    "file": "reels-07.jpg",
+    "title": "ДЕНТА ЛАЙН · Отбеливание · Reels cover",
+    "label": "reels"
+  },
+  {
+    "folder": "reels",
+    "file": "reels-08.jpg",
+    "title": "FIT24 · Безлимит · Reels cover",
+    "label": "reels"
+  },
+  {
+    "folder": "motion",
+    "file": "motion-01.jpg",
+    "title": "ЧИСТОПРО · Уборка · Motion still",
+    "label": "motion"
+  },
+  {
+    "folder": "motion",
+    "file": "motion-02.jpg",
+    "title": "БЫСТРОЕДА · Доставка 25 мин · Motion still",
+    "label": "motion"
+  },
+  {
+    "folder": "motion",
+    "file": "motion-03.jpg",
+    "title": "ДЫХАНИЕ · Йога · Motion still",
+    "label": "motion"
+  },
+  {
+    "folder": "flyers",
+    "file": "flyers-13.jpg",
+    "title": "NEON BEAUTY · Маникюр",
+    "label": "flyers"
+  },
+  {
+    "folder": "posters",
+    "file": "posters-03.jpg",
+    "title": "КРОНА · Welcome 19",
+    "label": "posters"
+  },
+  {
+    "folder": "posters",
+    "file": "posters-04.jpg",
+    "title": "КРОНА · One Night",
+    "label": "posters"
   }
 ]
