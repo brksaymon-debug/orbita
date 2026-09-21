@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <!-- orbita-build:20260921174348 restore-feature-lv0 -->
-                  <meta charset="UTF-8">
+  <!-- orbita-build:20260921174609 feature-egarmasagi-compact -->
+                    <meta charset="UTF-8">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
-  <meta name="orbita-build" content="20260921174348">
+  <meta name="orbita-build" content="20260921174609">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ОРБИТА — Видео и дизайн, которые продают</title>
 <meta name="description" content="Креативная студия: видеореклама, Reels, монтаж, баннеры, флаеры, афиши и key visual. Договор, NDA, юрлицо. Цены от — финал после брифа.">
@@ -1026,19 +1026,19 @@ h3{font-size:clamp(18px,2vw,22px)}
 }
 
 
-/* Craft: compact feature reel between trust and services */
-.feature-reel{padding:16px 0 6px;position:relative;z-index:1}
+
+/* Craft: compact feature reel — egarmasagi between trust and services */
+.feature-reel{padding:14px 0 4px;position:relative;z-index:1}
 .feature-reel-frame{
   position:relative;
   border-radius:14px;
   overflow:hidden;
   border:1px solid rgba(34,224,255,.32);
   background:#050508;
-  box-shadow:0 14px 40px rgba(0,0,0,.4), 0 0 28px rgba(34,224,255,.10);
-  /* vertical reel kept compact */
-  aspect-ratio:9 / 16;
-  max-width:min(280px, 72vw);
-  max-height:min(42vh, 420px);
+  box-shadow:0 12px 36px rgba(0,0,0,.4), 0 0 24px rgba(34,224,255,.10);
+  aspect-ratio:1344 / 576;
+  width:min(720px, 100%);
+  max-height:min(28vh, 280px);
   margin:0 auto;
 }
 .feature-reel-video{
@@ -1049,8 +1049,8 @@ h3{font-size:clamp(18px,2vw,22px)}
   background:#000;
 }
 @media (max-width:760px){
-  .feature-reel{padding:12px 0 4px}
-  .feature-reel-frame{border-radius:12px;max-width:min(240px,78vw);max-height:min(38vh,380px)}
+  .feature-reel{padding:10px 0 2px}
+  .feature-reel-frame{border-radius:12px;max-height:min(26vh,220px);width:100%}
 }
 
 </style>
@@ -1132,7 +1132,7 @@ h3{font-size:clamp(18px,2vw,22px)}
       <div class="feature-reel-frame">
         <video
           class="feature-reel-video"
-          src="work-16.mp4"
+          src="feature-reel.mp4"
           muted
           loop
           playsinline
