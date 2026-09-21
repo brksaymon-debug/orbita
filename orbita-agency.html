@@ -580,6 +580,16 @@ h3{font-size:clamp(18px,2vw,22px)}
 
 
 
+
+@media (max-width:760px){
+  .orbit-lead-desk,.orbit-hint-desk{display:none!important}
+  .orbit-lead-mob,.orbit-hint-mob{display:block!important}
+  .orbit-lead-mob[hidden],.orbit-hint-mob[hidden]{display:block!important}
+}
+@media (min-width:761px){
+  .orbit-lead-mob,.orbit-hint-mob{display:none!important}
+}
+
 /* Mobile perf: lighten without touching desktop */
 @media (max-width:760px){
   .wall-col{animation:none!important}
@@ -845,8 +855,10 @@ h3{font-size:clamp(18px,2vw,22px)}
       <div class="orbit-globe-head">
         <div class="eyebrow">Орбита</div>
         <h2><span class="scramble">Проекты на планете</span></h2>
-        <p class="lead">Наведите на точку — увидите ролик. Точка «Афиши» открывает галерею афиш 2026.</p>
-        <p class="orbit-globe-hint">Тяните глобус мышью или пальцем. На мобильном — тап по точке.</p>
+        <p class="lead orbit-lead-desk">Наведите на точку — увидите ролик. Точка «Афиши» открывает галерею афиш 2026.</p>
+        <p class="lead orbit-lead-mob" hidden>Тапните город ниже — откроется ролик. «Афиши» ведут в примеры.</p>
+        <p class="orbit-globe-hint orbit-hint-desk">Тяните глобус мышью или пальцем.</p>
+        <p class="orbit-globe-hint orbit-hint-mob" hidden>На телефоне — список проектов без тяжёлого 3D.</p>
       </div>
       <div class="orbit-globe-stage" id="orbitGlobeStage">
         <canvas id="orbitGlobeCanvas" aria-label="3D Земля с проектами ОРБИТА"></canvas>
@@ -1654,7 +1666,6 @@ h3{font-size:clamp(18px,2vw,22px)}
   ];
   const svcWall = document.getElementById('svcWall');
   let activeSvc = 0;
-  var svcTitles = ['Reels / видео','Баннеры','Флаеры','Афиши','KV / Stories','Motion'];
   function renderSvcWall(idx){
     if (!svcWall) return;
     activeSvc = idx;
@@ -1986,7 +1997,7 @@ function bootOrbitaGlobe(){
     { lat: 43.24, lon: 76.91, type: 'video', label: 'Алматы · Ролик', video: 'work-kazakhstan.mp4', portrait: true },
     { lat: 55.75, lon: 37.62, type: 'video', label: 'Москва · Ролик', video: 'work-02.mp4', portrait: true },
     { lat: 41.31, lon: 69.24, type: 'video', label: 'Ташкент · Ролик', video: 'work-04.mp4', portrait: true },
-    { lat: 25.20, lon: 55.27, type: 'video', label: 'Дубай · Motion', video:  portrait: false },
+
     { lat: 40.71, lon: -74.01, type: 'video', label: 'Нью-Йорк · Reels', video: 'work-05.mp4', portrait: true },
     { lat: 48.86, lon: 2.35, type: 'video', label: 'Париж · Ролик', video: 'work-01.mp4', portrait: false },
     { lat: 51.13, lon: 71.43, type: 'afishi', label: 'Афиши', svcIndex: 3 }
