@@ -1,0 +1,44 @@
+name: Restore orbita-agency
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '_restore/agency.part.*'
+      - '.github/workflows/restore-agency.yml'
+permissions:
+  contents: write
+jobs:
+  assemble:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Assemble exact orbita-agency.html
+        run: |
+          set -euo pipefail
+          ls -la _restore/agency.part.* | tee /tmp/parts.txt
+          cat _restore/agency.part.* > orbita-agency.html
+          BYTES=$(wc -c < orbita-agency.html)
+          CHARS=$(wc -m < orbita-agency.html)
+          echo "assembled bytes=$BYTES chars=$CHARS"
+          test "$BYTES" -gt 200000
+          grep -q 'tt-intro-meta' orbita-agency.html
+          grep -qE 'svc-orbit|svc-planet' orbita-agency.html
+          grep -q 'mobile-tiktok-enhance.js' orbita-agency.html
+          grep -q 'ttApp' orbita-agency.html
+          grep -q 'baked-conversion' orbita-agency.html
+          # Ensure starts with doctype
+          head -c 15 orbita-agency.html | grep -q '<!DOCTYPE html'
+      - name: Commit restored site files
+        run: |
+          set -euo pipefail
+          git config user.name "orbita-restore"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add orbita-agency.html
+          # Also ensure companions if present in tree already
+          git add -u index.html sw.js mobile-tiktok-enhance.js mobile-tiktok-enhance.css || true
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+            exit 0
+          fi
+          git commit -m "Restore full orbita-agency.html with baked mobile conversion."
+          git push origin HEAD:main
