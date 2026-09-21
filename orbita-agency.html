@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <!-- orbita-build:20260921182630 remove-samurai-campaign -->\n                          <meta charset="UTF-8">
+  <!-- orbita-build:20260921183029 fix-orbit-click -->
+  \n                          <meta charset="UTF-8">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
-  <meta name="orbita-build" content="20260921182630">
+  <meta name="orbita-build" content="20260921183029">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ОРБИТА — Видео и дизайн, которые продают</title>
 <meta name="description" content="Креативная студия: видеореклама, Reels, монтаж, баннеры, флаеры, афиши и key visual. Договор, NDA, юрлицо. Цены от — финал после брифа.">
@@ -1051,6 +1052,13 @@ h3{font-size:clamp(18px,2vw,22px)}
   .feature-reel{padding:10px 0 2px}
   .feature-reel-frame{border-radius:12px;max-height:min(26vh,220px);width:100%}
 }
+
+
+/* FIX: orbit cards must receive clicks (nav/rings don't block) */
+.svc-orbit-ring,.svc-orbit-ring-2,.svc-orbit-core{pointer-events:none!important}
+.svc-frame.is-orbit .svc-orbit-wall .svc-cell{pointer-events:auto!important;cursor:pointer!important;z-index:4}
+.svc-frame.is-orbit .svc-orbit-wall .svc-cell.is-front{z-index:6!important}
+.svc-orbit-stage .svc-nav{pointer-events:auto!important;z-index:10!important}
 
 </style>
 <script>
@@ -3165,23 +3173,39 @@ function bootOrbitaGlobe(){
       stage.dataset.dragBound = '1';
       stage.addEventListener('pointerdown', function(e){
         if (e.target.closest && e.target.closest('.svc-nav')) return;
-        dragging = true; auto = false; lastX = e.clientX;
-        stage.classList.add('is-dragging');
+        // don't set dragging yet — only after move (so click still opens)
+        dragging = false;
+        stage._dragReady = true;
+        stage._dragMoved = false;
+        auto = false;
+        lastX = e.clientX;
         try { stage.setPointerCapture(e.pointerId); } catch(_){}
       });
       stage.addEventListener('pointermove', function(e){
-        if (!dragging) return;
+        if (!stage._dragReady) return;
         var dx = e.clientX - lastX;
+        if (!stage._dragMoved && Math.abs(dx) < 6) return;
+        stage._dragMoved = true;
+        dragging = true;
+        stage.classList.add('is-dragging');
         lastX = e.clientX;
         angle += dx * 0.006;
         layoutOrbit();
         updateProgress();
       });
       function endDrag(e){
-        if (!dragging) return;
+        var wasDrag = !!stage._dragMoved;
+        stage._dragReady = false;
+        stage._dragMoved = false;
         dragging = false;
         stage.classList.remove('is-dragging');
-        setTimeout(function(){ auto = true; }, 2400);
+        // keep dragging flag briefly only if we actually dragged (blocks click)
+        if (wasDrag) {
+          dragging = true;
+          setTimeout(function(){ dragging = false; auto = true; }, 180);
+        } else {
+          setTimeout(function(){ auto = true; }, 2400);
+        }
         try { stage.releasePointerCapture(e.pointerId); } catch(_){}
       }
       stage.addEventListener('pointerup', endDrag);
