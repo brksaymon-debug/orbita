@@ -1,7 +1,15 @@
 const CACHE='orbita-app-v3-intro-cta';
-const ENHANCE_V='20260921214800';
+const ENHANCE_V='20260921215000';
 self.addEventListener('install', e=>{ e.waitUntil(caches.keys().then(ks=>Promise.all(ks.map(k=>caches.delete(k)))).then(()=>self.skipWaiting())); });
-self.addEventListener('activate', e=>{ e.waitUntil(self.clients.claim()); });
+self.addEventListener('activate', e=>{
+  e.waitUntil(
+    self.clients.claim().then(function(){
+      return self.clients.matchAll({ type:'window', includeUncontrolled:true }).then(function(clients){
+        clients.forEach(function(c){ try { c.navigate(c.url); } catch(_){ } });
+      });
+    })
+  );
+});
 self.addEventListener('fetch', e=>{
   const req=e.request;
   if(req.method!=='GET') return;
