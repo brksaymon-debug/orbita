@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <!-- orbita-build:20260921183029 fix-orbit-click -->
-  \n                          <meta charset="UTF-8">
+  <!-- orbita-build:20260921183347 orbit-tap-play -->
+    \n                          <meta charset="UTF-8">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
-  <meta name="orbita-build" content="20260921183029">
+  <meta name="orbita-build" content="20260921183347">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ОРБИТА — Видео и дизайн, которые продают</title>
 <meta name="description" content="Креативная студия: видеореклама, Reels, монтаж, баннеры, флаеры, афиши и key visual. Договор, NDA, юрлицо. Цены от — финал после брифа.">
@@ -1060,6 +1060,13 @@ h3{font-size:clamp(18px,2vw,22px)}
 .svc-frame.is-orbit .svc-orbit-wall .svc-cell.is-front{z-index:6!important}
 .svc-orbit-stage .svc-nav{pointer-events:auto!important;z-index:10!important}
 
+
+/* FIX: lightbox above orbit; force visible when open */
+.lb{z-index:100000!important}
+.lb.open{display:grid!important;visibility:visible!important;opacity:1!important}
+.lb.open[hidden]{display:grid!important}
+.lb-stage video#lbVideo{max-width:min(920px,94vw);max-height:min(78vh,820px);width:auto;height:auto;background:#000}
+
 </style>
 <script>
 (function(){
@@ -1700,8 +1707,18 @@ h3{font-size:clamp(18px,2vw,22px)}
     lbOrder.setAttribute('data-prefill', orderPrefill(item));
     if (item.type === 'video'){
       lbVideo.hidden = false;
+      lbVideo.setAttribute('playsinline','');
+      lbVideo.setAttribute('controls','');
+      lbVideo.muted = false;
       lbVideo.src = item.src;
-      lbVideo.play().catch(function(){});
+      var p = lbVideo.play();
+      if (p && p.catch) {
+        p.catch(function(){
+          // browser blocked unmuted — retry muted so user still sees playback
+          lbVideo.muted = true;
+          lbVideo.play().catch(function(){});
+        });
+      }
     } else {
       lbImg.hidden = false;
       lbImg.src = item.src;
@@ -1728,6 +1745,7 @@ h3{font-size:clamp(18px,2vw,22px)}
     }
     if (!lb) { console.warn('lightbox missing'); return; }
     lb.hidden = false;
+    lb.removeAttribute('hidden');
     lb.classList.add('open');
     document.body.style.overflow = 'hidden';
     showLbItem(idx);
@@ -3173,21 +3191,25 @@ function bootOrbitaGlobe(){
       stage.dataset.dragBound = '1';
       stage.addEventListener('pointerdown', function(e){
         if (e.target.closest && e.target.closest('.svc-nav')) return;
-        // don't set dragging yet — only after move (so click still opens)
         dragging = false;
         stage._dragReady = true;
         stage._dragMoved = false;
+        stage._ptrId = e.pointerId;
         auto = false;
         lastX = e.clientX;
-        try { stage.setPointerCapture(e.pointerId); } catch(_){}
+        stage._downCell = (e.target.closest && e.target.closest('.svc-cell')) || null;
+        // DO NOT capture yet — capture steals click from the card
       });
       stage.addEventListener('pointermove', function(e){
         if (!stage._dragReady) return;
         var dx = e.clientX - lastX;
-        if (!stage._dragMoved && Math.abs(dx) < 6) return;
-        stage._dragMoved = true;
-        dragging = true;
-        stage.classList.add('is-dragging');
+        if (!stage._dragMoved && Math.abs(dx) < 8) return;
+        if (!stage._dragMoved) {
+          stage._dragMoved = true;
+          dragging = true;
+          stage.classList.add('is-dragging');
+          try { stage.setPointerCapture(e.pointerId); } catch(_){}
+        }
         lastX = e.clientX;
         angle += dx * 0.006;
         layoutOrbit();
@@ -3195,18 +3217,22 @@ function bootOrbitaGlobe(){
       });
       function endDrag(e){
         var wasDrag = !!stage._dragMoved;
+        var cell = stage._downCell;
         stage._dragReady = false;
         stage._dragMoved = false;
+        stage._downCell = null;
         dragging = false;
         stage.classList.remove('is-dragging');
-        // keep dragging flag briefly only if we actually dragged (blocks click)
+        try { stage.releasePointerCapture(e.pointerId); } catch(_){}
         if (wasDrag) {
-          dragging = true;
-          setTimeout(function(){ dragging = false; auto = true; }, 180);
+          setTimeout(function(){ auto = true; }, 2400);
         } else {
+          // tap = open
+          if (cell) {
+            try { openCell(cell); } catch (err) { console.warn('openCell', err); }
+          }
           setTimeout(function(){ auto = true; }, 2400);
         }
-        try { stage.releasePointerCapture(e.pointerId); } catch(_){}
       }
       stage.addEventListener('pointerup', endDrag);
       stage.addEventListener('pointercancel', endDrag);
