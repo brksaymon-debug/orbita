@@ -80,6 +80,7 @@
         if (s.classList.contains('tt-cta')) return;
         if (s.querySelector('video')) vids.push(s);
       });
+      if (feed.querySelector('[data-cta="1"]')) return;
       if (vids.length < 3) return;
       var target = vids[2];
       try { var v = target.querySelector('video'); if (v) v.pause(); } catch(_){}
