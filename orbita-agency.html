@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <!-- orbita-build:20260921174050 add-lv0-work-16 -->
-                <meta charset="UTF-8">
+  <!-- orbita-build:20260921174348 restore-feature-lv0 -->
+                  <meta charset="UTF-8">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
-  <meta name="orbita-build" content="20260921174050">
+  <meta name="orbita-build" content="20260921174348">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ОРБИТА — Видео и дизайн, которые продают</title>
 <meta name="description" content="Креативная студия: видеореклама, Reels, монтаж, баннеры, флаеры, афиши и key visual. Договор, NDA, юрлицо. Цены от — финал после брифа.">
@@ -1000,7 +1000,6 @@ h3{font-size:clamp(18px,2vw,22px)}
 
 
 /* Craft: compact service/orbit blocks for denser works */
-.feature-reel{display:none!important}
 .svc-universe{gap:10px!important;margin-top:14px!important}
 .svc-planet{padding:7px 11px 7px 7px!important}
 .svc-planet i{width:22px!important;height:22px!important;font-size:10px!important}
@@ -1024,6 +1023,34 @@ h3{font-size:clamp(18px,2vw,22px)}
   .svc-orbit-stage,.svc-frame.is-orbit .svc-orbit-stage{height:240px!important;min-height:220px!important}
   .svc-frame.is-orbit .svc-orbit-wall .svc-cell{width:100px!important;height:134px!important}
   .svc-frame.is-orbit .svc-orbit-wall .svc-cell.is-wide{width:132px!important;height:80px!important}
+}
+
+
+/* Craft: compact feature reel between trust and services */
+.feature-reel{padding:16px 0 6px;position:relative;z-index:1}
+.feature-reel-frame{
+  position:relative;
+  border-radius:14px;
+  overflow:hidden;
+  border:1px solid rgba(34,224,255,.32);
+  background:#050508;
+  box-shadow:0 14px 40px rgba(0,0,0,.4), 0 0 28px rgba(34,224,255,.10);
+  /* vertical reel kept compact */
+  aspect-ratio:9 / 16;
+  max-width:min(280px, 72vw);
+  max-height:min(42vh, 420px);
+  margin:0 auto;
+}
+.feature-reel-video{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+  background:#000;
+}
+@media (max-width:760px){
+  .feature-reel{padding:12px 0 4px}
+  .feature-reel-frame{border-radius:12px;max-width:min(240px,78vw);max-height:min(38vh,380px)}
 }
 
 </style>
@@ -1099,6 +1126,24 @@ h3{font-size:clamp(18px,2vw,22px)}
       <span class="chip"><i></i>Ответ 24ч</span>
     </div>
   </section>
+
+  <section class="feature-reel" id="feature-reel" aria-label="Шоурил">
+    <div class="wrap">
+      <div class="feature-reel-frame">
+        <video
+          class="feature-reel-video"
+          src="work-16.mp4"
+          muted
+          loop
+          playsinline
+          preload="metadata"
+          autoplay
+          controls
+        ></video>
+      </div>
+    </div>
+  </section>
+
 <section class="section" id="services"><span id="works" hidden></span>
     <div class="wrap">
       <div class="eyebrow">Услуги</div>
@@ -3158,6 +3203,26 @@ function bootOrbitaGlobe(){
 })();
 </script>
 
+
+
+<script>
+(function(){
+  var v = document.querySelector('.feature-reel-video');
+  if (!v) return;
+  var tryPlay = function(){ var p = v.play(); if (p && p.catch) p.catch(function(){}); };
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', tryPlay);
+  else tryPlay();
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (e.isIntersecting) tryPlay();
+        else { try { v.pause(); } catch(_){} }
+      });
+    }, {threshold:0.3});
+    io.observe(v);
+  }
+})();
+</script>
 
 </body>
 </html>
