@@ -742,6 +742,27 @@ body::after{content:"";position:fixed;inset:0;z-index:0;background:rgba(7,7,10,.
 
 .mobile-sticky-cta{display:none;position:fixed;left:12px;right:12px;bottom:12px;z-index:90;padding:14px 18px;border-radius:999px;text-align:center;font-weight:700;background:linear-gradient(135deg,#22e0ff,#3aa0ff);color:#041018;box-shadow:0 12px 40px rgba(34,224,255,.35);text-decoration:none}
 @media (max-width:640px){.mobile-sticky-cta{display:block} body{padding-bottom:76px}}
+
+/* === Production portfolio showcase === */
+.portfolio{padding:88px 0;position:relative;z-index:1}
+.portfolio .section-h{margin-bottom:28px}
+.pf-tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px}
+.pf-tab{padding:9px 14px;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--muted);font-size:13px;cursor:pointer;font-weight:600}
+.pf-tab.active,.pf-tab:hover{color:#041018;background:linear-gradient(135deg,#22e0ff,#3aa0ff);border-color:transparent}
+.pf-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px}
+.pf-card{position:relative;border-radius:14px;overflow:hidden;background:#0a0a12;aspect-ratio:3/4;cursor:pointer;isolation:isolate;box-shadow:0 10px 28px rgba(0,0,0,.35),inset 0 0 0 1px rgba(255,255,255,.05);transition:transform .22s ease,box-shadow .22s ease}
+.pf-card.is-wide{aspect-ratio:16/9}
+.pf-card img{width:100%;height:100%;object-fit:cover;display:block}
+.pf-card:hover{transform:translateY(-2px);box-shadow:0 16px 40px rgba(34,224,255,.2),0 0 0 1px rgba(34,224,255,.35)}
+.pf-meta{position:absolute;left:0;right:0;bottom:0;padding:28px 12px 12px;background:linear-gradient(transparent,rgba(0,0,0,.82))}
+.pf-meta .t{font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:#22e0ff;font-weight:700}
+.pf-meta .n{font-size:13px;font-weight:700;margin-top:3px;line-height:1.25}
+.pf-note{margin-top:16px;font-size:12px;color:var(--dim,#6b7280)}
+.pf-lightbox{position:fixed;inset:0;z-index:200;background:rgba(0,0,0,.88);display:none;align-items:center;justify-content:center;padding:24px}
+.pf-lightbox.open{display:flex}
+.pf-lightbox img{max-width:min(920px,94vw);max-height:88vh;border-radius:12px;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+.pf-lightbox button{position:absolute;top:18px;right:18px;width:42px;height:42px;border-radius:50%;border:1px solid rgba(255,255,255,.25);background:rgba(0,0,0,.5);color:#fff;font-size:22px;cursor:pointer}
+@media (max-width:640px){.pf-grid{grid-template-columns:repeat(2,1fr);gap:8px}}
 </style>
 </head>
 <body>
@@ -752,7 +773,7 @@ body::after{content:"";position:fixed;inset:0;z-index:0;background:rgba(7,7,10,.
       ОРБИТА
     </a>
         <nav class="nav-links" aria-label="Основная навигация">
-      <a href="#works">Работы</a>
+      <a href="#portfolio">Портфолио</a>
       <a href="#prices-fast">Цены</a>
       <a href="#contact">Заказать</a>
     </nav>
@@ -764,7 +785,7 @@ body::after{content:"";position:fixed;inset:0;z-index:0;background:rgba(7,7,10,.
   </div>
 </header>
 <div class="mobile-menu" id="mobileMenu">
-  <a href="#works">Работы</a>
+  <a href="#portfolio">Портфолио</a>
   <a href="#prices-fast">Цены</a>
   <a href="#contact">Заказать</a>
   <a class="btn btn-primary" href="#contact">Заказать</a>
@@ -1137,7 +1158,21 @@ body::after{content:"";position:fixed;inset:0;z-index:0;background:rgba(7,7,10,.
     </div>
   </section>
 
-    <section class="section section-order" id="contact">
+    
+<section class="portfolio" id="portfolio">
+  <div class="container">
+    <div class="section-h">
+      <div class="eyebrow">Витрина стиля</div>
+      <h2>Примеры работ продакшена</h2>
+      <p class="lead">Демо-витрина по направлениям — как выглядит наш визуальный язык. Не чужие клиентские кейсы, а стиль ОРБИТЫ под задачи РФ-рынка.</p>
+    </div>
+    <div class="pf-tabs" id="pfTabs" role="tablist"></div>
+    <div class="pf-grid" id="pfGrid"></div>
+    <p class="pf-note">Каждый блок — 30 примеров. Реальные ролики клиента смотрите в ленте выше (Казахстан, work-12 и др.).</p>
+  </div>
+</section>
+<div class="pf-lightbox" id="pfLb" aria-hidden="true"><button type="button" aria-label="Закрыть">&times;</button><img alt=""></div>
+  <section class="section section-order" id="contact">
     <div class="container">
       <div class="section-h reveal">
         <h2><span class="scramble">Заказать</span></h2>
@@ -1235,7 +1270,7 @@ body::after{content:"";position:fixed;inset:0;z-index:0;background:rgba(7,7,10,.
       </div>
       <div>
         <h4>Меню</h4>
-        <a href="#works">Работы</a>
+        <a href="#portfolio">Портфолио</a>
         <a href="#prices-fast">Цены</a>
         <a href="#contact">Заказать</a>
       </div>
