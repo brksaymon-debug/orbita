@@ -68,42 +68,36 @@
       openOrderSheet(e);
     }, true);
 
-    /* 3) Mid-feed CTA after ~2 video slides */
+    /* 3) Mid-feed CTA: convert 3rd video slide in-place (keeps slides[] in sync) */
     var feed = document.getElementById('ttFeed');
     if (!feed) return;
 
-    function insertCta(){
-      if (feed.querySelector('.tt-slide.tt-cta')) return;
-      var slides = feed.querySelectorAll('.tt-slide');
-      if (!slides.length) return;
-      var videos = [];
-      slides.forEach(function(s){
+    function applyCta(){
+      if (feed.querySelector('[data-cta="1"]')) return;
+      var vids = [];
+      feed.querySelectorAll('.tt-slide').forEach(function(s){
         if (s.dataset.intro === '1') return;
         if (s.classList.contains('tt-cta')) return;
-        if (s.querySelector('video')) videos.push(s);
+        if (s.querySelector('video')) vids.push(s);
       });
-      if (videos.length < 2) return;
-      var after = videos[1];
-      var cta = document.createElement('div');
-      cta.className = 'tt-slide tt-cta';
-      /* reuse intro skip in playAt (stops previous video) */
-      cta.dataset.intro = '1';
-      cta.dataset.cta = '1';
-      cta.innerHTML =
+      if (vids.length < 3) return;
+      var target = vids[2];
+      try { var v = target.querySelector('video'); if (v) v.pause(); } catch(_){}
+      target.className = 'tt-slide tt-cta';
+      target.dataset.intro = '1';
+      target.dataset.cta = '1';
+      target.innerHTML =
         '<div class="tt-cta-title">Нужен такой же ролик?</div>'+
         '<p class="tt-cta-sub">Соберём под ваш бренд — от брифа до мастера</p>'+
         '<button type="button" class="tt-cta-btn">Заказать</button>';
-      after.insertAdjacentElement('afterend', cta);
-      try { window.dispatchEvent(new Event('resize')); } catch (_){}
     }
 
-    var obs = new MutationObserver(function(){ insertCta(); });
+    var obs = new MutationObserver(function(){ applyCta(); });
     obs.observe(feed, { childList: true, subtree: false });
-    insertCta();
-    setTimeout(insertCta, 400);
-    setTimeout(insertCta, 1200);
+    applyCta();
+    setTimeout(applyCta, 400);
+    setTimeout(applyCta, 1200);
 
-    /* CTA tap: order button; block intro-tap navigation */
     feed.addEventListener('click', function(e){
       var slide = e.target.closest && e.target.closest('.tt-slide.tt-cta, .tt-slide[data-cta="1"]');
       if (!slide) return;
