@@ -608,6 +608,107 @@ h3{font-size:clamp(18px,2vw,22px)}
 }
 
 
+
+/* Craft: ORBITAL showcase — works as planets (wow layer) */
+.svc-frame.is-orbit{
+  overflow:visible;
+  padding:14px 14px 18px;
+  background:
+    radial-gradient(ellipse 70% 55% at 50% 48%, rgba(34,224,255,.10), transparent 60%),
+    rgba(6,8,12,.92);
+}
+.svc-orbit-stage{
+  position:relative;
+  height:min(52vh, 420px);
+  min-height:340px;
+  border-radius:18px;
+  overflow:hidden;
+  touch-action:pan-y;
+  cursor:grab;
+  user-select:none;
+}
+.svc-orbit-stage.is-dragging{cursor:grabbing}
+.svc-orbit-ring{
+  position:absolute;left:50%;top:52%;
+  width:min(92%, 720px);height:min(58%, 240px);
+  transform:translate(-50%,-50%);
+  border:1px solid rgba(34,224,255,.28);
+  border-radius:50%;
+  box-shadow:0 0 40px rgba(34,224,255,.08), inset 0 0 40px rgba(34,224,255,.05);
+  pointer-events:none;
+}
+.svc-orbit-ring-2{
+  width:min(70%, 520px);height:min(40%, 160px);
+  border-color:rgba(34,224,255,.14);
+  opacity:.7;
+}
+.svc-orbit-core{
+  position:absolute;left:50%;top:52%;
+  transform:translate(-50%,-50%);
+  width:88px;height:88px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  background:radial-gradient(circle at 35% 30%, #5af0ff, #0a2a33 55%, #05070a 80%);
+  border:1px solid rgba(34,224,255,.55);
+  box-shadow:0 0 40px rgba(34,224,255,.35), 0 0 80px rgba(34,224,255,.15);
+  pointer-events:none;z-index:1;
+}
+.svc-orbit-core span{
+  font-size:10px;font-weight:800;letter-spacing:.14em;color:#041018;
+}
+.svc-orbit-wall{
+  position:absolute !important;inset:0 !important;
+  display:block !important;
+  overflow:visible !important;
+  height:100% !important;
+  width:100% !important;
+  min-height:0 !important;
+  padding:0 !important;
+  mask-image:none !important;
+  -webkit-mask-image:none !important;
+  cursor:inherit;
+  scrollbar-width:none !important;
+}
+.svc-orbit-wall .svc-cell{
+  position:absolute !important;
+  left:50%;top:50%;
+  width:168px !important;
+  height:224px !important;
+  margin:0 !important;
+  flex:none !important;
+  transform:translate(-50%,-50%);
+  will-change:transform;
+  border:1px solid rgba(34,224,255,.25) !important;
+  box-shadow:0 12px 40px rgba(0,0,0,.45), 0 0 20px rgba(34,224,255,.12);
+  transition:box-shadow .25s ease, border-color .25s ease, opacity .25s ease;
+}
+.svc-orbit-wall .svc-cell.is-wide{
+  width:210px !important;height:128px !important;
+}
+.svc-orbit-wall .svc-cell.is-front{
+  border-color:rgba(34,224,255,.75) !important;
+  box-shadow:0 18px 50px rgba(0,0,0,.55), 0 0 36px rgba(34,224,255,.35);
+  z-index:5 !important;
+}
+.svc-orbit-wall .svc-cell.is-back{
+  opacity:.45;filter:saturate(.75) brightness(.75);
+  z-index:1 !important;
+}
+.svc-orbit-stage .svc-nav{
+  position:absolute;top:50%;transform:translateY(-50%);
+  z-index:8;
+}
+.svc-orbit-stage .svc-nav-prev{left:8px}
+.svc-orbit-stage .svc-nav-next{right:8px}
+.svc-progress{margin:12px 64px 0}
+@media (max-width:760px){
+  .svc-orbit-stage{height:300px;min-height:280px}
+  .svc-orbit-wall .svc-cell{width:132px !important;height:176px !important}
+  .svc-orbit-wall .svc-cell.is-wide{width:168px !important;height:100px !important}
+  .svc-orbit-core{width:64px;height:64px}
+  .svc-orbit-core span{font-size:8px}
+  .svc-orbit-stage .svc-nav{display:inline-flex}
+}
+
 /* Craft: premium service rail — arrows, no ugly scrollbar */
 .svc-rail{
   position:relative;
@@ -891,21 +992,24 @@ h3{font-size:clamp(18px,2vw,22px)}
             </div>
           </button>
         </div>
-        <div class="svc-frame" id="svcFrame">
+        <div class="svc-frame is-orbit" id="svcFrame">
           <div class="svc-frame-head">
             <span class="svc-frame-title" id="svcFrameTitle">Примеры</span>
-            <span class="svc-frame-hint" id="svcFrameHint">свайп или стрелки</span>
+            <span class="svc-frame-hint" id="svcFrameHint">тяни орбиту · стрелки</span>
           </div>
-          <div class="svc-rail">
+          <div class="svc-orbit-stage" id="svcOrbitStage">
+            <div class="svc-orbit-ring" aria-hidden="true"></div>
+            <div class="svc-orbit-ring svc-orbit-ring-2" aria-hidden="true"></div>
+            <div class="svc-orbit-core" aria-hidden="true"><span>ORBITA</span></div>
+            <div class="svc-wall svc-orbit-wall" id="svcWall" aria-label="Примеры на орбите" aria-hidden="false"></div>
             <button type="button" class="svc-nav svc-nav-prev" id="svcNavPrev" aria-label="Назад">‹</button>
-            <div class="svc-wall" id="svcWall" aria-label="Примеры выбранной услуги" aria-hidden="false"></div>
             <button type="button" class="svc-nav svc-nav-next" id="svcNavNext" aria-label="Вперёд">›</button>
           </div>
           <div class="svc-progress" aria-hidden="true"><i id="svcProgressBar"></i></div>
         </div>
         <p class="svc-wall-debug" id="svcWallDebug" aria-live="polite"></p>
       </div>
-      <p class="mock-note">Видео-блоки — только ролики. Дизайн-блоки — макеты. ~30 в баннерах/флаерах/афишах/stories.</p>
+      <p class="mock-note">Работы на орбите · клик — открыть · тяни кольцо мышкой</p>
     </div>
   </section>
 
@@ -2654,11 +2758,18 @@ function bootOrbitaGlobe(){
 
 
 <script id="orbita-svc-boot">
-/* Resilient services menu — video cats = video only */
+/* Resilient ORBITAL services showcase */
 (function(){
   'use strict';
   var ASSETS = [[{"t": "video", "s": "work-14.mp4", "l": "Reels", "title": "Фуд-порн · идеальный бургер на гриле"}, {"t": "video", "s": "work-13.mp4", "l": "Reels", "title": "Блогерша и Хозяин болота"}, {"t": "video", "s": "work-02.mp4", "l": "Reels", "title": "Видеореклама / Reels"}, {"t": "video", "s": "work-04.mp4", "l": "Reels", "title": "Reels / вертикаль"}, {"t": "video", "s": "work-12.mp4", "l": "Reels", "title": "Новый ролик"}, {"t": "video", "s": "work-kazakhstan.mp4", "l": "Reels", "title": "Lifestyle cut"}, {"t": "video", "s": "work-05.mp4", "l": "Reels", "title": "Дизайн в движении"}, {"t": "video", "s": "work-01.mp4", "l": "Reels", "title": "Короткий формат"}], [{"t": "img", "s": "portfolio/banners/banners-01.jpg", "l": "Баннер · Orbita", "title": "БЫСТРОЕДА · Доставка 25 мин"}, {"t": "img", "s": "portfolio/banners/banners-02.jpg", "l": "Баннер · Orbita", "title": "ЧИСТОПРО · Уборка офисов"}, {"t": "img", "s": "portfolio/banners/banners-03.jpg", "l": "Баннер · Orbita", "title": "FIT24 · Безлимит"}, {"t": "img", "s": "portfolio/banners/banners-04.jpg", "l": "Баннер · Orbita", "title": "АПТЕКА+ · Витамины −40%"}, {"t": "img", "s": "portfolio/banners/banners-05.jpg", "l": "Баннер · Orbita", "title": "ДОМЛЕС · Не строим как все"}, {"t": "img", "s": "portfolio/banners/banners-06.jpg", "l": "Баннер · Orbita", "title": "ЗЕРНО · Утренний кофе"}, {"t": "img", "s": "portfolio/banners/banners-07.jpg", "l": "Баннер · Orbita", "title": "ДЕНТА ЛАЙН · Отбеливание"}, {"t": "img", "s": "portfolio/banners/banners-08.jpg", "l": "Баннер · Orbita", "title": "КРОНА · Nightclub"}, {"t": "img", "s": "portfolio/banners/banners-09.jpg", "l": "Баннер · Orbita", "title": "АВТОПРО · ТО за 2 часа"}, {"t": "img", "s": "portfolio/banners/banners-10.jpg", "l": "Баннер · Orbita", "title": "NEON BEAUTY · Маникюр"}, {"t": "img", "s": "portfolio/banners/banners-11.jpg", "l": "Баннер · Orbita", "title": "ЛАПА ВЕТ · 24/7"}, {"t": "img", "s": "portfolio/banners/banners-12.jpg", "l": "Баннер · Orbita", "title": "БАРБЕР НОЛЬ · Стрижка"}, {"t": "img", "s": "portfolio/banners/banners-13.jpg", "l": "Баннер · Orbita", "title": "САКУРА · Сет для двоих"}, {"t": "img", "s": "portfolio/banners/banners-14.jpg", "l": "Баннер · Orbita", "title": "КРОШКА · День открытых дверей"}, {"t": "img", "s": "portfolio/banners/banners-15.jpg", "l": "Баннер · Orbita", "title": "БУТОН · Букет за 90 мин"}, {"t": "img", "s": "portfolio/banners/banners-16.jpg", "l": "Баннер · Orbita", "title": "ПРАВО КОНСУЛ · Юрист"}, {"t": "img", "s": "portfolio/banners/banners-17.jpg", "l": "Баннер · Orbita", "title": "ШКОЛА КОД · Программирование"}, {"t": "img", "s": "portfolio/banners/banners-18.jpg", "l": "Баннер · Orbita", "title": "ЙОГА СИТИ · Первый урок free"}, {"t": "img", "s": "portfolio/banners/banners-19.jpg", "l": "Баннер · Orbita", "title": "СУШИ ОРБИТА · Ночной сет"}, {"t": "img", "s": "portfolio/banners/banners-20.jpg", "l": "Баннер · Orbita", "title": "КЛИН ХАУС · Химчистка"}, {"t": "img", "s": "portfolio/banners/banners-21.jpg", "l": "Баннер · Orbita", "title": "МОТО ЛАЙН · Сезон открыт"}, {"t": "img", "s": "portfolio/banners/banners-22.jpg", "l": "Баннер · Orbita", "title": "КИНОКУПОЛ · Премьера"}, {"t": "img", "s": "portfolio/banners/banners-23.jpg", "l": "Баннер · Orbita", "title": "ФЛОРА ПЛЮС · Доставка цветов"}, {"t": "img", "s": "portfolio/banners/banners-24.jpg", "l": "Баннер · Orbita", "title": "СТРОЙ МАРКЕТ · −25% на инструмент"}, {"t": "img", "s": "portfolio/banners/banners-25.jpg", "l": "Баннер · Orbita", "title": "PET CARE · Груминг"}, {"t": "img", "s": "portfolio/banners/banners-26.jpg", "l": "Баннер · Orbita", "title": "CLOUD PAY · Кэшбэк 10%"}, {"t": "img", "s": "portfolio/banners/banners-27.jpg", "l": "Баннер · Orbita", "title": "SPORT WAVE · Марафон города"}, {"t": "img", "s": "portfolio/banners/banners-28.jpg", "l": "Баннер · Orbita", "title": "BEAUTY LAB · Пилинги"}, {"t": "img", "s": "portfolio/banners/banners-29.jpg", "l": "Баннер · Orbita", "title": "НОТА КЛУБ · Live Friday"}, {"t": "img", "s": "portfolio/banners/banners-30.jpg", "l": "Баннер · Orbita", "title": "ТЕХНО ХАБ · Гаджеты"}], [{"t": "img", "s": "portfolio/flyers/flyers-01.jpg", "l": "Флаер · Orbita", "title": "ЗЕРНО · Утренний кофе"}, {"t": "img", "s": "portfolio/flyers/flyers-02.jpg", "l": "Флаер · Orbita", "title": "АПТЕКА+ · Витамины"}, {"t": "img", "s": "portfolio/flyers/flyers-03.jpg", "l": "Флаер · Orbita", "title": "ДЕНТА ЛАЙН · Отбеливание"}, {"t": "img", "s": "portfolio/flyers/flyers-04.jpg", "l": "Флаер · Orbita", "title": "КРОНА · Volt Rider"}, {"t": "img", "s": "portfolio/flyers/flyers-05.jpg", "l": "Флаер · Orbita", "title": "ДОМЛЕС · Не строим как все"}, {"t": "img", "s": "portfolio/flyers/flyers-06.jpg", "l": "Флаер · Orbita", "title": "САКУРА · Сет для двоих"}, {"t": "img", "s": "portfolio/flyers/flyers-07.jpg", "l": "Флаер · Orbita", "title": "NEON BEAUTY · Маникюр"}, {"t": "img", "s": "portfolio/flyers/flyers-08.jpg", "l": "Флаер · Orbita", "title": "FIT24 · Безлимит"}, {"t": "img", "s": "portfolio/flyers/flyers-09.jpg", "l": "Флаер · Orbita", "title": "АВТОПРО · ТО за 2 часа"}, {"t": "img", "s": "portfolio/flyers/flyers-10.jpg", "l": "Флаер · Orbita", "title": "КРОШКА · День открытых дверей"}, {"t": "img", "s": "portfolio/flyers/flyers-11.jpg", "l": "Флаер · Orbita", "title": "ЛАПА ВЕТ · 24/7"}, {"t": "img", "s": "portfolio/flyers/flyers-12.jpg", "l": "Флаер · Orbita", "title": "БАРБЕР НОЛЬ · Стрижка"}, {"t": "img", "s": "portfolio/flyers/flyers-13.jpg", "l": "Флаер · Orbita", "title": "БУТОН · Букет за 90 мин"}, {"t": "img", "s": "portfolio/flyers/flyers-14.jpg", "l": "Флаер · Orbita", "title": "ПРАВО КОНСУЛ · Юрист"}, {"t": "img", "s": "portfolio/flyers/flyers-15.jpg", "l": "Флаер · Orbita", "title": "ШКОЛА КОД · Программирование"}, {"t": "img", "s": "portfolio/flyers/flyers-16.jpg", "l": "Флаер · Orbita", "title": "АУРА СПА · Релакс день"}, {"t": "img", "s": "portfolio/flyers/flyers-17.jpg", "l": "Флаер · Orbita", "title": "ДОМ КЛЮЧ · Квартиры"}, {"t": "img", "s": "portfolio/flyers/flyers-18.jpg", "l": "Флаер · Orbita", "title": "ОКУЛЯР+ · −30% оправы"}, {"t": "img", "s": "portfolio/flyers/flyers-19.jpg", "l": "Флаер · Orbita", "title": "ПЕКАРНЯ УТРО · Выпечка"}, {"t": "img", "s": "portfolio/flyers/flyers-20.jpg", "l": "Флаер · Orbita", "title": "ОТЕЛЬ СЕВЕР · −20%"}, {"t": "img", "s": "portfolio/flyers/flyers-21.jpg", "l": "Флаер · Orbita", "title": "ЧИСТОПРО · Уборка"}, {"t": "img", "s": "portfolio/flyers/flyers-22.jpg", "l": "Флаер · Orbita", "title": "ДВА СЕРДЦА · Свадьба"}, {"t": "img", "s": "portfolio/flyers/flyers-23.jpg", "l": "Флаер · Orbita", "title": "ТЕХНО ХАБ · Гаджеты"}, {"t": "img", "s": "portfolio/flyers/flyers-24.jpg", "l": "Флаер · Orbita", "title": "МОЛНИЯ · Доставка за час"}, {"t": "img", "s": "portfolio/flyers/flyers-25.jpg", "l": "Флаер · Orbita", "title": "ДЫХАНИЕ · Йога"}, {"t": "img", "s": "portfolio/flyers/flyers-26.jpg", "l": "Флаер · Orbita", "title": "КАРТА ПЛЮС · Кэшбэк 10%"}, {"t": "img", "s": "portfolio/flyers/flyers-27.jpg", "l": "Флаер · Orbita", "title": "БЛЕСК АВТО · Мойка"}, {"t": "img", "s": "portfolio/flyers/flyers-28.jpg", "l": "Флаер · Orbita", "title": "ЛИНГВА · Английский"}, {"t": "img", "s": "portfolio/flyers/flyers-29.jpg", "l": "Флаер · Orbita", "title": "ОГОНЬ ПИЦЦА · 30 мин"}, {"t": "img", "s": "portfolio/flyers/flyers-30.jpg", "l": "Флаер · Orbita", "title": "ЛАК СТУДИО · Гель-лак"}], [{"t": "img", "s": "portfolio/posters/posters-01.jpg", "l": "Афиша · Orbita", "title": "ЭХО HALL · Live Night"}, {"t": "img", "s": "portfolio/posters/posters-02.jpg", "l": "Афиша · Orbita", "title": "АРЕНА 26 · Финал"}, {"t": "img", "s": "portfolio/posters/posters-03.jpg", "l": "Афиша · Orbita", "title": "ОРБИТА FILM · Премьера"}, {"t": "img", "s": "portfolio/posters/posters-04.jpg", "l": "Афиша · Orbita", "title": "SS26 · Показ"}, {"t": "img", "s": "portfolio/posters/posters-05.jpg", "l": "Афиша · Orbita", "title": "VOLT FEST · Open Air"}, {"t": "img", "s": "portfolio/posters/posters-06.jpg", "l": "Афиша · Orbita", "title": "BLACK STAGE · Afterparty"}, {"t": "img", "s": "portfolio/posters/posters-07.jpg", "l": "Афиша · Orbita", "title": "RIVER JAZZ · Live"}, {"t": "img", "s": "portfolio/posters/posters-08.jpg", "l": "Афиша · Orbita", "title": "СМЕХ HALL · Стендап"}, {"t": "img", "s": "portfolio/posters/posters-09.jpg", "l": "Афиша · Orbita", "title": "ГОРОД OPERA · Премьера"}, {"t": "img", "s": "portfolio/posters/posters-10.jpg", "l": "Афиша · Orbita", "title": "GAME ON · Турнир"}, {"t": "img", "s": "portfolio/posters/posters-11.jpg", "l": "Афиша · Orbita", "title": "STREET EATS · Фуд маркет"}, {"t": "img", "s": "portfolio/posters/posters-12.jpg", "l": "Афиша · Orbita", "title": "ЗЕРНО · Утренний кофе · афиша"}, {"t": "img", "s": "portfolio/posters/posters-13.jpg", "l": "Афиша · Orbita", "title": "АПТЕКА+ · Витамины · афиша"}, {"t": "img", "s": "portfolio/posters/posters-14.jpg", "l": "Афиша · Orbita", "title": "ДЕНТА ЛАЙН · Отбеливание · афиша"}, {"t": "img", "s": "portfolio/posters/posters-15.jpg", "l": "Афиша · Orbita", "title": "КРОНА · Volt Rider · афиша"}, {"t": "img", "s": "portfolio/posters/posters-16.jpg", "l": "Афиша · Orbita", "title": "ДОМЛЕС · Не строим как все · афиша"}, {"t": "img", "s": "portfolio/posters/posters-17.jpg", "l": "Афиша · Orbita", "title": "САКУРА · Сет для двоих · афиша"}, {"t": "img", "s": "portfolio/posters/posters-18.jpg", "l": "Афиша · Orbita", "title": "NEON BEAUTY · Маникюр · афиша"}, {"t": "img", "s": "portfolio/posters/posters-19.jpg", "l": "Афиша · Orbita", "title": "FIT24 · Безлимит · афиша"}, {"t": "img", "s": "portfolio/posters/posters-20.jpg", "l": "Афиша · Orbita", "title": "АВТОПРО · ТО за 2 часа · афиша"}, {"t": "img", "s": "portfolio/posters/posters-21.jpg", "l": "Афиша · Orbita", "title": "КРОШКА · День открытых дверей · афиша"}, {"t": "img", "s": "portfolio/posters/posters-22.jpg", "l": "Афиша · Orbita", "title": "ЛАПА ВЕТ · 24/7 · афиша"}, {"t": "img", "s": "portfolio/posters/posters-23.jpg", "l": "Афиша · Orbita", "title": "БАРБЕР НОЛЬ · Стрижка · афиша"}, {"t": "img", "s": "portfolio/posters/posters-24.jpg", "l": "Афиша · Orbita", "title": "БУТОН · Букет за 90 мин · афиша"}, {"t": "img", "s": "portfolio/posters/posters-25.jpg", "l": "Афиша · Orbita", "title": "ПРАВО КОНСУЛ · Юрист · афиша"}, {"t": "img", "s": "portfolio/posters/posters-26.jpg", "l": "Афиша · Orbita", "title": "ШКОЛА КОД · Программирование · афиша"}, {"t": "img", "s": "portfolio/posters/posters-27.jpg", "l": "Афиша · Orbita", "title": "АУРА СПА · Релакс день · афиша"}, {"t": "img", "s": "portfolio/posters/posters-28.jpg", "l": "Афиша · Orbita", "title": "ДОМ КЛЮЧ · Квартиры · афиша"}, {"t": "img", "s": "portfolio/posters/posters-29.jpg", "l": "Афиша · Orbita", "title": "ОКУЛЯР+ · −30% оправы · афиша"}, {"t": "img", "s": "portfolio/posters/posters-30.jpg", "l": "Афиша · Orbita", "title": "ПЕКАРНЯ УТРО · Выпечка · афиша"}], [{"t": "img", "s": "portfolio/stories/stories-01.jpg", "l": "KV / Stories · Orbita", "title": "ЗЕРНО · Утренний кофе · Stories"}, {"t": "img", "s": "portfolio/stories/stories-02.jpg", "l": "KV / Stories · Orbita", "title": "АПТЕКА+ · Витамины · Stories"}, {"t": "img", "s": "portfolio/stories/stories-03.jpg", "l": "KV / Stories · Orbita", "title": "ДЕНТА ЛАЙН · Отбеливание · Stories"}, {"t": "img", "s": "portfolio/stories/stories-04.jpg", "l": "KV / Stories · Orbita", "title": "КРОНА · Volt Rider · Stories"}, {"t": "img", "s": "portfolio/stories/stories-05.jpg", "l": "KV / Stories · Orbita", "title": "ДОМЛЕС · Не строим как все · Stories"}, {"t": "img", "s": "portfolio/stories/stories-06.jpg", "l": "KV / Stories · Orbita", "title": "САКУРА · Сет для двоих · Stories"}, {"t": "img", "s": "portfolio/stories/stories-07.jpg", "l": "KV / Stories · Orbita", "title": "NEON BEAUTY · Маникюр · Stories"}, {"t": "img", "s": "portfolio/stories/stories-08.jpg", "l": "KV / Stories · Orbita", "title": "FIT24 · Безлимит · Stories"}, {"t": "img", "s": "portfolio/stories/stories-09.jpg", "l": "KV / Stories · Orbita", "title": "АВТОПРО · ТО за 2 часа · Stories"}, {"t": "img", "s": "portfolio/stories/stories-10.jpg", "l": "KV / Stories · Orbita", "title": "КРОШКА · День открытых дверей · Stories"}, {"t": "img", "s": "portfolio/stories/stories-11.jpg", "l": "KV / Stories · Orbita", "title": "ЛАПА ВЕТ · 24/7 · Stories"}, {"t": "img", "s": "portfolio/stories/stories-12.jpg", "l": "KV / Stories · Orbita", "title": "БАРБЕР НОЛЬ · Стрижка · Stories"}, {"t": "img", "s": "portfolio/stories/stories-13.jpg", "l": "KV / Stories · Orbita", "title": "БУТОН · Букет за 90 мин · Stories"}, {"t": "img", "s": "portfolio/stories/stories-14.jpg", "l": "KV / Stories · Orbita", "title": "ПРАВО КОНСУЛ · Юрист · Stories"}, {"t": "img", "s": "portfolio/stories/stories-15.jpg", "l": "KV / Stories · Orbita", "title": "ШКОЛА КОД · Программирование · Stories"}, {"t": "img", "s": "portfolio/stories/stories-16.jpg", "l": "KV / Stories · Orbita", "title": "АУРА СПА · Релакс день · Stories"}, {"t": "img", "s": "portfolio/stories/stories-17.jpg", "l": "KV / Stories · Orbita", "title": "ДОМ КЛЮЧ · Квартиры · Stories"}, {"t": "img", "s": "portfolio/stories/stories-18.jpg", "l": "KV / Stories · Orbita", "title": "ОКУЛЯР+ · −30% оправы · Stories"}, {"t": "img", "s": "portfolio/stories/stories-19.jpg", "l": "KV / Stories · Orbita", "title": "ПЕКАРНЯ УТРО · Выпечка · Stories"}, {"t": "img", "s": "portfolio/stories/stories-20.jpg", "l": "KV / Stories · Orbita", "title": "ОТЕЛЬ СЕВЕР · −20% · Stories"}, {"t": "img", "s": "portfolio/stories/stories-21.jpg", "l": "KV / Stories · Orbita", "title": "ЧИСТОПРО · Уборка · Stories"}, {"t": "img", "s": "portfolio/stories/stories-22.jpg", "l": "KV / Stories · Orbita", "title": "ДВА СЕРДЦА · Свадьба · Stories"}, {"t": "img", "s": "portfolio/stories/stories-23.jpg", "l": "KV / Stories · Orbita", "title": "ТЕХНО ХАБ · Гаджеты · Stories"}, {"t": "img", "s": "portfolio/stories/stories-24.jpg", "l": "KV / Stories · Orbita", "title": "МОЛНИЯ · Доставка за час · Stories"}, {"t": "img", "s": "portfolio/stories/stories-25.jpg", "l": "KV / Stories · Orbita", "title": "ДЫХАНИЕ · Йога · Stories"}, {"t": "img", "s": "portfolio/stories/stories-26.jpg", "l": "KV / Stories · Orbita", "title": "КАРТА ПЛЮС · Кэшбэк 10% · Stories"}, {"t": "img", "s": "portfolio/stories/stories-27.jpg", "l": "KV / Stories · Orbita", "title": "БЛЕСК АВТО · Мойка · Stories"}, {"t": "img", "s": "portfolio/stories/stories-28.jpg", "l": "KV / Stories · Orbita", "title": "ЛИНГВА · Английский · Stories"}, {"t": "img", "s": "portfolio/stories/stories-29.jpg", "l": "KV / Stories · Orbita", "title": "ОГОНЬ ПИЦЦА · 30 мин · Stories"}, {"t": "img", "s": "portfolio/stories/stories-30.jpg", "l": "KV / Stories · Orbita", "title": "ЛАК СТУДИО · Гель-лак · Stories"}], [{"t": "video", "s": "work-03.mp4", "l": "Motion", "title": "Вертикаль motion"}, {"t": "video", "s": "work-06.mp4", "l": "Motion", "title": "Динамика кадра"}, {"t": "video", "s": "work-07.mp4", "l": "Motion", "title": "Ритм и графика"}, {"t": "video", "s": "work-08.mp4", "l": "Motion", "title": "Серия motion"}, {"t": "video", "s": "work-10.mp4", "l": "Motion", "title": "Короткий motion"}, {"t": "video", "s": "work-11.mp4", "l": "Motion", "title": "Серия в движении"}]];
   var TITLES = ["Видеореклама / Reels", "Баннеры", "Флаеры", "Афиши", "KV / Stories", "Motion"];
+  var angle = 0;
+  var auto = true;
+  var raf = 0;
+  var activeIdx = 0;
+  var dragging = false;
+  var lastX = 0;
+
   function mobile(){
     try { return window.matchMedia && window.matchMedia('(max-width:760px)').matches; }
     catch(e){ return false; }
@@ -2670,31 +2781,108 @@ function bootOrbitaGlobe(){
     if (src.indexOf('kazakhstan') >= 0) return 'still-02.jpg';
     return 'still-01.jpg';
   }
+  function currentSet(){
+    return ASSETS[activeIdx] || ASSETS[0] || [];
+  }
   function render(idx){
     var wall = document.getElementById('svcWall');
     var titleEl = document.getElementById('svcFrameTitle');
     if (!wall) return;
-    idx = parseInt(idx, 10) || 0;
-    var full = ASSETS[idx] || ASSETS[0] || [];
-    var set = mobile() ? full.slice(0, 12) : full.slice();
-    if (titleEl) titleEl.textContent = (TITLES[idx] || 'Примеры') + ' · ' + full.length;
-    wall.innerHTML = set.map(function(a){
-      var wide = (idx === 1 || idx === 5) ? ' is-wide' : '';
+    activeIdx = parseInt(idx, 10) || 0;
+    var full = ASSETS[activeIdx] || ASSETS[0] || [];
+    // orbit shows up to 10 planets for clarity; full set still in lightbox
+    var set = full.slice(0, mobile() ? 8 : 10);
+    if (titleEl) titleEl.textContent = (TITLES[activeIdx] || 'Примеры') + ' · ' + full.length;
+    wall.innerHTML = set.map(function(a, i){
+      var wide = (activeIdx === 1 || activeIdx === 5) ? ' is-wide' : '';
       var design = (a.t === 'img' && !wide) ? ' is-design' : '';
       var label = a.l || '';
       var title = a.title || label;
       var safeTitle = String(title).replace(/"/g,'&quot;');
+      var media;
       if (a.t === 'video') {
-        if (mobile()) {
-          return '<div class="svc-cell'+wide+'" role="button" tabindex="0" data-src="'+a.s+'" data-type="video" data-badge="'+label+'" data-title="'+safeTitle+'"><img src="'+stillFor(a.s)+'" alt="" loading="lazy" decoding="async"><span class="label">▶ '+label+'</span><span class="view-hint">Смотреть</span></div>';
-        }
-        return '<div class="svc-cell'+wide+'" role="button" tabindex="0" data-src="'+a.s+'" data-type="video" data-badge="'+label+'" data-title="'+safeTitle+'"><video src="'+a.s+'" muted loop playsinline preload="none" data-svc-video></video><span class="label">▶ '+label+'</span><span class="view-hint">Смотреть</span></div>';
+        media = '<img src="'+stillFor(a.s)+'" alt="" loading="lazy" decoding="async">';
+        label = '▶ ' + label;
+      } else {
+        media = '<img src="'+a.s+'" alt="'+safeTitle+'" loading="lazy" decoding="async">';
       }
-      return '<div class="svc-cell'+design+wide+'" role="button" tabindex="0" data-src="'+a.s+'" data-type="img" data-badge="'+label+'" data-title="'+safeTitle+'"><img src="'+a.s+'" alt="'+safeTitle+'" loading="lazy" decoding="async"><span class="label">'+label+'</span><span class="view-hint">Смотреть</span></div>';
+      return '<div class="svc-cell'+design+wide+'" data-orbit-i="'+i+'" role="button" tabindex="0" data-src="'+a.s+'" data-type="'+(a.t==='video'?'video':'img')+'" data-badge="'+label+'" data-title="'+safeTitle+'">'+media+'<span class="label">'+label+'</span><span class="view-hint">Смотреть</span></div>';
     }).join('');
-    wall.scrollLeft = 0;
     wall.setAttribute('aria-hidden','false');
-    setTimeout(updateRailUI, 30);
+    angle = 0;
+    layoutOrbit();
+    updateProgress();
+  }
+  function layoutOrbit(){
+    var wall = document.getElementById('svcWall');
+    var stage = document.getElementById('svcOrbitStage');
+    if (!wall || !stage) return;
+    var cells = wall.querySelectorAll('.svc-cell');
+    var n = cells.length;
+    if (!n) return;
+    var w = stage.clientWidth;
+    var h = stage.clientHeight;
+    var rx = Math.min(w * 0.38, 320);
+    var ry = Math.min(h * 0.28, 120);
+    var front = 0;
+    var best = 1e9;
+    for (var i=0;i<n;i++){
+      var a = angle + (i / n) * Math.PI * 2;
+      var x = Math.sin(a) * rx;
+      var y = -Math.cos(a) * ry;
+      var depth = (Math.cos(a) + 1) / 2; // 0 back, 1 front
+      var scale = 0.62 + depth * 0.5;
+      var z = Math.round(depth * 20);
+      var el = cells[i];
+      el.style.transform = 'translate(-50%,-50%) translate('+x+'px,'+y+'px) scale('+scale+')';
+      el.style.zIndex = String(z);
+      el.classList.toggle('is-front', depth > 0.82);
+      el.classList.toggle('is-back', depth < 0.35);
+      if (Math.abs(a % (Math.PI*2)) < best || depth > (cells[front] && 0)) {
+        // track highest depth as front
+      }
+      if (depth > (parseFloat(cells[front].dataset.depth)||0)) front = i;
+      el.dataset.depth = String(depth);
+    }
+    // recompute front
+    front = 0; var md = -1;
+    for (var j=0;j<n;j++){
+      var d = parseFloat(cells[j].dataset.depth)||0;
+      if (d > md){ md=d; front=j; }
+    }
+    for (var k=0;k<n;k++){
+      cells[k].classList.toggle('is-front', k===front);
+      cells[k].classList.toggle('is-back', (parseFloat(cells[k].dataset.depth)||0) < 0.4);
+    }
+  }
+  function updateProgress(){
+    var bar = document.getElementById('svcProgressBar');
+    var n = currentSet().length || 1;
+    var show = Math.min(n, mobile()?8:10);
+    var step = (Math.PI*2) / Math.max(show,1);
+    var idx = ((-angle / step) % show + show) % show;
+    var thumb = 100 / show;
+    if (bar){
+      bar.style.width = thumb + '%';
+      bar.style.marginLeft = (idx / show) * (100 - thumb) + '%';
+      bar.style.transform = 'none';
+    }
+  }
+  function tick(){
+    if (auto && !dragging && !document.hidden){
+      angle += 0.0045;
+      layoutOrbit();
+      updateProgress();
+    }
+    raf = requestAnimationFrame(tick);
+  }
+  function scrollRail(dir){
+    var n = Math.max(1, document.querySelectorAll('#svcWall .svc-cell').length);
+    angle += dir * ((Math.PI*2)/n);
+    auto = false;
+    layoutOrbit();
+    updateProgress();
+    setTimeout(function(){ auto = true; }, 4200);
   }
   function activate(item){
     if (!item) return;
@@ -2714,18 +2902,14 @@ function bootOrbitaGlobe(){
   }
   function openCell(cell){
     if (!cell) return;
-    var wall = document.getElementById('svcWall');
-    var active = document.querySelector('.svc-item.active');
-    var idx = active ? parseInt(active.getAttribute('data-svc'),10) : 0;
-    var set = ASSETS[idx] || ASSETS[0] || [];
-    var cells = wall ? Array.prototype.slice.call(wall.querySelectorAll('.svc-cell')) : [];
-    var i = cells.indexOf(cell);
-    if (i < 0) i = 0;
+    var set = currentSet();
+    var i = parseInt(cell.getAttribute('data-orbit-i'), 10);
+    if (isNaN(i)) i = 0;
     var gallery = set.map(function(x){
       return {src:x.s, type:x.t==='video'?'video':'img', badge:x.l, title:x.title||x.l};
     });
     if (typeof window.openGallery === 'function') {
-      window.openGallery(gallery, gallery[i], i);
+      window.openGallery(gallery, gallery[i]||gallery[0], i);
       return;
     }
     var src = cell.getAttribute('data-src');
@@ -2744,75 +2928,12 @@ function bootOrbitaGlobe(){
     if (type==='video') body.innerHTML = '<video src="'+src+'" controls autoplay playsinline style="max-width:100%;max-height:80vh"></video>';
     else body.innerHTML = '<img src="'+src+'" alt="" style="max-width:100%;max-height:80vh;object-fit:contain">';
   }
-  
-  function updateRailUI(){
-    var wall = document.getElementById('svcWall');
-    var prev = document.getElementById('svcNavPrev');
-    var next = document.getElementById('svcNavNext');
-    var bar = document.getElementById('svcProgressBar');
-    if (!wall) return;
-    var max = Math.max(0, wall.scrollWidth - wall.clientWidth);
-    var left = wall.scrollLeft;
-    if (prev) prev.disabled = left <= 4;
-    if (next) next.disabled = left >= max - 4;
-    if (bar) {
-      if (max <= 0) { bar.style.width = '100%'; bar.style.marginLeft = '0'; return; }
-      var thumb = Math.max(12, (wall.clientWidth / wall.scrollWidth) * 100);
-      var travel = 100 - thumb;
-      var ratio = left / max;
-      bar.style.width = thumb + '%';
-      bar.style.marginLeft = (ratio * travel) + '%';
-      bar.style.transform = 'none';
-    }
-  }
-  function scrollRail(dir){
-    var wall = document.getElementById('svcWall');
-    if (!wall) return;
-    var step = Math.max(220, Math.floor(wall.clientWidth * 0.78));
-    wall.scrollBy({ left: dir * step, behavior: 'smooth' });
-  }
-  function bindRailControls(){
-    var wall = document.getElementById('svcWall');
-    var prev = document.getElementById('svcNavPrev');
-    var next = document.getElementById('svcNavNext');
-    if (!wall || wall.dataset.railBound) return;
-    wall.dataset.railBound = '1';
-    if (prev) prev.addEventListener('click', function(e){ e.preventDefault(); scrollRail(-1); });
-    if (next) next.addEventListener('click', function(e){ e.preventDefault(); scrollRail(1); });
-    wall.addEventListener('scroll', function(){ updateRailUI(); }, {passive:true});
-    // drag-to-scroll (desktop wow)
-    var dragging=false, startX=0, startLeft=0;
-    wall.addEventListener('pointerdown', function(e){
-      if (e.pointerType === 'touch') return;
-      dragging = true; startX = e.clientX; startLeft = wall.scrollLeft;
-      wall.setPointerCapture(e.pointerId);
-      wall.classList.add('is-dragging');
-    });
-    wall.addEventListener('pointermove', function(e){
-      if (!dragging) return;
-      wall.scrollLeft = startLeft - (e.clientX - startX);
-    });
-    function endDrag(e){
-      if (!dragging) return;
-      dragging=false; wall.classList.remove('is-dragging');
-      try { wall.releasePointerCapture(e.pointerId); } catch(_){}
-    }
-    wall.addEventListener('pointerup', endDrag);
-    wall.addEventListener('pointercancel', endDrag);
-    // wheel: horizontal when over rail
-    wall.addEventListener('wheel', function(e){
-      if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
-        wall.scrollLeft += e.deltaY;
-        e.preventDefault();
-      }
-      updateRailUI();
-    }, {passive:false});
-    updateRailUI();
-  }
-
   function bind(){
     var list = document.getElementById('svcList');
     var wall = document.getElementById('svcWall');
+    var stage = document.getElementById('svcOrbitStage');
+    var prev = document.getElementById('svcNavPrev');
+    var next = document.getElementById('svcNavNext');
     if (list && !list.dataset.orbitaBound) {
       list.dataset.orbitaBound = '1';
       list.addEventListener('click', function(e){
@@ -2825,16 +2946,54 @@ function bootOrbitaGlobe(){
     if (wall && !wall.dataset.orbitaBound) {
       wall.dataset.orbitaBound = '1';
       wall.addEventListener('click', function(e){
+        if (dragging) return;
         var cell = e.target.closest && e.target.closest('.svc-cell');
         if (!cell || !wall.contains(cell)) return;
         openCell(cell);
       }, true);
     }
+    if (prev) prev.onclick = function(e){ e.preventDefault(); scrollRail(-1); };
+    if (next) next.onclick = function(e){ e.preventDefault(); scrollRail(1); };
+    if (stage && !stage.dataset.dragBound) {
+      stage.dataset.dragBound = '1';
+      stage.addEventListener('pointerdown', function(e){
+        if (e.target.closest && e.target.closest('.svc-nav')) return;
+        dragging = true; auto = false; lastX = e.clientX;
+        stage.classList.add('is-dragging');
+        try { stage.setPointerCapture(e.pointerId); } catch(_){}
+      });
+      stage.addEventListener('pointermove', function(e){
+        if (!dragging) return;
+        var dx = e.clientX - lastX;
+        lastX = e.clientX;
+        angle += dx * 0.006;
+        layoutOrbit();
+        updateProgress();
+      });
+      function endDrag(e){
+        if (!dragging) return;
+        dragging = false;
+        stage.classList.remove('is-dragging');
+        setTimeout(function(){ auto = true; }, 2400);
+        try { stage.releasePointerCapture(e.pointerId); } catch(_){}
+      }
+      stage.addEventListener('pointerup', endDrag);
+      stage.addEventListener('pointercancel', endDrag);
+      stage.addEventListener('wheel', function(e){
+        angle += (e.deltaY || e.deltaX) * 0.0025;
+        auto = false;
+        layoutOrbit();
+        updateProgress();
+        e.preventDefault();
+        clearTimeout(stage._wheelT);
+        stage._wheelT = setTimeout(function(){ auto = true; }, 2400);
+      }, {passive:false});
+    }
+    window.addEventListener('resize', function(){ layoutOrbit(); });
     var active = document.querySelector('.svc-item.active') || document.querySelector('.svc-item');
-    bindRailControls();
     if (active) activate(active);
     else render(0);
-    setTimeout(updateRailUI, 50);
+    if (!raf) raf = requestAnimationFrame(tick);
   }
   window.activateSvc = function(item){ activate(item); };
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', bind);
