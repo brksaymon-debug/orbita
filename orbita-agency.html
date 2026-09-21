@@ -11,12 +11,12 @@
 <meta name="theme-color" content="#0a0a0c">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Unbounded:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
   --bg:#0a0a0c; --bg2:#121216; --bg3:#1a1a20;
   --text:#f2f2f4; --muted:#9a9aa8; --line:rgba(255,255,255,.08);
-  --accent:#ff5a1f; --accent2:#ff8a4c; --cyan:#2ee6ff;
+  --accent:#22e0ff; --accent2:#7c5cff; --cyan:#22e0ff;
   --ok:#3dd68c; --radius:18px; --max:1180px;
   --font:"Unbounded",system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
   --sans:system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial,sans-serif;
@@ -31,8 +31,8 @@ a{color:inherit;text-decoration:none}
 button,input,textarea,select{font:inherit}
 .wrap{width:min(100% - 32px,var(--max));margin-inline:auto}
 .section{padding:88px 0}
-.eyebrow{font-family:var(--font);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:14px;font-weight:500}
-h1,h2,h3,.display{font-family:var(--font);font-weight:600;letter-spacing:-.02em;line-height:1.15}
+.eyebrow{font-family:var(--display);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:14px;font-weight:500}
+h1,h2,h3,.display{font-family:var(--display);font-weight:600;letter-spacing:-.02em;line-height:1.15}
 h1{font-size:clamp(32px,5vw,56px)}
 h2{font-size:clamp(26px,3.4vw,40px);margin-bottom:18px}
 h3{font-size:clamp(18px,2vw,22px)}
@@ -40,10 +40,10 @@ h3{font-size:clamp(18px,2vw,22px)}
 .btn{
   display:inline-flex;align-items:center;justify-content:center;gap:8px;
   min-height:48px;padding:0 22px;border-radius:999px;border:1px solid transparent;
-  font-family:var(--font);font-size:13px;font-weight:500;cursor:pointer;transition:.2s ease;
+  font-family:var(--sans);font-size:14px;font-weight:600;cursor:pointer;transition:.2s ease;
 }
-.btn-primary{background:var(--accent);color:#fff}
-.btn-primary:hover{background:var(--accent2);transform:translateY(-1px)}
+.btn-primary{background:linear-gradient(135deg,var(--accent),#3aa0ff);color:#041018;box-shadow:0 8px 28px rgba(34,224,255,.28)}
+.btn-primary:hover{transform:translateY(-1px);box-shadow:0 12px 32px rgba(34,224,255,.4)}
 .btn-ghost{background:transparent;border-color:var(--line);color:var(--text)}
 .btn-ghost:hover{border-color:rgba(255,255,255,.28);background:rgba(255,255,255,.04)}
 .btn-sm{min-height:40px;padding:0 16px;font-size:12px}
@@ -54,7 +54,7 @@ h3{font-size:clamp(18px,2vw,22px)}
   background:rgba(10,10,12,.78);border-bottom:1px solid var(--line);
 }
 .nav-inner{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:68px}
-.logo{font-family:var(--font);font-weight:700;font-size:16px;letter-spacing:.08em}
+.logo{font-family:var(--display);font-weight:700;font-size:16px;letter-spacing:.08em}
 .logo span{color:var(--accent)}
 .nav-links{display:flex;align-items:center;gap:22px}
 .nav-links a{font-size:13px;color:var(--muted);transition:.2s}
@@ -77,7 +77,7 @@ h3{font-size:clamp(18px,2vw,22px)}
   display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0;
   z-index:1;
 }
-.wall-col{display:flex;flex-direction:column;gap:8px;animation:wallScroll 42s linear infinite}
+.wall-col{display:flex;flex-direction:column;gap:6px;animation:wallScroll 42s linear infinite}
 .wall-col.reverse{animation-direction:reverse;animation-duration:48s}
 .wall-col:hover{animation-play-state:paused}
 @keyframes wallScroll{0%{transform:translateY(0)}100%{transform:translateY(-50%)}}
@@ -119,7 +119,7 @@ h3{font-size:clamp(18px,2vw,22px)}
 .wall-item::after{
   content:"";position:absolute;inset:0;background:rgba(0,0,0,.0);transition:.2s;pointer-events:none;
 }
-.wall-item:hover::after{background:rgba(0,0,0,.28)}
+.wall-item:hover::after{background:rgba(0,0,0,.12)}
 .hero-bg{position:absolute;inset:0;z-index:-1;opacity:.45;pointer-events:none;overflow:hidden}
 .hero-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,10,12,.35),rgba(10,10,12,.85) 75%,var(--bg) 100%)}
 .hero-bg video{width:100%;height:100%;object-fit:cover;filter:saturate(.85) brightness(.75)}
@@ -139,7 +139,7 @@ h3{font-size:clamp(18px,2vw,22px)}
 .svc-item{
   display:grid;grid-template-columns:40px 1fr;gap:12px;padding:14px 16px;
   position:relative;clip-path:polygon(14px 0,100% 0,100% calc(100% - 14px),calc(100% - 14px) 100%,0 100%,0 14px);
-  border:1px solid rgba(255,90,31,.28);background:rgba(255,255,255,.02);cursor:pointer;transition:.2s;
+  border:1px solid rgba(34,224,255,.28);background:rgba(255,255,255,.02);cursor:pointer;transition:.2s;
   width:100%;text-align:left;font:inherit;color:inherit;appearance:none;-webkit-appearance:none;
 }
 .svc-item::before,.svc-item::after{
@@ -147,7 +147,7 @@ h3{font-size:clamp(18px,2vw,22px)}
 }
 .svc-item::before{left:-1px;top:-1px;border-right:none;border-bottom:none}
 .svc-item::after{right:-1px;bottom:-1px;border-left:none;border-top:none}
-.svc-item:hover,.svc-item.active{border-color:rgba(255,90,31,.6);background:rgba(255,90,31,.07);box-shadow:0 0 0 1px rgba(255,90,31,.15),0 0 22px rgba(255,90,31,.08)}
+.svc-item:hover,.svc-item.active{border-color:rgba(34,224,255,.6);background:rgba(34,224,255,.07);box-shadow:0 0 0 1px rgba(34,224,255,.15),0 0 22px rgba(34,224,255,.08)}
 .svc-num{font-family:var(--font);color:var(--accent);font-size:13px;padding-top:2px}
 .svc-item h3{margin-bottom:6px}
 .svc-item p{color:var(--muted);font-size:14px}
@@ -223,14 +223,14 @@ h3{font-size:clamp(18px,2vw,22px)}
   white-space:pre-wrap;
 }
 .scramble.is-scrambling{
-  color:var(--accent,#ff5a1f);
+  color:var(--accent,#22e0ff);
 }
 .step h3 .scramble,.principles-list .scramble{border-bottom:1px dashed transparent}
 .step h3 .scramble:hover,.principles-list .scramble:hover{
-  border-bottom-color:rgba(255,90,31,.4);
+  border-bottom-color:rgba(34,224,255,.4);
 }
 @media (prefers-reduced-motion:reduce){
-  .scramble.is-scrambling{color:var(--accent,#ff5a1f)}
+  .scramble.is-scrambling{color:var(--accent,#22e0ff)}
   .svc-wall-debug{transition:none}
 }
 @media (max-width:900px){
@@ -284,7 +284,7 @@ h3{font-size:clamp(18px,2vw,22px)}
 .fast-card .price span,.pack-card .price span{font-size:13px;color:var(--muted)}
 .fast-card p,.pack-card p{color:var(--muted);font-size:13px;flex:1}
 .packs{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-.pack-card.popular{border-color:rgba(255,90,31,.55);background:linear-gradient(180deg,rgba(255,90,31,.12),rgba(255,255,255,.02));position:relative}
+.pack-card.popular{border-color:rgba(34,224,255,.55);background:linear-gradient(180deg,rgba(34,224,255,.12),rgba(255,255,255,.02));position:relative}
 .pack-card .tag{
   position:absolute;top:14px;right:14px;font-size:10px;letter-spacing:.08em;text-transform:uppercase;
   color:#fff;background:var(--accent);padding:5px 8px;border-radius:999px;font-family:var(--font);
@@ -300,7 +300,7 @@ h3{font-size:clamp(18px,2vw,22px)}
   padding:22px;border-radius:18px;border:1px solid var(--line);background:rgba(255,255,255,.02);
   transition:.2s;display:flex;flex-direction:column;gap:12px;
 }
-.who-card:hover{border-color:rgba(255,90,31,.4);transform:translateY(-2px)}
+.who-card:hover{border-color:rgba(34,224,255,.4);transform:translateY(-2px)}
 .who-card p{color:var(--muted);font-size:14px;flex:1}
 
 /* FAQ */
@@ -328,7 +328,7 @@ h3{font-size:clamp(18px,2vw,22px)}
   width:100%;border-radius:12px;border:1px solid var(--line);background:var(--bg);
   color:var(--text);padding:12px 14px;outline:none;
 }
-.form input:focus,.form textarea:focus,.form select:focus{border-color:rgba(255,90,31,.55)}
+.form input:focus,.form textarea:focus,.form select:focus{border-color:rgba(34,224,255,.55)}
 .form textarea{min-height:120px;resize:vertical}
 .form-ok{display:none;padding:12px 14px;border-radius:12px;background:rgba(61,214,140,.12);border:1px solid rgba(61,214,140,.35);color:#b7f5d3;font-size:14px}
 .form-ok.show{display:block}
@@ -362,7 +362,7 @@ h3{font-size:clamp(18px,2vw,22px)}
   background:rgba(0,0,0,.45);color:#fff;font-size:28px;line-height:1;cursor:pointer;
   display:grid;place-items:center;backdrop-filter:blur(10px);transition:.2s;
 }
-.lb-nav:hover{background:rgba(255,90,31,.35);border-color:rgba(255,90,31,.55)}
+.lb-nav:hover{background:rgba(34,224,255,.35);border-color:rgba(34,224,255,.55)}
 .lb-prev{left:16px}
 .lb-next{right:16px}
 .lb-meta{
@@ -372,7 +372,7 @@ h3{font-size:clamp(18px,2vw,22px)}
 }
 .lb-badge{
   padding:6px 12px;border-radius:999px;font-size:11px;letter-spacing:.06em;
-  background:rgba(255,90,31,.18);border:1px solid rgba(255,90,31,.45);color:#fff;
+  background:rgba(34,224,255,.18);border:1px solid rgba(34,224,255,.45);color:#fff;
 }
 .lb-title{font-size:14px;color:rgba(255,255,255,.88);max-width:42ch;text-align:center}
 @media (max-width:760px){
@@ -421,7 +421,7 @@ h3{font-size:clamp(18px,2vw,22px)}
 .orbit-globe-section{
   padding:72px 0 96px;
   background:
-    radial-gradient(ellipse 80% 60% at 50% 40%, rgba(255,90,31,.08), transparent 55%),
+    radial-gradient(ellipse 80% 60% at 50% 40%, rgba(34,224,255,.08), transparent 55%),
     radial-gradient(ellipse 50% 40% at 70% 70%, rgba(46,230,255,.05), transparent 50%),
     linear-gradient(180deg, transparent, rgba(255,255,255,.015), transparent);
   position:relative;
@@ -473,14 +473,14 @@ h3{font-size:clamp(18px,2vw,22px)}
   box-shadow:0 8px 24px rgba(0,0,0,.4);
 }
 .orbit-hotspot-tip.is-on{opacity:1}
-.orbit-hotspot-tip.is-afishi{border-color:rgba(255,90,31,.55);color:var(--accent2)}
+.orbit-hotspot-tip.is-afishi{border-color:rgba(34,224,255,.55);color:var(--accent2)}
 .orbit-video-preview{
   position:absolute;z-index:6;pointer-events:none;
   width:240px;
   border-radius:16px;overflow:hidden;
   border:1px solid rgba(255,255,255,.18);
   background:#000;
-  box-shadow:0 18px 50px rgba(0,0,0,.55), 0 0 0 1px rgba(255,90,31,.25);
+  box-shadow:0 18px 50px rgba(0,0,0,.55), 0 0 0 1px rgba(34,224,255,.25);
   opacity:0;transform:translate(-50%,-115%) scale(.92);
   transition:opacity .2s ease, transform .2s ease, width .15s ease, aspect-ratio .15s ease;
 }
@@ -522,7 +522,7 @@ h3{font-size:clamp(18px,2vw,22px)}
     inset -18px -10px 40px rgba(0,0,0,.45),
     0 0 0 2px rgba(46,230,255,.12),
     0 0 48px rgba(46,168,255,.18),
-    0 0 80px rgba(255,90,31,.08);
+    0 0 80px rgba(34,224,255,.08);
   animation:orbitFbSpin 28s linear infinite;
   position:relative;overflow:hidden;
 }
@@ -562,10 +562,10 @@ h3{font-size:clamp(18px,2vw,22px)}
   transform:translateY(-1px);
 }
 .orbit-fb-hotspots button.is-afishi{
-  border-color:rgba(255,90,31,.45);color:var(--accent2,#ff8a4c);
+  border-color:rgba(34,224,255,.45);color:var(--accent2,#7c5cff);
 }
 .orbit-fb-hotspots button.is-afishi:hover{
-  border-color:rgba(255,90,31,.8);box-shadow:0 0 16px rgba(255,90,31,.2);
+  border-color:rgba(34,224,255,.8);box-shadow:0 0 16px rgba(34,224,255,.2);
 }
 .orbit-globe-stage.is-fallback #orbitGlobeCanvas{visibility:hidden}
 @media (max-width:900px){
@@ -577,6 +577,25 @@ h3{font-size:clamp(18px,2vw,22px)}
   .orbit-video-preview{width:min(140px,38vw)}
 }
 
+
+/* Craft: mobile sticky CTA + cases snap */
+.cases-grid{scroll-snap-type:none}
+.mobile-sticky-cta{
+  display:none;position:fixed;left:12px;right:12px;bottom:12px;z-index:80;
+  padding:14px 18px;border-radius:999px;text-align:center;font-weight:700;
+  background:linear-gradient(135deg,var(--accent),#3aa0ff);color:#041018;
+  box-shadow:0 12px 40px rgba(34,224,255,.35);text-decoration:none;
+}
+@media (max-width:640px){
+  .mobile-sticky-cta{display:block}
+  body{padding-bottom:76px}
+  .cases-grid{
+    display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;
+    -webkit-overflow-scrolling:touch;padding-bottom:8px;scrollbar-width:none;
+  }
+  .cases-grid::-webkit-scrollbar{display:none}
+  .cases-grid .case{flex:0 0 min(82vw,320px);scroll-snap-align:start}
+}
 </style>
 </head>
 <body>
@@ -592,7 +611,7 @@ h3{font-size:clamp(18px,2vw,22px)}
       <a href="#contact">Контакт</a>
     </nav>
     <div class="nav-cta">
-      <a class="btn btn-primary btn-sm" href="#contact">Получить смету</a>
+      <a class="btn btn-primary btn-sm" href="#contact">Заказать</a>
       <button class="burger" type="button" aria-label="Меню" id="burger">☰</button>
     </div>
   </div>
@@ -615,18 +634,10 @@ h3{font-size:clamp(18px,2vw,22px)}
     <div class="wrap hero-grid">
       <div class="hero-copy">
         <div class="eyebrow">Креативная студия · видео и дизайн</div>
-        <h1>Видео и дизайн,<br>которые продают</h1>
+        <h1>Ролики и дизайн,<br>которые продают</h1>
         <p class="lead">Ролики, баннеры, афиши, флаеры — под ключ. Видеореклама, монтаж и статичный дизайн для бизнеса: от одной сторис до кампании и печатного макета — с договором, сроками и понятной сметой.</p>
-        <div class="offer-pills" aria-label="Направления">
-          <span>Видеореклама</span>
-          <span>Reels / монтаж</span>
-          <span>Баннеры</span>
-          <span>Флаеры</span>
-          <span>Афиши</span>
-          <span>Key visual</span>
-        </div>
         <div class="hero-actions">
-          <a class="btn btn-primary" href="#contact">Получить смету</a>
+          <a class="btn btn-primary" href="#contact">Заказать рекламу</a>
           <a class="btn btn-ghost" href="#prices">Смотреть цены</a>
           <a class="btn btn-ghost" href="#works">Работы</a>
         </div>
@@ -1738,7 +1749,7 @@ function bootOrbitaGlobe(){
   }
 
   function makeHotspotMaterial(kind){
-    var color = kind === 'afishi' ? 0xff5a1f : 0x2ee6ff;
+    var color = kind === 'afishi' ? 0x22e0ff : 0x2ee6ff;
     return new THREE.MeshBasicMaterial({
       color: color,
       transparent: true,
@@ -1763,7 +1774,7 @@ function bootOrbitaGlobe(){
       group.add(core);
 
       var ringMat = new THREE.MeshBasicMaterial({
-        color: h.type === 'afishi' ? 0xff5a1f : 0x2ee6ff,
+        color: h.type === 'afishi' ? 0x22e0ff : 0x2ee6ff,
         transparent: true,
         opacity: 0.35,
         side: THREE.DoubleSide,
@@ -1853,7 +1864,7 @@ function bootOrbitaGlobe(){
     var glow = new THREE.Mesh(
       new THREE.SphereGeometry(1.12, 32, 32),
       new THREE.MeshBasicMaterial({
-        color: 0xff5a1f,
+        color: 0x22e0ff,
         transparent: true,
         opacity: 0.045,
         side: THREE.BackSide,
@@ -2239,5 +2250,6 @@ function bootOrbitaGlobe(){
     else bind();
   })();
 </script>
+<a class="mobile-sticky-cta" href="#contact">Заказать рекламу</a>
 </body>
 </html>
