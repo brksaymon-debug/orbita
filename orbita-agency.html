@@ -579,6 +579,24 @@ h3{font-size:clamp(18px,2vw,22px)}
 
 
 
+
+/* Mobile perf: lighten without touching desktop */
+@media (max-width:760px){
+  .wall-col{animation:none!important}
+  .media-wall{height:min(42vh,380px)}
+  .hero-bg video{display:none!important}
+  .hero-bg{background:#07070a url(still-01.jpg) center/cover no-repeat}
+  #orbitGlobeCanvas{display:none!important}
+  .orbit-globe-stage{min-height:280px}
+  .svc-cell video{display:none}
+  .svc-cell[data-type="video"]{background:#0a0a0f}
+  .svc-cell[data-type="video"]::after{
+    content:"▶";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+    width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+    background:rgba(0,0,0,.55);border:1px solid rgba(255,255,255,.25);font-size:16px;color:#fff;z-index:2;
+  }
+}
+
 /* Craft: service examples = horizontal swipe frame (menu) */
 .services-grid{
   display:flex;flex-direction:column;gap:18px;
@@ -675,6 +693,19 @@ h3{font-size:clamp(18px,2vw,22px)}
   .cases-grid .case{flex:0 0 min(82vw,320px);scroll-snap-align:start}
 }
 </style>
+<script>
+(function(){
+  try {
+    if (window.matchMedia && window.matchMedia('(max-width:760px)').matches) {
+      document.documentElement.classList.add('is-mobile-perf');
+      document.addEventListener('DOMContentLoaded', function(){
+        var bg = document.querySelector('.hero-bg video[data-autoplay-bg]');
+        if (bg) { bg.removeAttribute('src'); bg.removeAttribute('data-autoplay-bg'); bg.load && bg.load(); bg.remove(); }
+      });
+    }
+  } catch (e) {}
+})();
+</script>
 </head>
 <body>
 <header class="nav">
@@ -1169,6 +1200,10 @@ h3{font-size:clamp(18px,2vw,22px)}
   ];
 
   /* Media wall — dual slow columns */
+  function isMobilePerf(){
+    try { return window.matchMedia && window.matchMedia('(max-width:760px)').matches; }
+    catch (e) { return false; }
+  }
   function wallItem(src, isVideo, wide, badge){
     const el = document.createElement('div');
     el.className = 'wall-item' + (wide ? ' wide' : '') + (isVideo ? '' : ' is-design');
@@ -1183,7 +1218,19 @@ h3{font-size:clamp(18px,2vw,22px)}
     const hint = '<span class="view-hint">Смотреть</span>';
     const title = el.dataset.title;
     if (isVideo){
-      el.innerHTML = badgeHtml+'<video src="'+src+'" muted loop playsinline preload="metadata" data-wall-video></video><button class="play" type="button" tabindex="-1" aria-hidden="true">▶</button>'+hint;
+      if (isMobilePerf()) {
+        // mobile: poster/still only — open lightbox to play (saves decode/bandwidth)
+        var poster = src.replace(/\.mp4$/,'') ;
+        var still = 'still-01.jpg';
+        if (src.indexOf('work-') === 0) {
+          var num = src.replace('work-','').replace('.mp4','');
+          if (/^\d+$/.test(num)) still = 'still-' + (num.length===1?'0'+num:num) + '.jpg';
+          else if (src.indexOf('kazakhstan') >= 0) still = 'still-02.jpg';
+        }
+        el.innerHTML = badgeHtml+'<img src="'+still+'" alt="'+title+'" loading="lazy" decoding="async"><button class="play" type="button" tabindex="-1" aria-hidden="true">▶</button>'+hint;
+      } else {
+        el.innerHTML = badgeHtml+'<video src="'+src+'" muted loop playsinline preload="metadata" data-wall-video></video><button class="play" type="button" tabindex="-1" aria-hidden="true">▶</button>'+hint;
+      }
     } else {
       el.innerHTML = badgeHtml+'<img src="'+src+'" alt="'+title+'" loading="lazy" decoding="async">'+hint;
     }
@@ -1213,9 +1260,16 @@ h3{font-size:clamp(18px,2vw,22px)}
   }
   function fillWall(col, items){
     const frag = document.createDocumentFragment();
-    items.forEach(function(it){ frag.appendChild(wallItem(it.src, it.v, it.wide, it.badge)); });
-    // duplicate for seamless scroll
-    items.forEach(function(it){ frag.appendChild(wallItem(it.src, it.v, it.wide, it.badge)); });
+    var list = items;
+    if (isMobilePerf()) {
+      // fewer tiles, no seamless duplicate (animation off on mobile)
+      list = items.filter(function(it, i){ return i < 5; });
+    }
+    list.forEach(function(it){ frag.appendChild(wallItem(it.src, it.v, it.wide, it.badge)); });
+    if (!isMobilePerf()) {
+      // desktop only: duplicate for seamless scroll
+      list.forEach(function(it){ frag.appendChild(wallItem(it.src, it.v, it.wide, it.badge)); });
+    }
     col.appendChild(frag);
   }
   /* Design mocks — look-only placeholders (АФИША / ФЛАЕР / БАННЕР / STORIES) */
@@ -1604,13 +1658,23 @@ h3{font-size:clamp(18px,2vw,22px)}
   function renderSvcWall(idx){
     if (!svcWall) return;
     activeSvc = idx;
-    const set = svcAssets[idx] || svcAssets[0];
+    const fullSet = svcAssets[idx] || svcAssets[0];
+    const set = isMobilePerf() ? fullSet.slice(0, 12) : fullSet;
     var titleEl = document.getElementById('svcFrameTitle');
-    if (titleEl) titleEl.textContent = (svcTitles[idx] || 'Примеры') + ' · ' + set.length;
+    if (titleEl) titleEl.textContent = (svcTitles[idx] || 'Примеры') + ' · ' + fullSet.length;
     svcWall.innerHTML = set.map(function(a){
       var wide = (idx === 1 || idx === 5) ? ' is-wide' : '';
       var designClass = (a.t === 'img' && !wide) ? ' is-design' : '';
       if (a.t === 'video'){
+        if (isMobilePerf()) {
+          var still = 'still-01.jpg';
+          if (a.s.indexOf('work-') === 0) {
+            var num = a.s.replace('work-','').replace('.mp4','');
+            if (/^\d+$/.test(num)) still = 'still-' + (num.length===1?'0'+num:num) + '.jpg';
+            else if (a.s.indexOf('kazakhstan') >= 0) still = 'still-02.jpg';
+          }
+          return '<div class="svc-cell'+wide+'" role="button" tabindex="0" data-src="'+a.s+'" data-type="video" data-badge="'+a.l+'" data-title="'+(a.title||a.l)+'" aria-label="'+(a.l||'')+' — Смотреть"><img src="'+still+'" alt="" loading="lazy" decoding="async"><span class="label">'+a.l+'</span><span class="view-hint">Смотреть</span></div>';
+        }
         return '<div class="svc-cell'+wide+'" role="button" tabindex="0" data-src="'+a.s+'" data-type="video" data-badge="'+a.l+'" data-title="'+(a.title||a.l)+'" aria-label="'+(a.l||'')+' — Смотреть"><video src="'+a.s+'" muted loop playsinline preload="metadata" data-svc-video></video><span class="label">'+a.l+'</span><span class="view-hint">Смотреть</span></div>';
       }
       return '<div class="svc-cell'+designClass+wide+'" role="button" tabindex="0" data-src="'+a.s+'" data-type="img" data-badge="'+a.l+'" data-title="'+(a.title||a.l)+'" aria-label="'+(a.l||'')+' — Смотреть"><img src="'+a.s+'" alt="'+(a.title||a.l)+'" loading="lazy" decoding="async"><span class="label">'+a.l+'</span><span class="view-hint">Смотреть</span></div>';
@@ -1753,7 +1817,7 @@ h3{font-size:clamp(18px,2vw,22px)}
   });
 
   /* Performance: max 2 playing, preload metadata, pause offscreen */
-  const MAX_PLAYING = 2;
+  const MAX_PLAYING = (window.matchMedia && window.matchMedia('(max-width:760px)').matches) ? 1 : 2;
   function pauseAll(){
     document.querySelectorAll('video').forEach(function(v){
       if (v.id === 'lbVideo' || v.hasAttribute('data-globe-preview')) return;
@@ -1798,7 +1862,7 @@ h3{font-size:clamp(18px,2vw,22px)}
   window.addEventListener('resize', onScroll);
   // initial
   setTimeout(managePlayback, 400);
-  setInterval(managePlayback, 2500);
+  setInterval(managePlayback, (window.matchMedia && window.matchMedia('(max-width:760px)').matches) ? 5000 : 2500);
 
   try {
     window.openSvcGallery = openSvcGallery;
@@ -1812,6 +1876,11 @@ h3{font-size:clamp(18px,2vw,22px)}
 <script>
 /* Load THREE locally first (file:// + Pages), CDN only if local missing */
 (function(){
+  function isMobilePerf(){
+    try {
+      return window.matchMedia && window.matchMedia('(max-width:760px)').matches;
+    } catch (e) { return false; }
+  }
   function loadScript(src, onload, onerror){
     var s = document.createElement('script');
     s.src = src;
@@ -1825,19 +1894,83 @@ h3{font-size:clamp(18px,2vw,22px)}
     window.__orbitaGlobeStarted = true;
     bootOrbitaGlobe();
   }
-  loadScript('three.min.js', startGlobe, function(){
-    loadScript(
-      'https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js',
-      startGlobe,
-      function(){ startGlobe(); /* still boot → accurate THREE-missing fallback */ }
-    );
-  });
+  function showMobileGlobeFallback(){
+    var fb = document.getElementById('orbitGlobeFallback');
+    var canvas = document.getElementById('orbitGlobeCanvas');
+    var msg = document.getElementById('orbitGlobeFallbackMsg');
+    var tip = document.getElementById('orbitGlobeFallbackTip');
+    if (canvas) canvas.style.display = 'none';
+    if (fb) {
+      fb.hidden = false;
+      if (msg) msg.textContent = 'Проекты Orbita';
+      if (tip) tip.textContent = 'На десктопе — 3D-глобус. Здесь быстрый список точек.';
+    }
+    // lightweight hotspot list without THREE
+    try {
+      if (typeof bootOrbitaGlobe === 'function') {
+        // boot still provides fallback path when THREE missing
+        window.__orbitaSkipThree = true;
+        bootOrbitaGlobe();
+      }
+    } catch (err) { console.warn('mobile globe fallback', err); }
+  }
+  if (isMobilePerf()) {
+    showMobileGlobeFallback();
+  } else {
+    loadScript('three.min.js', startGlobe, function(){
+      loadScript(
+        'https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js',
+        startGlobe,
+        function(){ startGlobe(); }
+      );
+    });
+  }
 })();
 
 function bootOrbitaGlobe(){
 /* ========== Interactive 3D Earth (Orbita) ========== */
 (function(){
   'use strict';
+  if (window.__orbitaSkipThree || (window.matchMedia && window.matchMedia('(max-width:760px)').matches)) {
+    // Mobile / skip: use built-in fallback path without WebGL
+    var fallbackEl = document.getElementById('orbitGlobeFallback');
+    var canvas = document.getElementById('orbitGlobeCanvas');
+    var msg = document.getElementById('orbitGlobeFallbackMsg');
+    var tip = document.getElementById('orbitGlobeFallbackTip');
+    var fbHotspots = document.getElementById('orbitFbHotspots');
+    if (canvas) canvas.style.display = 'none';
+    if (fallbackEl) fallbackEl.hidden = false;
+    if (msg) msg.textContent = 'Проекты Orbita';
+    if (tip) tip.textContent = 'Тап по городу — открыть ролик. 3D-глобус на большом экране.';
+    var HOTS = [
+      { label: 'Алматы · Ролик', video: 'work-kazakhstan.mp4' },
+      { label: 'Москва · Ролик', video: 'work-02.mp4' },
+      { label: 'Ташкент · Ролик', video: 'work-04.mp4' },
+      { label: 'Афиши', type: 'afishi' }
+    ];
+    if (fbHotspots && !fbHotspots.childElementCount) {
+      HOTS.forEach(function(h){
+        var b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'orbit-fb-hot';
+        b.textContent = h.label;
+        b.addEventListener('click', function(){
+          if (h.type === 'afishi') {
+            var item = document.querySelector('.svc-item[data-svc="3"]');
+            if (item && window.activateSvc) window.activateSvc(item, {openGallery:false});
+            location.hash = '#services';
+            return;
+          }
+          if (window.openGallery) {
+            window.openGallery([{src:h.video,type:'video',badge:h.label,title:h.label}], {src:h.video,type:'video',badge:h.label,title:h.label}, 0);
+          }
+        });
+        fbHotspots.appendChild(b);
+      });
+    }
+    return;
+  }
+
   var stage = document.getElementById('orbitGlobeStage');
   var canvas = document.getElementById('orbitGlobeCanvas');
   var tipEl = document.getElementById('orbitHotspotTip');
