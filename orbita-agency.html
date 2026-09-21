@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <!-- orbita-build:20260921163540 planets-over-orbit -->
-  <meta charset="UTF-8">
+  <!-- orbita-build:20260921164614 fix-watch-click -->
+    <meta charset="UTF-8">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta name="orbita-build" content="20260911235922">
@@ -659,6 +659,12 @@ h3{font-size:clamp(18px,2vw,22px)}
   .svc-planet span{font-size:12px}
   .svc-planet i{width:24px;height:24px;font-size:10px}
 }
+
+
+.svc-orbit-wall .svc-cell{pointer-events:auto;cursor:pointer}
+.svc-orbit-wall .svc-cell .view-hint{opacity:.9;pointer-events:none}
+.svc-orbit-wall .svc-cell.is-front .view-hint{opacity:1}
+.svc-orbit-wall .svc-cell img,.svc-orbit-wall .svc-cell video{pointer-events:none}
 
 /* Craft: ORBITAL showcase — works as planets (wow layer) */
 .svc-frame.is-orbit{
@@ -2770,17 +2776,7 @@ function bootOrbitaGlobe(){
         if (!el.hasAttribute('tabindex')) el.setAttribute('tabindex', '0');
       });
     }
-    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', bind);
-    else bind();
-  })();
-</script>
-<div class="mobile-sticky-bar" aria-label="Быстрые действия">
-  <a class="msb-ghost" href="#prices">Прайс-лист</a>
-  <a class="msb-primary" href="#contact">Заказать</a>
-</div>
-
-
-<script id="orbita-svc-boot">
+    if (document.readyState === 'loa<script id="orbita-svc-boot">
 /* Resilient ORBITAL services showcase */
 (function(){
   'use strict';
@@ -2792,6 +2788,8 @@ function bootOrbitaGlobe(){
   var raf = 0;
   var activeIdx = 0;
   var dragging = false;
+  var dragMoved = false;
+  var suppressClick = false;
   var lastX = 0;
 
   function mobile(){
@@ -2934,29 +2932,36 @@ function bootOrbitaGlobe(){
     if (!cell) return;
     var set = currentSet();
     var i = parseInt(cell.getAttribute('data-orbit-i'), 10);
-    if (isNaN(i)) i = 0;
+    if (isNaN(i) || i < 0) i = 0;
     var gallery = set.map(function(x){
       return {src:x.s, type:x.t==='video'?'video':'img', badge:x.l, title:x.title||x.l};
     });
-    if (typeof window.openGallery === 'function') {
-      window.openGallery(gallery, gallery[i]||gallery[0], i);
-      return;
-    }
-    var src = cell.getAttribute('data-src');
-    var type = cell.getAttribute('data-type');
+    try {
+      if (typeof window.openGallery === 'function' && gallery[i]) {
+        window.openGallery(gallery, gallery[i], i);
+        return;
+      }
+    } catch (err) { console.warn('openGallery', err); }
+    var src = cell.getAttribute('data-src') || (gallery[i] && gallery[i].src);
+    var type = cell.getAttribute('data-type') || (gallery[i] && gallery[i].type) || 'img';
+    var title = cell.getAttribute('data-title') || '';
     if (!src) return;
     var ov = document.getElementById('orbitaMiniLb');
-    if (!ov) {
-      ov = document.createElement('div');
-      ov.id = 'orbitaMiniLb';
-      ov.style.cssText = 'position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.92);display:flex;align-items:center;justify-content:center;padding:16px';
-      ov.innerHTML = '<button type="button" id="orbitaMiniLbX" style="position:absolute;top:12px;right:12px;padding:10px 14px;border-radius:999px;border:0;background:#22e0ff;color:#041018;font-weight:700">Закрыть</button><div id="orbitaMiniLbBody" style="max-width:100%;max-height:100%"></div>';
-      document.body.appendChild(ov);
-      ov.addEventListener('click', function(e){ if (e.target===ov || e.target.id==='orbitaMiniLbX') ov.remove(); });
-    }
+    if (ov) ov.remove();
+    ov = document.createElement('div');
+    ov.id = 'orbitaMiniLb';
+    ov.setAttribute('role','dialog');
+    ov.style.cssText = 'position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,.94);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;gap:12px';
+    ov.innerHTML = '<button type="button" id="orbitaMiniLbX" style="position:absolute;top:14px;right:14px;padding:10px 16px;border-radius:999px;border:0;background:#22e0ff;color:#041018;font-weight:700;cursor:pointer;z-index:2">Закрыть</button>'
+      + (title ? '<div style="color:#fff;font-size:14px;opacity:.9;max-width:90%;text-align:center">'+title.replace(/</g,'&lt;')+'</div>' : '')
+      + '<div id="orbitaMiniLbBody" style="max-width:min(920px,96vw);max-height:78vh;display:flex;align-items:center;justify-content:center"></div>';
+    document.body.appendChild(ov);
     var body = document.getElementById('orbitaMiniLbBody');
-    if (type==='video') body.innerHTML = '<video src="'+src+'" controls autoplay playsinline style="max-width:100%;max-height:80vh"></video>';
-    else body.innerHTML = '<img src="'+src+'" alt="" style="max-width:100%;max-height:80vh;object-fit:contain">';
+    if (type==='video') body.innerHTML = '<video src="'+src+'" controls autoplay playsinline style="max-width:100%;max-height:78vh;border-radius:12px"></video>';
+    else body.innerHTML = '<img src="'+src+'" alt="" style="max-width:100%;max-height:78vh;object-fit:contain;border-radius:12px">';
+    function close(){ try { ov.remove(); } catch(_){} }
+    ov.addEventListener('click', function(e){ if (e.target===ov || e.target.id==='orbitaMiniLbX') close(); });
+    document.addEventListener('keydown', function esc(ev){ if (ev.key==='Escape'){ close(); document.removeEventListener('keydown', esc); } });
   }
   function bind(){
     var list = document.getElementById('svcList');
@@ -2988,9 +2993,11 @@ function bootOrbitaGlobe(){
     if (wall && !wall.dataset.orbitaBound) {
       wall.dataset.orbitaBound = '1';
       wall.addEventListener('click', function(e){
-        if (dragging) return;
+        if (suppressClick) { suppressClick = false; e.preventDefault(); e.stopPropagation(); return; }
         var cell = e.target.closest && e.target.closest('.svc-cell');
         if (!cell || !wall.contains(cell)) return;
+        e.preventDefault();
+        e.stopPropagation();
         openCell(cell);
       }, true);
     }
@@ -2999,15 +3006,18 @@ function bootOrbitaGlobe(){
     if (stage && !stage.dataset.dragBound) {
       stage.dataset.dragBound = '1';
       stage.addEventListener('pointerdown', function(e){
-        if (e.target.closest && e.target.closest('.svc-nav')) return;
-        dragging = true; auto = false; lastX = e.clientX;
+        if (e.target.closest && (e.target.closest('.svc-nav') || e.target.closest('.svc-planet'))) return;
+        // only drag from empty orbit / ring — cells still get click
+        dragging = true; dragMoved = false; auto = false; lastX = e.clientX;
         stage.classList.add('is-dragging');
         try { stage.setPointerCapture(e.pointerId); } catch(_){}
       });
       stage.addEventListener('pointermove', function(e){
         if (!dragging) return;
         var dx = e.clientX - lastX;
+        if (Math.abs(dx) > 3) dragMoved = true;
         lastX = e.clientX;
+        if (!dragMoved) return;
         angle += dx * 0.006;
         layoutOrbit();
         updateProgress();
@@ -3016,7 +3026,8 @@ function bootOrbitaGlobe(){
         if (!dragging) return;
         dragging = false;
         stage.classList.remove('is-dragging');
-        setTimeout(function(){ auto = true; }, 2400);
+        if (dragMoved) suppressClick = true;
+        setTimeout(function(){ auto = true; suppressClick = false; }, 280);
         try { stage.releasePointerCapture(e.pointerId); } catch(_){}
       }
       stage.addEventListener('pointerup', endDrag);
@@ -3034,6 +3045,14 @@ function bootOrbitaGlobe(){
     window.addEventListener('resize', function(){ layoutOrbit(); });
     var activeP = document.querySelector('.svc-planet.active') || document.querySelector('.svc-planet');
     if (activeP) activateByIndex(activeP.getAttribute('data-svc'), activeP);
+    else render(0);
+    if (!raf) raf = requestAnimationFrame(tick);
+  }
+  window.activateSvc = function(item){ activate(item); };
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', bind);
+  else bind();
+})();
+</script>-svc'), activeP);
     else render(0);
     if (!raf) raf = requestAnimationFrame(tick);
   }
