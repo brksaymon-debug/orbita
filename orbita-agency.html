@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <!-- orbita-build:20260921164916 sound-toggle -->
-        <meta charset="UTF-8">
+  <!-- orbita-build:20260921165309 fix-orbit-css -->
+          <meta charset="UTF-8">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta name="orbita-build" content="20260911235922">
@@ -933,6 +933,64 @@ h3{font-size:clamp(18px,2vw,22px)}
   outline:none;transform:scale(1.05);
 }
 .lb-sound.is-on{border-color:#22e0ff;box-shadow:0 0 22px rgba(34,224,255,.45)}
+
+
+/* FIX: orbit wall must escape old rail/grid/clip rules */
+.svc-frame.is-orbit .svc-orbit-wall.svc-wall,
+#svcWall.svc-orbit-wall{
+  display:block !important;
+  position:absolute !important;
+  inset:0 !important;
+  width:100% !important;
+  height:100% !important;
+  min-height:0 !important;
+  max-height:none !important;
+  margin:0 !important;
+  padding:0 !important;
+  gap:0 !important;
+  overflow:visible !important;
+  clip-path:none !important;
+  border:none !important;
+  background:transparent !important;
+  box-shadow:none !important;
+  grid-template-columns:none !important;
+  grid-template-rows:none !important;
+  flex-direction:unset !important;
+  flex-wrap:unset !important;
+  mask-image:none !important;
+  -webkit-mask-image:none !important;
+  scrollbar-width:none !important;
+}
+.svc-frame.is-orbit .svc-orbit-wall .svc-cell{
+  position:absolute !important;
+  left:50% !important;
+  top:50% !important;
+  right:auto !important;
+  bottom:auto !important;
+  flex:none !important;
+  width:160px !important;
+  height:214px !important;
+  margin:0 !important;
+  min-height:0 !important;
+  grid-row:auto !important;
+  border-radius:14px !important;
+  overflow:hidden !important;
+}
+.svc-frame.is-orbit .svc-orbit-wall .svc-cell.is-wide{
+  width:200px !important;
+  height:120px !important;
+}
+.svc-frame.is-orbit .svc-orbit-wall .svc-cell img,
+.svc-frame.is-orbit .svc-orbit-wall .svc-cell video{
+  width:100% !important;
+  height:100% !important;
+  object-fit:cover !important;
+  display:block !important;
+}
+.svc-orbit-stage{
+  overflow:hidden;
+}
+.svc-orbit-core{z-index:2 !important; pointer-events:none !important}
 
 </style>
 <script>
@@ -2908,6 +2966,10 @@ function bootOrbitaGlobe(){
     angle = 0;
     layoutOrbit();
     updateProgress();
+    // reflow after images (fixes single-card stuck look)
+    setTimeout(layoutOrbit, 40);
+    setTimeout(layoutOrbit, 200);
+    requestAnimationFrame(layoutOrbit);
   }
   function layoutOrbit(){
     var wall = document.getElementById('svcWall');
