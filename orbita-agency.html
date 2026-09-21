@@ -607,6 +607,61 @@ h3{font-size:clamp(18px,2vw,22px)}
   }
 }
 
+
+/* Craft: premium service rail — arrows, no ugly scrollbar */
+.svc-rail{
+  position:relative;
+  display:grid;
+  grid-template-columns:44px 1fr 44px;
+  gap:8px;
+  align-items:center;
+}
+.svc-nav{
+  width:44px;height:44px;border-radius:50%;
+  border:1px solid rgba(34,224,255,.45);
+  background:rgba(8,12,18,.92);
+  color:#22e0ff;font-size:28px;line-height:1;
+  display:inline-flex;align-items:center;justify-content:center;
+  cursor:pointer;transition:.2s;z-index:4;
+  box-shadow:0 0 0 1px rgba(34,224,255,.08),0 8px 24px rgba(0,0,0,.35);
+}
+.svc-nav:hover,.svc-nav:focus-visible{
+  background:rgba(34,224,255,.16);
+  border-color:#22e0ff;
+  box-shadow:0 0 22px rgba(34,224,255,.35);
+  outline:none;
+}
+.svc-nav:disabled{
+  opacity:.28;cursor:default;box-shadow:none;
+}
+.svc-wall{
+  scrollbar-width:none !important;
+  -ms-overflow-style:none !important;
+  mask-image:linear-gradient(90deg, transparent 0, #000 18px, #000 calc(100% - 18px), transparent 100%);
+  -webkit-mask-image:linear-gradient(90deg, transparent 0, #000 18px, #000 calc(100% - 18px), transparent 100%);
+}
+.svc-wall::-webkit-scrollbar{display:none !important;height:0 !important}
+.svc-progress{
+  height:3px;margin:12px 52px 2px;border-radius:999px;
+  background:rgba(255,255,255,.08);overflow:hidden;
+}
+.svc-wall.is-dragging{cursor:grabbing;scroll-snap-type:none}
+.svc-wall{cursor:grab}
+.svc-progress i{
+  display:block;height:100%;width:12%;border-radius:999px;
+  background:linear-gradient(90deg,#22e0ff,#3aa0ff);
+  box-shadow:0 0 12px rgba(34,224,255,.55);
+  transition:width .2s ease, transform .2s ease;
+}
+@media (max-width:760px){
+  .svc-rail{grid-template-columns:1fr}
+  .svc-nav{display:none}
+  .svc-progress{margin:10px 4px 2px}
+  .svc-wall{
+    mask-image:none;-webkit-mask-image:none;
+  }
+}
+
 /* Craft: service examples = horizontal swipe frame (menu) */
 .services-grid{
   display:flex;flex-direction:column;gap:18px;
@@ -839,9 +894,14 @@ h3{font-size:clamp(18px,2vw,22px)}
         <div class="svc-frame" id="svcFrame">
           <div class="svc-frame-head">
             <span class="svc-frame-title" id="svcFrameTitle">Примеры</span>
-            <span class="svc-frame-hint">листай вбок →</span>
+            <span class="svc-frame-hint" id="svcFrameHint">свайп или стрелки</span>
           </div>
-          <div class="svc-wall" id="svcWall" aria-label="Примеры выбранной услуги" aria-hidden="false"></div>
+          <div class="svc-rail">
+            <button type="button" class="svc-nav svc-nav-prev" id="svcNavPrev" aria-label="Назад">‹</button>
+            <div class="svc-wall" id="svcWall" aria-label="Примеры выбранной услуги" aria-hidden="false"></div>
+            <button type="button" class="svc-nav svc-nav-next" id="svcNavNext" aria-label="Вперёд">›</button>
+          </div>
+          <div class="svc-progress" aria-hidden="true"><i id="svcProgressBar"></i></div>
         </div>
         <p class="svc-wall-debug" id="svcWallDebug" aria-live="polite"></p>
       </div>
@@ -2634,6 +2694,7 @@ function bootOrbitaGlobe(){
     }).join('');
     wall.scrollLeft = 0;
     wall.setAttribute('aria-hidden','false');
+    setTimeout(updateRailUI, 30);
   }
   function activate(item){
     if (!item) return;
@@ -2683,6 +2744,72 @@ function bootOrbitaGlobe(){
     if (type==='video') body.innerHTML = '<video src="'+src+'" controls autoplay playsinline style="max-width:100%;max-height:80vh"></video>';
     else body.innerHTML = '<img src="'+src+'" alt="" style="max-width:100%;max-height:80vh;object-fit:contain">';
   }
+  
+  function updateRailUI(){
+    var wall = document.getElementById('svcWall');
+    var prev = document.getElementById('svcNavPrev');
+    var next = document.getElementById('svcNavNext');
+    var bar = document.getElementById('svcProgressBar');
+    if (!wall) return;
+    var max = Math.max(0, wall.scrollWidth - wall.clientWidth);
+    var left = wall.scrollLeft;
+    if (prev) prev.disabled = left <= 4;
+    if (next) next.disabled = left >= max - 4;
+    if (bar) {
+      if (max <= 0) { bar.style.width = '100%'; bar.style.marginLeft = '0'; return; }
+      var thumb = Math.max(12, (wall.clientWidth / wall.scrollWidth) * 100);
+      var travel = 100 - thumb;
+      var ratio = left / max;
+      bar.style.width = thumb + '%';
+      bar.style.marginLeft = (ratio * travel) + '%';
+      bar.style.transform = 'none';
+    }
+  }
+  function scrollRail(dir){
+    var wall = document.getElementById('svcWall');
+    if (!wall) return;
+    var step = Math.max(220, Math.floor(wall.clientWidth * 0.78));
+    wall.scrollBy({ left: dir * step, behavior: 'smooth' });
+  }
+  function bindRailControls(){
+    var wall = document.getElementById('svcWall');
+    var prev = document.getElementById('svcNavPrev');
+    var next = document.getElementById('svcNavNext');
+    if (!wall || wall.dataset.railBound) return;
+    wall.dataset.railBound = '1';
+    if (prev) prev.addEventListener('click', function(e){ e.preventDefault(); scrollRail(-1); });
+    if (next) next.addEventListener('click', function(e){ e.preventDefault(); scrollRail(1); });
+    wall.addEventListener('scroll', function(){ updateRailUI(); }, {passive:true});
+    // drag-to-scroll (desktop wow)
+    var dragging=false, startX=0, startLeft=0;
+    wall.addEventListener('pointerdown', function(e){
+      if (e.pointerType === 'touch') return;
+      dragging = true; startX = e.clientX; startLeft = wall.scrollLeft;
+      wall.setPointerCapture(e.pointerId);
+      wall.classList.add('is-dragging');
+    });
+    wall.addEventListener('pointermove', function(e){
+      if (!dragging) return;
+      wall.scrollLeft = startLeft - (e.clientX - startX);
+    });
+    function endDrag(e){
+      if (!dragging) return;
+      dragging=false; wall.classList.remove('is-dragging');
+      try { wall.releasePointerCapture(e.pointerId); } catch(_){}
+    }
+    wall.addEventListener('pointerup', endDrag);
+    wall.addEventListener('pointercancel', endDrag);
+    // wheel: horizontal when over rail
+    wall.addEventListener('wheel', function(e){
+      if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
+        wall.scrollLeft += e.deltaY;
+        e.preventDefault();
+      }
+      updateRailUI();
+    }, {passive:false});
+    updateRailUI();
+  }
+
   function bind(){
     var list = document.getElementById('svcList');
     var wall = document.getElementById('svcWall');
@@ -2704,8 +2831,10 @@ function bootOrbitaGlobe(){
       }, true);
     }
     var active = document.querySelector('.svc-item.active') || document.querySelector('.svc-item');
+    bindRailControls();
     if (active) activate(active);
     else render(0);
+    setTimeout(updateRailUI, 50);
   }
   window.activateSvc = function(item){ activate(item); };
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', bind);
