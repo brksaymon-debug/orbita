@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <!-- orbita-build:20260921192842 tiktok-sound-play -->
-              <meta charset="UTF-8">
+  <!-- orbita-build:20260921193054 tiktok-force-play -->
+                <meta charset="UTF-8">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
-  <meta name="orbita-build" content="20260921192842">
+  <meta name="orbita-build" content="20260921193054">
+
+<script>/* is-app-mobile-early */try{if(matchMedia('(max-width:760px)').matches)document.documentElement.classList.add('is-app-mobile')}catch(e){}</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -607,8 +609,8 @@ h3{font-size:clamp(18px,2vw,22px)}
   .hero-bg{background:#07070a url(still-01.jpg) center/cover no-repeat}
   #orbitGlobeCanvas{display:none!important}
   .orbit-globe-stage{min-height:280px}
-  .svc-cell video{display:none}
-  .svc-cell[data-type="video"]{background:#0a0a0f}
+  /* was: .svc-cell video{display:none} — breaks TikTok feed */
+.svc-cell[data-type="video"]{background:#0a0a0f}
   .svc-cell[data-type="video"]::after{
     content:"▶";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
     width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;
@@ -1883,6 +1885,27 @@ h3{font-size:clamp(18px,2vw,22px)}
 }
 @media (min-width:761px){
   .app-panel-close{display:none!important}
+}
+
+
+/* FIX: TikTok feed videos MUST show and play */
+@media (max-width:760px){
+  html.is-app-mobile .svc-cell video,
+  html.is-app-mobile #svcWall video,
+  html.is-app-mobile .svc-phone video{
+    display:block!important;
+    visibility:visible!important;
+    opacity:1!important;
+    width:100%!important;
+    height:100%!important;
+    object-fit:cover!important;
+    pointer-events:none!important;
+    background:#000!important;
+  }
+  html.is-app-mobile .svc-cell[data-type="video"]::after{display:none!important;content:none!important}
+  html.is-app-mobile .svc-cell img{display:none!important} /* prefer video when both — shouldn't happen */
+  html.is-app-mobile .svc-cell video + /*noop*/ img{display:none!important}
+  html.is-app-mobile .svc-cell:has(video) img{display:none!important}
 }
 
 </style>
@@ -3776,128 +3799,122 @@ function bootOrbitaGlobe(){
   function bindTikTokFeed(wall){
     if (!wall || !mobile()) return;
     var phone = document.getElementById('svcPhone') || wall.parentElement;
-    var audioOk = false;
+    var unlocked = false;
 
-    function sizeFeed(){
-      if (!phone) return;
-      var h = phone.clientHeight || Math.round(window.innerHeight * 0.78);
-      if (h < 200) h = Math.round(window.innerHeight * 0.78);
+    function pageH(){
+      var h = (phone && phone.clientHeight) || wall.clientHeight || window.innerHeight;
+      return Math.max(240, h|0);
+    }
+    function layout(){
+      var h = pageH();
       wall.style.height = h + 'px';
-      wall.querySelectorAll('.svc-cell').forEach(function(cell){
-        cell.style.height = h + 'px';
-        cell.style.minHeight = h + 'px';
+      wall.style.maxHeight = h + 'px';
+      wall.style.overflowY = 'scroll';
+      wall.style.webkitOverflowScrolling = 'touch';
+      wall.style.scrollSnapType = 'y mandatory';
+      wall.querySelectorAll('.svc-cell').forEach(function(c){
+        c.style.height = h + 'px';
+        c.style.minHeight = h + 'px';
+        c.style.scrollSnapAlign = 'start';
+        c.style.scrollSnapStop = 'always';
+        var v = c.querySelector('video');
+        if (v) {
+          v.style.display = 'block';
+          v.style.width = '100%';
+          v.style.height = '100%';
+          v.style.objectFit = 'cover';
+          v.playsInline = true;
+          v.loop = true;
+          v.removeAttribute('controls');
+          // preload
+          try { v.load(); } catch(_){}
+        }
       });
     }
-    sizeFeed();
-    if (!wall._sized) {
-      wall._sized = '1';
-      window.addEventListener('resize', sizeFeed, {passive:true});
-    }
+    layout();
 
-    function pauseAll(){
+    function idx(){
+      var h = pageH() || 1;
+      return Math.max(0, Math.min(wall.querySelectorAll('.svc-cell').length-1, Math.round(wall.scrollTop / h)));
+    }
+    function stopAll(){
       wall.querySelectorAll('video').forEach(function(v){
         try { v.pause(); } catch(_){}
       });
     }
-    function activeIndex(){
-      var h = wall.clientHeight || 1;
-      return Math.max(0, Math.min(wall.querySelectorAll('.svc-cell').length - 1, Math.round(wall.scrollTop / h)));
-    }
-    function playActive(){
-      sizeFeed();
+    function playCurrent(){
+      layout();
+      stopAll();
       var cells = wall.querySelectorAll('.svc-cell');
-      var idx = activeIndex();
-      pauseAll();
-      var cell = cells[idx];
+      var i = idx();
+      var cell = cells[i];
       if (!cell) return;
       var v = cell.querySelector('video');
       if (!v) return;
-      try {
-        v.playsInline = true;
-        v.setAttribute('playsinline','');
-        v.setAttribute('webkit-playsinline','');
-        v.removeAttribute('controls');
-        v.loop = true;
-        v.currentTime = 0;
-      } catch(_){}
-      // TikTok-style: with sound after user swipe/tap
-      v.muted = !audioOk;
-      var p = v.play();
-      if (p && p.catch) {
-        p.catch(function(){
-          // if unmuted blocked, retry muted then try unmute
-          v.muted = true;
-          v.play().then(function(){
-            if (audioOk) {
+      v.muted = !unlocked;
+      var go = function(){
+        var p = v.play();
+        if (p && p.catch) {
+          p.catch(function(){
+            v.muted = true;
+            return v.play();
+          }).then(function(){
+            if (unlocked) {
               v.muted = false;
               var p2 = v.play(); if (p2 && p2.catch) p2.catch(function(){});
             }
           }).catch(function(){});
-        });
-      }
+        }
+      };
+      try {
+        if (v.readyState >= 2) go();
+        else {
+          v.addEventListener('loadeddata', function once(){ v.removeEventListener('loadeddata', once); go(); });
+          try { v.load(); } catch(_){}
+          go();
+        }
+      } catch(_){ go(); }
     }
 
-    // any touch unlocks audio for subsequent plays
-    if (!wall.dataset.audioUnlock) {
-      wall.dataset.audioUnlock = '1';
-      var unlock = function(){ audioOk = true; };
-      wall.addEventListener('touchstart', unlock, {passive:true});
-      wall.addEventListener('pointerdown', unlock, {passive:true});
-    }
-
-    if (wall._tikIo) { try { wall._tikIo.disconnect(); } catch(_){ } }
-    if ('IntersectionObserver' in window) {
-      wall._tikIo = new IntersectionObserver(function(entries){
-        var best = null, bestR = 0;
-        entries.forEach(function(en){
-          if (en.isIntersecting && en.intersectionRatio > bestR) {
-            bestR = en.intersectionRatio; best = en.target;
-          }
-        });
-        if (bestR >= 0.6) playActive();
-      }, { root: wall, threshold: [0.6, 0.85, 1] });
-      wall.querySelectorAll('video').forEach(function(v){ wall._tikIo.observe(v); });
-    }
-
-    if (!wall.dataset.swipeBound) {
-      wall.dataset.swipeBound = '1';
-      var sy = 0, moved = false;
+    if (!wall.dataset.ttBound) {
+      wall.dataset.ttBound = '1';
+      var sy=0, moved=false;
       wall.addEventListener('touchstart', function(e){
-        if (!e.touches || !e.touches.length) return;
-        sy = e.touches[0].clientY; moved = false;
-        audioOk = true;
+        unlocked = true;
+        if (e.touches && e.touches[0]) { sy = e.touches[0].clientY; moved=false; }
       }, {passive:true});
       wall.addEventListener('touchmove', function(e){
-        if (!e.touches || !e.touches.length) return;
-        if (Math.abs(e.touches[0].clientY - sy) > 10) moved = true;
+        if (e.touches && e.touches[0] && Math.abs(e.touches[0].clientY - sy) > 12) moved = true;
       }, {passive:true});
       wall.addEventListener('touchend', function(e){
-        audioOk = true;
+        unlocked = true;
         var ey = (e.changedTouches && e.changedTouches[0]) ? e.changedTouches[0].clientY : sy;
         var dy = ey - sy;
-        var h = wall.clientHeight || 1;
-        if (moved && Math.abs(dy) >= 36) {
+        var h = pageH();
+        if (moved && Math.abs(dy) > 40) {
           var page = Math.round(wall.scrollTop / h);
-          if (dy < 0) page += 1; else page -= 1;
-          page = Math.max(0, Math.min(page, wall.querySelectorAll('.svc-cell').length - 1));
-          wall.scrollTo({ top: page * h, behavior: 'smooth' });
-          setTimeout(playActive, 280);
+          page += (dy < 0 ? 1 : -1);
+          page = Math.max(0, Math.min(page, wall.querySelectorAll('.svc-cell').length-1));
+          wall.scrollTo({top: page * h, behavior:'smooth'});
+          setTimeout(playCurrent, 320);
         } else {
-          // tap current — ensure play with sound
-          playActive();
+          playCurrent();
         }
       }, {passive:true});
-      var scrollT = null;
+      var tmr;
       wall.addEventListener('scroll', function(){
-        clearTimeout(scrollT);
-        scrollT = setTimeout(playActive, 120);
+        clearTimeout(tmr);
+        tmr = setTimeout(playCurrent, 80);
       }, {passive:true});
+      window.addEventListener('resize', function(){ layout(); playCurrent(); }, {passive:true});
     }
 
     wall.scrollTop = 0;
-    // first video: try with sound after a tick (may stay muted until first touch)
-    setTimeout(playActive, 60);
+    // autoplay first (muted until first touch, then with sound)
+    setTimeout(playCurrent, 100);
+    setTimeout(playCurrent, 500);
   }
+  function 
   function 
   function 
   function bind(){
