@@ -1,12 +1,20 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <!-- orbita-build:20260921191233 mobile-app-tiktok -->
-                      \n                          <meta charset="UTF-8">
+  <!-- orbita-build:20260921191448 mobile-pwa-app -->
+  <meta charset="UTF-8">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
-  <meta name="orbita-build" content="20260921191233">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="orbita-build" content="20260921191448">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="ОРБИТА">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+
 <title>ОРБИТА — Видео и дизайн, которые продают</title>
 <meta name="description" content="Креативная студия: видеореклама, Reels, монтаж, баннеры, флаеры, афиши и key visual. Договор, NDA, юрлицо. Цены от — финал после брифа.">
 <meta name="theme-color" content="#0a0a0c">
@@ -1416,6 +1424,114 @@ h3{font-size:clamp(18px,2vw,22px)}
 @media (min-width:761px){
   .svc-phone{display:contents}
   .svc-frame-hint-mob,.svc-tiktok-hint{display:none!important}
+}
+
+
+/* Craft: mobile = app shell like TikTok / Play Store web-app */
+@media (max-width:760px){
+  html.is-app-mobile, html.is-app-mobile body{
+    background:#000!important;
+    overscroll-behavior:none;
+  }
+  html.is-app-mobile body{
+    padding-bottom:calc(64px + env(safe-area-inset-bottom, 0px));
+  }
+  /* top app bar */
+  html.is-app-mobile .nav{
+    position:sticky; top:0; z-index:80;
+    background:rgba(0,0,0,.72)!important;
+    backdrop-filter:blur(14px);
+    border-bottom:1px solid rgba(255,255,255,.06);
+    padding-top:env(safe-area-inset-top, 0px);
+  }
+  html.is-app-mobile .nav-links{display:none!important}
+  html.is-app-mobile .nav-inner{
+    min-height:52px;
+    display:flex;align-items:center;justify-content:space-between;
+  }
+  html.is-app-mobile .burger{display:none!important}
+  html.is-app-mobile .mobile-menu{display:none!important}
+  html.is-app-mobile .nav-cta .btn{padding:8px 14px;font-size:13px}
+
+  /* hide heavy website blocks — keep hero light + services feed + contact/prices reachable */
+  html.is-app-mobile .trust,
+  html.is-app-mobile .feature-reel,
+  html.is-app-mobile .orbit-globe-section,
+  html.is-app-mobile #process,
+  html.is-app-mobile .footer,
+  html.is-app-mobile .mobile-sticky,
+  html.is-app-mobile .hero-note{display:none!important}
+
+  html.is-app-mobile .hero{
+    min-height:auto!important;
+    padding:18px 0 8px!important;
+  }
+  html.is-app-mobile .hero h1{font-size:clamp(22px,6.5vw,30px)!important;line-height:1.15}
+  html.is-app-mobile .hero .lead{font-size:13px!important;margin:10px 0 14px!important}
+  html.is-app-mobile .hero-actions{gap:8px}
+  html.is-app-mobile .hero-actions .btn{flex:1;justify-content:center;text-align:center}
+
+  /* services as main app screen */
+  html.is-app-mobile #services{
+    padding:8px 0 12px!important;
+    min-height:calc(100dvh - 120px);
+  }
+  html.is-app-mobile #services .eyebrow{display:none}
+  html.is-app-mobile #services h2{
+    font-size:15px!important;text-align:center;margin:0 0 4px;
+    letter-spacing:.04em;text-transform:uppercase;color:#22e0ff;font-weight:700;
+  }
+  html.is-app-mobile #services .lead{display:none!important}
+
+  /* phone becomes almost full-screen stage */
+  html.is-app-mobile .svc-phone{
+    width:100%!important;
+    max-width:480px!important;
+    max-height:calc(100dvh - 210px)!important;
+    height:calc(100dvh - 210px)!important;
+    aspect-ratio:auto!important;
+    border-radius:18px!important;
+    border:0!important;
+    box-shadow:none!important;
+  }
+  html.is-app-mobile .svc-phone::before{display:none!important}
+  html.is-app-mobile .svc-frame.is-orbit,
+  html.is-app-mobile .svc-frame{
+    border:0!important;background:transparent!important;padding:0!important;clip-path:none!important;
+  }
+
+  /* bottom dock */
+  .app-dock{
+    display:flex!important;
+    position:fixed;left:0;right:0;bottom:0;z-index:90;
+    height:calc(58px + env(safe-area-inset-bottom, 0px));
+    padding:6px 8px calc(6px + env(safe-area-inset-bottom, 0px));
+    background:rgba(8,8,10,.92);
+    backdrop-filter:blur(16px);
+    border-top:1px solid rgba(255,255,255,.08);
+    justify-content:space-around;align-items:flex-start;gap:2px;
+  }
+  .app-dock-item{
+    flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;
+    color:#9a9aa8;font-size:10px;font-weight:600;text-decoration:none;
+    padding-top:4px;
+  }
+  .app-dock-item i{
+    width:22px;height:22px;border-radius:8px;
+    background:rgba(255,255,255,.08);
+    display:block;
+  }
+  .app-dock-item.app-dock-main{
+    color:#041018;
+  }
+  .app-dock-item.app-dock-main i{
+    width:44px;height:28px;border-radius:999px;background:#22e0ff;
+    box-shadow:0 0 18px rgba(34,224,255,.45);
+  }
+  .app-dock-item.app-dock-main span{color:#22e0ff}
+}
+@media (min-width:761px){
+  .app-dock{display:none!important}
 }
 
 </style>
@@ -3664,6 +3780,34 @@ function bootOrbitaGlobe(){
       });
     }, {threshold:0.3});
     io.observe(v);
+  }
+})();
+</script>
+
+
+<nav class="app-dock" id="appDock" aria-label="Меню приложения">
+  <a class="app-dock-item" href="#services" data-dock="works"><i></i><span>Работы</span></a>
+  <a class="app-dock-item" href="#services" data-dock="svc"><i></i><span>Услуги</span></a>
+  <a class="app-dock-item app-dock-main" href="#contact" data-dock="order"><i></i><span>Заказать</span></a>
+  <a class="app-dock-item" href="#prices" data-dock="price"><i></i><span>Прайс</span></a>
+  <a class="app-dock-item" href="#contact" data-dock="chat"><i></i><span>Связь</span></a>
+</nav>
+
+
+<script>
+(function(){
+  try {
+    var mob = window.matchMedia && window.matchMedia('(max-width:760px)').matches;
+    if (mob) document.documentElement.classList.add('is-app-mobile');
+    if (location.search.indexOf('app=1') >= 0) document.documentElement.classList.add('is-standalone-app');
+    if (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) {
+      document.documentElement.classList.add('is-standalone-app');
+    }
+  } catch(_){}
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function(){
+      navigator.serviceWorker.register('./sw.js').catch(function(){});
+    });
   }
 })();
 </script>
