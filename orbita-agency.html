@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <!-- orbita-build:20260921200405 ttapp-clean -->
-                      <meta charset="UTF-8">
+  <!-- orbita-build:20260921200843 tt-no-crop-no-freeze -->
+                        <meta charset="UTF-8">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
-  <meta name="orbita-build" content="20260921200405">
+  <meta name="orbita-build" content="20260921200843">
 
 <script>/* is-app-mobile-early */try{if(matchMedia('(max-width:760px)').matches)document.documentElement.classList.add('is-app-mobile')}catch(e){}</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1">
@@ -2066,7 +2066,7 @@ h3{font-size:clamp(18px,2vw,22px)}
   html.is-app-mobile .tt-slide video{
     position:absolute; inset:0;
     width:100%; height:100%;
-    object-fit:cover; display:block; background:#000;
+    object-fit:contain; display:block; background:#000;
     pointer-events:none;
   }
   html.is-app-mobile .tt-slide .tt-cap{
@@ -4666,32 +4666,36 @@ function bootOrbitaGlobe(){
     var H = slideH() || 1;
     return Math.max(0, Math.min(slides.length - 1, Math.round(feed.scrollTop / H)));
   }
+  var activeVideo = null;
   function playAt(i, withSound){
     layout();
     var s = slides[i];
     if (!s) return;
     var v = s.querySelector('video');
     if (!v) return;
-    stopAll(v);
-    try { v.currentTime = 0; } catch(e){}
-    v.muted = !withSound;
-    var go = function(){
-      var p = v.play();
-      if (p && p.catch) {
-        p.catch(function(){
-          v.muted = true;
-          return v.play().then(function(){
-            if (withSound) { v.muted = false; return v.play(); }
-          });
-        }).catch(function(){});
+    // already playing this clip — only unmute if needed, don't restart
+    if (activeVideo === v && !v.paused) {
+      if (withSound && v.muted) {
+        v.muted = false;
+        var p0 = v.play(); if (p0 && p0.catch) p0.catch(function(){});
       }
-    };
-    if (v.readyState >= 2) go();
-    else {
-      var on = function(){ v.removeEventListener('canplay', on); go(); };
-      v.addEventListener('canplay', on);
-      try { v.load(); } catch(e){}
-      go();
+      return;
+    }
+    stopAll(v);
+    activeVideo = v;
+    v.muted = !withSound;
+    // DO NOT reset currentTime / load() — that freezes on first frame
+    var p = v.play();
+    if (p && p.catch) {
+      p.catch(function(){
+        v.muted = true;
+        return v.play().then(function(){
+          if (withSound) {
+            v.muted = false;
+            return v.play();
+          }
+        });
+      }).catch(function(){});
     }
   }
   function playCurrent(withSound){ playAt(idx(), !!withSound); }
@@ -4706,7 +4710,7 @@ function bootOrbitaGlobe(){
       var title = a.title || a.l || a.badge || ('Пример ' + (i+1));
       var el = document.createElement('div');
       el.className = 'tt-slide';
-      el.innerHTML = '<video playsinline webkit-playsinline loop preload="auto" poster="'+stillFor(src)+'" src="'+src+'" muted></video>'+
+      el.innerHTML = '<video playsinline webkit-playsinline loop preload="metadata" poster="'+stillFor(src)+'" src="'+src+'" muted playsinline webkit-playsinline></video>'+
         '<div class="tt-cap">Пример · '+String(title).replace(/</g,'&lt;')+'</div>'+
         '<button type="button" class="tt-sound" aria-label="Звук">🔊</button>';
       feed.appendChild(el);
@@ -4742,7 +4746,13 @@ function bootOrbitaGlobe(){
   }, {passive:true});
   feed.addEventListener('scroll', function(){
     clearTimeout(feed._t);
-    feed._t = setTimeout(function(){ playCurrent(soundOn); }, 70);
+    feed._t = setTimeout(function(){
+      var i = idx();
+      var s = slides[i];
+      var v = s && s.querySelector('video');
+      if (v && activeVideo === v && !v.paused) return;
+      playCurrent(soundOn);
+    }, 120);
   }, {passive:true});
   feed.addEventListener('click', function(e){
     if (e.target.closest && e.target.closest('.tt-sound')) {
