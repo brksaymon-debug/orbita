@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <!-- orbita-build:20260921210300 tt-intro-slide -->
-                            <meta charset="UTF-8">
+  <!-- orbita-build:20260921210905 tt-intro-cover -->
+                              <meta charset="UTF-8">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
-  <meta name="orbita-build" content="20260921210300">
+  <meta name="orbita-build" content="20260921210905">
 
 <script>/* is-app-mobile-early */try{if(matchMedia('(max-width:760px)').matches)document.documentElement.classList.add('is-app-mobile')}catch(e){}</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1">
@@ -2146,6 +2146,64 @@ h3{font-size:clamp(18px,2vw,22px)}
   html.is-app-mobile .tt-intro-orbit:nth-child(2){
     inset:5% 5% auto 5%; height:40%; opacity:.35;
   }
+}
+
+
+/* Craft: mobile phone intro COVER — always on top */
+@media (max-width:760px){
+  html.is-app-mobile .tt-intro-cover{
+    position:absolute!important; inset:0!important; z-index:30!important;
+    display:flex!important; flex-direction:column!important; justify-content:flex-end!important;
+    padding:0 18px 26px!important; box-sizing:border-box!important;
+    background:
+      radial-gradient(ellipse 80% 55% at 50% 18%, rgba(34,224,255,.28), transparent 55%),
+      radial-gradient(ellipse 70% 45% at 50% 100%, rgba(124,92,255,.18), transparent 50%),
+      linear-gradient(180deg, #0c1420 0%, #05070b 55%, #000 100%)!important;
+    color:#fff!important;
+    transition: opacity .35s ease, transform .35s ease;
+  }
+  html.is-app-mobile .tt-intro-cover.is-gone{
+    opacity:0!important; pointer-events:none!important; transform:translateY(-12%)!important;
+  }
+  html.is-app-mobile .tt-intro-cover .tt-intro-orbit{
+    position:absolute!important; inset:-8% -18% auto -18%!important; height:52%!important;
+    border:1px solid rgba(34,224,255,.22)!important; border-radius:50%!important;
+    pointer-events:none!important; opacity:.75!important;
+  }
+  html.is-app-mobile .tt-intro-cover .tt-intro-orbit:nth-child(2){
+    inset:8% 8% auto 8%!important; height:38%!important; opacity:.35!important;
+  }
+  html.is-app-mobile .tt-intro-cover .tt-intro-inner{position:relative!important; z-index:2!important}
+  html.is-app-mobile .tt-intro-cover .tt-intro-eyebrow{
+    font:700 11px/1.2 Unbounded,system-ui!important; letter-spacing:.14em!important;
+    text-transform:uppercase!important; color:#22e0ff!important; margin:0 0 10px!important;
+  }
+  html.is-app-mobile .tt-intro-cover .tt-intro-title{
+    font:700 clamp(22px,6.2vw,28px)/1.15 Unbounded,system-ui!important;
+    color:#fff!important; margin:0 0 10px!important;
+  }
+  html.is-app-mobile .tt-intro-cover .tt-intro-lead{
+    font:500 13px/1.45 Inter,system-ui!important; color:rgba(242,242,244,.86)!important;
+    margin:0 0 14px!important; max-width:32ch!important;
+  }
+  html.is-app-mobile .tt-intro-cover .tt-intro-tags{display:flex!important; flex-wrap:wrap!important; gap:6px!important; margin:0 0 16px!important}
+  html.is-app-mobile .tt-intro-cover .tt-intro-tags span{
+    font:600 11px/1 Inter,system-ui!important; color:#e8eef8!important;
+    border:1px solid rgba(34,224,255,.4)!important; background:rgba(34,224,255,.1)!important;
+    border-radius:999px!important; padding:7px 10px!important;
+  }
+  html.is-app-mobile .tt-intro-cover .tt-intro-go{
+    display:block!important; width:100%!important; margin:0 0 10px!important;
+    border:0!important; border-radius:14px!important; padding:14px 16px!important;
+    font:700 14px/1 Unbounded,system-ui!important; color:#041018!important;
+    background:linear-gradient(135deg,#22e0ff,#7c5cff)!important;
+    box-shadow:0 10px 28px rgba(34,224,255,.28)!important; cursor:pointer!important;
+  }
+  html.is-app-mobile .tt-intro-cover .tt-intro-pc{
+    margin:0!important; text-align:center!important;
+    font:500 11px/1.35 Inter,system-ui!important; color:rgba(255,255,255,.55)!important;
+  }
+  html.is-app-mobile .tt-phone{ position:relative!important; overflow:hidden!important; }
 }
 
 </style>
@@ -4544,6 +4602,20 @@ function bootOrbitaGlobe(){
   <div class="tt-phone" id="ttPhone">
     <div class="tt-notch" aria-hidden="true"></div>
     <div class="tt-brand" aria-hidden="true">ОРБИТА</div>
+    <div class="tt-intro-cover" id="ttIntroCover" role="dialog" aria-label="О студии">
+      <div class="tt-intro-orbit" aria-hidden="true"></div>
+      <div class="tt-intro-orbit" aria-hidden="true"></div>
+      <div class="tt-intro-inner">
+        <div class="tt-intro-eyebrow">Креативная студия</div>
+        <h2 class="tt-intro-title">Ролики и дизайн,<br>которые продают</h2>
+        <p class="tt-intro-lead">Видеореклама, Reels, баннеры и афиши под ключ — от брифа до мастера.</p>
+        <div class="tt-intro-tags">
+          <span>Reels</span><span>Motion</span><span>Баннеры</span><span>Афиши</span><span>Stories</span>
+        </div>
+        <button type="button" class="tt-intro-go" id="ttIntroGo">Смотреть примеры ↑</button>
+        <p class="tt-intro-pc">Полная атмосфера — откройте сайт в режиме ПК</p>
+      </div>
+    </div>
     <div class="tt-feed" id="ttFeed" aria-label="Лента примеров"></div>
   </div>
 </div>
@@ -4695,6 +4767,26 @@ function bootOrbitaGlobe(){
   var phone = document.getElementById('ttPhone');
   if (!app || !feed || !phone) return;
   app.hidden = false;
+
+  var introCover = document.getElementById('ttIntroCover');
+  function dismissIntro(){
+    if (!introCover || introCover.classList.contains('is-gone')) return;
+    introCover.classList.add('is-gone');
+    setTimeout(function(){ try { introCover.setAttribute('hidden',''); } catch(e){} }, 380);
+    soundOn = true;
+    setTimeout(function(){ playCurrent(true); }, 120);
+  }
+  if (introCover) {
+    var goBtn = document.getElementById('ttIntroGo');
+    if (goBtn) goBtn.addEventListener('click', function(e){ e.preventDefault(); e.stopPropagation(); dismissIntro(); });
+    introCover.addEventListener('touchstart', function(e){
+      if (e.touches && e.touches[0]) introCover._sy = e.touches[0].clientY;
+    }, {passive:true});
+    introCover.addEventListener('touchend', function(e){
+      var ey = (e.changedTouches && e.changedTouches[0]) ? e.changedTouches[0].clientY : introCover._sy;
+      if (typeof introCover._sy === 'number' && (introCover._sy - ey) > 36) dismissIntro();
+    }, {passive:true});
+  }
 
   var soundOn = false;
   var cat = 0;
