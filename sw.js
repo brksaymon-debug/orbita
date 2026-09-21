@@ -1,4 +1,4 @@
-const CACHE='orbita-app-v3-intro';
+const CACHE='orbita-app-v3-intro-cta';
 self.addEventListener('install', e=>{ e.waitUntil(caches.keys().then(ks=>Promise.all(ks.map(k=>caches.delete(k)))).then(()=>self.skipWaiting())); });
 self.addEventListener('activate', e=>{ e.waitUntil(self.clients.claim()); });
 self.addEventListener('fetch', e=>{
