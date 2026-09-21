@@ -18,8 +18,8 @@
   --text:#f2f2f4; --muted:#9a9aa8; --line:rgba(255,255,255,.08);
   --accent:#22e0ff; --accent2:#7c5cff; --cyan:#22e0ff;
   --ok:#3dd68c; --radius:18px; --max:1180px;
-  --font:"Unbounded",system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
-  --sans:system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial,sans-serif;
+  --display:"Unbounded",system-ui,sans-serif; --font:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+  --sans:Inter,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial,sans-serif;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
@@ -83,8 +83,8 @@ h3{font-size:clamp(18px,2vw,22px)}
 @keyframes wallScroll{0%{transform:translateY(0)}100%{transform:translateY(-50%)}}
 .wall-item{
   position:relative;border-radius:14px;overflow:hidden;background:#0a0a0f;
-  aspect-ratio:3/4;flex-shrink:0;cursor:pointer;isolation:isolate;
-}
+  aspect-ratio:3/4;flex-shrink:0;cursor:pointer;isolation:isolate;box-shadow:0 10px 28px rgba(0,0,0,.45),inset 0 0 0 1px rgba(255,255,255,.04);transition:transform .25s ease,box-shadow .25s ease;
+}.wall-item:hover{transform:translateY(-2px);box-shadow:0 16px 40px rgba(34,224,255,.18),0 0 0 1px rgba(34,224,255,.35)}
 .wall-item.wide{aspect-ratio:16/10}
 .wall-item.is-design{aspect-ratio:2/3;background:#0a0a0f}
 .wall-item.is-design.wide{aspect-ratio:16/10}
@@ -633,15 +633,14 @@ h3{font-size:clamp(18px,2vw,22px)}
     </div>
     <div class="wrap hero-grid">
       <div class="hero-copy">
-        <div class="eyebrow">Креативная студия · видео и дизайн</div>
+                <div class="eyebrow">Креативная студия</div>
         <h1>Ролики и дизайн,<br>которые продают</h1>
-        <p class="lead">Ролики, баннеры, афиши, флаеры — под ключ. Видеореклама, монтаж и статичный дизайн для бизнеса: от одной сторис до кампании и печатного макета — с договором, сроками и понятной сметой.</p>
+        <p class="lead">Видеореклама, Reels, баннеры и афиши под ключ — от брифа до мастера. Ответ за 24 часа.</p>
         <div class="hero-actions">
           <a class="btn btn-primary" href="#contact">Заказать рекламу</a>
-          <a class="btn btn-ghost" href="#prices">Смотреть цены</a>
-          <a class="btn btn-ghost" href="#works">Работы</a>
+          <a class="btn btn-ghost" href="#works">Смотреть работы</a>
         </div>
-        <p class="hero-note">Ответ в течение 24 часов · hello@orbita.agency · финал после брифа</p>
+        <p class="hero-note">hello@orbita.agency · договор · NDA</p>
       </div>
       <div class="media-wall" id="works" aria-label="Витрина работ">
         <div class="wall-col" id="wallA"></div>
