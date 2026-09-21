@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <!-- orbita-build:20260921191448 mobile-pwa-app -->
-  <meta charset="UTF-8">
+  <!-- orbita-build:20260921191711 tiktok-full-app -->
+    <meta charset="UTF-8">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
-  <meta name="orbita-build" content="20260921191448">
+  <meta name="orbita-build" content="20260921191711">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -1532,6 +1532,117 @@ h3{font-size:clamp(18px,2vw,22px)}
 }
 @media (min-width:761px){
   .app-dock{display:none!important}
+}
+
+
+/* Craft: full TikTok app mode on mobile */
+@media (max-width:760px){
+  html.is-app-mobile, html.is-app-mobile body{
+    background:#000!important; height:100%; overflow:hidden;
+  }
+  html.is-app-mobile body{
+    padding-bottom:0!important;
+    height:100dvh; max-height:100dvh;
+  }
+  html.is-app-mobile .nav,
+  html.is-app-mobile .hero,
+  html.is-app-mobile .trust,
+  html.is-app-mobile .feature-reel,
+  html.is-app-mobile .orbit-globe-section,
+  html.is-app-mobile #orbit,
+  html.is-app-mobile #process,
+  html.is-app-mobile #prices,
+  html.is-app-mobile #contact,
+  html.is-app-mobile .footer,
+  html.is-app-mobile .mobile-sticky,
+  html.is-app-mobile .mobile-menu,
+  html.is-app-mobile .svc-universe .svc-planets,
+  html.is-app-mobile .svc-planet-desc,
+  html.is-app-mobile #services .eyebrow,
+  html.is-app-mobile #services h2,
+  html.is-app-mobile #services .lead,
+  html.is-app-mobile .svc-frame-head,
+  html.is-app-mobile .svc-list,
+  html.is-app-mobile .mock-note,
+  html.is-app-mobile .svc-frame-hint,
+  html.is-app-mobile .svc-frame-hint-mob,
+  html.is-app-mobile .svc-tiktok-hint{display:none!important}
+
+  html.is-app-mobile #services{
+    padding:0!important; margin:0!important;
+    position:fixed; inset:0 0 calc(58px + env(safe-area-inset-bottom,0px)) 0;
+    z-index:5; background:#000;
+  }
+  html.is-app-mobile #services .wrap{
+    width:100%!important; max-width:none!important; margin:0!important; height:100%;
+    padding:0!important;
+  }
+  html.is-app-mobile .svc-universe,
+  html.is-app-mobile .svc-frame,
+  html.is-app-mobile .svc-frame.is-orbit,
+  html.is-app-mobile .svc-orbit-stage{
+    height:100%!important; min-height:0!important; margin:0!important; padding:0!important;
+    border:0!important; background:transparent!important; clip-path:none!important;
+    display:block!important; overflow:hidden!important;
+  }
+  html.is-app-mobile .svc-phone{
+    width:100%!important; height:100%!important; max-height:none!important;
+    max-width:none!important; aspect-ratio:auto!important;
+    border:0!important; border-radius:0!important; box-shadow:none!important;
+    margin:0!important;
+  }
+  html.is-app-mobile .svc-phone::before{display:none!important}
+  html.is-app-mobile .svc-frame.is-orbit #svcWall.svc-orbit-wall,
+  html.is-app-mobile .svc-frame.is-orbit .svc-orbit-wall.svc-wall{
+    width:100%!important; height:100%!important;
+    overflow-y:auto!important; scroll-snap-type:y mandatory!important;
+  }
+  html.is-app-mobile .svc-frame.is-orbit .svc-orbit-wall .svc-cell{
+    width:100vw!important; height:100%!important; min-height:100%!important;
+    scroll-snap-align:start!important; scroll-snap-stop:always!important;
+  }
+  html.is-app-mobile .svc-frame.is-orbit .svc-orbit-wall .svc-cell .label{
+    left:16px!important; right:90px!important; bottom:calc(18px + env(safe-area-inset-bottom,0px))!important;
+    font-size:14px!important; z-index:4!important;
+  }
+  html.is-app-mobile .app-dock{
+    display:flex!important;
+    height:calc(58px + env(safe-area-inset-bottom,0px));
+    background:rgba(0,0,0,.88)!important;
+    border-top:1px solid rgba(255,255,255,.08);
+  }
+  html.is-app-mobile .app-dock-item.is-on{color:#22e0ff}
+  html.is-app-mobile .app-dock-item.is-on i{background:rgba(34,224,255,.25)}
+
+  .app-svc-sheet{
+    position:fixed; inset:0; z-index:120;
+    background:rgba(0,0,0,.55);
+    display:flex; align-items:flex-end; justify-content:center;
+  }
+  .app-svc-sheet[hidden]{display:none!important}
+  .app-svc-sheet-card{
+    width:100%; max-width:480px;
+    background:#121216; border-radius:18px 18px 0 0;
+    padding:14px 14px calc(14px + env(safe-area-inset-bottom,0px));
+    border:1px solid rgba(255,255,255,.08);
+  }
+  .app-svc-sheet-head{
+    text-align:center; font-weight:700; margin-bottom:10px; color:#fff;
+  }
+  .app-svc-opt{
+    width:100%; appearance:none; border:1px solid rgba(255,255,255,.1);
+    background:rgba(255,255,255,.04); color:#fff;
+    border-radius:12px; padding:12px 14px; margin:0 0 8px; font:600 14px/1.2 Inter,system-ui;
+    text-align:left; cursor:pointer;
+  }
+  .app-svc-close{
+    width:100%; margin-top:4px; appearance:none; border:0;
+    background:rgba(34,224,255,.16); color:#22e0ff;
+    border-radius:12px; padding:12px; font:700 14px/1 Inter,system-ui; cursor:pointer;
+  }
+}
+@media (min-width:761px){
+  .app-dock,.app-svc-sheet{display:none!important}
 }
 
 </style>
@@ -3493,7 +3604,7 @@ function bootOrbitaGlobe(){
     activeIdx = parseInt(idx, 10) || 0;
     var full = ASSETS[activeIdx] || ASSETS[0] || [];
     // orbit shows up to 10 planets for clarity; full set still in lightbox
-    var set = full.slice(0, mobile() ? Math.min(full.length, 12) : 10);
+    var set = full.slice(0, mobile() ? full.length : 10);
     if (titleEl) titleEl.textContent = (mobile() ? 'Примеры работ' : (TITLES[activeIdx] || 'Примеры')) + ' · ' + full.length;
     wall.innerHTML = set.map(function(a, i){
       var wide = (activeIdx === 1 || activeIdx === 5) ? ' is-wide' : '';
@@ -3786,12 +3897,24 @@ function bootOrbitaGlobe(){
 
 
 <nav class="app-dock" id="appDock" aria-label="Меню приложения">
-  <a class="app-dock-item" href="#services" data-dock="works"><i></i><span>Работы</span></a>
-  <a class="app-dock-item" href="#services" data-dock="svc"><i></i><span>Услуги</span></a>
+  <a class="app-dock-item is-on" href="#services" data-dock="feed"><i></i><span>Лента</span></a>
+  <a class="app-dock-item" href="#services" data-dock="svc" id="dockSvc"><i></i><span>Услуги</span></a>
   <a class="app-dock-item app-dock-main" href="#contact" data-dock="order"><i></i><span>Заказать</span></a>
   <a class="app-dock-item" href="#prices" data-dock="price"><i></i><span>Прайс</span></a>
   <a class="app-dock-item" href="#contact" data-dock="chat"><i></i><span>Связь</span></a>
 </nav>
+<div class="app-svc-sheet" id="appSvcSheet" hidden>
+  <div class="app-svc-sheet-card">
+    <div class="app-svc-sheet-head">Услуги</div>
+    <button type="button" class="app-svc-opt" data-svc="0">01 Reels</button>
+    <button type="button" class="app-svc-opt" data-svc="1">02 Баннеры</button>
+    <button type="button" class="app-svc-opt" data-svc="2">03 Флаеры</button>
+    <button type="button" class="app-svc-opt" data-svc="3">04 Афиши</button>
+    <button type="button" class="app-svc-opt" data-svc="4">05 Stories</button>
+    <button type="button" class="app-svc-opt" data-svc="5">06 Motion</button>
+    <button type="button" class="app-svc-close" id="appSvcClose">Закрыть</button>
+  </div>
+</div>
 
 
 <script>
@@ -3809,6 +3932,47 @@ function bootOrbitaGlobe(){
       navigator.serviceWorker.register('./sw.js').catch(function(){});
     });
   }
+})();
+</script>
+
+
+<script>
+(function(){
+  if (!(window.matchMedia && window.matchMedia('(max-width:760px)').matches)) return;
+  document.documentElement.classList.add('is-app-mobile');
+  // land on feed
+  if (!location.hash || location.hash === '#top') {
+    try { history.replaceState(null, '', location.pathname + location.search + '#services'); } catch(_){ }
+  }
+  var sheet = document.getElementById('appSvcSheet');
+  var dockSvc = document.getElementById('dockSvc');
+  var closeBtn = document.getElementById('appSvcClose');
+  function openSheet(e){ if(e) e.preventDefault(); if(sheet) sheet.hidden=false; }
+  function closeSheet(){ if(sheet) sheet.hidden=true; }
+  if (dockSvc) dockSvc.addEventListener('click', openSheet);
+  if (closeBtn) closeBtn.addEventListener('click', closeSheet);
+  if (sheet) sheet.addEventListener('click', function(e){ if(e.target===sheet) closeSheet(); });
+  document.querySelectorAll('.app-svc-opt').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var idx = btn.getAttribute('data-svc');
+      var planet = document.querySelector('.svc-planet[data-svc="'+idx+'"]');
+      if (planet) planet.click();
+      else if (typeof window.activateSvc === 'function') {
+        var fake = document.querySelector('.svc-item[data-svc="'+idx+'"]');
+        if (fake) window.activateSvc(fake);
+      }
+      closeSheet();
+      var wall = document.getElementById('svcWall');
+      if (wall) wall.scrollTop = 0;
+    });
+  });
+  // mark dock
+  document.querySelectorAll('.app-dock-item').forEach(function(a){
+    a.addEventListener('click', function(){
+      document.querySelectorAll('.app-dock-item').forEach(function(x){ x.classList.remove('is-on'); });
+      if (a.getAttribute('data-dock') !== 'svc') a.classList.add('is-on');
+    });
+  });
 })();
 </script>
 
