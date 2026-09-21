@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <!-- orbita-build:20260921164749 video-sound -->
-      <meta charset="UTF-8">
+  <!-- orbita-build:20260921164916 sound-toggle -->
+        <meta charset="UTF-8">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta name="orbita-build" content="20260911235922">
@@ -915,6 +915,25 @@ h3{font-size:clamp(18px,2vw,22px)}
   .cases-grid::-webkit-scrollbar{display:none}
   .cases-grid .case{flex:0 0 min(82vw,320px);scroll-snap-align:start}
 }
+
+.lb-stage{position:relative}
+.lb-sound{
+  position:absolute;right:14px;bottom:14px;z-index:6;
+  width:48px;height:48px;border-radius:50%;
+  border:1px solid rgba(34,224,255,.5);
+  background:rgba(8,12,18,.88);
+  color:#fff;font-size:22px;line-height:1;
+  display:inline-flex;align-items:center;justify-content:center;
+  cursor:pointer;backdrop-filter:blur(8px);
+  box-shadow:0 8px 28px rgba(0,0,0,.4),0 0 18px rgba(34,224,255,.2);
+  transition:.2s;
+}
+.lb-sound:hover,.lb-sound:focus-visible{
+  border-color:#22e0ff;background:rgba(34,224,255,.18);
+  outline:none;transform:scale(1.05);
+}
+.lb-sound.is-on{border-color:#22e0ff;box-shadow:0 0 22px rgba(34,224,255,.45)}
+
 </style>
 <script>
 (function(){
@@ -1371,6 +1390,7 @@ h3{font-size:clamp(18px,2vw,22px)}
   <div class="lb-stage">
     <img id="lbImg" alt="" hidden>
     <video id="lbVideo" controls playsinline preload="metadata" hidden></video>
+    <button type="button" class="lb-sound" id="lbSound" aria-label="Звук" title="Звук" hidden>🔇</button>
   </div>
   <div class="lb-meta">
     <span class="lb-badge" id="lbBadge"></span>
@@ -1515,10 +1535,37 @@ h3{font-size:clamp(18px,2vw,22px)}
     /* Lightbox — image + video, prev/next, order CTA */
   const lb = document.getElementById('lb');
   const lbVideo = document.getElementById('lbVideo');
+  const lbSound = document.getElementById('lbSound');
   const lbImg = document.getElementById('lbImg');
   const lbBadge = document.getElementById('lbBadge');
   const lbTitle = document.getElementById('lbTitle');
   const lbOrder = document.getElementById('lbOrder');
+  
+  function syncLbSoundBtn(){
+    if (!lbSound || !lbVideo) return;
+    if (lbVideo.muted || lbVideo.volume === 0){
+      lbSound.textContent = '🔇';
+      lbSound.classList.remove('is-on');
+      lbSound.setAttribute('aria-label','Включить звук');
+    } else {
+      lbSound.textContent = '🔊';
+      lbSound.classList.add('is-on');
+      lbSound.setAttribute('aria-label','Выключить звук');
+    }
+  }
+  if (lbSound && !lbSound.dataset.bound){
+    lbSound.dataset.bound = '1';
+    lbSound.addEventListener('click', function(e){
+      e.preventDefault();
+      e.stopPropagation();
+      if (!lbVideo || lbVideo.hidden) return;
+      lbVideo.muted = !lbVideo.muted;
+      if (!lbVideo.muted) lbVideo.volume = 1;
+      syncLbSoundBtn();
+      if (lbVideo.paused) lbVideo.play().catch(function(){});
+    });
+  }
+
   let galleryItems = [];
   let galleryIndex = 0;
 
@@ -1543,20 +1590,14 @@ h3{font-size:clamp(18px,2vw,22px)}
     lbOrder.setAttribute('data-prefill', orderPrefill(item));
     if (item.type === 'video'){
       lbVideo.hidden = false;
-      lbVideo.muted = false;
-      lbVideo.defaultMuted = false;
+      if (lbSound){ lbSound.hidden = false; lbSound.textContent = '🔇'; lbSound.classList.remove('is-on'); lbSound.setAttribute('aria-label','Включить звук'); }
+      lbVideo.muted = true;
       lbVideo.volume = 1;
-      lbVideo.removeAttribute('muted');
       lbVideo.src = item.src;
-      lbVideo.play().then(function(){
-        lbVideo.muted = false;
-        lbVideo.volume = 1;
-      }).catch(function(){
-        // autoplay with sound may fail until gesture — user already clicked open
-        try { lbVideo.muted = false; lbVideo.volume = 1; lbVideo.play(); } catch(_){}
-      });
+      lbVideo.play().catch(function(){});
     } else {
-      lbImg.hidden = false;
+      if (lbSound) lbSound.hidden = true;
+lbImg.hidden = false;
       lbImg.src = item.src;
       lbImg.alt = item.title || item.badge || 'Работа';
     }
@@ -2032,9 +2073,6 @@ h3{font-size:clamp(18px,2vw,22px)}
       var v = e.target && e.target.closest && e.target.closest('video[data-wall-video], video[data-svc-video], video[data-case-video]');
       if (!v) return;
       try {
-        v.muted = false;
-        v.volume = 1;
-        v.removeAttribute('muted');
         if (v.paused) v.play().catch(function(){});
       } catch(_){}
     }, true);
@@ -2993,9 +3031,21 @@ function bootOrbitaGlobe(){
       + '<div id="orbitaMiniLbBody" style="max-width:min(920px,96vw);max-height:78vh;display:flex;align-items:center;justify-content:center"></div>';
     document.body.appendChild(ov);
     var body = document.getElementById('orbitaMiniLbBody');
-    if (type==='video') body.innerHTML = '<video src="'+src+'" controls autoplay playsinline style="max-width:100%;max-height:78vh;border-radius:12px"></video>';
-    var mv = body.querySelector('video'); if (mv){ mv.muted=false; mv.volume=1; mv.removeAttribute('muted'); mv.play().catch(function(){}); }
-    else body.innerHTML = '<img src="'+src+'" alt="" style="max-width:100%;max-height:78vh;object-fit:contain;border-radius:12px">';
+    if (type==='video') {
+      body.innerHTML = '<div style="position:relative;max-width:100%;max-height:78vh"><video src="'+src+'" controls autoplay playsinline muted style="max-width:100%;max-height:78vh;border-radius:12px;display:block"></video><button type="button" id="orbitaMiniSound" style="position:absolute;right:12px;bottom:12px;width:48px;height:48px;border-radius:50%;border:1px solid rgba(34,224,255,.5);background:rgba(8,12,18,.9);font-size:22px;cursor:pointer">🔇</button></div>';
+      var mv = body.querySelector('video');
+      var sb = document.getElementById('orbitaMiniSound');
+      if (mv){ mv.muted=true; mv.volume=1; mv.play().catch(function(){}); }
+      if (sb && mv){
+        sb.onclick = function(ev){
+          ev.preventDefault(); ev.stopPropagation();
+          mv.muted = !mv.muted;
+          if (!mv.muted) mv.volume = 1;
+          sb.textContent = mv.muted ? '🔇' : '🔊';
+          if (mv.paused) mv.play().catch(function(){});
+        };
+      }
+    } else body.innerHTML = '<img src="'+src+'" alt="" style="max-width:100%;max-height:78vh;object-fit:contain;border-radius:12px">';
     function close(){ try { ov.remove(); } catch(_){} }
     ov.addEventListener('click', function(e){ if (e.target===ov || e.target.id==='orbitaMiniLbX') close(); });
     document.addEventListener('keydown', function esc(ev){ if (ev.key==='Escape'){ close(); document.removeEventListener('keydown', esc); } });
