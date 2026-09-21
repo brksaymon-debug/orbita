@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <!-- orbita-build:20260921200843 tt-no-crop-no-freeze -->
-                        <meta charset="UTF-8">
+  <!-- orbita-build:20260921201713 tt-tap-pause -->
+                          <meta charset="UTF-8">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
-  <meta name="orbita-build" content="20260921200843">
+  <meta name="orbita-build" content="20260921201713">
 
 <script>/* is-app-mobile-early */try{if(matchMedia('(max-width:760px)').matches)document.documentElement.classList.add('is-app-mobile')}catch(e){}</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1">
@@ -2086,6 +2086,19 @@ h3{font-size:clamp(18px,2vw,22px)}
   .tt-app{display:none!important}
 }
 
+
+/* TikTok tap-to-pause */
+@media (max-width:760px){
+  html.is-app-mobile .tt-slide .tt-pause{
+    position:absolute; inset:0; z-index:2;
+    display:flex; align-items:center; justify-content:center;
+    background:rgba(0,0,0,.28);
+    color:#fff; font-size:54px; line-height:1;
+    pointer-events:none; opacity:0; transition:opacity .15s;
+  }
+  html.is-app-mobile .tt-slide.is-paused .tt-pause{opacity:1}
+}
+
 </style>
 <script>
 (function(){
@@ -4080,7 +4093,8 @@ function bootOrbitaGlobe(){
         i += (dy < 0 ? 1 : -1);
         i = Math.max(0, Math.min(i, wall.querySelectorAll('.svc-cell').length - 1));
         wall.scrollTo({ top: i * H, behavior: 'smooth' });
-        setTimeout(function(){ playAt(i, true); }, 280);
+        if (slides[i]) { slides[i].dataset.userPaused=''; slides[i].classList.remove('is-paused'); }
+      setTimeout(function(){ playAt(i, true); }, 280);
       } else {
         playCurrent(true);
       }
@@ -4657,9 +4671,12 @@ function bootOrbitaGlobe(){
     return H;
   }
   function stopAll(except){
-    feed.querySelectorAll('video').forEach(function(v){
-      if (v === except) return;
+    feed.querySelectorAll('.tt-slide').forEach(function(slide){
+      var v = slide.querySelector('video');
+      if (!v || v === except) return;
       try { v.pause(); } catch(e){}
+      slide.classList.remove('is-paused');
+      slide.dataset.userPaused = '';
     });
   }
   function idx(){
@@ -4683,6 +4700,13 @@ function bootOrbitaGlobe(){
     }
     stopAll(v);
     activeVideo = v;
+    slides.forEach(function(sl){ if (sl !== s) { sl.classList.remove('is-paused'); sl.dataset.userPaused=''; } });
+    if (s.dataset.userPaused === '1') {
+      try { v.pause(); } catch(e){}
+      s.classList.add('is-paused');
+      return;
+    }
+    s.classList.remove('is-paused');
     v.muted = !withSound;
     // DO NOT reset currentTime / load() — that freezes on first frame
     var p = v.play();
@@ -4710,7 +4734,8 @@ function bootOrbitaGlobe(){
       var title = a.title || a.l || a.badge || ('Пример ' + (i+1));
       var el = document.createElement('div');
       el.className = 'tt-slide';
-      el.innerHTML = '<video playsinline webkit-playsinline loop preload="metadata" poster="'+stillFor(src)+'" src="'+src+'" muted playsinline webkit-playsinline></video>'+
+      el.innerHTML = '<video playsinline webkit-playsinline loop preload="metadata" poster="'+stillFor(src)+'" src="'+src+'" muted></video>'+
+        '<div class="tt-pause" aria-hidden="true">⏸</div>'+
         '<div class="tt-cap">Пример · '+String(title).replace(/</g,'&lt;')+'</div>'+
         '<button type="button" class="tt-sound" aria-label="Звук">🔊</button>';
       feed.appendChild(el);
@@ -4757,6 +4782,25 @@ function bootOrbitaGlobe(){
   feed.addEventListener('click', function(e){
     if (e.target.closest && e.target.closest('.tt-sound')) {
       soundOn = true; playCurrent(true);
+      return;
+    }
+    // TikTok-style tap to pause / resume
+    var slide = e.target.closest && e.target.closest('.tt-slide');
+    if (!slide || !feed.contains(slide)) return;
+    var v = slide.querySelector('video');
+    if (!v) return;
+    soundOn = true;
+    if (!v.paused && activeVideo === v) {
+      try { v.pause(); } catch(err){}
+      slide.classList.add('is-paused');
+      slide.dataset.userPaused = '1';
+    } else {
+      slide.dataset.userPaused = '';
+      slide.classList.remove('is-paused');
+      // ensure only this slide plays
+      var i = slides.indexOf(slide);
+      if (i < 0) i = idx();
+      playAt(i, true);
     }
   });
   window.addEventListener('resize', function(){ layout(); playCurrent(soundOn); }, {passive:true});
