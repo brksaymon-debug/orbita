@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <!-- orbita-build:20260921162233 orbital -->
-<meta charset="UTF-8">
+  <!-- orbita-build:20260921163540 planets-over-orbit -->
+  <meta charset="UTF-8">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta name="orbita-build" content="20260911235922">
@@ -610,6 +610,56 @@ h3{font-size:clamp(18px,2vw,22px)}
 
 
 
+
+/* Craft: service categories as planets above orbit — one-screen UX */
+.svc-universe{display:flex;flex-direction:column;gap:14px;margin-top:22px}
+.svc-planets{
+  display:flex;flex-wrap:wrap;justify-content:center;gap:10px;
+  padding:4px 0 2px;
+}
+.svc-planet{
+  appearance:none;-webkit-appearance:none;border:0;cursor:pointer;
+  display:inline-flex;align-items:center;gap:8px;
+  padding:10px 14px 10px 10px;border-radius:999px;
+  background:rgba(255,255,255,.03);
+  border:1px solid rgba(34,224,255,.28);
+  color:#fff;font:inherit;transition:.2s;
+  box-shadow:0 0 0 1px rgba(34,224,255,.05);
+}
+.svc-planet i{
+  width:28px;height:28px;border-radius:50%;
+  display:inline-flex;align-items:center;justify-content:center;
+  font-style:normal;font-size:11px;font-weight:800;letter-spacing:.04em;
+  background:radial-gradient(circle at 35% 30%, #7af6ff, #128a9c 55%, #061018 85%);
+  color:#041018;
+  box-shadow:0 0 14px rgba(34,224,255,.35);
+}
+.svc-planet span{font-size:13px;font-weight:650;letter-spacing:.02em}
+.svc-planet:hover{
+  border-color:rgba(34,224,255,.55);
+  background:rgba(34,224,255,.08);
+  transform:translateY(-1px);
+}
+.svc-planet.active{
+  border-color:#22e0ff;
+  background:rgba(34,224,255,.14);
+  box-shadow:0 0 24px rgba(34,224,255,.22);
+}
+.svc-planet.active i{
+  box-shadow:0 0 22px rgba(34,224,255,.65);
+}
+.svc-planet-desc{
+  text-align:center;color:var(--muted);font-size:14px;
+  max-width:52rem;margin:0 auto 4px;min-height:2.6em;
+}
+.svc-list[hidden]{display:none!important}
+@media (max-width:640px){
+  .svc-planets{gap:8px}
+  .svc-planet{padding:8px 12px 8px 8px}
+  .svc-planet span{font-size:12px}
+  .svc-planet i{width:24px;height:24px;font-size:10px}
+}
+
 /* Craft: ORBITAL showcase — works as planets (wow layer) */
 .svc-frame.is-orbit{
   overflow:visible;
@@ -941,58 +991,30 @@ h3{font-size:clamp(18px,2vw,22px)}
     <div class="wrap">
       <div class="eyebrow">Услуги</div>
       <h2>Полная креативная студия</h2>
-      <p class="lead">Видео и дизайн под задачу продаж — не AI-видео-клон и не «контент ради контента».</p>
-      <div class="services-grid" style="margin-top:28px">
-        <div class="svc-list" id="svcList">
-          <button type="button" class="svc-item active" data-svc="0" tabindex="0" aria-pressed="true">
-            <div class="svc-num">01</div>
-            <div>
-              <h3>Видеореклама / Reels / монтаж</h3>
-              <p>OLV, pre-roll, вертикали, монтаж и постпродакшн — ролики, которые держат внимание и ведут к заявке.</p>
-              <div class="svc-examples" aria-hidden="true">Смотреть примеры →</div>
-            </div>
-          </button>
-          <button type="button" class="svc-item" data-svc="1" tabindex="0" aria-pressed="false">
-            <div class="svc-num">02</div>
-            <div>
-              <h3>Баннеры</h3>
-              <p>Digital и наружка: один макет или серия в едином визуальном языке под площадки и форматы.</p>
-              <div class="svc-examples" aria-hidden="true">Смотреть примеры →</div>
-            </div>
-          </button>
-          <button type="button" class="svc-item" data-svc="2" tabindex="0" aria-pressed="false">
-            <div class="svc-num">03</div>
-            <div>
-              <h3>Флаеры / листовки</h3>
-              <p>Печать и PDF под раздачу: оффер, офсет/цифровой вывод, читаемая иерархия и сильный CTA.</p>
-              <div class="svc-examples" aria-hidden="true">Смотреть примеры →</div>
-            </div>
-          </button>
-          <button type="button" class="svc-item" data-svc="3" tabindex="0" aria-pressed="false">
-            <div class="svc-num">04</div>
-            <div>
-              <h3>Афиши</h3>
-              <p>Под фильмы, концерты и ивенты — один формат или линейка размеров с киношной подачей.</p>
-              <div class="svc-examples" aria-hidden="true">Смотреть примеры →</div>
-            </div>
-          </button>
-          <button type="button" class="svc-item" data-svc="4" tabindex="0" aria-pressed="false">
-            <div class="svc-num">05</div>
-            <div>
-              <h3>Key visual / соцсети</h3>
-              <p>Статичный дизайн: обложки, сетки, посты и key visual, которые держат бренд в ленте.</p>
-              <div class="svc-examples" aria-hidden="true">Смотреть примеры →</div>
-            </div>
-          </button>
-          <button type="button" class="svc-item" data-svc="5" tabindex="0" aria-pressed="false">
-            <div class="svc-num">06</div>
-            <div>
-              <h3>Motion и адаптации</h3>
-              <p>Титры, графика, версии 16:9 / 9:16 / 1:1 — один смысл, все плейсменты.</p>
-              <div class="svc-examples" aria-hidden="true">Смотреть примеры →</div>
-            </div>
-          </button>
+      <p class="lead">Выбери планету-услугу — примеры крутятся на орбите. Всё на одном экране, без прыжков вверх.</p>
+
+      <div class="svc-universe" id="svcUniverse">
+        <div class="svc-planets" id="svcPlanets" role="tablist" aria-label="Услуги">
+          <button type="button" class="svc-planet active" role="tab" aria-selected="true" data-svc="0"><i>01</i><span>Reels</span></button>
+          <button type="button" class="svc-planet" role="tab" aria-selected="false" data-svc="1"><i>02</i><span>Баннеры</span></button>
+          <button type="button" class="svc-planet" role="tab" aria-selected="false" data-svc="2"><i>03</i><span>Флаеры</span></button>
+          <button type="button" class="svc-planet" role="tab" aria-selected="false" data-svc="3"><i>04</i><span>Афиши</span></button>
+          <button type="button" class="svc-planet" role="tab" aria-selected="false" data-svc="4"><i>05</i><span>Stories</span></button>
+          <button type="button" class="svc-planet" role="tab" aria-selected="false" data-svc="5"><i>06</i><span>Motion</span></button>
         </div>
+
+        <p class="svc-planet-desc" id="svcPlanetDesc">Видеореклама / Reels / монтаж — ролики, которые держат внимание и ведут к заявке.</p>
+
+        <!-- hidden legacy list for compatibility with any old JS -->
+        <div class="svc-list" id="svcList" hidden>
+          <button type="button" class="svc-item active" data-svc="0" aria-pressed="true"></button>
+          <button type="button" class="svc-item" data-svc="1" aria-pressed="false"></button>
+          <button type="button" class="svc-item" data-svc="2" aria-pressed="false"></button>
+          <button type="button" class="svc-item" data-svc="3" aria-pressed="false"></button>
+          <button type="button" class="svc-item" data-svc="4" aria-pressed="false"></button>
+          <button type="button" class="svc-item" data-svc="5" aria-pressed="false"></button>
+        </div>
+
         <div class="svc-frame is-orbit" id="svcFrame">
           <div class="svc-frame-head">
             <span class="svc-frame-title" id="svcFrameTitle">Примеры</span>
@@ -1008,9 +1030,9 @@ h3{font-size:clamp(18px,2vw,22px)}
           </div>
           <div class="svc-progress" aria-hidden="true"><i id="svcProgressBar"></i></div>
         </div>
-        <p class="svc-wall-debug" id="svcWallDebug" aria-live="polite"></p>
       </div>
-      <p class="mock-note">Работы на орбите · клик — открыть · тяни кольцо мышкой</p>
+
+      <p class="mock-note">Планета = услуга · орбита = примеры · клик по карточке — открыть</p>
     </div>
   </section>
 
@@ -2763,6 +2785,7 @@ function bootOrbitaGlobe(){
 (function(){
   'use strict';
   var ASSETS = [[{"t": "video", "s": "work-14.mp4", "l": "Reels", "title": "Фуд-порн · идеальный бургер на гриле"}, {"t": "video", "s": "work-13.mp4", "l": "Reels", "title": "Блогерша и Хозяин болота"}, {"t": "video", "s": "work-02.mp4", "l": "Reels", "title": "Видеореклама / Reels"}, {"t": "video", "s": "work-04.mp4", "l": "Reels", "title": "Reels / вертикаль"}, {"t": "video", "s": "work-12.mp4", "l": "Reels", "title": "Новый ролик"}, {"t": "video", "s": "work-kazakhstan.mp4", "l": "Reels", "title": "Lifestyle cut"}, {"t": "video", "s": "work-05.mp4", "l": "Reels", "title": "Дизайн в движении"}, {"t": "video", "s": "work-01.mp4", "l": "Reels", "title": "Короткий формат"}], [{"t": "img", "s": "portfolio/banners/banners-01.jpg", "l": "Баннер · Orbita", "title": "БЫСТРОЕДА · Доставка 25 мин"}, {"t": "img", "s": "portfolio/banners/banners-02.jpg", "l": "Баннер · Orbita", "title": "ЧИСТОПРО · Уборка офисов"}, {"t": "img", "s": "portfolio/banners/banners-03.jpg", "l": "Баннер · Orbita", "title": "FIT24 · Безлимит"}, {"t": "img", "s": "portfolio/banners/banners-04.jpg", "l": "Баннер · Orbita", "title": "АПТЕКА+ · Витамины −40%"}, {"t": "img", "s": "portfolio/banners/banners-05.jpg", "l": "Баннер · Orbita", "title": "ДОМЛЕС · Не строим как все"}, {"t": "img", "s": "portfolio/banners/banners-06.jpg", "l": "Баннер · Orbita", "title": "ЗЕРНО · Утренний кофе"}, {"t": "img", "s": "portfolio/banners/banners-07.jpg", "l": "Баннер · Orbita", "title": "ДЕНТА ЛАЙН · Отбеливание"}, {"t": "img", "s": "portfolio/banners/banners-08.jpg", "l": "Баннер · Orbita", "title": "КРОНА · Nightclub"}, {"t": "img", "s": "portfolio/banners/banners-09.jpg", "l": "Баннер · Orbita", "title": "АВТОПРО · ТО за 2 часа"}, {"t": "img", "s": "portfolio/banners/banners-10.jpg", "l": "Баннер · Orbita", "title": "NEON BEAUTY · Маникюр"}, {"t": "img", "s": "portfolio/banners/banners-11.jpg", "l": "Баннер · Orbita", "title": "ЛАПА ВЕТ · 24/7"}, {"t": "img", "s": "portfolio/banners/banners-12.jpg", "l": "Баннер · Orbita", "title": "БАРБЕР НОЛЬ · Стрижка"}, {"t": "img", "s": "portfolio/banners/banners-13.jpg", "l": "Баннер · Orbita", "title": "САКУРА · Сет для двоих"}, {"t": "img", "s": "portfolio/banners/banners-14.jpg", "l": "Баннер · Orbita", "title": "КРОШКА · День открытых дверей"}, {"t": "img", "s": "portfolio/banners/banners-15.jpg", "l": "Баннер · Orbita", "title": "БУТОН · Букет за 90 мин"}, {"t": "img", "s": "portfolio/banners/banners-16.jpg", "l": "Баннер · Orbita", "title": "ПРАВО КОНСУЛ · Юрист"}, {"t": "img", "s": "portfolio/banners/banners-17.jpg", "l": "Баннер · Orbita", "title": "ШКОЛА КОД · Программирование"}, {"t": "img", "s": "portfolio/banners/banners-18.jpg", "l": "Баннер · Orbita", "title": "ЙОГА СИТИ · Первый урок free"}, {"t": "img", "s": "portfolio/banners/banners-19.jpg", "l": "Баннер · Orbita", "title": "СУШИ ОРБИТА · Ночной сет"}, {"t": "img", "s": "portfolio/banners/banners-20.jpg", "l": "Баннер · Orbita", "title": "КЛИН ХАУС · Химчистка"}, {"t": "img", "s": "portfolio/banners/banners-21.jpg", "l": "Баннер · Orbita", "title": "МОТО ЛАЙН · Сезон открыт"}, {"t": "img", "s": "portfolio/banners/banners-22.jpg", "l": "Баннер · Orbita", "title": "КИНОКУПОЛ · Премьера"}, {"t": "img", "s": "portfolio/banners/banners-23.jpg", "l": "Баннер · Orbita", "title": "ФЛОРА ПЛЮС · Доставка цветов"}, {"t": "img", "s": "portfolio/banners/banners-24.jpg", "l": "Баннер · Orbita", "title": "СТРОЙ МАРКЕТ · −25% на инструмент"}, {"t": "img", "s": "portfolio/banners/banners-25.jpg", "l": "Баннер · Orbita", "title": "PET CARE · Груминг"}, {"t": "img", "s": "portfolio/banners/banners-26.jpg", "l": "Баннер · Orbita", "title": "CLOUD PAY · Кэшбэк 10%"}, {"t": "img", "s": "portfolio/banners/banners-27.jpg", "l": "Баннер · Orbita", "title": "SPORT WAVE · Марафон города"}, {"t": "img", "s": "portfolio/banners/banners-28.jpg", "l": "Баннер · Orbita", "title": "BEAUTY LAB · Пилинги"}, {"t": "img", "s": "portfolio/banners/banners-29.jpg", "l": "Баннер · Orbita", "title": "НОТА КЛУБ · Live Friday"}, {"t": "img", "s": "portfolio/banners/banners-30.jpg", "l": "Баннер · Orbita", "title": "ТЕХНО ХАБ · Гаджеты"}], [{"t": "img", "s": "portfolio/flyers/flyers-01.jpg", "l": "Флаер · Orbita", "title": "ЗЕРНО · Утренний кофе"}, {"t": "img", "s": "portfolio/flyers/flyers-02.jpg", "l": "Флаер · Orbita", "title": "АПТЕКА+ · Витамины"}, {"t": "img", "s": "portfolio/flyers/flyers-03.jpg", "l": "Флаер · Orbita", "title": "ДЕНТА ЛАЙН · Отбеливание"}, {"t": "img", "s": "portfolio/flyers/flyers-04.jpg", "l": "Флаер · Orbita", "title": "КРОНА · Volt Rider"}, {"t": "img", "s": "portfolio/flyers/flyers-05.jpg", "l": "Флаер · Orbita", "title": "ДОМЛЕС · Не строим как все"}, {"t": "img", "s": "portfolio/flyers/flyers-06.jpg", "l": "Флаер · Orbita", "title": "САКУРА · Сет для двоих"}, {"t": "img", "s": "portfolio/flyers/flyers-07.jpg", "l": "Флаер · Orbita", "title": "NEON BEAUTY · Маникюр"}, {"t": "img", "s": "portfolio/flyers/flyers-08.jpg", "l": "Флаер · Orbita", "title": "FIT24 · Безлимит"}, {"t": "img", "s": "portfolio/flyers/flyers-09.jpg", "l": "Флаер · Orbita", "title": "АВТОПРО · ТО за 2 часа"}, {"t": "img", "s": "portfolio/flyers/flyers-10.jpg", "l": "Флаер · Orbita", "title": "КРОШКА · День открытых дверей"}, {"t": "img", "s": "portfolio/flyers/flyers-11.jpg", "l": "Флаер · Orbita", "title": "ЛАПА ВЕТ · 24/7"}, {"t": "img", "s": "portfolio/flyers/flyers-12.jpg", "l": "Флаер · Orbita", "title": "БАРБЕР НОЛЬ · Стрижка"}, {"t": "img", "s": "portfolio/flyers/flyers-13.jpg", "l": "Флаер · Orbita", "title": "БУТОН · Букет за 90 мин"}, {"t": "img", "s": "portfolio/flyers/flyers-14.jpg", "l": "Флаер · Orbita", "title": "ПРАВО КОНСУЛ · Юрист"}, {"t": "img", "s": "portfolio/flyers/flyers-15.jpg", "l": "Флаер · Orbita", "title": "ШКОЛА КОД · Программирование"}, {"t": "img", "s": "portfolio/flyers/flyers-16.jpg", "l": "Флаер · Orbita", "title": "АУРА СПА · Релакс день"}, {"t": "img", "s": "portfolio/flyers/flyers-17.jpg", "l": "Флаер · Orbita", "title": "ДОМ КЛЮЧ · Квартиры"}, {"t": "img", "s": "portfolio/flyers/flyers-18.jpg", "l": "Флаер · Orbita", "title": "ОКУЛЯР+ · −30% оправы"}, {"t": "img", "s": "portfolio/flyers/flyers-19.jpg", "l": "Флаер · Orbita", "title": "ПЕКАРНЯ УТРО · Выпечка"}, {"t": "img", "s": "portfolio/flyers/flyers-20.jpg", "l": "Флаер · Orbita", "title": "ОТЕЛЬ СЕВЕР · −20%"}, {"t": "img", "s": "portfolio/flyers/flyers-21.jpg", "l": "Флаер · Orbita", "title": "ЧИСТОПРО · Уборка"}, {"t": "img", "s": "portfolio/flyers/flyers-22.jpg", "l": "Флаер · Orbita", "title": "ДВА СЕРДЦА · Свадьба"}, {"t": "img", "s": "portfolio/flyers/flyers-23.jpg", "l": "Флаер · Orbita", "title": "ТЕХНО ХАБ · Гаджеты"}, {"t": "img", "s": "portfolio/flyers/flyers-24.jpg", "l": "Флаер · Orbita", "title": "МОЛНИЯ · Доставка за час"}, {"t": "img", "s": "portfolio/flyers/flyers-25.jpg", "l": "Флаер · Orbita", "title": "ДЫХАНИЕ · Йога"}, {"t": "img", "s": "portfolio/flyers/flyers-26.jpg", "l": "Флаер · Orbita", "title": "КАРТА ПЛЮС · Кэшбэк 10%"}, {"t": "img", "s": "portfolio/flyers/flyers-27.jpg", "l": "Флаер · Orbita", "title": "БЛЕСК АВТО · Мойка"}, {"t": "img", "s": "portfolio/flyers/flyers-28.jpg", "l": "Флаер · Orbita", "title": "ЛИНГВА · Английский"}, {"t": "img", "s": "portfolio/flyers/flyers-29.jpg", "l": "Флаер · Orbita", "title": "ОГОНЬ ПИЦЦА · 30 мин"}, {"t": "img", "s": "portfolio/flyers/flyers-30.jpg", "l": "Флаер · Orbita", "title": "ЛАК СТУДИО · Гель-лак"}], [{"t": "img", "s": "portfolio/posters/posters-01.jpg", "l": "Афиша · Orbita", "title": "ЭХО HALL · Live Night"}, {"t": "img", "s": "portfolio/posters/posters-02.jpg", "l": "Афиша · Orbita", "title": "АРЕНА 26 · Финал"}, {"t": "img", "s": "portfolio/posters/posters-03.jpg", "l": "Афиша · Orbita", "title": "ОРБИТА FILM · Премьера"}, {"t": "img", "s": "portfolio/posters/posters-04.jpg", "l": "Афиша · Orbita", "title": "SS26 · Показ"}, {"t": "img", "s": "portfolio/posters/posters-05.jpg", "l": "Афиша · Orbita", "title": "VOLT FEST · Open Air"}, {"t": "img", "s": "portfolio/posters/posters-06.jpg", "l": "Афиша · Orbita", "title": "BLACK STAGE · Afterparty"}, {"t": "img", "s": "portfolio/posters/posters-07.jpg", "l": "Афиша · Orbita", "title": "RIVER JAZZ · Live"}, {"t": "img", "s": "portfolio/posters/posters-08.jpg", "l": "Афиша · Orbita", "title": "СМЕХ HALL · Стендап"}, {"t": "img", "s": "portfolio/posters/posters-09.jpg", "l": "Афиша · Orbita", "title": "ГОРОД OPERA · Премьера"}, {"t": "img", "s": "portfolio/posters/posters-10.jpg", "l": "Афиша · Orbita", "title": "GAME ON · Турнир"}, {"t": "img", "s": "portfolio/posters/posters-11.jpg", "l": "Афиша · Orbita", "title": "STREET EATS · Фуд маркет"}, {"t": "img", "s": "portfolio/posters/posters-12.jpg", "l": "Афиша · Orbita", "title": "ЗЕРНО · Утренний кофе · афиша"}, {"t": "img", "s": "portfolio/posters/posters-13.jpg", "l": "Афиша · Orbita", "title": "АПТЕКА+ · Витамины · афиша"}, {"t": "img", "s": "portfolio/posters/posters-14.jpg", "l": "Афиша · Orbita", "title": "ДЕНТА ЛАЙН · Отбеливание · афиша"}, {"t": "img", "s": "portfolio/posters/posters-15.jpg", "l": "Афиша · Orbita", "title": "КРОНА · Volt Rider · афиша"}, {"t": "img", "s": "portfolio/posters/posters-16.jpg", "l": "Афиша · Orbita", "title": "ДОМЛЕС · Не строим как все · афиша"}, {"t": "img", "s": "portfolio/posters/posters-17.jpg", "l": "Афиша · Orbita", "title": "САКУРА · Сет для двоих · афиша"}, {"t": "img", "s": "portfolio/posters/posters-18.jpg", "l": "Афиша · Orbita", "title": "NEON BEAUTY · Маникюр · афиша"}, {"t": "img", "s": "portfolio/posters/posters-19.jpg", "l": "Афиша · Orbita", "title": "FIT24 · Безлимит · афиша"}, {"t": "img", "s": "portfolio/posters/posters-20.jpg", "l": "Афиша · Orbita", "title": "АВТОПРО · ТО за 2 часа · афиша"}, {"t": "img", "s": "portfolio/posters/posters-21.jpg", "l": "Афиша · Orbita", "title": "КРОШКА · День открытых дверей · афиша"}, {"t": "img", "s": "portfolio/posters/posters-22.jpg", "l": "Афиша · Orbita", "title": "ЛАПА ВЕТ · 24/7 · афиша"}, {"t": "img", "s": "portfolio/posters/posters-23.jpg", "l": "Афиша · Orbita", "title": "БАРБЕР НОЛЬ · Стрижка · афиша"}, {"t": "img", "s": "portfolio/posters/posters-24.jpg", "l": "Афиша · Orbita", "title": "БУТОН · Букет за 90 мин · афиша"}, {"t": "img", "s": "portfolio/posters/posters-25.jpg", "l": "Афиша · Orbita", "title": "ПРАВО КОНСУЛ · Юрист · афиша"}, {"t": "img", "s": "portfolio/posters/posters-26.jpg", "l": "Афиша · Orbita", "title": "ШКОЛА КОД · Программирование · афиша"}, {"t": "img", "s": "portfolio/posters/posters-27.jpg", "l": "Афиша · Orbita", "title": "АУРА СПА · Релакс день · афиша"}, {"t": "img", "s": "portfolio/posters/posters-28.jpg", "l": "Афиша · Orbita", "title": "ДОМ КЛЮЧ · Квартиры · афиша"}, {"t": "img", "s": "portfolio/posters/posters-29.jpg", "l": "Афиша · Orbita", "title": "ОКУЛЯР+ · −30% оправы · афиша"}, {"t": "img", "s": "portfolio/posters/posters-30.jpg", "l": "Афиша · Orbita", "title": "ПЕКАРНЯ УТРО · Выпечка · афиша"}], [{"t": "img", "s": "portfolio/stories/stories-01.jpg", "l": "KV / Stories · Orbita", "title": "ЗЕРНО · Утренний кофе · Stories"}, {"t": "img", "s": "portfolio/stories/stories-02.jpg", "l": "KV / Stories · Orbita", "title": "АПТЕКА+ · Витамины · Stories"}, {"t": "img", "s": "portfolio/stories/stories-03.jpg", "l": "KV / Stories · Orbita", "title": "ДЕНТА ЛАЙН · Отбеливание · Stories"}, {"t": "img", "s": "portfolio/stories/stories-04.jpg", "l": "KV / Stories · Orbita", "title": "КРОНА · Volt Rider · Stories"}, {"t": "img", "s": "portfolio/stories/stories-05.jpg", "l": "KV / Stories · Orbita", "title": "ДОМЛЕС · Не строим как все · Stories"}, {"t": "img", "s": "portfolio/stories/stories-06.jpg", "l": "KV / Stories · Orbita", "title": "САКУРА · Сет для двоих · Stories"}, {"t": "img", "s": "portfolio/stories/stories-07.jpg", "l": "KV / Stories · Orbita", "title": "NEON BEAUTY · Маникюр · Stories"}, {"t": "img", "s": "portfolio/stories/stories-08.jpg", "l": "KV / Stories · Orbita", "title": "FIT24 · Безлимит · Stories"}, {"t": "img", "s": "portfolio/stories/stories-09.jpg", "l": "KV / Stories · Orbita", "title": "АВТОПРО · ТО за 2 часа · Stories"}, {"t": "img", "s": "portfolio/stories/stories-10.jpg", "l": "KV / Stories · Orbita", "title": "КРОШКА · День открытых дверей · Stories"}, {"t": "img", "s": "portfolio/stories/stories-11.jpg", "l": "KV / Stories · Orbita", "title": "ЛАПА ВЕТ · 24/7 · Stories"}, {"t": "img", "s": "portfolio/stories/stories-12.jpg", "l": "KV / Stories · Orbita", "title": "БАРБЕР НОЛЬ · Стрижка · Stories"}, {"t": "img", "s": "portfolio/stories/stories-13.jpg", "l": "KV / Stories · Orbita", "title": "БУТОН · Букет за 90 мин · Stories"}, {"t": "img", "s": "portfolio/stories/stories-14.jpg", "l": "KV / Stories · Orbita", "title": "ПРАВО КОНСУЛ · Юрист · Stories"}, {"t": "img", "s": "portfolio/stories/stories-15.jpg", "l": "KV / Stories · Orbita", "title": "ШКОЛА КОД · Программирование · Stories"}, {"t": "img", "s": "portfolio/stories/stories-16.jpg", "l": "KV / Stories · Orbita", "title": "АУРА СПА · Релакс день · Stories"}, {"t": "img", "s": "portfolio/stories/stories-17.jpg", "l": "KV / Stories · Orbita", "title": "ДОМ КЛЮЧ · Квартиры · Stories"}, {"t": "img", "s": "portfolio/stories/stories-18.jpg", "l": "KV / Stories · Orbita", "title": "ОКУЛЯР+ · −30% оправы · Stories"}, {"t": "img", "s": "portfolio/stories/stories-19.jpg", "l": "KV / Stories · Orbita", "title": "ПЕКАРНЯ УТРО · Выпечка · Stories"}, {"t": "img", "s": "portfolio/stories/stories-20.jpg", "l": "KV / Stories · Orbita", "title": "ОТЕЛЬ СЕВЕР · −20% · Stories"}, {"t": "img", "s": "portfolio/stories/stories-21.jpg", "l": "KV / Stories · Orbita", "title": "ЧИСТОПРО · Уборка · Stories"}, {"t": "img", "s": "portfolio/stories/stories-22.jpg", "l": "KV / Stories · Orbita", "title": "ДВА СЕРДЦА · Свадьба · Stories"}, {"t": "img", "s": "portfolio/stories/stories-23.jpg", "l": "KV / Stories · Orbita", "title": "ТЕХНО ХАБ · Гаджеты · Stories"}, {"t": "img", "s": "portfolio/stories/stories-24.jpg", "l": "KV / Stories · Orbita", "title": "МОЛНИЯ · Доставка за час · Stories"}, {"t": "img", "s": "portfolio/stories/stories-25.jpg", "l": "KV / Stories · Orbita", "title": "ДЫХАНИЕ · Йога · Stories"}, {"t": "img", "s": "portfolio/stories/stories-26.jpg", "l": "KV / Stories · Orbita", "title": "КАРТА ПЛЮС · Кэшбэк 10% · Stories"}, {"t": "img", "s": "portfolio/stories/stories-27.jpg", "l": "KV / Stories · Orbita", "title": "БЛЕСК АВТО · Мойка · Stories"}, {"t": "img", "s": "portfolio/stories/stories-28.jpg", "l": "KV / Stories · Orbita", "title": "ЛИНГВА · Английский · Stories"}, {"t": "img", "s": "portfolio/stories/stories-29.jpg", "l": "KV / Stories · Orbita", "title": "ОГОНЬ ПИЦЦА · 30 мин · Stories"}, {"t": "img", "s": "portfolio/stories/stories-30.jpg", "l": "KV / Stories · Orbita", "title": "ЛАК СТУДИО · Гель-лак · Stories"}], [{"t": "video", "s": "work-03.mp4", "l": "Motion", "title": "Вертикаль motion"}, {"t": "video", "s": "work-06.mp4", "l": "Motion", "title": "Динамика кадра"}, {"t": "video", "s": "work-07.mp4", "l": "Motion", "title": "Ритм и графика"}, {"t": "video", "s": "work-08.mp4", "l": "Motion", "title": "Серия motion"}, {"t": "video", "s": "work-10.mp4", "l": "Motion", "title": "Короткий motion"}, {"t": "video", "s": "work-11.mp4", "l": "Motion", "title": "Серия в движении"}]];
+  var DESCS = ["Видеореклама / Reels / монтаж — ролики, которые держат внимание и ведут к заявке.", "Баннеры — digital и наружка в едином визуальном языке.", "Флаеры / листовки — печать и PDF с сильным оффером и CTA.", "Афиши — киношная подача под фильмы, концерты и ивенты.", "Key visual / Stories — обложки, сетки и посты, которые держат бренд.", "Motion и адаптации — титры, графика, 16:9 / 9:16 / 1:1."];
   var TITLES = ["Видеореклама / Reels", "Баннеры", "Флаеры", "Афиши", "KV / Stories", "Motion"];
   var angle = 0;
   var auto = true;
@@ -2885,21 +2908,27 @@ function bootOrbitaGlobe(){
     updateProgress();
     setTimeout(function(){ auto = true; }, 4200);
   }
+  function activateByIndex(idx, fromEl){
+    idx = parseInt(idx, 10);
+    if (isNaN(idx)) return;
+    document.querySelectorAll('.svc-planet').forEach(function(x){
+      var on = parseInt(x.getAttribute('data-svc'),10) === idx;
+      x.classList.toggle('active', on);
+      x.setAttribute('aria-selected', on ? 'true' : 'false');
+    });
+    document.querySelectorAll('.svc-item').forEach(function(x){
+      var on = parseInt(x.getAttribute('data-svc'),10) === idx;
+      x.classList.toggle('active', on);
+      x.setAttribute('aria-pressed', on ? 'true' : 'false');
+    });
+    var desc = document.getElementById('svcPlanetDesc');
+    if (desc) desc.textContent = DESCS[idx] || '';
+    render(idx);
+    // do NOT scroll the page — keep orbit in view
+  }
   function activate(item){
     if (!item) return;
-    var idx = parseInt(item.getAttribute('data-svc'), 10);
-    if (isNaN(idx)) return;
-    document.querySelectorAll('.svc-item').forEach(function(x){
-      x.classList.remove('active');
-      x.setAttribute('aria-pressed','false');
-    });
-    item.classList.add('active');
-    item.setAttribute('aria-pressed','true');
-    render(idx);
-    try {
-      var frame = document.getElementById('svcFrame');
-      if (frame && mobile()) frame.scrollIntoView({behavior:'smooth', block:'nearest'});
-    } catch(e){}
+    activateByIndex(item.getAttribute('data-svc'), item);
   }
   function openCell(cell){
     if (!cell) return;
@@ -2931,10 +2960,22 @@ function bootOrbitaGlobe(){
   }
   function bind(){
     var list = document.getElementById('svcList');
+    var planets = document.getElementById('svcPlanets');
     var wall = document.getElementById('svcWall');
     var stage = document.getElementById('svcOrbitStage');
     var prev = document.getElementById('svcNavPrev');
     var next = document.getElementById('svcNavNext');
+    
+    if (planets && !planets.dataset.orbitaBound) {
+      planets.dataset.orbitaBound = '1';
+      planets.addEventListener('click', function(e){
+        var item = e.target.closest && e.target.closest('.svc-planet');
+        if (!item || !planets.contains(item)) return;
+        e.preventDefault();
+        activateByIndex(item.getAttribute('data-svc'), item);
+      }, true);
+    }
+
     if (list && !list.dataset.orbitaBound) {
       list.dataset.orbitaBound = '1';
       list.addEventListener('click', function(e){
@@ -2991,8 +3032,8 @@ function bootOrbitaGlobe(){
       }, {passive:false});
     }
     window.addEventListener('resize', function(){ layoutOrbit(); });
-    var active = document.querySelector('.svc-item.active') || document.querySelector('.svc-item');
-    if (active) activate(active);
+    var activeP = document.querySelector('.svc-planet.active') || document.querySelector('.svc-planet');
+    if (activeP) activateByIndex(activeP.getAttribute('data-svc'), activeP);
     else render(0);
     if (!raf) raf = requestAnimationFrame(tick);
   }
