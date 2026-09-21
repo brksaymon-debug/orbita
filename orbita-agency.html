@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <!-- orbita-build:20260921192536 fix-phone-swipe -->
-          <meta charset="UTF-8">
+  <!-- orbita-build:20260921192623 dock-price-contact -->
+            <meta charset="UTF-8">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
-  <meta name="orbita-build" content="20260921192536">
+  <meta name="orbita-build" content="20260921192623">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -1851,6 +1851,40 @@ h3{font-size:clamp(18px,2vw,22px)}
   }
 }
 
+
+/* Craft: mobile app panels for Прайс + Связь */
+@media (max-width:760px){
+  html.is-app-mobile #prices,
+  html.is-app-mobile #contact{
+    display:none!important;
+  }
+  html.is-app-mobile #prices.app-panel-open,
+  html.is-app-mobile #contact.app-panel-open{
+    display:block!important;
+    position:fixed!important;
+    inset:0!important;
+    z-index:110!important;
+    overflow-y:auto!important;
+    -webkit-overflow-scrolling:touch;
+    background:#0a0a0c!important;
+    padding:56px 16px calc(24px + env(safe-area-inset-bottom,0px))!important;
+    margin:0!important;
+  }
+  html.is-app-mobile .app-panel-close{
+    display:flex!important;
+    position:fixed;top:calc(10px + env(safe-area-inset-top,0px));right:12px;z-index:120;
+    width:40px;height:40px;border-radius:50%;
+    align-items:center;justify-content:center;
+    border:1px solid rgba(255,255,255,.14);
+    background:rgba(0,0,0,.65);color:#fff;font-size:18px;cursor:pointer;
+  }
+  html.is-app-mobile #prices.app-panel-open .wrap,
+  html.is-app-mobile #contact.app-panel-open .wrap{width:100%!important;max-width:520px;margin:0 auto}
+}
+@media (min-width:761px){
+  .app-panel-close{display:none!important}
+}
+
 </style>
 <script>
 (function(){
@@ -2104,7 +2138,7 @@ h3{font-size:clamp(18px,2vw,22px)}
     </div>
   </section>
 
-  <section class="section" id="prices">
+  <section class="section" id="prices"><button type="button" class="app-panel-close" id="appPanelClosePrices" aria-label="Закрыть">✕</button>
     <div class="wrap">
       <div class="eyebrow">Прайс-лист</div>
       <h2>Прозрачные ориентиры</h2>
@@ -2274,7 +2308,7 @@ h3{font-size:clamp(18px,2vw,22px)}
     </div>
   </section>
 
-  <section class="section" id="contact">
+  <section class="section" id="contact"><button type="button" class="app-panel-close" id="appPanelCloseContact" aria-label="Закрыть">✕</button>
     <div class="wrap">
       <div class="eyebrow">Контакт</div>
       <h2>Получите смету под задачу</h2>
@@ -2293,8 +2327,11 @@ h3{font-size:clamp(18px,2vw,22px)}
             <label>Имя
               <input name="name" required placeholder="Как к вам обращаться" autocomplete="name">
             </label>
+            <label>Телефон
+              <input name="phone" type="tel" required placeholder="+7 900 000-00-00" autocomplete="tel" inputmode="tel">
+            </label>
             <label>Email или Telegram
-              <input name="contact" required placeholder="you@mail.com или @telegram" autocomplete="email">
+              <input name="contact" placeholder="you@mail.com или @telegram" autocomplete="email">
             </label>
             <label>Задача
               <textarea name="message" id="message" required placeholder="Формат, срок, бюджетный ориентир"></textarea>
@@ -4195,45 +4232,99 @@ function bootOrbitaGlobe(){
 </script>
 
 
+
 <script>
 (function(){
   if (!(window.matchMedia && window.matchMedia('(max-width:760px)').matches)) return;
   document.documentElement.classList.add('is-app-mobile');
-  // land on feed
   if (!location.hash || location.hash === '#top') {
     try { history.replaceState(null, '', location.pathname + location.search + '#services'); } catch(_){ }
   }
+
   var sheet = document.getElementById('appSvcSheet');
   var dockSvc = document.getElementById('dockSvc');
   var closeBtn = document.getElementById('appSvcClose');
-  function openSheet(e){ if(e) e.preventDefault(); if(sheet) sheet.hidden=false; }
-  function closeSheet(){ if(sheet) sheet.hidden=true; }
+  var prices = document.getElementById('prices');
+  var contact = document.getElementById('contact');
+
+  function closeAllPanels(){
+    if (sheet) sheet.hidden = true;
+    if (prices) prices.classList.remove('app-panel-open');
+    if (contact) contact.classList.remove('app-panel-open');
+    document.body.style.overflow = '';
+  }
+  function openPrices(e){
+    if (e) e.preventDefault();
+    closeAllPanels();
+    if (prices) {
+      prices.classList.add('app-panel-open');
+      prices.scrollTop = 0;
+      document.body.style.overflow = 'hidden';
+      try { history.replaceState(null,'', '#prices'); } catch(_){ }
+    }
+  }
+  function openContact(e){
+    if (e) e.preventDefault();
+    closeAllPanels();
+    if (contact) {
+      contact.classList.add('app-panel-open');
+      contact.scrollTop = 0;
+      document.body.style.overflow = 'hidden';
+      try { history.replaceState(null,'', '#contact'); } catch(_){ }
+      setTimeout(function(){
+        var phone = contact.querySelector('input[name="phone"]');
+        if (phone) phone.focus();
+      }, 200);
+    }
+  }
+  function openFeed(e){
+    if (e) e.preventDefault();
+    closeAllPanels();
+    try { history.replaceState(null,'', '#services'); } catch(_){ }
+    document.querySelectorAll('.app-dock-item').forEach(function(x){ x.classList.remove('is-on'); });
+    var feed = document.querySelector('.app-dock-item[data-dock="feed"]');
+    if (feed) feed.classList.add('is-on');
+  }
+  function openSheet(e){ if(e) e.preventDefault(); closeAllPanels(); if(sheet) sheet.hidden=false; }
+
   if (dockSvc) dockSvc.addEventListener('click', openSheet);
-  if (closeBtn) closeBtn.addEventListener('click', closeSheet);
-  if (sheet) sheet.addEventListener('click', function(e){ if(e.target===sheet) closeSheet(); });
+  if (closeBtn) closeBtn.addEventListener('click', function(){ if(sheet) sheet.hidden=true; });
+  if (sheet) sheet.addEventListener('click', function(e){ if (e.target===sheet) sheet.hidden=true; });
+
+  var closeP = document.getElementById('appPanelClosePrices');
+  var closeC = document.getElementById('appPanelCloseContact');
+  if (closeP) closeP.addEventListener('click', openFeed);
+  if (closeC) closeC.addEventListener('click', openFeed);
+
   document.querySelectorAll('.app-svc-opt').forEach(function(btn){
     btn.addEventListener('click', function(){
       var idx = btn.getAttribute('data-svc');
       var planet = document.querySelector('.svc-planet[data-svc="'+idx+'"]');
       if (planet) planet.click();
-      else if (typeof window.activateSvc === 'function') {
-        var fake = document.querySelector('.svc-item[data-svc="'+idx+'"]');
-        if (fake) window.activateSvc(fake);
-      }
-      closeSheet();
+      if (sheet) sheet.hidden = true;
+      openFeed();
       var wall = document.getElementById('svcWall');
       if (wall) wall.scrollTop = 0;
     });
   });
-  // mark dock
+
   document.querySelectorAll('.app-dock-item').forEach(function(a){
-    a.addEventListener('click', function(){
+    a.addEventListener('click', function(e){
+      var kind = a.getAttribute('data-dock');
       document.querySelectorAll('.app-dock-item').forEach(function(x){ x.classList.remove('is-on'); });
-      if (a.getAttribute('data-dock') !== 'svc') a.classList.add('is-on');
+      if (kind === 'price') { openPrices(e); a.classList.add('is-on'); return; }
+      if (kind === 'chat' || kind === 'order') { openContact(e); a.classList.add('is-on'); return; }
+      if (kind === 'svc') { openSheet(e); return; }
+      if (kind === 'feed' || kind === 'works') { openFeed(e); a.classList.add('is-on'); return; }
     });
   });
+
+  // deep links
+  if (location.hash === '#prices') openPrices();
+  if (location.hash === '#contact') openContact();
 })();
 </script>
+
 
 </body>
 </html>
