@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <!-- orbita-build:20260921165654 no-hero-wall -->
-            <meta charset="UTF-8">
+  <!-- orbita-build:20260921170722 restore-63540-no-hero-wall -->
+    <meta charset="UTF-8">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
-  <meta name="orbita-build" content="20260911235922">
+  <meta name="orbita-build" content="20260921170722">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ОРБИТА — Видео и дизайн, которые продают</title>
 <meta name="description" content="Креативная студия: видеореклама, Reels, монтаж, баннеры, флаеры, афиши и key visual. Договор, NDA, юрлицо. Цены от — финал после брифа.">
@@ -660,12 +660,6 @@ h3{font-size:clamp(18px,2vw,22px)}
   .svc-planet i{width:24px;height:24px;font-size:10px}
 }
 
-
-.svc-orbit-wall .svc-cell{pointer-events:auto;cursor:pointer}
-.svc-orbit-wall .svc-cell .view-hint{opacity:.9;pointer-events:none}
-.svc-orbit-wall .svc-cell.is-front .view-hint{opacity:1}
-.svc-orbit-wall .svc-cell img,.svc-orbit-wall .svc-cell video{pointer-events:none}
-
 /* Craft: ORBITAL showcase — works as planets (wow layer) */
 .svc-frame.is-orbit{
   overflow:visible;
@@ -915,83 +909,6 @@ h3{font-size:clamp(18px,2vw,22px)}
   .cases-grid::-webkit-scrollbar{display:none}
   .cases-grid .case{flex:0 0 min(82vw,320px);scroll-snap-align:start}
 }
-
-.lb-stage{position:relative}
-.lb-sound{
-  position:absolute;right:14px;bottom:14px;z-index:6;
-  width:48px;height:48px;border-radius:50%;
-  border:1px solid rgba(34,224,255,.5);
-  background:rgba(8,12,18,.88);
-  color:#fff;font-size:22px;line-height:1;
-  display:inline-flex;align-items:center;justify-content:center;
-  cursor:pointer;backdrop-filter:blur(8px);
-  box-shadow:0 8px 28px rgba(0,0,0,.4),0 0 18px rgba(34,224,255,.2);
-  transition:.2s;
-}
-.lb-sound:hover,.lb-sound:focus-visible{
-  border-color:#22e0ff;background:rgba(34,224,255,.18);
-  outline:none;transform:scale(1.05);
-}
-.lb-sound.is-on{border-color:#22e0ff;box-shadow:0 0 22px rgba(34,224,255,.45)}
-
-
-/* FIX: orbit wall must escape old rail/grid/clip rules */
-.svc-frame.is-orbit .svc-orbit-wall.svc-wall,
-#svcWall.svc-orbit-wall{
-  display:block !important;
-  position:absolute !important;
-  inset:0 !important;
-  width:100% !important;
-  height:100% !important;
-  min-height:0 !important;
-  max-height:none !important;
-  margin:0 !important;
-  padding:0 !important;
-  gap:0 !important;
-  overflow:visible !important;
-  clip-path:none !important;
-  border:none !important;
-  background:transparent !important;
-  box-shadow:none !important;
-  grid-template-columns:none !important;
-  grid-template-rows:none !important;
-  flex-direction:unset !important;
-  flex-wrap:unset !important;
-  mask-image:none !important;
-  -webkit-mask-image:none !important;
-  scrollbar-width:none !important;
-}
-.svc-frame.is-orbit .svc-orbit-wall .svc-cell{
-  position:absolute !important;
-  left:50% !important;
-  top:50% !important;
-  right:auto !important;
-  bottom:auto !important;
-  flex:none !important;
-  width:160px !important;
-  height:214px !important;
-  margin:0 !important;
-  min-height:0 !important;
-  grid-row:auto !important;
-  border-radius:14px !important;
-  overflow:hidden !important;
-}
-.svc-frame.is-orbit .svc-orbit-wall .svc-cell.is-wide{
-  width:200px !important;
-  height:120px !important;
-}
-.svc-frame.is-orbit .svc-orbit-wall .svc-cell img,
-.svc-frame.is-orbit .svc-orbit-wall .svc-cell video{
-  width:100% !important;
-  height:100% !important;
-  object-fit:cover !important;
-  display:block !important;
-}
-.svc-orbit-stage{
-  overflow:hidden;
-}
-.svc-orbit-core{z-index:2 !important; pointer-events:none !important}
-
 
 /* Craft: hero without media-wall collage */
 .hero-grid{grid-template-columns:1fr!important;max-width:720px}
@@ -1452,7 +1369,6 @@ h3{font-size:clamp(18px,2vw,22px)}
   <div class="lb-stage">
     <img id="lbImg" alt="" hidden>
     <video id="lbVideo" controls playsinline preload="metadata" hidden></video>
-    <button type="button" class="lb-sound" id="lbSound" aria-label="Звук" title="Звук" hidden>🔇</button>
   </div>
   <div class="lb-meta">
     <span class="lb-badge" id="lbBadge"></span>
@@ -1597,37 +1513,10 @@ h3{font-size:clamp(18px,2vw,22px)}
     /* Lightbox — image + video, prev/next, order CTA */
   const lb = document.getElementById('lb');
   const lbVideo = document.getElementById('lbVideo');
-  const lbSound = document.getElementById('lbSound');
   const lbImg = document.getElementById('lbImg');
   const lbBadge = document.getElementById('lbBadge');
   const lbTitle = document.getElementById('lbTitle');
   const lbOrder = document.getElementById('lbOrder');
-  
-  function syncLbSoundBtn(){
-    if (!lbSound || !lbVideo) return;
-    if (lbVideo.muted || lbVideo.volume === 0){
-      lbSound.textContent = '🔇';
-      lbSound.classList.remove('is-on');
-      lbSound.setAttribute('aria-label','Включить звук');
-    } else {
-      lbSound.textContent = '🔊';
-      lbSound.classList.add('is-on');
-      lbSound.setAttribute('aria-label','Выключить звук');
-    }
-  }
-  if (lbSound && !lbSound.dataset.bound){
-    lbSound.dataset.bound = '1';
-    lbSound.addEventListener('click', function(e){
-      e.preventDefault();
-      e.stopPropagation();
-      if (!lbVideo || lbVideo.hidden) return;
-      lbVideo.muted = !lbVideo.muted;
-      if (!lbVideo.muted) lbVideo.volume = 1;
-      syncLbSoundBtn();
-      if (lbVideo.paused) lbVideo.play().catch(function(){});
-    });
-  }
-
   let galleryItems = [];
   let galleryIndex = 0;
 
@@ -1652,14 +1541,10 @@ h3{font-size:clamp(18px,2vw,22px)}
     lbOrder.setAttribute('data-prefill', orderPrefill(item));
     if (item.type === 'video'){
       lbVideo.hidden = false;
-      if (lbSound){ lbSound.hidden = false; lbSound.textContent = '🔇'; lbSound.classList.remove('is-on'); lbSound.setAttribute('aria-label','Включить звук'); }
-      lbVideo.muted = true;
-      lbVideo.volume = 1;
       lbVideo.src = item.src;
       lbVideo.play().catch(function(){});
     } else {
-      if (lbSound) lbSound.hidden = true;
-lbImg.hidden = false;
+      lbImg.hidden = false;
       lbImg.src = item.src;
       lbImg.alt = item.title || item.badge || 'Работа';
     }
@@ -2128,29 +2013,6 @@ lbImg.hidden = false;
   // initial
   setTimeout(managePlayback, 400);
   setInterval(managePlayback, (window.matchMedia && window.matchMedia('(max-width:760px)').matches) ? 5000 : 2500);
-
-  
-  /* Hover / focus: original audio on intentional preview */
-  function bindVideoSoundHover(){
-    document.addEventListener('pointerenter', function(e){
-      var v = e.target && e.target.closest && e.target.closest('video[data-wall-video], video[data-svc-video], video[data-case-video]');
-      if (!v) return;
-      try {
-        if (v.paused) v.play().catch(function(){});
-      } catch(_){}
-    }, true);
-    document.addEventListener('pointerleave', function(e){
-      var v = e.target && e.target.closest && e.target.closest('video[data-wall-video], video[data-svc-video], video[data-case-video]');
-      if (!v) return;
-      // return to muted loop so multiple wall clips don't scream
-      try {
-        if (!document.getElementById('lb') || !document.getElementById('lb').classList.contains('open')) {
-          v.muted = true;
-        }
-      } catch(_){}
-    }, true);
-  }
-  try { bindVideoSoundHover(); } catch (err) { console.warn('sound hover', err); }
 
   try {
     window.openSvcGallery = openSvcGallery;
@@ -2913,7 +2775,17 @@ function bootOrbitaGlobe(){
         if (!el.hasAttribute('tabindex')) el.setAttribute('tabindex', '0');
       });
     }
-    if (document.readyState === 'loa<script id="orbita-svc-boot">
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', bind);
+    else bind();
+  })();
+</script>
+<div class="mobile-sticky-bar" aria-label="Быстрые действия">
+  <a class="msb-ghost" href="#prices">Прайс-лист</a>
+  <a class="msb-primary" href="#contact">Заказать</a>
+</div>
+
+
+<script id="orbita-svc-boot">
 /* Resilient ORBITAL services showcase */
 (function(){
   'use strict';
@@ -2925,8 +2797,6 @@ function bootOrbitaGlobe(){
   var raf = 0;
   var activeIdx = 0;
   var dragging = false;
-  var dragMoved = false;
-  var suppressClick = false;
   var lastX = 0;
 
   function mobile(){
@@ -2971,10 +2841,6 @@ function bootOrbitaGlobe(){
     angle = 0;
     layoutOrbit();
     updateProgress();
-    // reflow after images (fixes single-card stuck look)
-    setTimeout(layoutOrbit, 40);
-    setTimeout(layoutOrbit, 200);
-    requestAnimationFrame(layoutOrbit);
   }
   function layoutOrbit(){
     var wall = document.getElementById('svcWall');
@@ -3073,49 +2939,29 @@ function bootOrbitaGlobe(){
     if (!cell) return;
     var set = currentSet();
     var i = parseInt(cell.getAttribute('data-orbit-i'), 10);
-    if (isNaN(i) || i < 0) i = 0;
+    if (isNaN(i)) i = 0;
     var gallery = set.map(function(x){
       return {src:x.s, type:x.t==='video'?'video':'img', badge:x.l, title:x.title||x.l};
     });
-    try {
-      if (typeof window.openGallery === 'function' && gallery[i]) {
-        window.openGallery(gallery, gallery[i], i);
-        return;
-      }
-    } catch (err) { console.warn('openGallery', err); }
-    var src = cell.getAttribute('data-src') || (gallery[i] && gallery[i].src);
-    var type = cell.getAttribute('data-type') || (gallery[i] && gallery[i].type) || 'img';
-    var title = cell.getAttribute('data-title') || '';
+    if (typeof window.openGallery === 'function') {
+      window.openGallery(gallery, gallery[i]||gallery[0], i);
+      return;
+    }
+    var src = cell.getAttribute('data-src');
+    var type = cell.getAttribute('data-type');
     if (!src) return;
     var ov = document.getElementById('orbitaMiniLb');
-    if (ov) ov.remove();
-    ov = document.createElement('div');
-    ov.id = 'orbitaMiniLb';
-    ov.setAttribute('role','dialog');
-    ov.style.cssText = 'position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,.94);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;gap:12px';
-    ov.innerHTML = '<button type="button" id="orbitaMiniLbX" style="position:absolute;top:14px;right:14px;padding:10px 16px;border-radius:999px;border:0;background:#22e0ff;color:#041018;font-weight:700;cursor:pointer;z-index:2">Закрыть</button>'
-      + (title ? '<div style="color:#fff;font-size:14px;opacity:.9;max-width:90%;text-align:center">'+title.replace(/</g,'&lt;')+'</div>' : '')
-      + '<div id="orbitaMiniLbBody" style="max-width:min(920px,96vw);max-height:78vh;display:flex;align-items:center;justify-content:center"></div>';
-    document.body.appendChild(ov);
+    if (!ov) {
+      ov = document.createElement('div');
+      ov.id = 'orbitaMiniLb';
+      ov.style.cssText = 'position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.92);display:flex;align-items:center;justify-content:center;padding:16px';
+      ov.innerHTML = '<button type="button" id="orbitaMiniLbX" style="position:absolute;top:12px;right:12px;padding:10px 14px;border-radius:999px;border:0;background:#22e0ff;color:#041018;font-weight:700">Закрыть</button><div id="orbitaMiniLbBody" style="max-width:100%;max-height:100%"></div>';
+      document.body.appendChild(ov);
+      ov.addEventListener('click', function(e){ if (e.target===ov || e.target.id==='orbitaMiniLbX') ov.remove(); });
+    }
     var body = document.getElementById('orbitaMiniLbBody');
-    if (type==='video') {
-      body.innerHTML = '<div style="position:relative;max-width:100%;max-height:78vh"><video src="'+src+'" controls autoplay playsinline muted style="max-width:100%;max-height:78vh;border-radius:12px;display:block"></video><button type="button" id="orbitaMiniSound" style="position:absolute;right:12px;bottom:12px;width:48px;height:48px;border-radius:50%;border:1px solid rgba(34,224,255,.5);background:rgba(8,12,18,.9);font-size:22px;cursor:pointer">🔇</button></div>';
-      var mv = body.querySelector('video');
-      var sb = document.getElementById('orbitaMiniSound');
-      if (mv){ mv.muted=true; mv.volume=1; mv.play().catch(function(){}); }
-      if (sb && mv){
-        sb.onclick = function(ev){
-          ev.preventDefault(); ev.stopPropagation();
-          mv.muted = !mv.muted;
-          if (!mv.muted) mv.volume = 1;
-          sb.textContent = mv.muted ? '🔇' : '🔊';
-          if (mv.paused) mv.play().catch(function(){});
-        };
-      }
-    } else body.innerHTML = '<img src="'+src+'" alt="" style="max-width:100%;max-height:78vh;object-fit:contain;border-radius:12px">';
-    function close(){ try { ov.remove(); } catch(_){} }
-    ov.addEventListener('click', function(e){ if (e.target===ov || e.target.id==='orbitaMiniLbX') close(); });
-    document.addEventListener('keydown', function esc(ev){ if (ev.key==='Escape'){ close(); document.removeEventListener('keydown', esc); } });
+    if (type==='video') body.innerHTML = '<video src="'+src+'" controls autoplay playsinline style="max-width:100%;max-height:80vh"></video>';
+    else body.innerHTML = '<img src="'+src+'" alt="" style="max-width:100%;max-height:80vh;object-fit:contain">';
   }
   function bind(){
     var list = document.getElementById('svcList');
@@ -3147,11 +2993,9 @@ function bootOrbitaGlobe(){
     if (wall && !wall.dataset.orbitaBound) {
       wall.dataset.orbitaBound = '1';
       wall.addEventListener('click', function(e){
-        if (suppressClick) { suppressClick = false; e.preventDefault(); e.stopPropagation(); return; }
+        if (dragging) return;
         var cell = e.target.closest && e.target.closest('.svc-cell');
         if (!cell || !wall.contains(cell)) return;
-        e.preventDefault();
-        e.stopPropagation();
         openCell(cell);
       }, true);
     }
@@ -3160,18 +3004,15 @@ function bootOrbitaGlobe(){
     if (stage && !stage.dataset.dragBound) {
       stage.dataset.dragBound = '1';
       stage.addEventListener('pointerdown', function(e){
-        if (e.target.closest && (e.target.closest('.svc-nav') || e.target.closest('.svc-planet'))) return;
-        // only drag from empty orbit / ring — cells still get click
-        dragging = true; dragMoved = false; auto = false; lastX = e.clientX;
+        if (e.target.closest && e.target.closest('.svc-nav')) return;
+        dragging = true; auto = false; lastX = e.clientX;
         stage.classList.add('is-dragging');
         try { stage.setPointerCapture(e.pointerId); } catch(_){}
       });
       stage.addEventListener('pointermove', function(e){
         if (!dragging) return;
         var dx = e.clientX - lastX;
-        if (Math.abs(dx) > 3) dragMoved = true;
         lastX = e.clientX;
-        if (!dragMoved) return;
         angle += dx * 0.006;
         layoutOrbit();
         updateProgress();
@@ -3180,8 +3021,7 @@ function bootOrbitaGlobe(){
         if (!dragging) return;
         dragging = false;
         stage.classList.remove('is-dragging');
-        if (dragMoved) suppressClick = true;
-        setTimeout(function(){ auto = true; suppressClick = false; }, 280);
+        setTimeout(function(){ auto = true; }, 2400);
         try { stage.releasePointerCapture(e.pointerId); } catch(_){}
       }
       stage.addEventListener('pointerup', endDrag);
@@ -3199,14 +3039,6 @@ function bootOrbitaGlobe(){
     window.addEventListener('resize', function(){ layoutOrbit(); });
     var activeP = document.querySelector('.svc-planet.active') || document.querySelector('.svc-planet');
     if (activeP) activateByIndex(activeP.getAttribute('data-svc'), activeP);
-    else render(0);
-    if (!raf) raf = requestAnimationFrame(tick);
-  }
-  window.activateSvc = function(item){ activate(item); };
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', bind);
-  else bind();
-})();
-</script>-svc'), activeP);
     else render(0);
     if (!raf) raf = requestAnimationFrame(tick);
   }
