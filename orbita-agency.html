@@ -1553,6 +1553,7 @@ h3{font-size:clamp(18px,2vw,22px)}
   html.is-app-mobile .orbit-globe-section,
   html.is-app-mobile #orbit,
   html.is-app-mobile #process,
+  html.is-app-mobile #cases,
   html.is-app-mobile #prices,
   html.is-app-mobile #contact,
   html.is-app-mobile .footer,
@@ -1686,6 +1687,7 @@ h3{font-size:clamp(18px,2vw,22px)}
   html.is-app-mobile .orbit-globe-section,
   html.is-app-mobile #orbit,
   html.is-app-mobile #process,
+  html.is-app-mobile #cases,
   html.is-app-mobile #prices,
   html.is-app-mobile #contact,
   html.is-app-mobile .footer,
@@ -2057,13 +2059,17 @@ h3{font-size:clamp(18px,2vw,22px)}
     position:relative;
     width:100%;
     height:100%;
+    min-height:100%;
+    max-height:100%;
+    box-sizing:border-box;
     scroll-snap-align:start;
     scroll-snap-stop:always;
     overflow:hidden;
     background:#000;
     flex:none;
   }
-  html.is-app-mobile .tt-slide video{
+  html.is-app-mobile .tt-slide video,
+  html.is-app-mobile .tt-slide img{
     position:absolute; inset:0;
     width:100%; height:100%;
     object-fit:contain; display:block; background:#000;
@@ -2219,6 +2225,8 @@ html.is-app-mobile .tt-intro-meta{font:500 12px/1.4 Inter,system-ui;color:rgba(2
       document.addEventListener('DOMContentLoaded', function(){
         var bg = document.querySelector('.hero-bg video[data-autoplay-bg]');
         if (bg) { bg.removeAttribute('src'); bg.removeAttribute('data-autoplay-bg'); bg.load && bg.load(); bg.remove(); }
+        var reel = document.querySelector('.feature-reel-video');
+        if (reel) { reel.removeAttribute('autoplay'); reel.removeAttribute('src'); if (reel.load) reel.load(); }
       });
     }
   } catch (e) {}
@@ -3236,7 +3244,9 @@ html.is-app-mobile .tt-intro-meta{font:500 12px/1.4 Inter,system-ui;color:rgba(2
     art.className = 'case';
     art.innerHTML =
       '<div class="case-media" data-src="'+c.src+'">'+
-        '<video src="'+c.src+'" poster="'+c.poster+'" muted loop playsinline preload="metadata" data-case-video></video>'+
+        (isMobilePerf()
+          ? '<img src="'+c.poster+'" alt="" loading="lazy" decoding="async">'
+          : '<video src="'+c.src+'" poster="'+c.poster+'" muted loop playsinline preload="metadata" data-case-video></video>')+
         '<span class="badge">'+c.tag+'</span>'+
       '</div>'+
       '<div class="case-body">'+
@@ -3270,9 +3280,10 @@ html.is-app-mobile .tt-intro-meta{font:500 12px/1.4 Inter,system-ui;color:rgba(2
     e.preventDefault();
     const fd = new FormData(e.target);
     const name = (fd.get('name')||'').toString().trim();
+    const phone = (fd.get('phone')||'').toString().trim();
     const contact = (fd.get('contact')||'').toString().trim();
     const message = (fd.get('message')||'').toString().trim();
-    const body = encodeURIComponent('Имя: '+name+'\nКонтакт: '+contact+'\n\n'+message);
+    const body = encodeURIComponent('Имя: '+name+'\nТелефон: '+phone+'\nКонтакт: '+contact+'\n\n'+message);
     const subject = encodeURIComponent('Заявка с сайта ОРБИТА — '+name);
     window.location.href = 'mailto:hello@orbita.agency?subject='+subject+'&body='+body;
     document.getElementById('formOk').classList.add('show');
@@ -3290,7 +3301,7 @@ html.is-app-mobile .tt-intro-meta{font:500 12px/1.4 Inter,system-ui;color:rgba(2
   const MAX_PLAYING = (window.matchMedia && window.matchMedia('(max-width:760px)').matches) ? 1 : 2;
   function pauseAll(){
     document.querySelectorAll('video').forEach(function(v){
-      if (v.id === 'lbVideo' || v.hasAttribute('data-globe-preview') || v.hasAttribute('data-tt-video')) return;
+      if (v.id === 'lbVideo' || v.hasAttribute('data-globe-preview') || v.hasAttribute('data-tt-video') || (v.closest && v.closest('#ttFeed'))) return;
       try { v.pause(); } catch(_){}
     });
   }
@@ -3328,11 +3339,14 @@ html.is-app-mobile .tt-intro-meta{font:500 12px/1.4 Inter,system-ui;color:rgba(2
   function observeVideos(){
     managePlayback();
   }
-  window.addEventListener('scroll', onScroll, {passive:true});
-  window.addEventListener('resize', onScroll);
-  // initial
-  setTimeout(managePlayback, 400);
-  setInterval(managePlayback, (window.matchMedia && window.matchMedia('(max-width:760px)').matches) ? 5000 : 2500);
+  var phoneSurf = false;
+  try { phoneSurf = !!(window.matchMedia && window.matchMedia('(max-width:760px)').matches); } catch (e) {}
+  if (!phoneSurf) {
+    window.addEventListener('scroll', onScroll, {passive:true});
+    window.addEventListener('resize', onScroll);
+    setTimeout(managePlayback, 400);
+    setInterval(managePlayback, 2500);
+  }
 
   try {
     window.openSvcGallery = openSvcGallery;
@@ -4244,11 +4258,6 @@ function bootOrbitaGlobe(){
     setTimeout(function(){ playCurrent(false); }, 30);
     setTimeout(function(){ layout(); playCurrent(soundOn); }, 300);
   }
-  function 
-  function 
-  function 
-  function 
-  function 
   function bind(){
       document.querySelectorAll('.scramble').forEach(function(el){
         if (el._scrambleBound) return;
@@ -4305,6 +4314,11 @@ function bootOrbitaGlobe(){
     if (!wall) return;
     activeIdx = parseInt(idx, 10) || 0;
     var full = ASSETS[activeIdx] || ASSETS[0] || [];
+    if (mobile()) {
+      if (titleEl) titleEl.textContent = 'Примеры работ · ' + full.length;
+      if (wall.childElementCount) wall.innerHTML = '';
+      return;
+    }
     // orbit shows up to 10 planets for clarity; full set still in lightbox
     var set = full.slice(0, mobile() ? full.length : 10);
     if (titleEl) titleEl.textContent = (mobile() ? 'Примеры работ' : (TITLES[activeIdx] || 'Примеры')) + ' · ' + full.length;
@@ -4316,7 +4330,8 @@ function bootOrbitaGlobe(){
       var safeTitle = String(title).replace(/"/g,'&quot;');
       var media;
       if (mobile() && a.t === 'video') {
-        media = '<video data-tt-video src="'+a.s+'" poster="'+stillFor(a.s)+'" muted loop playsinline webkit-playsinline preload="auto" controlslist="nodownload nofullscreen noremoteplayback" disablepictureinpicture></video><button type="button" class="tt-sound" aria-label="Звук">🔊</button>';
+        /* phone plays these in #ttFeed — a second <video preload=auto> here freezes the tab */
+        media = '<img src="'+stillFor(a.s)+'" alt="" loading="lazy" decoding="async">';
       } else if (a.t === 'video') {
         media = '<img src="'+stillFor(a.s)+'" alt="" loading="lazy" decoding="async">';
         label = '▶ ' + label;
@@ -4402,7 +4417,8 @@ function bootOrbitaGlobe(){
     }
   }
   function tick(){
-    if (auto && !dragging && !document.hidden && !mobile()){
+    if (mobile() || document.hidden) { raf = 0; return; }
+    if (auto && !dragging){
       angle += 0.00035;
       layoutOrbit();
       updateProgress();
@@ -4570,7 +4586,7 @@ function bootOrbitaGlobe(){
     var activeP = document.querySelector('.svc-planet.active') || document.querySelector('.svc-planet');
     if (activeP) activateByIndex(activeP.getAttribute('data-svc'), activeP);
     else render(0);
-    if (!raf) raf = requestAnimationFrame(tick);
+    if (!mobile() && !raf) raf = requestAnimationFrame(tick);
   }
   window.activateSvc = function(item){ activate(item); };
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', bind);
@@ -4584,6 +4600,7 @@ function bootOrbitaGlobe(){
 (function(){
   var v = document.querySelector('.feature-reel-video');
   if (!v) return;
+  try { if (window.matchMedia && window.matchMedia('(max-width:760px)').matches) return; } catch (e) {}
   var tryPlay = function(){ var p = v.play(); if (p && p.catch) p.catch(function(){}); };
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', tryPlay);
   else tryPlay();
@@ -4658,7 +4675,7 @@ function bootOrbitaGlobe(){
   } catch(_){}
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', function(){
-      navigator.serviceWorker.register('./sw.js?v=20260921220734').catch(function(){});
+      navigator.serviceWorker.register('./sw.js?v=20260922124500').catch(function(){});
     });
   }
 })();
@@ -4779,7 +4796,9 @@ function bootOrbitaGlobe(){
     introCover.classList.add('is-gone');
     setTimeout(function(){ try { introCover.setAttribute('hidden',''); } catch(e){} }, 380);
     soundOn = true;
-    setTimeout(function(){ playCurrent(true); }, 120);
+    var i = firstMedia();
+    if (slides[i]) { slides[i].dataset.userPaused = ''; slides[i].classList.remove('is-paused'); }
+    goTo(i, true, true);
   }
   if (introCover) {
     var goBtn = document.getElementById('ttIntroGo');
@@ -4808,12 +4827,22 @@ function bootOrbitaGlobe(){
     return 'still-01.jpg';
   }
   function slideH(){
-    return Math.max(240, Math.round(phone.getBoundingClientRect().height || (window.innerHeight - 70)));
+    var h = feed.clientHeight;
+    if (h < 200) h = phone.clientHeight || 0;
+    if (h < 200) return 0;
+    return Math.round(h);
   }
+  var laidH = 0;
   function layout(){
     var H = slideH();
-    feed.style.height = H + 'px';
-    slides.forEach(function(s){ s.style.height = H + 'px'; s.style.minHeight = H + 'px'; });
+    if (!H) return laidH || 0;
+    if (H === laidH) return H;
+    laidH = H;
+    slides.forEach(function(s){
+      s.style.height = H + 'px';
+      s.style.minHeight = H + 'px';
+      s.style.maxHeight = H + 'px';
+    });
     return H;
   }
   function stopAll(except){
@@ -4826,54 +4855,135 @@ function bootOrbitaGlobe(){
     });
   }
   function idx(){
-    var H = slideH() || 1;
+    var H = slideH() || laidH || 1;
     return Math.max(0, Math.min(slides.length - 1, Math.round(feed.scrollTop / H)));
   }
   var activeVideo = null;
-  function playAt(i, withSound){
-    layout();
+  var playToken = 0;
+  var soundUnlocked = false;
+  var warmed = -999;
+  var suppressScroll = 0;
+  function firstMedia(){
+    for (var n = 0; n < slides.length; n++) {
+      if (slides[n] && slides[n].dataset.intro !== '1') return n;
+    }
+    return 0;
+  }
+  function prepareAround(i){
+    if (i === warmed) return;
+    warmed = i;
+    for (var n = 0; n < slides.length; n++) {
+      var v = slides[n].querySelector('video');
+      if (!v) continue;
+      var src = v.getAttribute('data-src') || '';
+      if (!src) continue;
+      if (Math.abs(n - i) <= 1) {
+        if (v.getAttribute('src') !== src) {
+          v.preload = n === i ? 'auto' : 'metadata';
+          v.src = src;
+        }
+      } else if (v.getAttribute('src')) {
+        try { v.pause(); } catch(e){}
+        v.removeAttribute('src');
+        v.preload = 'none';
+        try { v.load(); } catch(e){}
+      }
+    }
+  }
+  function playAt(i, withSound, fromGesture){
     var s = slides[i];
     if (!s) return;
     if (s.dataset.intro === '1') { stopAll(null); activeVideo = null; return; }
+    prepareAround(i);
     var v = s.querySelector('video');
-    if (!v) return;
-    // already playing this clip — only unmute if needed, don't restart
-    if (activeVideo === v && !v.paused) {
-      if (withSound && v.muted) {
+    if (!v) { stopAll(null); activeVideo = null; return; }
+    if (v === activeVideo && !v.paused && v.readyState >= 2) {
+      if (withSound && fromGesture && v.muted) {
         v.muted = false;
-        var p0 = v.play(); if (p0 && p0.catch) p0.catch(function(){});
+        soundUnlocked = true;
+        var pU = v.play();
+        if (pU && pU.catch) pU.catch(function(){
+          v.muted = true;
+          var p3 = v.play();
+          if (p3 && p3.catch) p3.catch(function(){});
+        });
       }
       return;
     }
     stopAll(v);
     activeVideo = v;
-    slides.forEach(function(sl){ if (sl !== s) { sl.classList.remove('is-paused'); sl.dataset.userPaused=''; } });
+    slides.forEach(function(sl){ if (sl !== s) { sl.classList.remove('is-paused'); sl.dataset.userPaused = ''; } });
     if (s.dataset.userPaused === '1') {
       try { v.pause(); } catch(e){}
       s.classList.add('is-paused');
       return;
     }
     s.classList.remove('is-paused');
-    v.muted = !withSound;
-    // DO NOT reset currentTime / load() — that freezes on first frame
-    var p = v.play();
-    if (p && p.catch) {
-      p.catch(function(){
-        v.muted = true;
-        return v.play().then(function(){
-          if (withSound) {
-            v.muted = false;
-            return v.play();
-          }
+    var wantSound = !!(withSound && (fromGesture || soundUnlocked));
+    v.playsInline = true;
+    v.setAttribute('playsinline', '');
+    v.setAttribute('webkit-playsinline', '');
+    v.muted = !wantSound;
+    var token = ++playToken;
+    function kick(){
+      if (token !== playToken || activeVideo !== v) return;
+      var p = v.play();
+      if (p && p.then) {
+        p.then(function(){
+          if (token !== playToken) return;
+          if (wantSound) soundUnlocked = true;
+        }).catch(function(){
+          if (token !== playToken || activeVideo !== v) return;
+          v.muted = true;
+          var p2 = v.play();
+          if (p2 && p2.catch) p2.catch(function(){});
         });
-      }).catch(function(){});
+      }
+    }
+    kick();
+    if (v.readyState < 2) {
+      if (v._onReady) {
+        v.removeEventListener('canplay', v._onReady);
+        v.removeEventListener('loadeddata', v._onReady);
+      }
+      v._onReady = function(){
+        v.removeEventListener('canplay', v._onReady);
+        v.removeEventListener('loadeddata', v._onReady);
+        if (token !== playToken || activeVideo !== v) return;
+        if (!v.paused && v.readyState >= 2) return;
+        kick();
+      };
+      v.addEventListener('canplay', v._onReady);
+      v.addEventListener('loadeddata', v._onReady);
     }
   }
-  function playCurrent(withSound){ playAt(idx(), !!withSound); }
+  function playCurrent(withSound, fromGesture){ playAt(idx(), !!withSound, !!fromGesture); }
+  function settle(i, tries){
+    var H = layout();
+    if (!H) {
+      if ((tries || 0) < 10) requestAnimationFrame(function(){ laidH = 0; settle(i, (tries || 0) + 1); });
+      return;
+    }
+    suppressScroll++;
+    feed.scrollTop = i * H;
+    requestAnimationFrame(function(){
+      if (Math.abs(feed.scrollTop - i * H) > 2) feed.scrollTop = i * H;
+      setTimeout(function(){ suppressScroll = Math.max(0, suppressScroll - 1); }, 80);
+    });
+  }
+  function goTo(i, withSound, fromGesture){
+    if (!slides.length) return;
+    i = Math.max(0, Math.min(slides.length - 1, i|0));
+    settle(i, 0);
+    playAt(i, withSound, fromGesture);
+  }
 
   function build(){
-    var list = assets().filter(function(a){ return a && (a.t === 'video' || /\.mp4$/i.test(a.s||'')); });
-    if (!list.length) list = assets();
+    playToken++;
+    activeVideo = null;
+    warmed = -999;
+    laidH = 0;
+    var list = assets().filter(function(a){ return a && (a.s || a.src); });
     feed.innerHTML = '';
     slides = [];
 
@@ -4899,12 +5009,20 @@ function bootOrbitaGlobe(){
     list.forEach(function(a, i){
       var src = a.s || a.src || '';
       var title = a.title || a.l || a.badge || ('Пример ' + (i+1));
+      var safe = String(title).replace(/</g,'&lt;').replace(/"/g,'&quot;');
+      var isVideo = a.t === 'video' || /\.mp4$/i.test(src);
       var el = document.createElement('div');
       el.className = 'tt-slide';
-      el.innerHTML = '<video playsinline webkit-playsinline loop preload="metadata" poster="'+stillFor(src)+'" src="'+src+'" muted></video>'+
-        '<div class="tt-pause" aria-hidden="true">⏸</div>'+
-        '<div class="tt-cap">Пример · '+String(title).replace(/</g,'&lt;')+'</div>'+
-        '<button type="button" class="tt-sound" aria-label="Звук">🔊</button>';
+      if (isVideo) {
+        var eager = i === 0;
+        el.innerHTML = '<video data-tt-video playsinline webkit-playsinline loop muted preload="'+(eager?'auto':'none')+'" poster="'+stillFor(src)+'" data-src="'+src+'"'+(eager?' src="'+src+'"':'')+'></video>'+
+          '<div class="tt-pause" aria-hidden="true">⏸</div>'+
+          '<div class="tt-cap">Пример · '+safe+'</div>'+
+          '<button type="button" class="tt-sound" aria-label="Звук">🔊</button>';
+      } else {
+        el.innerHTML = '<img alt="'+safe+'" src="'+src+'"'+(i ? ' loading="lazy"' : '')+' decoding="async">'+
+          '<div class="tt-cap">Пример · '+safe+'</div>';
+      }
       feed.appendChild(el);
       slides.push(el);
       // Mid-feed CTA after 2nd video (concept-safe)
@@ -4922,8 +5040,14 @@ function bootOrbitaGlobe(){
       }
     });
     layout();
-    feed.scrollTop = 0;
-    setTimeout(function(){ playCurrent(false); }, 80);
+    var cover = document.getElementById('ttIntroCover');
+    var coverGone = cover && (cover.classList.contains('is-gone') || cover.hasAttribute('hidden'));
+    if (coverGone) goTo(firstMedia(), !!soundOn, false);
+    else {
+      suppressScroll++;
+      feed.scrollTop = 0;
+      setTimeout(function(){ suppressScroll = Math.max(0, suppressScroll - 1); }, 80);
+    }
   }
 
   // gestures
@@ -4935,44 +5059,36 @@ function bootOrbitaGlobe(){
   feed.addEventListener('touchmove', function(e){
     if (e.touches && e.touches[0] && Math.abs(e.touches[0].clientY - sy) > 10) moved = true;
   }, {passive:true});
-  feed.addEventListener('touchend', function(e){
+  feed.addEventListener('touchend', function(){
     soundOn = true;
-    var ey = (e.changedTouches && e.changedTouches[0]) ? e.changedTouches[0].clientY : sy;
-    var dy = ey - sy;
-    var H = layout();
-    if (moved && Math.abs(dy) > 30) {
-      var i = Math.round(feed.scrollTop / H) + (dy < 0 ? 1 : -1);
-      i = Math.max(0, Math.min(i, slides.length - 1));
-      feed.scrollTo({ top: i * H, behavior: 'smooth' });
-      setTimeout(function(){ playAt(i, true); }, 280);
-    } else {
-      playCurrent(true);
-    }
   }, {passive:true});
   feed.addEventListener('scroll', function(){
+    if (suppressScroll) return;
     clearTimeout(feed._t);
     feed._t = setTimeout(function(){
+      if (suppressScroll) return;
       var i = idx();
       var s = slides[i];
+      if (s && s.dataset.userPaused === '1') return;
       var v = s && s.querySelector('video');
       if (v && activeVideo === v && !v.paused) return;
-      playCurrent(soundOn);
-    }, 120);
+      playAt(i, soundOn, false);
+    }, 140);
   }, {passive:true});
   feed.addEventListener('click', function(e){
     if (e.target.closest && e.target.closest('.tt-sound')) {
-      soundOn = true; playCurrent(true);
+      soundOn = true;
+      playAt(idx(), true, true);
       return;
     }
     // TikTok-style tap to pause / resume
     var slide = e.target.closest && e.target.closest('.tt-slide');
     if (!slide || !feed.contains(slide)) return;
     if (slide.dataset.intro === '1') {
-      // tap intro -> go to first example
-      var H = layout();
-      feed.scrollTo({ top: H, behavior: 'smooth' });
-      if (slides[1]) { slides[1].dataset.userPaused=''; slides[1].classList.remove('is-paused'); }
-      setTimeout(function(){ playAt(1, true); }, 280);
+      var n = firstMedia();
+      if (slides[n]) { slides[n].dataset.userPaused = ''; slides[n].classList.remove('is-paused'); }
+      soundOn = true;
+      goTo(n, true, true);
       return;
     }
     var v = slide.querySelector('video');
@@ -4982,16 +5098,46 @@ function bootOrbitaGlobe(){
       try { v.pause(); } catch(err){}
       slide.classList.add('is-paused');
       slide.dataset.userPaused = '1';
+      playToken++;
     } else {
       slide.dataset.userPaused = '';
       slide.classList.remove('is-paused');
-      // ensure only this slide plays
       var i = slides.indexOf(slide);
       if (i < 0) i = idx();
-      playAt(i, true);
+      playAt(i, true, true);
     }
   });
-  window.addEventListener('resize', function(){ layout(); playCurrent(soundOn); }, {passive:true});
+  var resizeT = 0;
+  function onViewport(){
+    clearTimeout(resizeT);
+    resizeT = setTimeout(function(){
+      var i = idx();
+      var prev = laidH;
+      layout();
+      if (laidH === prev) return;
+      var H = laidH || 1;
+      suppressScroll++;
+      feed.scrollTop = i * H;
+      setTimeout(function(){ suppressScroll = Math.max(0, suppressScroll - 1); }, 80);
+      var s = slides[i];
+      var v = s && s.querySelector('video');
+      if (v && activeVideo === v && !v.paused) return;
+      if (s && s.dataset.userPaused === '1') return;
+      playAt(i, soundOn, false);
+    }, 180);
+  }
+  window.addEventListener('resize', onViewport, {passive:true});
+  if (window.visualViewport) visualViewport.addEventListener('resize', onViewport, {passive:true});
+  document.addEventListener('visibilitychange', function(){
+    if (document.hidden) {
+      playToken++;
+      if (activeVideo) { try { activeVideo.pause(); } catch(e){} }
+    } else if (!introCover || introCover.classList.contains('is-gone') || introCover.hasAttribute('hidden')) {
+      var s = slides[idx()];
+      if (s && s.dataset.userPaused === '1') return;
+      playAt(idx(), soundOn, false);
+    }
+  });
 
   // hook services sheet options to rebuild feed category
   document.querySelectorAll('.app-svc-opt').forEach(function(btn){
