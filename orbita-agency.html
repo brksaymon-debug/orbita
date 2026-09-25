@@ -106,7 +106,12 @@ h3{font-size:clamp(18px,2vw,22px)}
   html:not(.is-app-mobile) .hero .hero-copy h1 .hl1,
   html:not(.is-app-mobile) .hero .hero-copy h1 .hl2{display:block;white-space:nowrap}
   /* line 1 = 3x line 2; letter-spacing in whole px keeps glyph origins on the pixel grid; both lines come out the same width */
-  html:not(.is-app-mobile) .hero .hero-copy h1 .hl1{font-size:72px;line-height:72px;margin-bottom:10px}
+  html:not(.is-app-mobile) .hero .hero-copy h1 .hl1{font-size:72px;line-height:72px;margin-bottom:10px;position:relative}
+  /* Pac-Man: 7x7 pixel art, 1 art pixel = 1 Tiny5 pixel (1/8em); sits over the caps (cap top = 1.5px, so top = .5px) */
+  html:not(.is-app-mobile) .hero .hero-copy h1 .pm{display:none;position:absolute;left:0;top:.0625em;width:.875em;height:.875em;pointer-events:none;z-index:2;will-change:transform;filter:drop-shadow(0 0 6px rgba(255,220,0,.55))}
+  html:not(.is-app-mobile) .hero .hero-copy h1 .pm svg{display:block;width:100%;height:100%}
+  html:not(.is-app-mobile) .hero .hero-copy h1 .hs-c.pm-e{visibility:hidden}
+  html:not(.is-app-mobile) .hero .hero-copy h1 .hs-c.pm-f{color:#ffe600;text-shadow:0 0 1px rgba(0,12,30,.95),0 0 10px rgba(255,220,0,.75)}
   html:not(.is-app-mobile) .hero .hero-copy h1 .hl2{font-size:24px;line-height:24px;letter-spacing:1px}
   html:not(.is-app-mobile) .hero .hero-copy h1::before{content:"";position:absolute;inset:-24px -38px -20px -32px;z-index:-1;pointer-events:none;
     background:radial-gradient(closest-side,rgba(1,5,14,.62),rgba(1,5,14,.34) 62%,transparent)}
@@ -5395,8 +5400,8 @@ function bootOrbitaGlobe(){
 </script>
 
 <script>/* forced desktop on a phone: back-to-feed pill */(function(){if(!window.__orbitaForcedDesktop)return;var b=document.createElement('button');b.type='button';b.className='od-back';b.textContent='← Вернуться в мобильную ленту';b.addEventListener('click',function(){try{localStorage.removeItem('orbitaDesktop')}catch(e){}var q=location.search.replace(/[?&]desktop=[01]/g,'').replace(/^&/,'?');location.href=location.pathname+(q?q+'&':'?')+'desktop=0';});document.body.appendChild(b);})();</script>
-<link rel="stylesheet" href="mobile-tiktok-enhance.css?v=202609251725">
-<script src="mobile-tiktok-enhance.js?v=202609251725" defer></script>
+<link rel="stylesheet" href="mobile-tiktok-enhance.css?v=202609251735">
+<script src="mobile-tiktok-enhance.js?v=202609251735" defer></script>
 <script>/* perf: card videos show their first frame, but only fetch it when they get near the screen */
 (function(){
   function wake(v){
@@ -5496,7 +5501,75 @@ function bootOrbitaGlobe(){
   /* decode once on load, after webfonts are in (so widths are measured on the real font) */
   var fr = (document.fonts && document.fonts.ready) ? document.fonts.ready : Promise.resolve();
   fr.then(function(){ setTimeout(function(){ if (!anim && document.visibilityState === 'visible') run(800); }, 250); });
-  window.__heroScramble = { run: run, cells: cells };
+  window.__heroScramble = { run: run, cells: cells, busy: function(){ return !!anim; } };
+  /* ---- Pac-Man: pixel-art muncher eats «РЕКЛАМА,» on a loop (desktop only, only while visible; paused during hover/scramble) ---- */
+  (function(){
+    var line = h.querySelector('.hl1');
+    if (!line || mqReduce.matches || !window.requestAnimationFrame) return;
+    var G = { /* 7x7 frames facing right: open, half, closed */
+      o:['..###..','.####..','###....','##.....','###....','.####..','..###..'],
+      m:['..###..','.#####.','#####..','####...','#####..','.#####.','..###..'],
+      c:['..###..','.#####.','#######','#######','#######','.#####.','..###..']
+    };
+    function pathOf(rows){ var d=''; rows.forEach(function(r,y){ var x=0; while(x<r.length){ if(r[x]==='#'){ var s=x; while(x<r.length&&r[x]==='#') x++; d+='M'+s+' '+y+'h'+(x-s)+'v1h'+(s-x)+'z'; } else x++; } }); return d; }
+    var FR = [pathOf(G.o), pathOf(G.m), pathOf(G.c), pathOf(G.m)];
+    var pm = document.createElement('span'); pm.className = 'pm'; pm.setAttribute('aria-hidden','true');
+    pm.innerHTML = '<svg viewBox="0 0 7 7" shape-rendering="crispEdges" focusable="false"><path fill="#ffe600"/></svg>';
+    line.appendChild(pm);
+    var path = pm.querySelector('path');
+    var letters = Array.prototype.slice.call(line.querySelectorAll('.hs-c'));
+    var STEP_MS = 45, WAIT_MS = 4500, REVEAL_MS = 55;
+    var raf = 0, timer = 0, state = 'idle', inView = false, hovering = false;
+    var p, x, xEnd, geo, lastStep, frame, revealIdx, lastReveal;
+    function clearMarks(){ letters.forEach(function(c){ c.classList.remove('pm-e','pm-f'); }); }
+    function stopAll(){ if (raf) cancelAnimationFrame(raf); raf = 0; if (timer) clearTimeout(timer); timer = 0; pm.style.display = 'none'; clearMarks(); state = 'idle'; }
+    function canRun(){ return inView && !hovering && document.visibilityState === 'visible' && !(window.__heroScramble && window.__heroScramble.busy()); }
+    function schedule(ms){ if (timer) clearTimeout(timer); timer = setTimeout(function(){ timer = 0; start(); }, ms); state = 'wait'; }
+    function start(){
+      if (!canRun()) { if (inView && document.visibilityState === 'visible' && !hovering) schedule(1200); else state = 'idle'; return; }
+      p = Math.round(parseFloat(getComputedStyle(line).fontSize) / 8);          /* one Tiny5 pixel in screen px */
+      var lr = line.getBoundingClientRect();
+      geo = letters.map(function(c){ var r = c.getBoundingClientRect(); return { l: Math.round((r.left - lr.left) / p), c: c }; });
+      var last = letters[letters.length - 1].getBoundingClientRect();
+      xEnd = Math.round((last.right - lr.left) / p) + 3;
+      x = -9; frame = 0; lastStep = 0; state = 'eat';
+      pm.style.display = 'block'; draw();
+      raf = requestAnimationFrame(tick);
+    }
+    function draw(){ pm.style.transform = 'translate3d(' + (x * p) + 'px,0,0)'; path.setAttribute('d', FR[frame & 3]); }
+    function tick(now){
+      raf = 0;
+      if (!canRun()) { stopAll(); if (inView && !hovering) schedule(2500); return; }
+      if (state === 'eat') {
+        if (!lastStep) lastStep = now;
+        var n = 0; while (now - lastStep >= STEP_MS && n < 4) { lastStep += STEP_MS; n++; x++; frame++; }
+        if (n) {
+          geo.forEach(function(g){
+            if (g.c.classList.contains('pm-e')) return;
+            if (x + 3 >= g.l + 1) { g.c.classList.remove('pm-f'); g.c.classList.add('pm-e'); }        /* swallowed */
+            else if (x + 6 >= g.l + 1) g.c.classList.add('pm-f');                                        /* flash as the mouth reaches it */
+          });
+          draw();
+        }
+        if (x > xEnd) { pm.style.display = 'none'; state = 'respawn'; revealIdx = 0; lastReveal = now; }
+      } else if (state === 'respawn') {
+        if (now - lastReveal >= REVEAL_MS) {
+          lastReveal = now;
+          if (revealIdx > 0) letters[revealIdx - 1].classList.remove('pm-f');
+          if (revealIdx < letters.length) { letters[revealIdx].classList.remove('pm-e'); letters[revealIdx].classList.add('pm-f'); revealIdx++; }
+          else { clearMarks(); state = 'wait'; schedule(WAIT_MS); return; }
+        }
+      }
+      raf = requestAnimationFrame(tick);
+    }
+    function wake(delay){ if (state === 'idle' && canRun()) schedule(delay); }
+    new IntersectionObserver(function(en){ inView = en[0].isIntersecting; if (inView) wake(1500); else stopAll(); }).observe(h);
+    document.addEventListener('visibilitychange', function(){ if (document.visibilityState === 'visible') wake(1500); else stopAll(); });
+    h.addEventListener('mouseenter', function(){ hovering = true; stopAll(); });
+    h.addEventListener('mouseleave', function(){ hovering = false; schedule(2500); });
+    window.__pacman = { state: function(){ return state; }, x: function(){ return x; } };
+  })();
+
 })();
 </script>
 </body>
