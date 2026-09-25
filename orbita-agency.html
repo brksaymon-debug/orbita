@@ -7,7 +7,7 @@
   <meta http-equiv="Pragma" content="no-cache">
   <meta name="orbita-build" content="20260921220734">
 
-<style>/* phones: dark app background from the very first paint */@media (max-width:760px){html,body{background:#07070a}}html.is-forced-desktop,html.is-forced-desktop body{background:#07070a}</style>
+<style>/* phones: dark app background from the very first paint */@media (max-width:760px){html,body{background:#07070a}}</style>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1">
 <script>/* is-app-mobile-early + forced desktop (?desktop=1 / localStorage orbitaDesktop) */(function(){var d=document.documentElement,f=false;try{var q=/[?&]desktop=([01])/.exec(location.search);if(q){if(q[1]==='1')localStorage.setItem('orbitaDesktop','1');else localStorage.removeItem('orbitaDesktop');}f=localStorage.getItem('orbitaDesktop')==='1';}catch(e){}
 var narrow=Math.min(screen.width||9999,screen.height||9999)<=760||matchMedia('(max-width:760px)').matches;
@@ -5361,8 +5361,8 @@ function bootOrbitaGlobe(){
 </script>
 
 <script>/* forced desktop on a phone: back-to-feed pill */(function(){if(!window.__orbitaForcedDesktop)return;var b=document.createElement('button');b.type='button';b.className='od-back';b.textContent='← Вернуться в мобильную ленту';b.addEventListener('click',function(){try{localStorage.removeItem('orbitaDesktop')}catch(e){}var q=location.search.replace(/[?&]desktop=[01]/g,'').replace(/^&/,'?');location.href=location.pathname+(q?q+'&':'?')+'desktop=0';});document.body.appendChild(b);})();</script>
-<link rel="stylesheet" href="mobile-tiktok-enhance.css?v=202609251600">
-<script src="mobile-tiktok-enhance.js?v=202609251600" defer></script>
+<link rel="stylesheet" href="mobile-tiktok-enhance.css?v=202609251615">
+<script src="mobile-tiktok-enhance.js?v=202609251615" defer></script>
 <script>/* perf: card videos show their first frame, but only fetch it when they get near the screen */
 (function(){
   function wake(v){
