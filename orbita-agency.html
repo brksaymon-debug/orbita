@@ -15,8 +15,11 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="ОРБИТА">
 <link rel="manifest" href="manifest.webmanifest">
-<link rel="apple-touch-icon" href="icon-192.png">
-<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="48x48" href="favicon-48.png">
+<link rel="icon" type="image/png" sizes="192x192" href="logo-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
 
 <title>ОРБИТА — Видео и дизайн, которые продают</title>
 <meta name="description" content="Креативная студия: видеореклама, Reels, монтаж, баннеры, флаеры, афиши и key visual. Договор, NDA, юрлицо. Цены от — финал после брифа.">
@@ -2240,6 +2243,45 @@ html.is-app-mobile .tt-intro-meta{font:500 12px/1.4 Inter,system-ui;color:rgba(2
   html.is-app-mobile .tt-intro-swipe{animation:none!important}
   html.is-app-mobile .tt-intro-cover,html.is-app-mobile .tt-slide .tt-pause{transition:none!important}
 }
+
+/* Orbita logo 2026-09 */
+.logo{display:inline-flex;align-items:center;gap:10px}
+.logo .logo-mark{width:34px;height:34px;border-radius:50%;flex:none;filter:drop-shadow(0 0 8px rgba(34,224,255,.35))}
+.svc-orbit-core{overflow:visible}
+.svc-orbit-core .svc-core-logo{position:absolute;inset:0;width:100%;height:100%;border-radius:50%;object-fit:cover;display:block}
+.svc-orbit-core span{position:absolute;left:50%;top:calc(100% + 6px);transform:translateX(-50%);color:#22e0ff!important;text-shadow:0 0 10px rgba(34,224,255,.45);white-space:nowrap}
+.footer-brand{display:inline-flex;align-items:center;gap:8px}
+.footer-brand img{border-radius:50%}
+.tt-brand-block,.tt-toast{display:none}
+@media (max-width:760px){
+  html.is-app-mobile .tt-brand-block{
+    display:flex;align-items:center;gap:8px;position:absolute;top:24px;left:14px;z-index:6;
+    padding:0;margin:0;border:0;background:none;color:#fff;text-align:left;cursor:pointer;
+    -webkit-tap-highlight-color:transparent;opacity:.92;
+  }
+  html.is-app-mobile .tt-brand-block img{width:30px;height:30px;border-radius:50%;flex:none;opacity:.9;box-shadow:0 0 12px rgba(34,224,255,.28)}
+  html.is-app-mobile .tt-brand-txt{display:flex;flex-direction:column;gap:2px;text-shadow:0 1px 3px rgba(0,0,0,.85)}
+  html.is-app-mobile .tt-brand-txt b{font:700 10px/1 Unbounded,system-ui;letter-spacing:.1em;color:#fff}
+  html.is-app-mobile .tt-brand-txt small{font:500 10px/1.2 Inter,system-ui;color:rgba(34,224,255,.78)}
+  html.is-app-mobile .tt-toast{
+    display:block;position:absolute;top:64px;left:12px;right:12px;z-index:40;
+    padding:12px 14px;border-radius:14px;background:rgba(8,12,18,.96);
+    border:1px solid rgba(34,224,255,.35);box-shadow:0 10px 30px rgba(0,0,0,.5);
+    font:500 13px/1.4 Inter,system-ui;color:#e8eef8;
+  }
+  html.is-app-mobile .tt-toast[hidden]{display:none}
+  html.is-app-mobile .tt-toast p{margin:0 0 10px}
+  html.is-app-mobile .tt-toast-copy{appearance:none;border:0;border-radius:999px;padding:9px 14px;background:#22e0ff;color:#041018;font:700 12px/1 Inter,system-ui;cursor:pointer}
+  html.is-app-mobile .tt-intro-cover .tt-intro-logo{
+    display:block;width:84px;height:84px;margin:0 auto 16px;border-radius:50%;
+    box-shadow:0 0 28px rgba(34,224,255,.35),0 0 64px rgba(34,224,255,.14);
+    animation:ttLogoIn .7s ease-out both;
+  }
+  @keyframes ttLogoIn{from{opacity:0;transform:translateY(8px) scale(.94)}to{opacity:1;transform:none}}
+}
+@media (prefers-reduced-motion:reduce){
+  html.is-app-mobile .tt-intro-cover .tt-intro-logo{animation:none}
+}
 </style>
 <script>
 (function(){
@@ -2260,7 +2302,7 @@ html.is-app-mobile .tt-intro-meta{font:500 12px/1.4 Inter,system-ui;color:rgba(2
 <body>
 <header class="nav">
   <div class="wrap nav-inner">
-    <a class="logo" href="#top">ОРБИТА<span>.</span></a>
+    <a class="logo" href="#top"><img class="logo-mark" src="logo-128.webp" width="34" height="34" alt="" loading="lazy" decoding="async">ОРБИТА<span>.</span></a>
     <nav class="nav-links" aria-label="Основная навигация">
       <a href="#services">Работы</a>
       <a href="#services">Услуги</a>
@@ -2369,7 +2411,7 @@ html.is-app-mobile .tt-intro-meta{font:500 12px/1.4 Inter,system-ui;color:rgba(2
           <div class="svc-orbit-stage" id="svcOrbitStage">
             <div class="svc-orbit-ring" aria-hidden="true"></div>
             <div class="svc-orbit-ring svc-orbit-ring-2" aria-hidden="true"></div>
-            <div class="svc-orbit-core" aria-hidden="true"><span>ORBITA</span></div>
+            <div class="svc-orbit-core" aria-hidden="true"><img class="svc-core-logo" src="logo-256.webp" alt="" loading="lazy" decoding="async"><span>ORBITA</span></div>
             <p class="svc-frame-hint-mob" id="svcFrameHintMob" hidden></p>
             <div class="svc-phone" id="svcPhone"><div class="svc-wall svc-orbit-wall" id="svcWall" aria-label="Примеры работ" aria-hidden="false"></div></div>
             <p class="svc-tiktok-hint" hidden></p>
@@ -2704,7 +2746,7 @@ html.is-app-mobile .tt-intro-meta{font:500 12px/1.4 Inter,system-ui;color:rgba(2
 
 <footer class="footer">
   <div class="wrap footer-inner">
-    <div>© <span id="year"></span> ОРБИТА · видео и дизайн</div>
+    <div class="footer-brand"><img src="logo-128.webp" width="22" height="22" alt="" loading="lazy" decoding="async">© <span id="year"></span> ОРБИТА · видео и дизайн</div>
     <div><a href="mailto:hello@orbita.agency">hello@orbita.agency</a></div>
   </div>
 </footer>
@@ -4663,11 +4705,19 @@ function bootOrbitaGlobe(){
 <div id="ttApp" class="tt-app" hidden>
   <div class="tt-phone" id="ttPhone">
     <div class="tt-notch" aria-hidden="true"></div>
-    <div class="tt-brand" aria-hidden="true">ОРБИТА</div>
+    <button type="button" class="tt-brand-block" id="ttBrand" aria-label="ОРБИТА — полная версия сайта на ПК">
+      <img src="logo-128.webp" width="30" height="30" alt="" decoding="async">
+      <span class="tt-brand-txt"><b>ОРБИТА</b><small>Полная версия сайта — на ПК</small></span>
+    </button>
+    <div class="tt-toast" id="ttToast" role="status" hidden>
+      <p>Откройте Orbita на компьютере — там орбита, глобус и все работы</p>
+      <button type="button" class="tt-toast-copy" id="ttToastCopy">Скопировать ссылку</button>
+    </div>
     <div class="tt-intro-cover" id="ttIntroCover" role="dialog" aria-label="О студии">
       <div class="tt-intro-orbit" aria-hidden="true"></div>
       <div class="tt-intro-orbit" aria-hidden="true"></div>
       <div class="tt-intro-inner">
+        <img class="tt-intro-logo" src="logo-256.webp" width="84" height="84" alt="Orbita" decoding="async">
         <div class="tt-intro-eyebrow">Креативная студия</div>
         <h2 class="tt-intro-title">Ролики и дизайн,<br>которые продают</h2>
         <p class="tt-intro-lead">Видеореклама, Reels, баннеры и афиши под ключ — от брифа до мастера.</p>
@@ -5189,12 +5239,33 @@ function bootOrbitaGlobe(){
   }
   bootWhenReady();
 
+  // brand block -> "full version on desktop" toast
+  var brandBtn = document.getElementById('ttBrand'), toast = document.getElementById('ttToast'), toastT = 0;
+  if (brandBtn && toast) {
+    brandBtn.addEventListener('click', function(e){
+      e.preventDefault(); e.stopPropagation();
+      toast.hidden = !toast.hidden;
+      clearTimeout(toastT);
+      if (!toast.hidden) toastT = setTimeout(function(){ toast.hidden = true; }, 6000);
+    });
+    var copyBtn = document.getElementById('ttToastCopy');
+    if (copyBtn) copyBtn.addEventListener('click', function(e){
+      e.stopPropagation();
+      var url = location.origin + location.pathname.replace(/[^\/]*$/, '');
+      function done(){ copyBtn.textContent = 'Ссылка скопирована ✓'; clearTimeout(toastT); toastT = setTimeout(function(){ toast.hidden = true; copyBtn.textContent = 'Скопировать ссылку'; }, 1800); }
+      try {
+        if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(url).then(done, function(){ window.prompt('Ссылка на сайт:', url); });
+        else window.prompt('Ссылка на сайт:', url);
+      } catch(_) { window.prompt('Ссылка на сайт:', url); }
+    });
+  }
+
   // land on feed
   try { history.replaceState(null, '', location.pathname + location.search + '#services'); } catch(e){}
 })();
 </script>
 
-<link rel="stylesheet" href="mobile-tiktok-enhance.css?v=202609251448">
-<script src="mobile-tiktok-enhance.js?v=202609251448" defer></script>
+<link rel="stylesheet" href="mobile-tiktok-enhance.css?v=202609251459">
+<script src="mobile-tiktok-enhance.js?v=202609251459" defer></script>
 </body>
 </html>
