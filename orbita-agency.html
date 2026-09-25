@@ -7,9 +7,12 @@
   <meta http-equiv="Pragma" content="no-cache">
   <meta name="orbita-build" content="20260921220734">
 
-<style>/* phones: dark app background from the very first paint */@media (max-width:760px){html,body{background:#07070a}}</style>
-<script>/* is-app-mobile-early */try{if(matchMedia('(max-width:760px)').matches)document.documentElement.classList.add('is-app-mobile')}catch(e){}</script>
+<style>/* phones: dark app background from the very first paint */@media (max-width:760px){html,body{background:#07070a}}html.is-forced-desktop,html.is-forced-desktop body{background:#07070a}</style>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1">
+<script>/* is-app-mobile-early + forced desktop (?desktop=1 / localStorage orbitaDesktop) */(function(){var d=document.documentElement,f=false;try{var q=/[?&]desktop=([01])/.exec(location.search);if(q){if(q[1]==='1')localStorage.setItem('orbitaDesktop','1');else localStorage.removeItem('orbitaDesktop');}f=localStorage.getItem('orbitaDesktop')==='1';}catch(e){}
+var narrow=Math.min(screen.width||9999,screen.height||9999)<=760||matchMedia('(max-width:760px)').matches;
+if(f&&narrow){window.__orbitaForcedDesktop=true;d.classList.add('is-forced-desktop');var m=document.querySelector('meta[name=viewport]');if(m)m.setAttribute('content','width=1280');return;}
+try{if(matchMedia('(max-width:760px)').matches)d.classList.add('is-app-mobile')}catch(e){}})();</script>
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -2252,7 +2255,8 @@ html.is-app-mobile .tt-intro-meta{font:500 12px/1.4 Inter,system-ui;color:rgba(2
 .svc-orbit-core span{position:absolute;left:50%;top:calc(100% + 6px);transform:translateX(-50%);color:#22e0ff!important;text-shadow:0 0 10px rgba(34,224,255,.45);white-space:nowrap}
 .footer-brand{display:inline-flex;align-items:center;gap:8px}
 .footer-brand img{border-radius:50%}
-.tt-brand-block,.tt-toast{display:none}
+.tt-brand-block,.tt-toast,.tt-toast-scrim{display:none}
+.od-back{position:fixed;left:50%;bottom:28px;transform:translateX(-50%);z-index:99999;padding:26px 50px;border-radius:999px;border:3px solid rgba(34,224,255,.6);background:rgba(7,7,10,.92);color:#22e0ff;font:700 40px/1 Inter,system-ui;box-shadow:0 0 40px rgba(34,224,255,.3);cursor:pointer;white-space:nowrap}
 @media (max-width:760px){
   html.is-app-mobile .tt-brand-block{
     display:flex;align-items:center;gap:8px;position:absolute;top:24px;left:14px;z-index:6;
@@ -2262,16 +2266,26 @@ html.is-app-mobile .tt-intro-meta{font:500 12px/1.4 Inter,system-ui;color:rgba(2
   html.is-app-mobile .tt-brand-block img{width:30px;height:30px;border-radius:50%;flex:none;opacity:.9;box-shadow:0 0 12px rgba(34,224,255,.28)}
   html.is-app-mobile .tt-brand-txt{display:flex;flex-direction:column;gap:2px;text-shadow:0 1px 3px rgba(0,0,0,.85)}
   html.is-app-mobile .tt-brand-txt b{font:700 10px/1 Unbounded,system-ui;letter-spacing:.1em;color:#fff}
-  html.is-app-mobile .tt-brand-txt small{font:500 10px/1.2 Inter,system-ui;color:rgba(34,224,255,.78)}
+  html.is-app-mobile .tt-brand-txt small{font:500 10px/1.2 Inter,system-ui;color:rgba(34,224,255,.85);white-space:nowrap;
+    display:inline-block;padding:2px 7px;margin-left:-7px;border-radius:999px;border:1px solid rgba(34,224,255,.32);background:rgba(34,224,255,.08);text-decoration:underline;text-decoration-color:rgba(34,224,255,.4);text-underline-offset:2px}
+  html.is-app-mobile .tt-brand-block:active small{background:rgba(34,224,255,.2)}
+  html.is-app-mobile .tt-toast-scrim{display:block;position:absolute;inset:0;z-index:39;background:rgba(0,0,0,.5)}
+  html.is-app-mobile .tt-toast-scrim[hidden]{display:none}
   html.is-app-mobile .tt-toast{
-    display:block;position:absolute;top:64px;left:12px;right:12px;z-index:40;
-    padding:12px 14px;border-radius:14px;background:rgba(8,12,18,.96);
-    border:1px solid rgba(34,224,255,.35);box-shadow:0 10px 30px rgba(0,0,0,.5);
-    font:500 13px/1.4 Inter,system-ui;color:#e8eef8;
+    display:block;position:absolute;left:10px;right:10px;bottom:10px;z-index:40;
+    padding:18px 16px 14px;border-radius:18px;background:rgba(8,12,18,.98);
+    border:1px solid rgba(34,224,255,.35);box-shadow:0 -10px 40px rgba(0,0,0,.6),0 0 30px rgba(34,224,255,.08);
+    font:500 13px/1.4 Inter,system-ui;color:#e8eef8;animation:ttSheetIn .25s ease-out both;
   }
+  @keyframes ttSheetIn{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
   html.is-app-mobile .tt-toast[hidden]{display:none}
-  html.is-app-mobile .tt-toast p{margin:0 0 10px}
-  html.is-app-mobile .tt-toast-copy{appearance:none;border:0;border-radius:999px;padding:9px 14px;background:#22e0ff;color:#041018;font:700 12px/1 Inter,system-ui;cursor:pointer}
+  html.is-app-mobile .tt-toast h3{margin:0 30px 4px 0;font:700 15px/1.25 Unbounded,system-ui;color:#fff}
+  html.is-app-mobile .tt-toast-sub{margin:0 0 10px;color:#22e0ff;font-size:13px}
+  html.is-app-mobile .tt-toast-how{list-style:none;margin:0 0 14px;padding:10px 12px;border-radius:12px;background:rgba(255,255,255,.05);font-size:12.5px;line-height:1.6;color:#c9d3e0}
+  html.is-app-mobile .tt-toast-how b{color:#fff}
+  html.is-app-mobile .tt-toast-x{position:absolute;top:8px;right:8px;width:32px;height:32px;border:0;border-radius:50%;background:rgba(255,255,255,.08);color:#fff;font:400 22px/32px system-ui;padding:0;cursor:pointer}
+  html.is-app-mobile .tt-toast-go{display:block;width:100%;appearance:none;border:0;border-radius:999px;padding:13px 16px;background:#22e0ff;color:#041018;font:700 14px/1 Inter,system-ui;cursor:pointer;box-shadow:0 0 22px rgba(34,224,255,.35)}
+  html.is-app-mobile .tt-toast-copy{display:block;width:100%;margin-top:8px;appearance:none;border:1px solid rgba(34,224,255,.35);border-radius:999px;padding:11px 14px;background:transparent;color:#22e0ff;font:600 13px/1 Inter,system-ui;cursor:pointer}
   html.is-app-mobile .tt-intro-cover .tt-intro-logo{
     display:block;width:84px;height:84px;margin:0 auto 16px;border-radius:50%;
     box-shadow:0 0 28px rgba(34,224,255,.35),0 0 64px rgba(34,224,255,.14);
@@ -4705,12 +4719,20 @@ function bootOrbitaGlobe(){
 <div id="ttApp" class="tt-app" hidden>
   <div class="tt-phone" id="ttPhone">
     <div class="tt-notch" aria-hidden="true"></div>
-    <button type="button" class="tt-brand-block" id="ttBrand" aria-label="ОРБИТА — полная версия сайта на ПК">
+    <button type="button" class="tt-brand-block" id="ttBrand" aria-label="ОРБИТА — расширенная версия сайта (режим ПК)" aria-haspopup="dialog" aria-controls="ttToast">
       <img src="logo-128.webp" width="30" height="30" alt="" decoding="async">
-      <span class="tt-brand-txt"><b>ОРБИТА</b><small>Полная версия сайта — на ПК</small></span>
+      <span class="tt-brand-txt"><b>ОРБИТА</b><small>Расширенная версия — включите режим ПК ↗</small></span>
     </button>
-    <div class="tt-toast" id="ttToast" role="status" hidden>
-      <p>Откройте Orbita на компьютере — там орбита, глобус и все работы</p>
+    <div class="tt-toast-scrim" id="ttToastScrim" hidden></div>
+    <div class="tt-toast" id="ttToast" role="dialog" aria-modal="true" aria-labelledby="ttToastTitle" hidden>
+      <button type="button" class="tt-toast-x" id="ttToastX" aria-label="Закрыть">×</button>
+      <h3 id="ttToastTitle">Расширенная версия сайта</h3>
+      <p class="tt-toast-sub">Орбита услуг, глобус проектов и все работы</p>
+      <ul class="tt-toast-how">
+        <li><b>Chrome:</b> ⋮ → Версия для ПК</li>
+        <li><b>Safari:</b> аА → Запросить настольный веб-сайт</li>
+      </ul>
+      <button type="button" class="tt-toast-go" id="ttToastGo">Открыть расширенную версию</button>
       <button type="button" class="tt-toast-copy" id="ttToastCopy">Скопировать ссылку</button>
     </div>
     <div class="tt-intro-cover" id="ttIntroCover" role="dialog" aria-label="О студии">
@@ -5239,20 +5261,28 @@ function bootOrbitaGlobe(){
   }
   bootWhenReady();
 
-  // brand block -> "full version on desktop" toast
-  var brandBtn = document.getElementById('ttBrand'), toast = document.getElementById('ttToast'), toastT = 0;
+  // brand block -> "extended version" bottom sheet
+  var brandBtn = document.getElementById('ttBrand'), toast = document.getElementById('ttToast'), scrim = document.getElementById('ttToastScrim');
+  function sheet(open){ if (!toast) return; toast.hidden = !open; if (scrim) scrim.hidden = !open; }
   if (brandBtn && toast) {
-    brandBtn.addEventListener('click', function(e){
-      e.preventDefault(); e.stopPropagation();
-      toast.hidden = !toast.hidden;
-      clearTimeout(toastT);
-      if (!toast.hidden) toastT = setTimeout(function(){ toast.hidden = true; }, 6000);
+    brandBtn.addEventListener('click', function(e){ e.preventDefault(); e.stopPropagation(); sheet(toast.hidden); });
+    toast.addEventListener('click', function(e){ e.stopPropagation(); });
+    if (scrim) scrim.addEventListener('click', function(e){ e.stopPropagation(); sheet(false); });
+    var xBtn = document.getElementById('ttToastX');
+    if (xBtn) xBtn.addEventListener('click', function(e){ e.stopPropagation(); sheet(false); });
+    document.addEventListener('keydown', function(e){ if (e.key === 'Escape') sheet(false); });
+    var goBtn = document.getElementById('ttToastGo');
+    if (goBtn) goBtn.addEventListener('click', function(e){
+      e.stopPropagation();
+      try { localStorage.setItem('orbitaDesktop', '1'); } catch(_) {}
+      var q = location.search.replace(/[?&]desktop=[01]/g, '').replace(/^&/, '?');
+      location.href = location.pathname + (q ? q + '&' : '?') + 'desktop=1';
     });
     var copyBtn = document.getElementById('ttToastCopy');
     if (copyBtn) copyBtn.addEventListener('click', function(e){
       e.stopPropagation();
       var url = location.origin + location.pathname.replace(/[^\/]*$/, '');
-      function done(){ copyBtn.textContent = 'Ссылка скопирована ✓'; clearTimeout(toastT); toastT = setTimeout(function(){ toast.hidden = true; copyBtn.textContent = 'Скопировать ссылку'; }, 1800); }
+      function done(){ copyBtn.textContent = 'Ссылка скопирована ✓'; setTimeout(function(){ copyBtn.textContent = 'Скопировать ссылку'; }, 2000); }
       try {
         if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(url).then(done, function(){ window.prompt('Ссылка на сайт:', url); });
         else window.prompt('Ссылка на сайт:', url);
@@ -5265,7 +5295,8 @@ function bootOrbitaGlobe(){
 })();
 </script>
 
-<link rel="stylesheet" href="mobile-tiktok-enhance.css?v=202609251459">
-<script src="mobile-tiktok-enhance.js?v=202609251459" defer></script>
+<script>/* forced desktop on a phone: back-to-feed pill */(function(){if(!window.__orbitaForcedDesktop)return;var b=document.createElement('button');b.type='button';b.className='od-back';b.textContent='← Вернуться в мобильную ленту';b.addEventListener('click',function(){try{localStorage.removeItem('orbitaDesktop')}catch(e){}var q=location.search.replace(/[?&]desktop=[01]/g,'').replace(/^&/,'?');location.href=location.pathname+(q?q+'&':'?')+'desktop=0';});document.body.appendChild(b);})();</script>
+<link rel="stylesheet" href="mobile-tiktok-enhance.css?v=202609251506">
+<script src="mobile-tiktok-enhance.js?v=202609251506" defer></script>
 </body>
 </html>
