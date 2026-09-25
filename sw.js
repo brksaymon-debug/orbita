@@ -1,4 +1,4 @@
-const CACHE='orbita-app-v9-perf2';
+const CACHE='orbita-app-v10-form';
 self.addEventListener('install', e=>{ e.waitUntil(caches.keys().then(ks=>Promise.all(ks.map(k=>caches.delete(k)))).then(()=>self.skipWaiting())); });
 self.addEventListener('activate', e=>{ e.waitUntil(self.clients.claim()); });
 self.addEventListener('fetch', e=>{
