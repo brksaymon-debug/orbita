@@ -2449,8 +2449,8 @@ window.ORB_MV={"work-02.mp4":1,"work-03.mp4":1,"work-05.mp4":1,"work-06.mp4":1,"
 <main id="top">
   <section class="hero">
     <div class="hero-bg" aria-hidden="true">
-      <video data-lazy-src="orbita-bg.mp4" muted loop playsinline preload="none" data-autoplay-bg></video>
-      <script>/* perf: desktop only — phones never fetch the 6MB bg */(function(){try{if(matchMedia('(max-width:760px)').matches)return;var v=document.currentScript.previousElementSibling;var sm=window.__orbitaForcedDesktop||Math.min(screen.width||9999,screen.height||9999)<=760;v.preload='metadata';v.src=sm?'orbita-bg-m.mp4':v.getAttribute('data-lazy-src');}catch(e){}})();</script>
+      <video data-lazy-src="orbita-bg.mp4?v=loop2" muted loop playsinline preload="none" data-autoplay-bg></video>
+      <script>/* perf: desktop only — phones never fetch the 6MB bg */(function(){try{if(matchMedia('(max-width:760px)').matches)return;var v=document.currentScript.previousElementSibling;var sm=window.__orbitaForcedDesktop||Math.min(screen.width||9999,screen.height||9999)<=760;v.preload='metadata';v.src=sm?'orbita-bg-m.mp4?v=loop2':v.getAttribute('data-lazy-src');}catch(e){}})();</script>
     </div>
     <div class="wrap hero-grid">
       <div class="hero-copy">
@@ -5075,7 +5075,7 @@ function bootOrbitaGlobe(){
   } catch(_){}
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', function(){
-      navigator.serviceWorker.register('./sw.js?v=20260925form').catch(function(){});
+      navigator.serviceWorker.register('./sw.js?v=20260925nike').catch(function(){});
     });
   }
 })();
@@ -5379,6 +5379,13 @@ function bootOrbitaGlobe(){
     warmed = -999;
     laidH = 0;
     var list = assets().filter(function(a){ return a && (a.s || a.src); });
+    /* phone feed only: the Nike spot with the narrator opens the feed; the clip that used to open it takes the Nike slot */
+    if (cat === 0) {
+      var nk = -1;
+      for (var q = 0; q < list.length; q++) { if ((list[q].s || list[q].src) === 'work-18.mp4') { nk = q; break; } }
+      if (nk > 0) { list = list.slice(); var first = list[0]; list[0] = list[nk]; list[nk] = first; }
+    }
+    var POSTERS = {'work-18.mp4': 'm/work-18-poster.jpg'};
     feed.innerHTML = '';
     slides = [];
 
@@ -5410,7 +5417,7 @@ function bootOrbitaGlobe(){
       el.className = 'tt-slide';
       if (isVideo) {
         var eager = i === 0;
-        el.innerHTML = '<video data-tt-video playsinline webkit-playsinline loop muted preload="'+(eager?'auto':'none')+'" data-src="'+firstFrame(src)+'"'+(eager?' src="'+firstFrame(src)+'"':'')+'></video>'+
+        el.innerHTML = '<video data-tt-video playsinline webkit-playsinline loop muted preload="'+(eager?'auto':'none')+'"'+(eager && POSTERS[src] ? ' poster="'+POSTERS[src]+'"' : '')+' data-src="'+firstFrame(src)+'"'+(eager?' src="'+firstFrame(src)+'"':'')+'></video>'+
           '<div class="tt-pause" aria-hidden="true">⏸</div>'+
           '<div class="tt-cap">Пример · '+safe+'</div>'+
           '<button type="button" class="tt-sound" aria-label="Звук">🔊</button>';
@@ -5600,8 +5607,8 @@ function bootOrbitaGlobe(){
 </script>
 
 <script>/* forced desktop on a phone: back-to-feed pill */(function(){if(!window.__orbitaForcedDesktop)return;var b=document.createElement('button');b.type='button';b.className='od-back';b.textContent='← Вернуться в мобильную ленту';b.addEventListener('click',function(){try{localStorage.removeItem('orbitaDesktop')}catch(e){}var q=location.search.replace(/[?&]desktop=[01]/g,'').replace(/^&/,'?');location.href=location.pathname+(q?q+'&':'?')+'desktop=0';});document.body.appendChild(b);})();</script>
-<link rel="stylesheet" href="mobile-tiktok-enhance.css?v=202609251915">
-<script src="mobile-tiktok-enhance.js?v=202609251915" defer></script>
+<link rel="stylesheet" href="mobile-tiktok-enhance.css?v=202609252030">
+<script src="mobile-tiktok-enhance.js?v=202609252030" defer></script>
 <script>/* perf: card videos show their first frame, but only fetch it when they get near the screen */
 (function(){
   function wake(v){
