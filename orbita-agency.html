@@ -3580,13 +3580,17 @@ window.ORB_MV={"work-02.mp4":1,"work-03.mp4":1,"work-05.mp4":1,"work-06.mp4":1,"
       gio.observe(globeSec);
       /* smoothness: the one-off WebGL set-up (~0.1-0.5s of main thread) runs while the visitor is still reading the hero,
          not in the middle of a scroll */
-      window.addEventListener('load', function(){
+      /* ...triggered by the first mouse move / key / wheel, i.e. only for a real visitor who is looking at the hero */
+      var warmEv = ['mousemove','pointerdown','keydown','wheel','touchstart'];
+      var warmUp = function(){
+        warmEv.forEach(function(n){ window.removeEventListener(n, warmUp); });
         setTimeout(function(){
           if (threeAsked) return;
-          if ('requestIdleCallback' in window) requestIdleCallback(function(){ gio.disconnect(); loadThree(); }, {timeout:4000});
+          if ('requestIdleCallback' in window) requestIdleCallback(function(){ gio.disconnect(); loadThree(); }, {timeout:3000});
           else { gio.disconnect(); loadThree(); }
-        }, 2500);
-      });
+        }, 400);
+      };
+      warmEv.forEach(function(n){ window.addEventListener(n, warmUp, {passive:true}); });
     } else loadThree();
   }
 })();
@@ -4835,7 +4839,7 @@ function bootOrbitaGlobe(){
 <div id="ttApp" class="tt-app" hidden>
   <div class="tt-phone" id="ttPhone">
     <div class="tt-notch" aria-hidden="true"></div>
-    <button type="button" class="tt-brand-block" id="ttBrand" aria-label="ОРБИТА. Расширенная версия — включите режим ПК" aria-haspopup="dialog" aria-controls="ttToast">
+    <button type="button" class="tt-brand-block" id="ttBrand" aria-haspopup="dialog" aria-controls="ttToast">
       <img src="logo-128.webp" width="30" height="30" alt="" decoding="async">
       <span class="tt-brand-txt"><b>ОРБИТА</b><small>Расширенная версия — включите режим ПК ↗</small></span>
     </button>
@@ -5427,8 +5431,8 @@ function bootOrbitaGlobe(){
 </script>
 
 <script>/* forced desktop on a phone: back-to-feed pill */(function(){if(!window.__orbitaForcedDesktop)return;var b=document.createElement('button');b.type='button';b.className='od-back';b.textContent='← Вернуться в мобильную ленту';b.addEventListener('click',function(){try{localStorage.removeItem('orbitaDesktop')}catch(e){}var q=location.search.replace(/[?&]desktop=[01]/g,'').replace(/^&/,'?');location.href=location.pathname+(q?q+'&':'?')+'desktop=0';});document.body.appendChild(b);})();</script>
-<link rel="stylesheet" href="mobile-tiktok-enhance.css?v=202609251810">
-<script src="mobile-tiktok-enhance.js?v=202609251810" defer></script>
+<link rel="stylesheet" href="mobile-tiktok-enhance.css?v=202609251820">
+<script src="mobile-tiktok-enhance.js?v=202609251820" defer></script>
 <script>/* perf: card videos show their first frame, but only fetch it when they get near the screen */
 (function(){
   function wake(v){
