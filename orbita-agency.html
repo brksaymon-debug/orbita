@@ -2222,6 +2222,9 @@ html.is-app-mobile .tt-intro-meta{font:500 12px/1.4 Inter,system-ui;color:rgba(2
   html.is-app-mobile .tt-slide .tt-cap{-webkit-backdrop-filter:none!important;backdrop-filter:none!important;background:rgba(0,0,0,.62)}
   html.is-app-mobile .app-dock{-webkit-backdrop-filter:none!important;backdrop-filter:none!important;background:rgba(8,8,10,.97)}
   html.is-app-mobile .tt-slide{contain:layout paint}
+  /* old sticky CTA bar is replaced by the app dock on phones */
+  html.is-app-mobile .mobile-sticky-bar{display:none!important}
+  html.is-app-mobile body{padding-bottom:0!important}
   html.is-app-mobile .tt-slide video{transform:translateZ(0)}
 }
 @media (prefers-reduced-motion:reduce){
@@ -5181,7 +5184,7 @@ function bootOrbitaGlobe(){
 })();
 </script>
 
-<link rel="stylesheet" href="mobile-tiktok-enhance.css?v=202609251403">
-<script src="mobile-tiktok-enhance.js?v=202609251403" defer></script>
+<link rel="stylesheet" href="mobile-tiktok-enhance.css?v=202609251421">
+<script src="mobile-tiktok-enhance.js?v=202609251421" defer></script>
 </body>
 </html>
