@@ -89,6 +89,11 @@ h3{font-size:clamp(18px,2vw,22px)}
 .hero{padding:48px 0 36px;position:relative}
 .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:36px;align-items:center}
 .hero-copy .lead{margin:18px 0 28px}
+/* hero headline code-scramble (desktop fine pointers only; JS adds the spans) */
+.hs-h1{width:fit-content}
+.hs-w{white-space:nowrap}
+.hs-h1.is-hs .hs-c{display:inline-block;text-align:center;white-space:pre}
+.hs-c.hs-x{color:#22e0ff;text-shadow:0 0 18px rgba(34,224,255,.35)}
 @media (min-width:761px){html:not(.is-app-mobile) .hero-copy h1{font-size:clamp(34px,3.75vw,50px)}html:not(.is-app-mobile) .hero-copy .lead{color:rgba(255,255,255,.94);text-shadow:0 1px 2px rgba(0,0,0,.75),0 2px 14px rgba(0,0,0,.55)}}
 .hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:28px}
 .hero-note{font-size:13px;color:var(--muted)}
@@ -5362,8 +5367,8 @@ function bootOrbitaGlobe(){
 </script>
 
 <script>/* forced desktop on a phone: back-to-feed pill */(function(){if(!window.__orbitaForcedDesktop)return;var b=document.createElement('button');b.type='button';b.className='od-back';b.textContent='← Вернуться в мобильную ленту';b.addEventListener('click',function(){try{localStorage.removeItem('orbitaDesktop')}catch(e){}var q=location.search.replace(/[?&]desktop=[01]/g,'').replace(/^&/,'?');location.href=location.pathname+(q?q+'&':'?')+'desktop=0';});document.body.appendChild(b);})();</script>
-<link rel="stylesheet" href="mobile-tiktok-enhance.css?v=202609251630">
-<script src="mobile-tiktok-enhance.js?v=202609251630" defer></script>
+<link rel="stylesheet" href="mobile-tiktok-enhance.css?v=202609251640">
+<script src="mobile-tiktok-enhance.js?v=202609251640" defer></script>
 <script>/* perf: card videos show their first frame, but only fetch it when they get near the screen */
 (function(){
   function wake(v){
@@ -5390,6 +5395,77 @@ function bootOrbitaGlobe(){
       }
     }
   }).observe(document.body, {childList:true, subtree:true});
+})();
+</script>
+<script>/* hero headline: hover code-scramble / decode (desktop pointer only, rAF only while animating) */
+(function(){
+  var h = document.querySelector('.hero-copy h1');
+  if (!h || !window.matchMedia) return;
+  var mqFine = matchMedia('(hover:hover) and (pointer:fine) and (min-width:761px)');
+  var mqReduce = matchMedia('(prefers-reduced-motion: reduce)');
+  if (!mqFine.matches || document.documentElement.classList.contains('is-app-mobile')) return;
+  var CHARS = 'ABCDEFXZ01234567890<>/{}#_=+*$%&АБДЖЗИЛФЦШЯ';
+  function rnd(){ return CHARS.charAt((Math.random()*CHARS.length)|0); }
+  h.setAttribute('aria-label', h.innerHTML.replace(/<br\s*\/?>/gi,' ').replace(/<[^>]+>/g,'').replace(/&nbsp;|\u00a0/g,' ').replace(/\s+/g,' ').trim());
+  h.classList.add('hs-h1');
+  /* wrap each word in a nowrap span and each letter in its own span; spaces, &nbsp; and <br> stay as they are */
+  var cells = [];
+  Array.prototype.slice.call(h.childNodes).forEach(function(n){
+    if (n.nodeType !== 3) return;
+    var frag = document.createDocumentFragment();
+    n.nodeValue.split(/(\s+)/).forEach(function(part){
+      if (!part) return;
+      if (/^\s+$/.test(part)) { frag.appendChild(document.createTextNode(part)); return; }
+      var w = document.createElement('span'); w.className = 'hs-w'; w.setAttribute('aria-hidden','true');
+      for (var i = 0; i < part.length; i++) {
+        var c = document.createElement('span'); c.className = 'hs-c'; c.textContent = part[i];
+        c._o = part[i]; w.appendChild(c); cells.push(c);
+      }
+      frag.appendChild(w);
+    });
+    h.replaceChild(frag, n);
+  });
+  var raf = 0, anim = null;
+  function lock(){ /* freeze every letter box at its natural width, so random glyphs can't shift the layout */
+    if (h.classList.contains('is-hs')) return;
+    var ws = cells.map(function(c){ return c.getBoundingClientRect().width; });
+    cells.forEach(function(c, i){ c.style.width = ws[i] + 'px'; });
+    h.classList.add('is-hs');
+  }
+  function unlock(){
+    h.classList.remove('is-hs');
+    cells.forEach(function(c){ c.style.width = ''; c.textContent = c._o; c.classList.remove('hs-x'); c._r = 0; });
+  }
+  function run(spread){
+    if (mqReduce.matches) return;
+    lock();
+    var t0 = performance.now(), n = cells.length;
+    anim = { t0:t0 };
+    cells.forEach(function(c, i){ c._at = t0 + 60 + (i / Math.max(n - 1, 1)) * spread; c._nx = 0; });
+    if (!raf) raf = requestAnimationFrame(tick);
+  }
+  function tick(now){
+    raf = 0;
+    if (!anim) return;
+    var live = false;
+    for (var i = 0; i < cells.length; i++) {
+      var c = cells[i];
+      if (now >= c._at) {
+        if (c._r !== 2) { c.textContent = c._o; c.classList.remove('hs-x'); c._r = 2; }
+      } else {
+        live = true;
+        if (now >= c._nx) { c.textContent = rnd(); c._nx = now + 45 + Math.random()*40; if (c._r !== 1) { c.classList.add('hs-x'); c._r = 1; } }
+      }
+    }
+    if (live) raf = requestAnimationFrame(tick);
+    else { anim = null; unlock(); }
+  }
+  h.addEventListener('mouseenter', function(){ run(700); });
+  h.addEventListener('mouseleave', function(){ run(260); });
+  /* decode once on load, after webfonts are in (so widths are measured on the real font) */
+  var fr = (document.fonts && document.fonts.ready) ? document.fonts.ready : Promise.resolve();
+  fr.then(function(){ setTimeout(function(){ if (!anim && document.visibilityState === 'visible') run(800); }, 250); });
+  window.__heroScramble = { run: run, cells: cells };
 })();
 </script>
 </body>
