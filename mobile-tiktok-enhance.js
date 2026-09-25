@@ -6,9 +6,8 @@
     return;
   }
 
-  /* Empty = disabled. Prefer contact form until real links exist. */
-  var ORBITA_WA = '';
-  var ORBITA_TG = '';
+  /* Contacts: calls +7 913 763-77-47, MAX messenger (the only messenger). The order button opens the request form,
+     whose «Связь» card carries the MAX / call buttons. */
 
   function ready(fn) {
     if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', fn);
@@ -18,7 +17,7 @@
   function openContactPanel(e) {
     if (e) { e.preventDefault(); e.stopPropagation(); }
     if (typeof window.ORBITA_openContact === 'function') {
-      window.ORBITA_openContact(e);
+      window.ORBITA_openContact(e, true);
       return;
     }
     var contact = document.getElementById('contact');
@@ -40,21 +39,8 @@
     }
   }
 
-  function waReady() {
-    return !!(ORBITA_WA && /^https:\/\/(wa\.me|api\.whatsapp\.com)\/\d{10,15}/.test(ORBITA_WA));
-  }
-  function tgReady() {
-    return !!(ORBITA_TG && /^https:\/\/t\.me\/[A-Za-z0-9_]+/.test(ORBITA_TG));
-  }
-
   function openOrder(e) {
-    if (!waReady() && !tgReady()) {
-      openContactPanel(e);
-      return;
-    }
-    if (e) { e.preventDefault(); e.stopPropagation(); }
-    var orderSheet = document.getElementById('appOrderSheet');
-    if (orderSheet) orderSheet.hidden = false;
+    openContactPanel(e);
   }
 
   ready(function () {
@@ -70,32 +56,6 @@
         meta.textContent = '\u043e\u0442 12 000 \u20bd \u00b7 \u043e\u0442 \u043d\u0435\u0441\u043a\u043e\u043b\u044c\u043a\u0438\u0445 \u0434\u043d\u0435\u0439';
         lead.insertAdjacentElement('afterend', meta);
       }
-    }
-
-    /* Order sheet only when real WA/TG exist \u2014 otherwise contact form */
-    if (waReady() || tgReady()) {
-      var orderSheet = document.getElementById('appOrderSheet');
-      if (!orderSheet) {
-        orderSheet = document.createElement('div');
-        orderSheet.className = 'app-order-sheet';
-        orderSheet.id = 'appOrderSheet';
-        orderSheet.hidden = true;
-        var opts = '';
-        if (waReady())
-          opts += '<a class="app-order-opt is-wa" id="orbitaWaLink" href="'+ORBITA_WA+'" target="_blank" rel="noopener">WhatsApp<span>\u041d\u0430\u043f\u0438\u0441\u0430\u0442\u044c \u0432 WhatsApp</span></a>';
-        if (tgReady())
-          opts += '<a class="app-order-opt is-tg" id="orbitaTgLink" href="'+ORBITA_TG+'" target="_blank" rel="noopener">Telegram<span>\u041d\u0430\u043f\u0438\u0441\u0430\u0442\u044c \u0432 Telegram</span></a>';
-        orderSheet.innerHTML =
-          '<div class="app-order-sheet-card">'+
-          '<div class="app-order-sheet-head">\u0417\u0430\u043a\u0430\u0437\u0430\u0442\u044c</div>'+
-          opts +
-          '<button type="button" class="app-order-close" id="appOrderClose">\u0417\u0430\u043a\u0440\u044b\u0442\u044c</button>'+
-          '</div>';
-        document.body.appendChild(orderSheet);
-      }
-      var orderClose = document.getElementById('appOrderClose');
-      if (orderClose) orderClose.addEventListener('click', function () { orderSheet.hidden = true; });
-      orderSheet.addEventListener('click', function (e) { if (e.target === orderSheet) orderSheet.hidden = true; });
     }
 
     window.ORBITA_openOrder = openOrder;
