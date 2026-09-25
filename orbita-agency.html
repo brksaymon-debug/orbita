@@ -29,7 +29,7 @@ try{if(matchMedia('(max-width:760px)').matches)d.classList.add('is-app-mobile')}
 <meta name="theme-color" content="#0a0a0c">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preload" href="orbita-clock.woff2" as="font" type="font/woff2" crossorigin media="(min-width:761px)">
+<link rel="preload" href="tiny5-hero.woff2" as="font" type="font/woff2" crossorigin media="(min-width:761px)">
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Unbounded:wght@500;600;700&display=swap">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Unbounded:wght@500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
 <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Unbounded:wght@500;600;700&display=swap" rel="stylesheet"></noscript>
@@ -95,22 +95,32 @@ h3{font-size:clamp(18px,2vw,22px)}
 .hs-w{white-space:nowrap}
 .hs-h1.is-hs .hs-c{display:inline-block;text-align:center;white-space:pre}
 .hs-c.hs-x{color:#22e0ff;text-shadow:0 0 18px rgba(34,224,255,.35)}
-/* desktop hero headline: digital-clock face "Orbita Clock" (original segment font drawn for this site, OFL, ~3KB) */
-@font-face{font-family:'Orbita Clock';src:url(orbita-clock.woff2) format('woff2');font-weight:400 800;font-style:normal;font-display:swap}
+/* desktop hero headline: pixel face Tiny5 (Google Fonts, OFL; Latin+Cyrillic subset, self-hosted).
+   Tiny5 is drawn on a 1/8-em pixel grid, so font sizes are multiples of 8px => every font pixel is a whole screen pixel. */
+@font-face{font-family:'Tiny5 Hero';src:url(tiny5-hero.woff2) format('woff2');font-weight:400;font-style:normal;font-display:swap}
 @media (min-width:761px){
-  html:not(.is-app-mobile) .hero .hero-copy h1{font-family:'Orbita Clock',var(--display);font-weight:700;text-transform:uppercase;
-    font-size:clamp(24px,2.72vw,36px);line-height:1.18;letter-spacing:0;color:#2fe4ff;
-    position:relative;isolation:isolate;margin-top:6px;
-    text-shadow:0 0 1px rgba(0,12,30,.95),0 0 5px rgba(60,220,255,.9),0 0 14px rgba(0,150,255,.85),0 0 30px rgba(0,110,255,.65),0 0 60px rgba(0,90,255,.35)}
+  html:not(.is-app-mobile) .hero .hero-copy h1{font-family:'Tiny5 Hero',var(--display);font-weight:400;text-transform:uppercase;
+    font-size:24px;line-height:1;letter-spacing:0;color:#22e0ff;position:relative;isolation:isolate;margin-top:6px;
+    -webkit-font-smoothing:none;font-smooth:never;text-rendering:optimizeSpeed;font-kerning:none;font-synthesis:none;
+    text-shadow:0 0 1px rgba(0,12,30,.95),0 2px 0 rgba(0,10,26,.55),0 0 8px rgba(34,224,255,.7),0 0 22px rgba(0,140,255,.55),0 0 44px rgba(0,110,255,.3)}
   html:not(.is-app-mobile) .hero .hero-copy h1 .hl1,
   html:not(.is-app-mobile) .hero .hero-copy h1 .hl2{display:block;white-space:nowrap}
-  html:not(.is-app-mobile) .hero .hero-copy h1 .hl2{letter-spacing:-.1em;-webkit-text-stroke:.4px currentColor;
-    text-shadow:0 0 1px rgba(0,12,30,.95),0 0 3px rgba(60,220,255,.8),0 0 9px rgba(0,150,255,.65),0 0 22px rgba(0,110,255,.45)}
-  html:not(.is-app-mobile) .hero .hero-copy h1 .hl1{font-size:2.4em;line-height:1.08;letter-spacing:.094em;margin-bottom:.15em}
-  html:not(.is-app-mobile) .hero .hero-copy h1::before{content:"";position:absolute;inset:-26px -40px -22px -34px;z-index:-1;pointer-events:none;
+  /* line 1 = 3x line 2; letter-spacing in whole px keeps glyph origins on the pixel grid; both lines come out the same width */
+  html:not(.is-app-mobile) .hero .hero-copy h1 .hl1{font-size:72px;line-height:72px;margin-bottom:10px}
+  html:not(.is-app-mobile) .hero .hero-copy h1 .hl2{font-size:24px;line-height:24px;letter-spacing:1px}
+  html:not(.is-app-mobile) .hero .hero-copy h1::before{content:"";position:absolute;inset:-24px -38px -20px -32px;z-index:-1;pointer-events:none;
     background:radial-gradient(closest-side,rgba(1,5,14,.62),rgba(1,5,14,.34) 62%,transparent)}
-  html:not(.is-app-mobile) .hero .hero-copy h1 .hs-c.hs-x{color:#f2feff;text-shadow:0 0 2px rgba(0,10,24,.9),0 0 10px rgba(160,245,255,.85),0 0 26px rgba(0,150,255,.6)}
+  html:not(.is-app-mobile) .hero .hero-copy h1 .hs-c.hs-x{color:#f2feff;text-shadow:0 0 1px rgba(0,10,24,.9),0 0 10px rgba(160,245,255,.85),0 0 26px rgba(0,150,255,.6)}
 }
+@media (min-width:1200px){
+  html:not(.is-app-mobile) .hero .hero-copy h1 .hl1{font-size:96px;line-height:96px}
+  html:not(.is-app-mobile) .hero .hero-copy h1 .hl2{font-size:32px;line-height:32px}
+}
+@media (min-width:1400px){
+  html:not(.is-app-mobile) .hero .hero-copy h1 .hl1{font-size:120px;line-height:120px;margin-bottom:12px}
+  html:not(.is-app-mobile) .hero .hero-copy h1 .hl2{font-size:40px;line-height:40px}
+}
+
 
 @media (min-width:761px){html:not(.is-app-mobile) .hero-copy h1{font-size:clamp(34px,3.75vw,50px)}html:not(.is-app-mobile) .hero-copy .lead{color:rgba(255,255,255,.94);text-shadow:0 1px 2px rgba(0,0,0,.75),0 2px 14px rgba(0,0,0,.55)}}
 .hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:28px}
@@ -5385,8 +5395,8 @@ function bootOrbitaGlobe(){
 </script>
 
 <script>/* forced desktop on a phone: back-to-feed pill */(function(){if(!window.__orbitaForcedDesktop)return;var b=document.createElement('button');b.type='button';b.className='od-back';b.textContent='← Вернуться в мобильную ленту';b.addEventListener('click',function(){try{localStorage.removeItem('orbitaDesktop')}catch(e){}var q=location.search.replace(/[?&]desktop=[01]/g,'').replace(/^&/,'?');location.href=location.pathname+(q?q+'&':'?')+'desktop=0';});document.body.appendChild(b);})();</script>
-<link rel="stylesheet" href="mobile-tiktok-enhance.css?v=202609251715">
-<script src="mobile-tiktok-enhance.js?v=202609251715" defer></script>
+<link rel="stylesheet" href="mobile-tiktok-enhance.css?v=202609251725">
+<script src="mobile-tiktok-enhance.js?v=202609251725" defer></script>
 <script>/* perf: card videos show their first frame, but only fetch it when they get near the screen */
 (function(){
   function wake(v){
@@ -5443,6 +5453,9 @@ function bootOrbitaGlobe(){
     });
     n.parentNode.replaceChild(frag, n);
   });
+  /* keep the pixel font on whole device pixels: cancel any sub-pixel vertical offset from the centred hero layout */
+  function snap(){ h.style.top = '0px'; var dpr = window.devicePixelRatio || 1; var y = (h.getBoundingClientRect().top + window.pageYOffset) * dpr; var d = (y - Math.round(y)) / dpr; if (Math.abs(d) > 0.01) h.style.top = (-d) + 'px'; }
+  snap(); window.addEventListener('resize', snap, {passive:true}); if (document.fonts && document.fonts.ready) document.fonts.ready.then(snap);
   var raf = 0, anim = null;
   function lock(){ /* freeze every letter box at its natural width, so random glyphs can't shift the layout */
     if (h.classList.contains('is-hs')) return;
