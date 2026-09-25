@@ -396,6 +396,18 @@ html.is-app-mobile .tt-cta-links a{display:inline-flex;align-items:center;gap:6p
 .contact-links span{display:block;color:var(--muted);font-family:var(--sans);font-size:13px;margin-top:2px}
 .form{display:grid;gap:12px}
 .form label{display:grid;gap:6px;font-size:12px;color:var(--muted)}
+.form-send{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}
+.form-send .btn{width:100%;white-space:nowrap;padding:0 16px}
+.form-hint{margin:0;font-size:12px;color:var(--muted)}
+.form .is-bad{border-color:#ff6b7a!important;box-shadow:0 0 0 3px rgba(255,107,122,.18)}
+.form-err{display:none;font-size:13px;color:#ffb3bc}
+.form-err.show{display:block}
+.form-ok a{color:#e9fff3;text-decoration:underline}
+.form-ok textarea{width:100%;min-height:120px;margin-top:8px;font:13px/1.4 var(--sans);color:#f2f2f4;background:rgba(0,0,0,.35);border:1px solid rgba(255,255,255,.18);border-radius:10px;padding:8px}
+.orb-toast{position:fixed;left:0;right:0;margin:0 auto;width:fit-content;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translateY(16px);box-sizing:border-box;z-index:2147483000;max-width:min(92vw,440px);padding:14px 18px;border-radius:16px;background:rgba(6,12,24,.96);border:1px solid rgba(34,224,255,.45);box-shadow:0 18px 50px rgba(0,0,0,.55),0 0 0 1px rgba(34,224,255,.12);color:#f2f2f4;font:600 14px/1.4 var(--sans);text-align:center;opacity:0;pointer-events:none;transition:opacity .2s ease,transform .2s ease}
+.orb-toast.show{opacity:1;transform:translateY(0);pointer-events:auto}
+.orb-toast small{display:block;margin-top:4px;font-weight:500;color:var(--muted)}
+.orb-toast a{color:var(--accent)}
 .form input,.form textarea,.form select{
   width:100%;border-radius:12px;border:1px solid var(--line);background:var(--bg);
   color:var(--text);padding:12px 14px;outline:none;
@@ -2827,7 +2839,7 @@ window.ORB_MV={"work-02.mp4":1,"work-03.mp4":1,"work-05.mp4":1,"work-06.mp4":1,"
           </div>
         </div>
         <div class="form-card">
-          <form class="form" id="contactForm">
+          <form class="form" id="contactForm" novalidate>
             <label>Имя
               <input name="name" required placeholder="Как к вам обращаться" autocomplete="name">
             </label>
@@ -2840,8 +2852,13 @@ window.ORB_MV={"work-02.mp4":1,"work-03.mp4":1,"work-05.mp4":1,"work-06.mp4":1,"
             <label>Задача
               <textarea name="message" id="message" required placeholder="Формат, срок, бюджетный ориентир"></textarea>
             </label>
-            <button class="btn btn-primary" type="submit">Отправить</button>
-            <div class="form-ok" id="formOk">Заявка подготовлена — откроется почтовый клиент с письмом на orbita.studio@mail.ru. Если он не открылся, напишите нам в <a href="https://max.ru/u/f9LHodD0cOKOGtry51uP0L-uOzCLjxdy84Tpn5nDyMO8GCaTdwUK2ayz6XM" target="_blank" rel="noopener">MAX</a> или позвоните: <a href="tel:+79137637747">+7 913 763-77-47</a>.</div>
+            <div class="form-err" id="formErr" role="alert"></div>
+            <div class="form-send">
+              <button class="btn btn-primary" type="submit" data-send="max"><svg class="max-ico" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12 3C6.9 3 3 6.6 3 11.1c0 2.4 1.1 4.5 2.9 6L5 21l4.2-2.1c.9.2 1.8.3 2.8.3 5.1 0 9-3.6 9-8.1S17.1 3 12 3Z" opacity=".25"/><path fill="currentColor" d="M7.5 14.5V8h1.6l2.9 3.6L14.9 8h1.6v6.5h-1.7v-3.9L12 14h-.1l-2.7-3.4v3.9Z"/></svg>Отправить в MAX</button>
+              <button class="btn btn-ghost" type="button" data-send="mail"><svg class="c-ico" viewBox="0 0 24 24" width="17" height="17" aria-hidden="true" focusable="false"><rect x="3" y="5.5" width="18" height="13" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="m4 7.5 8 5.5 8-5.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Отправить на почту</button>
+            </div>
+            <p class="form-hint">«Отправить в MAX» скопирует текст заявки и откроет наш чат в MAX — останется вставить и отправить.</p>
+            <div class="form-ok" id="formOk" role="status" aria-live="polite"></div>
           </form>
         </div>
       </div>
@@ -3442,23 +3459,109 @@ window.ORB_MV={"work-02.mp4":1,"work-03.mp4":1,"work-05.mp4":1,"work-06.mp4":1,"
   document.querySelectorAll('[data-prefill]').forEach(function(el){
     el.addEventListener('click', function(){
       const msg = document.getElementById('message');
-      if (msg) msg.value = el.getAttribute('data-prefill');
+      if (msg) { msg.value = el.getAttribute('data-prefill'); msg.removeAttribute('data-example'); }
     });
   });
 
-  /* Form -> mailto */
-  document.getElementById('contactForm').addEventListener('submit', function(e){
-    e.preventDefault();
-    const fd = new FormData(e.target);
-    const name = (fd.get('name')||'').toString().trim();
-    const phone = (fd.get('phone')||'').toString().trim();
-    const contact = (fd.get('contact')||'').toString().trim();
-    const message = (fd.get('message')||'').toString().trim();
-    const body = encodeURIComponent('Имя: '+name+'\nТелефон: '+phone+'\nКонтакт: '+contact+'\n\n'+message);
-    const subject = encodeURIComponent('Заявка с сайта ОРБИТА — '+name);
-    window.location.href = 'mailto:orbita.studio@mail.ru?subject='+subject+'&body='+body;
-    document.getElementById('formOk').classList.add('show');
-  });
+  /* Form -> MAX (copy + open chat) or e-mail. No backend and no bot: MAX's :share deeplink can't address a
+     specific person, so the request text goes to the clipboard and the studio's MAX chat is opened. */
+  (function(){
+    var MAX_URL = 'https://max.ru/u/f9LHodD0cOKOGtry51uP0L-uOzCLjxdy84Tpn5nDyMO8GCaTdwUK2ayz6XM';
+    var MAIL = 'orbita.studio@mail.ru';
+    var form = document.getElementById('contactForm');
+    var ok = document.getElementById('formOk');
+    var err = document.getElementById('formErr');
+    if (!form) return;
+    function val(n){ var el = form.elements[n]; return el ? String(el.value || '').trim() : ''; }
+    function isPhoneLayout(){
+      return document.documentElement.classList.contains('is-app-mobile') ||
+        !!(window.matchMedia && window.matchMedia('(max-width:760px), (hover:none) and (pointer:coarse)').matches);
+    }
+    function mark(n, bad){ var el = form.elements[n]; if (el) el.classList.toggle('is-bad', !!bad); }
+    function check(){
+      var name = val('name'), phone = val('phone'), msg = val('message');
+      var phoneOk = phone.replace(/\D/g, '').length >= 6;
+      mark('name', !name); mark('phone', !phoneOk && !msg); mark('message', !phoneOk && !msg);
+      var problem = !name ? 'Укажите, как к вам обращаться.' : (!phoneOk && !msg ? 'Добавьте телефон или опишите задачу.' : '');
+      err.textContent = problem; err.classList.toggle('show', !!problem);
+      if (problem) { var first = form.querySelector('.is-bad'); if (first) try { first.focus({preventScroll:false}); } catch(_) {} }
+      return !problem;
+    }
+    ['name','phone','message'].forEach(function(n){
+      var el = form.elements[n]; if (el) el.addEventListener('input', function(){ if (err.classList.contains('show')) check(); });
+    });
+    function requestText(){
+      var lines = ['Заявка с сайта ORBITA', '', 'Имя: ' + val('name')];
+      if (val('phone')) lines.push('Телефон: ' + val('phone'));
+      if (val('contact')) lines.push('Контакт: ' + val('contact'));
+      var msg = val('message'), m = form.elements.message, ex = m ? (m.getAttribute('data-example') || '') : '';
+      if (ex) msg = msg.replace('Хочу такой же ролик: ' + ex, 'Хочу такой же ролик').trim();
+      if (msg) lines.push('Задача: ' + msg);
+      if (ex) lines.push('Ролик-пример: ' + ex);
+      return lines.join('\n');
+    }
+    function legacyCopy(text){
+      var ta = document.createElement('textarea');
+      ta.value = text; ta.setAttribute('readonly', ''); ta.style.cssText = 'position:fixed;top:0;left:0;width:1px;height:1px;opacity:0;';
+      document.body.appendChild(ta);
+      var sel = document.getSelection(), prev = sel && sel.rangeCount ? sel.getRangeAt(0) : null;
+      ta.select(); try { ta.setSelectionRange(0, text.length); } catch(_) {}
+      var done = false; try { done = document.execCommand('copy'); } catch(_) {}
+      document.body.removeChild(ta);
+      if (prev && sel) { sel.removeAllRanges(); sel.addRange(prev); }
+      return done;
+    }
+    function copy(text){
+      if (navigator.clipboard && window.isSecureContext) {
+        return navigator.clipboard.writeText(text).then(function(){ return true; }, function(){ return legacyCopy(text); });
+      }
+      return Promise.resolve(legacyCopy(text));
+    }
+    var toastEl = null, toastT = 0;
+    function toast(html, ms){
+      if (!toastEl) { toastEl = document.createElement('div'); toastEl.className = 'orb-toast'; toastEl.setAttribute('role', 'status'); toastEl.setAttribute('aria-live', 'polite'); document.body.appendChild(toastEl); }
+      toastEl.innerHTML = html; void toastEl.offsetWidth; toastEl.classList.add('show');
+      clearTimeout(toastT); toastT = setTimeout(function(){ toastEl.classList.remove('show'); }, ms || 5000);
+    }
+    function esc(t){ return t.replace(/&/g,'&amp;').replace(/</g,'&lt;'); }
+    function showOk(html){ ok.innerHTML = html; ok.classList.add('show'); }
+    var busy = false;
+    function sendMax(){
+      if (busy || !check()) return;
+      busy = true;
+      var text = requestText(), phoneLayout = isPhoneLayout();
+      window.__orbitaLastRequest = text;
+      copy(text).then(function(copied){
+        if (copied) {
+          toast('Текст заявки скопирован — вставьте его в чат MAX и отправьте<small>Открываем чат ORBITA в MAX…</small>', phoneLayout ? 4000 : 6000);
+          showOk('Готово: текст заявки скопирован, чат ORBITA в MAX открыт' + (phoneLayout ? '' : ' в новой вкладке') +
+            '. Вставьте текст в сообщение (долгое нажатие → «Вставить» или Ctrl+V) и отправьте. Чат не открылся? <a href="' + MAX_URL + '" target="_blank" rel="noopener">Открыть MAX</a>');
+        } else {
+          toast('Не удалось скопировать автоматически — скопируйте текст ниже и отправьте его в MAX', 6000);
+          showOk('Скопируйте текст заявки и отправьте его нам в <a href="' + MAX_URL + '" target="_blank" rel="noopener">MAX</a>:<textarea readonly>' + esc(text) + '</textarea>');
+          busy = false;
+          return;
+        }
+        if (phoneLayout) {
+          /* same tab: the MAX app picks up the universal link; give the visitor a moment to read the hint */
+          setTimeout(function(){ busy = false; window.location.href = MAX_URL; }, 1200);
+        } else {
+          window.open(MAX_URL, '_blank', 'noopener');
+          busy = false;
+        }
+      });
+    }
+    function sendMail(){
+      if (!check()) return;
+      var text = requestText();
+      var subject = encodeURIComponent('Заказ с сайта ORBITA' + (val('name') ? ' — ' + val('name') : ''));
+      window.location.href = 'mailto:' + MAIL + '?subject=' + subject + '&body=' + encodeURIComponent(text);
+      showOk('Открываем почту с готовым письмом на ' + MAIL + ' — проверьте и нажмите «Отправить». Почта не открылась? Напишите нам в <a href="' + MAX_URL + '" target="_blank" rel="noopener">MAX</a> или позвоните: <a href="tel:+79137637747">+7 913 763-77-47</a>.');
+    }
+    form.addEventListener('submit', function(e){ e.preventDefault(); sendMax(); });
+    var mailBtn = form.querySelector('[data-send="mail"]');
+    if (mailBtn) mailBtn.addEventListener('click', function(e){ e.preventDefault(); sendMail(); });
+  })();
 
   /* Mobile nav */
   const burger = document.getElementById('burger');
@@ -5334,7 +5437,7 @@ function bootOrbitaGlobe(){
       var k = slides.indexOf(ctaSlide), liked = '';
       for (var q = k - 1; q >= 0; q--) { var cap = slides[q] && slides[q].querySelector('.tt-cap'); if (cap) { liked = cap.textContent.replace(/^Пример\s*·\s*/, '').trim(); break; } }
       var msgEl = document.getElementById('message');
-      if (msgEl) msgEl.value = liked ? ('Хочу такой же ролик: ' + liked) : 'Хочу такой же ролик';
+      if (msgEl) { msgEl.value = liked ? ('Хочу такой же ролик: ' + liked) : 'Хочу такой же ролик'; msgEl.setAttribute('data-example', liked || ''); }
       var dockOrder = document.querySelector('.app-dock-item[data-dock="order"]');
       if (dockOrder) dockOrder.click(); else if (window.ORBITA_openContact) window.ORBITA_openContact();
       return;
@@ -5452,8 +5555,8 @@ function bootOrbitaGlobe(){
 </script>
 
 <script>/* forced desktop on a phone: back-to-feed pill */(function(){if(!window.__orbitaForcedDesktop)return;var b=document.createElement('button');b.type='button';b.className='od-back';b.textContent='← Вернуться в мобильную ленту';b.addEventListener('click',function(){try{localStorage.removeItem('orbitaDesktop')}catch(e){}var q=location.search.replace(/[?&]desktop=[01]/g,'').replace(/^&/,'?');location.href=location.pathname+(q?q+'&':'?')+'desktop=0';});document.body.appendChild(b);})();</script>
-<link rel="stylesheet" href="mobile-tiktok-enhance.css?v=202609251845">
-<script src="mobile-tiktok-enhance.js?v=202609251845" defer></script>
+<link rel="stylesheet" href="mobile-tiktok-enhance.css?v=202609251900">
+<script src="mobile-tiktok-enhance.js?v=202609251900" defer></script>
 <script>/* perf: card videos show their first frame, but only fetch it when they get near the screen */
 (function(){
   function wake(v){
