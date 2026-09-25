@@ -7,6 +7,7 @@
   <meta http-equiv="Pragma" content="no-cache">
   <meta name="orbita-build" content="20260921220734">
 
+<style>/* phones: dark app background from the very first paint */@media (max-width:760px){html,body{background:#07070a}}</style>
 <script>/* is-app-mobile-early */try{if(matchMedia('(max-width:760px)').matches)document.documentElement.classList.add('is-app-mobile')}catch(e){}</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1">
 <meta name="mobile-web-app-capable" content="yes">
@@ -2225,6 +2226,14 @@ html.is-app-mobile .tt-intro-meta{font:500 12px/1.4 Inter,system-ui;color:rgba(2
   /* old sticky CTA bar is replaced by the app dock on phones */
   html.is-app-mobile .mobile-sticky-bar{display:none!important}
   html.is-app-mobile body{padding-bottom:0!important}
+  /* the TikTok app is the whole page on phones: nothing of the desktop page may render behind it */
+  html.is-app-mobile,html.is-app-mobile body{background:#07070a!important;overflow:hidden!important;overscroll-behavior:none!important;height:100%!important}
+  html.is-app-mobile header.nav,html.is-app-mobile .footer,
+  html.is-app-mobile main>section:not(#services):not(#prices):not(#contact){display:none!important}
+  html.is-app-mobile #services{visibility:hidden!important;content-visibility:hidden}
+  html.is-app-mobile .tt-app{background:#07070a!important}
+  html.is-app-mobile body::before,html.is-app-mobile body::after{display:none!important;background:none!important}
+  html.is-app-mobile .app-dock{background:#08080a!important}
   html.is-app-mobile .tt-slide video{transform:translateZ(0)}
 }
 @media (prefers-reduced-motion:reduce){
@@ -3246,7 +3255,8 @@ html.is-app-mobile .tt-intro-meta{font:500 12px/1.4 Inter,system-ui;color:rgba(2
   try {
   /* Cases */
   const casesGrid = document.getElementById('casesGrid');
-  cases.forEach(function(c){
+  /* phones: cases section is not rendered at all (TikTok app only) */
+  if (!isMobilePerf()) cases.forEach(function(c){
     const art = document.createElement('article');
     art.className = 'case';
     art.innerHTML =
@@ -3412,7 +3422,7 @@ html.is-app-mobile .tt-intro-meta{font:500 12px/1.4 Inter,system-ui;color:rgba(2
     } catch (err) { console.warn('mobile globe fallback', err); }
   }
   if (isMobilePerf()) {
-    showMobileGlobeFallback();
+    /* phones get only the TikTok app: no globe, no THREE, no fallback DOM */
   } else {
     loadScript('three.min.js', startGlobe, function(){
       loadScript(
@@ -5184,7 +5194,7 @@ function bootOrbitaGlobe(){
 })();
 </script>
 
-<link rel="stylesheet" href="mobile-tiktok-enhance.css?v=202609251421">
-<script src="mobile-tiktok-enhance.js?v=202609251421" defer></script>
+<link rel="stylesheet" href="mobile-tiktok-enhance.css?v=202609251448">
+<script src="mobile-tiktok-enhance.js?v=202609251448" defer></script>
 </body>
 </html>
