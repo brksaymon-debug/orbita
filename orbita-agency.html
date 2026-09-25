@@ -4877,7 +4877,7 @@ function bootOrbitaGlobe(){
   } catch(_){}
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', function(){
-      navigator.serviceWorker.register('./sw.js?v=20260925perf').catch(function(){});
+      navigator.serviceWorker.register('./sw.js?v=20260925pacman').catch(function(){});
     });
   }
 })();
@@ -5400,8 +5400,8 @@ function bootOrbitaGlobe(){
 </script>
 
 <script>/* forced desktop on a phone: back-to-feed pill */(function(){if(!window.__orbitaForcedDesktop)return;var b=document.createElement('button');b.type='button';b.className='od-back';b.textContent='← Вернуться в мобильную ленту';b.addEventListener('click',function(){try{localStorage.removeItem('orbitaDesktop')}catch(e){}var q=location.search.replace(/[?&]desktop=[01]/g,'').replace(/^&/,'?');location.href=location.pathname+(q?q+'&':'?')+'desktop=0';});document.body.appendChild(b);})();</script>
-<link rel="stylesheet" href="mobile-tiktok-enhance.css?v=202609251735">
-<script src="mobile-tiktok-enhance.js?v=202609251735" defer></script>
+<link rel="stylesheet" href="mobile-tiktok-enhance.css?v=202609251745">
+<script src="mobile-tiktok-enhance.js?v=202609251745" defer></script>
 <script>/* perf: card videos show their first frame, but only fetch it when they get near the screen */
 (function(){
   function wake(v){
@@ -5430,11 +5430,12 @@ function bootOrbitaGlobe(){
   }).observe(document.body, {childList:true, subtree:true});
 })();
 </script>
-<script>/* hero headline: hover code-scramble / decode (desktop pointer only, rAF only while animating) */
+<script>/* hero headline: hover code-scramble / decode + Pac-Man (desktop layout only, rAF only while animating) */
 (function(){
   var h = document.querySelector('.hero-copy h1');
   if (!h || !window.matchMedia) return;
-  var mqFine = matchMedia('(hover:hover) and (pointer:fine) and (min-width:761px)');
+  /* desktop = the desktop layout (wider than 760px, not the mobile app); pointer type is not required (touch laptops, odd pointer reports) */
+  var mqFine = matchMedia('(min-width:761px)');
   var mqReduce = matchMedia('(prefers-reduced-motion: reduce)');
   if (!mqFine.matches || document.documentElement.classList.contains('is-app-mobile')) return;
   var CHARS = 'ACEFHKLPUXZ0123456789<>/=+*#_ЖЗИЛФЦШЯБГДЮЭ';
@@ -5500,12 +5501,13 @@ function bootOrbitaGlobe(){
   h.addEventListener('mouseleave', function(){ run(260); });
   /* decode once on load, after webfonts are in (so widths are measured on the real font) */
   var fr = (document.fonts && document.fonts.ready) ? document.fonts.ready : Promise.resolve();
-  fr.then(function(){ setTimeout(function(){ if (!anim && document.visibilityState === 'visible') run(800); }, 250); });
+  /* (the one-off decode on load was dropped: the Pac-Man pass now serves as the intro) */
   window.__heroScramble = { run: run, cells: cells, busy: function(){ return !!anim; } };
   /* ---- Pac-Man: pixel-art muncher eats «РЕКЛАМА,» on a loop (desktop only, only while visible; paused during hover/scramble) ---- */
   (function(){
     var line = h.querySelector('.hl1');
-    if (!line || mqReduce.matches || !window.requestAnimationFrame) return;
+    /* runs even with prefers-reduced-motion: the owner explicitly wants it (many PCs have Windows animations switched off) */
+    if (!line || !window.requestAnimationFrame) return;
     var G = { /* 7x7 frames facing right: open, half, closed */
       o:['..###..','.####..','###....','##.....','###....','.####..','..###..'],
       m:['..###..','.#####.','#####..','####...','#####..','.#####.','..###..'],
@@ -5527,6 +5529,7 @@ function bootOrbitaGlobe(){
     function schedule(ms){ if (timer) clearTimeout(timer); timer = setTimeout(function(){ timer = 0; start(); }, ms); state = 'wait'; }
     function start(){
       if (!canRun()) { if (inView && document.visibilityState === 'visible' && !hovering) schedule(1200); else state = 'idle'; return; }
+      if (document.fonts && document.fonts.status !== 'loaded') { schedule(250); return; }   /* measure on the real pixel font */
       p = Math.round(parseFloat(getComputedStyle(line).fontSize) / 8);          /* one Tiny5 pixel in screen px */
       var lr = line.getBoundingClientRect();
       geo = letters.map(function(c){ var r = c.getBoundingClientRect(); return { l: Math.round((r.left - lr.left) / p), c: c }; });
@@ -5563,7 +5566,9 @@ function bootOrbitaGlobe(){
       raf = requestAnimationFrame(tick);
     }
     function wake(delay){ if (state === 'idle' && canRun()) schedule(delay); }
-    new IntersectionObserver(function(en){ inView = en[0].isIntersecting; if (inView) wake(1500); else stopAll(); }).observe(h);
+    (function(){ var r = h.getBoundingClientRect(); inView = r.bottom > 0 && r.top < (window.innerHeight || 720); })();   /* don't wait for a late IO callback */
+    if ('IntersectionObserver' in window) new IntersectionObserver(function(en){ inView = en[0].isIntersecting; if (inView) wake(1200); else stopAll(); }).observe(h);
+    wake(600);
     document.addEventListener('visibilitychange', function(){ if (document.visibilityState === 'visible') wake(1500); else stopAll(); });
     h.addEventListener('mouseenter', function(){ hovering = true; stopAll(); });
     h.addEventListener('mouseleave', function(){ hovering = false; schedule(2500); });
